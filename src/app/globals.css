@@ -1,26 +1,121 @@
 @import "tailwindcss";
+@import "../styles/tokens/colors.css";
+@import "../styles/tokens/typography.css";
+@import "../styles/tokens/spacing.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-family: var(--font-plus-jakarta-sans), "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-letterbox);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-link {
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.rail-link {
+  transition: background 0.2s;
+}
+
+.rail-link:hover {
+  background: var(--glass-pill-bg-active);
+}
+
+.cart-scroll::-webkit-scrollbar,
+.fav-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-scroll::-webkit-scrollbar-track,
+.fav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cart-scroll::-webkit-scrollbar-thumb,
+.fav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+}
+
+.cart-scroll::-webkit-scrollbar-thumb:hover,
+.fav-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.cart-scroll,
+.fav-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.legal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.legal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.legal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(16, 34, 44, 0.2);
+  border-radius: 999px;
+}
+
+.legal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 34, 44, 0.32);
+}
+
+.legal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 34, 44, 0.2) transparent;
+}
+
+.login-input::placeholder {
+  color: var(--ink-quaternary);
+}
+
+.link-brand {
+  color: var(--brand-green);
+}
+
+.link-brand:hover {
+  color: var(--brand-green-hover);
+}
+
+.dark-cta:hover {
+  background: var(--surface-dark-solid-hover);
+}
+
+/*
+ * The home hero row (two peeking side thumbnails + centered product) is
+ * authored for the landscape 1440x960 reference canvas. Below that aspect
+ * ratio (portrait tablets, phones) the three columns no longer fit the
+ * viewport width even at vmin scale, so the side peeks are dropped and only
+ * the centered product remains.
+ */
+@media (max-aspect-ratio: 4/3) {
+  .home-side-item {
+    display: none !important;
+  }
 }

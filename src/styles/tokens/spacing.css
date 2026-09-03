@@ -1,0 +1,31 @@
+:root {
+  /* Rayons (fluides : vmin borné, référence = canvas 1440x960) */
+  --radius-pill: 999px;
+  --radius-outer-frame: clamp(16px, 3.125vmin, 30px);
+  --radius-2xl: clamp(14px, 2.708vmin, 26px);
+  --radius-xl: clamp(13px, 2.5vmin, 24px);
+  --radius-lg: clamp(12px, 2.292vmin, 22px);
+  --radius-md: clamp(10px, 1.875vmin, 18px);
+  --radius-base: clamp(9px, 1.667vmin, 16px);
+  --radius-sm: clamp(8px, 1.458vmin, 14px);
+  --radius-xs: clamp(7px, 1.354vmin, 13px);
+
+  /* Trames de mise en page (fluides, référence = canvas 1440x960) */
+  --space-frame-inset: clamp(10px, 2.083vmin, 20px);
+  --space-header-inset: clamp(12px, 2.292vmin, 22px);
+  --space-footer-height: clamp(44px, 7.708vmin, 74px);
+  --space-icon-rail-inset: clamp(14px, 2.708vmin, 26px);
+
+  /* Flou de verre */
+  --blur-standard: clamp(10px, 1.875vmin, 18px);
+  --blur-strong: clamp(11px, 2.083vmin, 20px);
+  --blur-heavy: clamp(13px, 2.5vmin, 24px);
+
+  /* Ombres */
+  --shadow-outer-frame: 0 30px 70px rgba(0, 0, 0, 0.25);
+  --shadow-cta: 0 18px 40px rgba(0, 0, 0, 0.24);
+  --shadow-cta-strong: 0 24px 60px rgba(0, 0, 0, 0.28);
+  --shadow-logo-pill: 0 6px 18px rgba(0, 0, 0, 0.12);
+  --shadow-icon-rail: 0 18px 44px rgba(0, 0, 0, 0.22);
+  --shadow-image: 0 30px 50px rgba(0, 0, 0, 0.32);
+}

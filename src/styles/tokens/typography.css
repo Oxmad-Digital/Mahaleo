@@ -1,0 +1,27 @@
+:root {
+  --font-family: 'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Échelle fluide (vmin borné, référence = canvas 1440x960) */
+  --text-2xs: clamp(10px, 1.25vmin, 12px);
+  --text-xs: clamp(11px, 1.354vmin, 13px);
+  --text-sm: clamp(12px, 1.458vmin, 14px);
+  --text-base: clamp(13px, 1.563vmin, 15px);
+  --text-md: clamp(13px, 1.667vmin, 16px);
+  --text-lg: clamp(14px, 1.771vmin, 17px);
+  --text-xl: clamp(15px, 1.875vmin, 18px);
+  --text-2xl: clamp(15px, 1.979vmin, 19px);
+  --text-3xl: clamp(16px, 2.083vmin, 20px);
+  --text-4xl: clamp(17px, 2.188vmin, 21px);
+  --text-5xl: clamp(20px, 2.708vmin, 26px);
+  --text-6xl: clamp(21px, 2.917vmin, 28px);
+  --text-7xl: clamp(28px, 3.958vmin, 38px);
+  --text-8xl: clamp(32px, 4.583vmin, 44px);
+
+  --label-letter-spacing-tight: 0.08em;
+  --label-letter-spacing-wide: 0.14em;
+}

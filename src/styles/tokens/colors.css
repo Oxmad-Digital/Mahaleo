@@ -1,0 +1,48 @@
+:root {
+  /* Scène & fond */
+  --bg-letterbox: #0d1b26;
+  --bg-scene-fallback: #1c6b3a;
+  --overlay-scene-top: rgba(0, 0, 0, 0.10);
+  --overlay-scene-mid: rgba(0, 0, 0, 0);
+  --overlay-scene-bottom: rgba(0, 0, 0, 0.28);
+
+  /* Verre (glassmorphism) */
+  --glass-fill-top: rgba(255, 255, 255, 0.14);
+  --glass-fill-bottom: rgba(255, 255, 255, 0.07);
+  --glass-fill-strong-top: rgba(255, 255, 255, 0.18);
+  --glass-fill-strong-bottom: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-strong: rgba(255, 255, 255, 0.2);
+  --glass-pill-bg: rgba(255, 255, 255, 0.16);
+  --glass-pill-border: rgba(255, 255, 255, 0.2);
+  --glass-pill-bg-soft: rgba(255, 255, 255, 0.1);
+  --glass-pill-border-soft: rgba(255, 255, 255, 0.14);
+  --glass-pill-bg-active: rgba(255, 255, 255, 0.28);
+  --glass-pill-border-active: rgba(255, 255, 255, 0.3);
+
+  /* Texte sur scène (fond sombre/photo) */
+  --text-on-scene-primary: #ffffff;
+  --text-on-scene-secondary: rgba(255, 255, 255, 0.82);
+  --text-on-scene-tertiary: rgba(255, 255, 255, 0.7);
+  --text-on-scene-quaternary: rgba(255, 255, 255, 0.5);
+
+  /* Encre marine — texte sur surfaces claires */
+  --ink: #10222c;
+  --ink-secondary: rgba(16, 34, 44, 0.75);
+  --ink-tertiary: rgba(16, 34, 44, 0.6);
+  --ink-quaternary: rgba(16, 34, 44, 0.45);
+  --ink-border: rgba(16, 34, 44, 0.14);
+
+  /* Accent de marque */
+  --brand-green: #1c6b3a;
+  --brand-green-hover: #134f29;
+
+  /* Surfaces solides */
+  --surface-light: rgba(255, 255, 255, 0.92);
+  --surface-light-border: rgba(255, 255, 255, 0.7);
+  --surface-light-solid: #ffffff;
+  --surface-dark-solid: #10222c;
+  --surface-dark-solid-hover: #1c3a48;
+  --surface-logo-pill: rgba(255, 255, 255, 0.88);
+  --surface-logo-pill-border: rgba(255, 255, 255, 0.7);
+}

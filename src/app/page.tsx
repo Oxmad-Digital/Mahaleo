@@ -1,69 +1,254 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Scene } from "@/components/scene/Scene";
+import { TopBar } from "@/components/scene/TopBar";
+import { LogoPill } from "@/components/scene/LogoPill";
+import { IconRail } from "@/components/scene/IconRail";
+import { Footer } from "@/components/scene/Footer";
+import { BagIcon, GridIcon, LocationDotIcon, MenuIcon } from "@/components/icons";
+import { capped, vmin } from "@/lib/fluid";
+
+const PRODUCT_IMAGE = "/images/product-photo-sample.webp";
+
+function HeaderIconButton({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        width: vmin(40),
+        height: vmin(40),
+        flex: "none",
+        borderRadius: "var(--radius-pill)",
+        background: "var(--glass-pill-bg)",
+        border: "1px solid var(--glass-pill-border)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Scene>
+      <TopBar
+        left={
+          <>
+            <LogoPill />
+            <HeaderIconButton>
+              <LocationDotIcon />
+            </HeaderIconButton>
+            <HeaderIconButton>
+              <GridIcon />
+            </HeaderIconButton>
+            <HeaderIconButton>
+              <MenuIcon />
+            </HeaderIconButton>
+          </>
+        }
+        right={
+          <Link
+            href="/panier"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: vmin(10),
+              padding: `${vmin(10)} ${vmin(22)}`,
+              borderRadius: "var(--radius-pill)",
+              background: "var(--glass-pill-bg)",
+              border: "1px solid var(--glass-pill-border)",
+            }}
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <BagIcon />
+            <span style={{ fontSize: vmin(15), fontWeight: 500, whiteSpace: "nowrap" }}>
+              Passer la commande
+            </span>
+          </Link>
+        }
+      />
+
+      <div
+        className="home-hero-row"
+        style={{
+          position: "absolute",
+          top: vmin(44),
+          left: 0,
+          right: 0,
+          height: vmin(676),
+          boxSizing: "border-box",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: vmin(80),
+          padding: `0 ${vmin(90)}`,
+        }}
+      >
+        <Link
+          href="/produit"
+          className="home-side-item"
+          style={{
+            width: vmin(250),
+            flex: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: vmin(20),
+          }}
+        >
+          <img
+            src={PRODUCT_IMAGE}
+            alt="Pull crème brodé"
+            style={{
+              width: vmin(250),
+              height: vmin(250),
+              objectFit: "contain",
+              filter: "drop-shadow(0 18px 30px rgba(0,0,0,0.28))",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: vmin(6),
+            }}
           >
-            Documentation
-          </a>
+            <div style={{ fontSize: vmin(19), fontWeight: 600, whiteSpace: "nowrap" }}>
+              T-shirt à impression basique
+            </div>
+            <div style={{ fontSize: vmin(28), fontWeight: 700, lineHeight: 1 }}>35 €</div>
+          </div>
+        </Link>
+
+        <Link href="/produit" style={{ flex: "none", alignSelf: "flex-start" }}>
+          <img
+            src={PRODUCT_IMAGE}
+            alt="Pull crème brodé — produit sélectionné"
+            style={{
+              width: vmin(420),
+              height: vmin(580),
+              marginTop: vmin(34),
+              objectFit: "contain",
+              filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.32))",
+            }}
+          />
+        </Link>
+
+        <Link
+          href="/produit"
+          className="home-side-item"
+          style={{
+            width: vmin(250),
+            flex: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: vmin(20),
+          }}
+        >
+          <img
+            src={PRODUCT_IMAGE}
+            alt="Pull crème brodé"
+            style={{
+              width: vmin(250),
+              height: vmin(250),
+              objectFit: "contain",
+              filter: "drop-shadow(0 18px 30px rgba(0,0,0,0.28))",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: vmin(6),
+            }}
+          >
+            <div style={{ fontSize: vmin(19), fontWeight: 600, whiteSpace: "nowrap" }}>
+              T-shirt basique
+            </div>
+            <div style={{ fontSize: vmin(28), fontWeight: 700, lineHeight: 1 }}>35 €</div>
+          </div>
+        </Link>
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: vmin(232),
+          left: 0,
+          right: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: vmin(10),
+        }}
+      >
+        <div style={dotStyle(false)} />
+        <div style={dotStyle(true)} />
+        <div style={dotStyle(false)} />
+        <div style={dotStyle(false)} />
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: vmin(110),
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: capped(500),
+          boxSizing: "border-box",
+          padding: vmin(20),
+          borderRadius: "var(--radius-lg)",
+          background:
+            "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-strong-bottom))",
+          border: "1px solid var(--glass-border-strong)",
+          backdropFilter: "blur(var(--blur-heavy))",
+          WebkitBackdropFilter: "blur(var(--blur-heavy))",
+          boxShadow: "var(--shadow-cta-strong)",
+          display: "flex",
+          flexDirection: "column",
+          gap: vmin(18),
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: vmin(16),
+            padding: `0 ${vmin(4)}`,
+          }}
+        >
+          <span style={{ fontSize: vmin(21), fontWeight: 600, whiteSpace: "nowrap" }}>
+            T-shirt meilleure collection
+          </span>
+          <span style={{ fontSize: vmin(28), fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap" }}>
+            35 €
+          </span>
         </div>
-      </main>
-    </div>
+      </div>
+
+      <IconRail active="shop" />
+      <Footer />
+    </Scene>
   );
+}
+
+function dotStyle(active: boolean): React.CSSProperties {
+  return active
+    ? {
+        width: vmin(30),
+        height: vmin(9),
+        borderRadius: "var(--radius-pill)",
+        background: "#ffffff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+      }
+    : {
+        width: vmin(9),
+        height: vmin(9),
+        borderRadius: "var(--radius-pill)",
+        background: "var(--text-on-scene-quaternary)",
+      };
 }
