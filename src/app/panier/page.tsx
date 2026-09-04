@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
@@ -10,40 +9,20 @@ import { IconRail } from "@/components/scene/IconRail";
 import { Footer } from "@/components/scene/Footer";
 import { ArrowRightIcon, ShippingIcon, TrashIcon } from "@/components/icons";
 import { capped, vmin } from "@/lib/fluid";
+import { formatCents } from "@/lib/format";
+import { useCart } from "@/lib/cart";
 
-const PRODUCT_IMAGE = "/images/product-photo-sample.webp";
-
-type CartItem = {
-  id: number;
-  name: string;
-  size: string;
-  color: string;
-  price: number;
-  qty: number;
-};
-
-const INITIAL_CART: CartItem[] = [
-  { id: 1, name: "Pull crème brodé", size: "M", color: "Crème", price: 35, qty: 1 },
-  { id: 2, name: "T-shirt à impression basique", size: "L", color: "Blanc", price: 35, qty: 2 },
-];
+const FREE_SHIPPING_THRESHOLD_CENTS = 15000;
+const SHIPPING_COST_CENTS = 800;
 
 export default function PanierPage() {
-  const [cart, setCart] = useState<CartItem[]>(INITIAL_CART);
+  const { items, itemCount, subtotalCents, updateQty, removeItem } = useCart();
 
-  const updateQty = (id: number, delta: number) => {
-    setCart((s) => s.map((c) => (c.id === id ? { ...c, qty: Math.max(1, c.qty + delta) } : c)));
-  };
-
-  const removeItem = (id: number) => {
-    setCart((s) => s.filter((c) => c.id !== id));
-  };
-
-  const itemCount = cart.reduce((n, c) => n + c.qty, 0);
-  const subtotal = cart.reduce((n, c) => n + c.price * c.qty, 0);
-  const shippingFree = subtotal >= 150;
-  const shipping = shippingFree ? 0 : cart.length ? 8 : 0;
-  const total = subtotal + shipping;
-  const isEmpty = cart.length === 0;
+  const shippingFree = subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS;
+  const shippingCents = shippingFree ? 0 : items.length ? SHIPPING_COST_CENTS : 0;
+  const totalCents = subtotalCents + shippingCents;
+  const isEmpty = items.length === 0;
+  const currency = items[0]?.currency ?? "EUR";
 
   return (
     <Scene>
@@ -77,9 +56,9 @@ export default function PanierPage() {
         }}
       >
         <div style={{ width: capped(720), flex: "none", display: "flex", flexDirection: "column", gap: vmin(16) }}>
-          {cart.map((item) => (
+          {items.map((item) => (
             <div
-              key={item.id}
+              key={`${item.productId}-${item.size ?? ""}`}
               style={{
                 flex: "none",
                 display: "flex",
@@ -109,7 +88,7 @@ export default function PanierPage() {
                 }}
               >
                 <img
-                  src={PRODUCT_IMAGE}
+                  src={item.image}
                   alt={item.name}
                   style={{ width: "82%", height: "82%", objectFit: "contain" }}
                 />
@@ -135,16 +114,18 @@ export default function PanierPage() {
                 >
                   {item.name}
                 </div>
-                <div
-                  style={{
-                    fontSize: vmin(14),
-                    fontWeight: 500,
-                    color: "var(--text-on-scene-tertiary)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Taille : {item.size} · Couleur : {item.color}
-                </div>
+                {item.size && (
+                  <div
+                    style={{
+                      fontSize: vmin(14),
+                      fontWeight: 500,
+                      color: "var(--text-on-scene-tertiary)",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Taille : {item.size}
+                  </div>
+                )}
               </div>
 
               <div
@@ -160,7 +141,7 @@ export default function PanierPage() {
                 }}
               >
                 <button
-                  onClick={() => updateQty(item.id, -1)}
+                  onClick={() => updateQty(item.productId, item.size, -1)}
                   style={qtyButtonStyle}
                   aria-label={`Diminuer la quantité de ${item.name}`}
                 >
@@ -170,7 +151,7 @@ export default function PanierPage() {
                   {item.qty}
                 </span>
                 <button
-                  onClick={() => updateQty(item.id, 1)}
+                  onClick={() => updateQty(item.productId, item.size, 1)}
                   style={qtyButtonStyle}
                   aria-label={`Augmenter la quantité de ${item.name}`}
                 >
@@ -179,11 +160,11 @@ export default function PanierPage() {
               </div>
 
               <div style={{ width: vmin(90), flex: "none", textAlign: "right", fontSize: vmin(20), fontWeight: 700 }}>
-                {item.price * item.qty} €
+                {formatCents(item.priceCents * item.qty, item.currency)}
               </div>
 
               <button
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeItem(item.productId, item.size)}
                 aria-label={`Retirer ${item.name} du panier`}
                 style={{
                   width: vmin(40),
@@ -252,7 +233,7 @@ export default function PanierPage() {
               }}
             >
               <span>Sous-total ({itemCount} articles)</span>
-              <span>{subtotal} €</span>
+              <span>{formatCents(subtotalCents, currency)}</span>
             </div>
             <div
               style={{
@@ -264,12 +245,12 @@ export default function PanierPage() {
               }}
             >
               <span>Livraison</span>
-              <span>{shippingFree ? "Offerte" : `${shipping} €`}</span>
+              <span>{shippingFree ? "Offerte" : formatCents(shippingCents, currency)}</span>
             </div>
             <div style={{ height: 1, background: "var(--glass-border-strong)" }} />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <span style={{ fontSize: vmin(17), fontWeight: 600 }}>Total</span>
-              <span style={{ fontSize: vmin(28), fontWeight: 700 }}>{total} €</span>
+              <span style={{ fontSize: vmin(28), fontWeight: 700 }}>{formatCents(totalCents, currency)}</span>
             </div>
           </div>
 
@@ -309,6 +290,7 @@ export default function PanierPage() {
           </div>
 
           <button
+            disabled={isEmpty}
             style={{
               display: "flex",
               alignItems: "center",
@@ -320,7 +302,8 @@ export default function PanierPage() {
               border: "1px solid var(--surface-light-border)",
               color: "var(--ink)",
               boxShadow: "var(--shadow-cta)",
-              cursor: "pointer",
+              cursor: isEmpty ? "not-allowed" : "pointer",
+              opacity: isEmpty ? 0.6 : 1,
             }}
           >
             <span style={{ fontSize: vmin(17), fontWeight: 700 }}>Passer la commande</span>

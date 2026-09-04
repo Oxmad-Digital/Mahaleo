@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
+import { CartProvider } from "@/lib/cart";
 import { Tracker } from "@/components/Tracker";
 import "./globals.css";
 
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fr" className={plusJakartaSans.variable}>
       <body>
         <Tracker />
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <CartProvider>{children}</CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

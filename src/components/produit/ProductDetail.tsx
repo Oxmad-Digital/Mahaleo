@@ -4,13 +4,13 @@ import { useMemo, useState } from "react";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
-import { BackLink } from "@/components/scene/BackLink";
 import { Breadcrumb } from "@/components/scene/Breadcrumb";
 import { IconRail } from "@/components/scene/IconRail";
 import { Footer } from "@/components/scene/Footer";
 import { CartIcon, HeartIcon, ShippingIcon } from "@/components/icons";
 import { capped, vmin } from "@/lib/fluid";
 import { formatCents } from "@/lib/format";
+import { useCart } from "@/lib/cart";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
@@ -26,18 +26,33 @@ export function ProductDetail({
   const [thumb, setThumb] = useState(0);
 
   const availableSizes = useMemo(() => product.sizes.filter((s) => s.stock > 0), [product.sizes]);
+  const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string | undefined>(availableSizes[0]?.size);
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const canAddToCart = requiresSize ? !!size : true;
+
+  const handleAddToCart = () => {
+    if (!canAddToCart) return;
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      image: images[0],
+      priceCents: product.priceCents,
+      currency: product.currency,
+      size,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1600);
+  };
 
   return (
     <Scene>
       <TopBar
-        left={
-          <>
-            <LogoPill />
-            <BackLink href="/" label="Retour à la boutique" />
-          </>
-        }
-        right={<Breadcrumb items={["Boutique", product.name]} />}
+        left={<LogoPill />}
+        right={<Breadcrumb items={[{ label: "Boutique", href: "/" }, product.name]} />}
       />
 
       <div
@@ -142,124 +157,149 @@ export function ProductDetail({
           )}
         </div>
 
-        <div style={{ width: capped(440), flex: "none", display: "flex", flexDirection: "column", gap: vmin(22) }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
-            <div style={{ fontSize: vmin(44), fontWeight: 700, lineHeight: 1.06 }}>{product.name}</div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: vmin(14) }}>
-              <span style={{ fontSize: vmin(38), fontWeight: 700, lineHeight: 1 }}>
-                {formatCents(product.priceCents, product.currency)}
-              </span>
-            </div>
-          </div>
-
-          {product.description && (
-            <div style={{ fontSize: vmin(16), lineHeight: 1.6, color: "var(--text-on-scene-secondary)" }}>
-              {product.description}
-            </div>
-          )}
-
-          {product.sizes.length > 0 && (
-            <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
-              <div style={{ fontSize: vmin(14), fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>
-                Taille
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: vmin(10), flexWrap: "wrap" }}>
-                {product.sizes.map(({ size: label, stock }) => {
-                  const on = label === size;
-                  const disabled = stock === 0;
-                  return (
-                    <button
-                      key={label}
-                      disabled={disabled}
-                      onClick={() => setSize(label)}
-                      style={{
-                        minWidth: vmin(60),
-                        padding: `${vmin(14)} 0`,
-                        textAlign: "center",
-                        borderRadius: "var(--radius-sm)",
-                        background: on ? "rgba(255,255,255,0.9)" : "var(--glass-fill-strong-top)",
-                        border: `1px solid ${on ? "rgba(255,255,255,0.7)" : "var(--glass-border-strong)"}`,
-                        color: disabled ? "var(--text-on-scene-quaternary)" : on ? "var(--ink)" : "#fff",
-                        fontSize: vmin(16),
-                        fontWeight: 600,
-                        cursor: disabled ? "not-allowed" : "pointer",
-                        opacity: disabled ? 0.5 : 1,
-                        textDecoration: disabled ? "line-through" : "none",
-                      }}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          <div style={{ height: vmin(14) }} />
-
-          <div style={{ display: "flex", alignItems: "center", gap: vmin(12) }}>
-            <button
-              disabled={!size}
-              style={{
-                flex: 1,
-                minWidth: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: vmin(12),
-                padding: `${vmin(19)} 0`,
-                borderRadius: "var(--radius-base)",
-                background: "var(--surface-light)",
-                border: "1px solid var(--surface-light-border)",
-                color: "var(--ink)",
-                boxShadow: "var(--shadow-cta)",
-                cursor: size ? "pointer" : "not-allowed",
-                opacity: size ? 1 : 0.6,
-              }}
-            >
-              <CartIcon size={vmin(21)} stroke="#10222c" />
-              <span style={{ fontSize: vmin(17), fontWeight: 700, whiteSpace: "nowrap" }}>
-                {size ? `Ajouter au panier — ${formatCents(product.priceCents, product.currency)}` : "Rupture de stock"}
-              </span>
-            </button>
-            <button
-              aria-label="Ajouter aux favoris"
-              style={{
-                width: vmin(60),
-                height: vmin(60),
-                flex: "none",
-                borderRadius: "var(--radius-base)",
-                background: "var(--glass-pill-bg)",
-                border: "1px solid var(--glass-border-strong)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              <HeartIcon />
-            </button>
-          </div>
-
+        <div style={{ width: capped(440), flex: "none", display: "flex", flexDirection: "column" }}>
           <div
             style={{
+              flex: 1,
+              minHeight: 0,
               display: "flex",
-              alignItems: "center",
-              gap: vmin(10),
-              padding: `${vmin(16)} ${vmin(20)}`,
-              borderRadius: "var(--radius-base)",
-              background: "var(--glass-pill-bg-soft)",
-              border: "1px solid var(--glass-pill-border-soft)",
-              fontSize: vmin(14),
-              fontWeight: 500,
-              color: "var(--text-on-scene-secondary)",
+              flexDirection: "column",
+              gap: vmin(22),
+              padding: vmin(32),
+              boxSizing: "border-box",
+              borderRadius: "var(--radius-2xl)",
+              background:
+                "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
+              border: "1px solid var(--glass-border-strong)",
+              backdropFilter: "blur(var(--blur-strong))",
+              WebkitBackdropFilter: "blur(var(--blur-strong))",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.26)",
+              overflowY: "auto",
             }}
           >
-            <ShippingIcon />
-            <span>Livraison offerte dès 150 € · retours 30 jours</span>
-          </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
+              <div style={{ fontSize: vmin(44), fontWeight: 700, lineHeight: 1.06 }}>{product.name}</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: vmin(14) }}>
+                <span style={{ fontSize: vmin(38), fontWeight: 700, lineHeight: 1 }}>
+                  {formatCents(product.priceCents, product.currency)}
+                </span>
+              </div>
+            </div>
 
-          <div style={{ flex: 1 }} />
+            {product.description && (
+              <div style={{ fontSize: vmin(16), lineHeight: 1.6, color: "var(--text-on-scene-secondary)" }}>
+                {product.description}
+              </div>
+            )}
+
+            {product.sizes.length > 0 && (
+              <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
+                <div style={{ fontSize: vmin(14), fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>
+                  Taille
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: vmin(10), flexWrap: "wrap" }}>
+                  {product.sizes.map(({ size: label, stock }) => {
+                    const on = label === size;
+                    const disabled = stock === 0;
+                    return (
+                      <button
+                        key={label}
+                        disabled={disabled}
+                        onClick={() => setSize(label)}
+                        style={{
+                          minWidth: vmin(60),
+                          padding: `${vmin(14)} 0`,
+                          textAlign: "center",
+                          borderRadius: "var(--radius-sm)",
+                          background: on ? "rgba(255,255,255,0.9)" : "var(--glass-fill-strong-top)",
+                          border: `1px solid ${on ? "rgba(255,255,255,0.7)" : "var(--glass-border-strong)"}`,
+                          color: disabled ? "var(--text-on-scene-quaternary)" : on ? "var(--ink)" : "#fff",
+                          fontSize: vmin(16),
+                          fontWeight: 600,
+                          cursor: disabled ? "not-allowed" : "pointer",
+                          opacity: disabled ? 0.5 : 1,
+                          textDecoration: disabled ? "line-through" : "none",
+                        }}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            <div style={{ height: vmin(14) }} />
+
+            <div style={{ display: "flex", alignItems: "center", gap: vmin(12) }}>
+              <button
+                disabled={!canAddToCart}
+                onClick={handleAddToCart}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: vmin(12),
+                  padding: `${vmin(19)} 0`,
+                  borderRadius: "var(--radius-base)",
+                  background: "var(--surface-light)",
+                  border: "1px solid var(--surface-light-border)",
+                  color: "var(--ink)",
+                  boxShadow: "var(--shadow-cta)",
+                  cursor: canAddToCart ? "pointer" : "not-allowed",
+                  opacity: canAddToCart ? 1 : 0.6,
+                }}
+              >
+                <CartIcon size={vmin(21)} stroke="#10222c" />
+                <span style={{ fontSize: vmin(17), fontWeight: 700, whiteSpace: "nowrap" }}>
+                  {!canAddToCart
+                    ? "Rupture de stock"
+                    : added
+                      ? "Ajouté au panier ✓"
+                      : `Ajouter au panier — ${formatCents(product.priceCents, product.currency)}`}
+                </span>
+              </button>
+              <button
+                aria-label="Ajouter aux favoris"
+                style={{
+                  width: vmin(60),
+                  height: vmin(60),
+                  flex: "none",
+                  borderRadius: "var(--radius-base)",
+                  background: "var(--glass-pill-bg)",
+                  border: "1px solid var(--glass-border-strong)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <HeartIcon />
+              </button>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: vmin(10),
+                padding: `${vmin(16)} ${vmin(20)}`,
+                borderRadius: "var(--radius-base)",
+                background: "var(--glass-pill-bg-soft)",
+                border: "1px solid var(--glass-pill-border-soft)",
+                fontSize: vmin(14),
+                fontWeight: 500,
+                color: "var(--text-on-scene-secondary)",
+              }}
+            >
+              <ShippingIcon />
+              <span>Livraison offerte dès 150 € · retours 30 jours</span>
+            </div>
+
+            <div style={{ flex: 1 }} />
+          </div>
         </div>
       </div>
 

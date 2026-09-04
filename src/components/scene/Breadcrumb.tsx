@@ -1,6 +1,9 @@
+import Link from "next/link";
 import { vmin } from "@/lib/fluid";
 
-export function Breadcrumb({ items }: { items: string[] }) {
+export type BreadcrumbItem = string | { label: string; href: string };
+
+export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
     <div
       style={{
@@ -19,12 +22,17 @@ export function Breadcrumb({ items }: { items: string[] }) {
     >
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
+        const label = typeof item === "string" ? item : item.label;
+        const href = typeof item === "string" ? undefined : item.href;
         return (
-          <span
-            key={item}
-            style={{ display: "contents" }}
-          >
-            <span style={isLast ? { color: "#fff" } : undefined}>{item}</span>
+          <span key={label} style={{ display: "contents" }}>
+            {href ? (
+              <Link href={href} style={{ color: "inherit" }}>
+                {label}
+              </Link>
+            ) : (
+              <span style={isLast ? { color: "#fff" } : undefined}>{label}</span>
+            )}
             {!isLast && <span style={{ opacity: 0.5 }}>/</span>}
           </span>
         );

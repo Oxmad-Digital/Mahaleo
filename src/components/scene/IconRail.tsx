@@ -4,15 +4,17 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { CartIcon, HangerIcon, HeartIcon, ProfileIcon } from "../icons";
 import { vmin } from "@/lib/fluid";
+import { useCart } from "@/lib/cart";
 
 export type RailKey = "shop" | "cart" | "heart" | "profile";
 
 export function IconRail({ active }: { active: RailKey }) {
   const { data: session } = useSession();
+  const { itemCount } = useCart();
 
-  const items: { key: RailKey; href: string; icon: React.ReactNode; label: string; connected?: boolean }[] = [
+  const items: { key: RailKey; href: string; icon: React.ReactNode; label: string; connected?: boolean; badge?: number }[] = [
     { key: "shop", href: "/", icon: <HangerIcon />, label: "Boutique" },
-    { key: "cart", href: "/panier", icon: <CartIcon />, label: "Panier" },
+    { key: "cart", href: "/panier", icon: <CartIcon />, label: "Panier", badge: itemCount },
     { key: "heart", href: "/favoris", icon: <HeartIcon />, label: "Favoris" },
     session?.user
       ? {
@@ -79,6 +81,29 @@ export function IconRail({ active }: { active: RailKey }) {
                   border: "1.5px solid rgba(0,0,0,0.4)",
                 }}
               />
+            )}
+            {!!item.badge && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: vmin(-4),
+                  right: vmin(-4),
+                  minWidth: vmin(18),
+                  height: vmin(18),
+                  padding: `0 ${vmin(4)}`,
+                  borderRadius: "50%",
+                  background: "#fff",
+                  color: "var(--ink)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: vmin(11),
+                  fontWeight: 700,
+                  border: "1.5px solid rgba(0,0,0,0.4)",
+                }}
+              >
+                {item.badge}
+              </span>
             )}
           </Link>
         );
