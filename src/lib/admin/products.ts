@@ -12,7 +12,7 @@ export async function getProductsData({ query, page }: { query?: string; page: n
       }
     : {};
 
-  const [products, total] = await Promise.all([
+  const [rawProducts, total] = await Promise.all([
     prisma.product.findMany({
       where,
       orderBy: { createdAt: "desc" },
@@ -25,11 +25,16 @@ export async function getProductsData({ query, page }: { query?: string; page: n
         priceCents: true,
         currency: true,
         images: true,
-        stock: true,
+        sizes: { select: { stock: true } },
       },
     }),
     prisma.product.count({ where }),
   ]);
+
+  const products = rawProducts.map(({ sizes, ...product }) => ({
+    ...product,
+    stock: sizes.reduce((sum, s) => sum + s.stock, 0),
+  }));
 
   return {
     products,
@@ -43,5 +48,8 @@ export async function getProductsData({ query, page }: { query?: string; page: n
 export type ProductsData = Awaited<ReturnType<typeof getProductsData>>;
 
 export async function getProductById(id: string) {
-  return prisma.product.findUnique({ where: { id } });
+  return prisma.product.findUnique({
+    where: { id },
+    include: { sizes: { orderBy: { size: "asc" } } },
+  });
 }

@@ -39,6 +39,13 @@ export type LoginFormState =
     }
   | undefined;
 
+const ProductSizeEntrySchema = z.object({
+  size: z.string().trim().min(1),
+  stock: z.string().trim().regex(/^\d+$/),
+});
+
+export type ProductSizeEntry = z.infer<typeof ProductSizeEntrySchema>;
+
 export const ProductFormSchema = z.object({
   name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
   slug: z
@@ -53,12 +60,33 @@ export const ProductFormSchema = z.object({
     .string()
     .trim()
     .regex(/^\d+([.,]\d{1,2})?$/, { error: "Veuillez saisir un prix valide, ex. 49.90." }),
-  stock: z
+  images: z.string().trim().optional(),
+  sizes: z
     .string()
     .trim()
-    .regex(/^\d+$/, { error: "Veuillez saisir un stock valide." }),
-  images: z.string().trim().optional(),
-  size: z.string().trim().optional(),
+    .transform((raw, ctx) => {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        parsed = null;
+      }
+      const result = z.array(ProductSizeEntrySchema).safeParse(parsed);
+      if (!result.success || result.data.length === 0) {
+        ctx.addIssue({ code: "custom", message: "Ajoutez au moins une taille avec un stock valide." });
+        return z.NEVER;
+      }
+      const seen = new Set<string>();
+      for (const entry of result.data) {
+        const key = entry.size.toLowerCase();
+        if (seen.has(key)) {
+          ctx.addIssue({ code: "custom", message: "Les tailles doivent être uniques." });
+          return z.NEVER;
+        }
+        seen.add(key);
+      }
+      return result.data;
+    }),
 });
 
 export type ProductFormState =
@@ -68,11 +96,11 @@ export type ProductFormState =
         slug?: string[];
         description?: string[];
         price?: string[];
-        stock?: string[];
         images?: string[];
-        size?: string[];
+        sizes?: string[];
       };
       message?: string;
+      success?: boolean;
     }
   | undefined;
 

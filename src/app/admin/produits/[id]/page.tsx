@@ -12,7 +12,7 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
   const product = await getProductById(id);
   if (!product) notFound();
 
-  const action = updateProduct.bind(null, product.id);
+  const action = updateProduct.bind(null, product.id, true);
 
   return (
     <AdminShell
@@ -31,9 +31,8 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
           slug: product.slug,
           description: product.description ?? "",
           price: (product.priceCents / 100).toFixed(2),
-          stock: String(product.stock),
           images: product.images.join("\n"),
-          size: product.size ?? "",
+          sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock) })),
         }}
       />
     </AdminShell>

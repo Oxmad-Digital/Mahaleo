@@ -44,14 +44,24 @@ model Product {
   priceCents  Int
   currency    String   @default("EUR")
   images      String[]
-  size        String?
-  stock       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  sizes      ProductSize[]
   cartItems  CartItem[]
   favorites  Favorite[]
   orderItems OrderItem[]
+}
+
+model ProductSize {
+  id        String @id @default(cuid())
+  productId String
+  size      String
+  stock     Int    @default(0)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, size])
 }
 
 model CartItem {

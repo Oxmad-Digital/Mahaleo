@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import type { ProductFormState } from "@/lib/definitions";
+import { useRouter } from "next/navigation";
+import type { ProductFormState, ProductSizeEntry } from "@/lib/definitions";
 import { uploadProductImage } from "@/app/actions/uploads";
 
 function parseImagesList(raw: string | undefined) {
@@ -46,6 +47,8 @@ export function ProductForm({
   initial,
   submitLabel,
   pendingLabel,
+  successMessage = "Produit enregistré avec succès.",
+  embedded = false,
 }: {
   action: (state: ProductFormState, formData: FormData) => Promise<ProductFormState>;
   initial?: {
@@ -53,20 +56,46 @@ export function ProductForm({
     slug: string;
     description: string;
     price: string;
-    stock: string;
     images: string;
-    size: string;
+    sizes: ProductSizeEntry[];
   };
   submitLabel: string;
   pendingLabel: string;
+  successMessage?: string;
+  embedded?: boolean;
 }) {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(action, undefined);
+
+  useEffect(() => {
+    if (!state?.success) return;
+    const timeout = setTimeout(() => {
+      router.back();
+      router.refresh();
+    }, 1200);
+    return () => clearTimeout(timeout);
+  }, [state, router]);
   const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [sizes, setSizes] = useState<ProductSizeEntry[]>(
+    () => initial?.sizes ?? [{ size: "", stock: "0" }]
+  );
+
+  function updateSize(index: number, patch: Partial<ProductSizeEntry>) {
+    setSizes((prev) => prev.map((entry, i) => (i === index ? { ...entry, ...patch } : entry)));
+  }
+
+  function addSize() {
+    setSizes((prev) => [...prev, { size: "", stock: "0" }]);
+  }
+
+  function removeSize(index: number) {
+    setSizes((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== index) : prev));
+  }
 
   async function handleFilesSelected(files: FileList | null) {
     if (!files || files.length === 0) return;
@@ -91,15 +120,19 @@ export function ProductForm({
   return (
     <form
       action={formAction}
-      style={{
-        padding: "24px 24px 22px",
-        borderRadius: 8,
-        border: "1px solid rgba(55,53,47,0.09)",
-        display: "flex",
-        flexDirection: "column",
-        gap: 20,
-        maxWidth: 620,
-      }}
+      style={
+        embedded
+          ? { padding: "24px", display: "flex", flexDirection: "column", gap: 20 }
+          : {
+              padding: "24px 24px 22px",
+              borderRadius: 8,
+              border: "1px solid rgba(55,53,47,0.09)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+              maxWidth: 620,
+            }
+      }
     >
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <label htmlFor="name" style={labelStyle}>
@@ -153,30 +186,78 @@ export function ProductForm({
         {state?.errors?.description && <FieldError messages={state.errors.description} />}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <label htmlFor="price" style={labelStyle}>
-            Prix (EUR)
-          </label>
-          <input id="price" name="price" type="text" inputMode="decimal" defaultValue={initial?.price} placeholder="49.90" style={inputStyle} />
-          {state?.errors?.price && <FieldError messages={state.errors.price} />}
-        </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 200 }}>
+        <label htmlFor="price" style={labelStyle}>
+          Prix (EUR)
+        </label>
+        <input id="price" name="price" type="text" inputMode="decimal" defaultValue={initial?.price} placeholder="49.90" style={inputStyle} />
+        {state?.errors?.price && <FieldError messages={state.errors.price} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={labelStyle}>Stock par taille</label>
+        <input type="hidden" name="sizes" value={JSON.stringify(sizes)} />
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <label htmlFor="stock" style={labelStyle}>
-            Stock
-          </label>
-          <input id="stock" name="stock" type="text" inputMode="numeric" defaultValue={initial?.stock} placeholder="10" style={inputStyle} />
-          {state?.errors?.stock && <FieldError messages={state.errors.stock} />}
+          {sizes.map((entry, index) => (
+            <div key={index} style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 10, alignItems: "center" }}>
+              <input
+                type="text"
+                value={entry.size}
+                onChange={(e) => updateSize(index, { size: e.target.value })}
+                placeholder="Taille (ex. M)"
+                style={inputStyle}
+              />
+              <input
+                type="text"
+                inputMode="numeric"
+                value={entry.stock}
+                onChange={(e) => updateSize(index, { stock: e.target.value })}
+                placeholder="Stock"
+                style={inputStyle}
+              />
+              <button
+                type="button"
+                onClick={() => removeSize(index)}
+                disabled={sizes.length <= 1}
+                aria-label="Supprimer cette taille"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 6,
+                  border: "1px solid rgba(55,53,47,0.15)",
+                  background: "transparent",
+                  color: "#a82c2c",
+                  fontSize: 16,
+                  lineHeight: 1,
+                  cursor: sizes.length <= 1 ? "default" : "pointer",
+                  opacity: sizes.length <= 1 ? 0.4 : 1,
+                }}
+              >
+                ×
+              </button>
+            </div>
+          ))}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <label htmlFor="size" style={labelStyle}>
-            Taille
-          </label>
-          <input id="size" name="size" type="text" defaultValue={initial?.size} placeholder="M" style={inputStyle} />
-          {state?.errors?.size && <FieldError messages={state.errors.size} />}
-        </div>
+        <button
+          type="button"
+          onClick={addSize}
+          style={{
+            alignSelf: "flex-start",
+            padding: "7px 12px",
+            borderRadius: 6,
+            border: "1px solid rgba(55,53,47,0.15)",
+            background: "transparent",
+            fontSize: 13,
+            fontWeight: 500,
+            color: "#37352f",
+            cursor: "pointer",
+          }}
+        >
+          + Ajouter une taille
+        </button>
+        {state?.errors?.sizes && <FieldError messages={state.errors.sizes} />}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -261,20 +342,54 @@ export function ProductForm({
         >
           {pending ? pendingLabel : submitLabel}
         </button>
-        <Link
-          href="/admin/produits"
+        {embedded ? (
+          <button
+            type="button"
+            onClick={() => router.back()}
+            style={{
+              padding: "10px 18px",
+              borderRadius: 6,
+              border: "1px solid rgba(55,53,47,0.09)",
+              background: "transparent",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#37352f",
+              cursor: "pointer",
+            }}
+          >
+            Annuler
+          </button>
+        ) : (
+          <Link
+            href="/admin/produits"
+            style={{
+              padding: "10px 18px",
+              borderRadius: 6,
+              border: "1px solid rgba(55,53,47,0.09)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#37352f",
+            }}
+          >
+            Annuler
+          </Link>
+        )}
+      </div>
+
+      {state?.success && (
+        <div
           style={{
-            padding: "10px 18px",
+            padding: "10px 14px",
             borderRadius: 6,
-            border: "1px solid rgba(55,53,47,0.09)",
-            fontSize: 14,
+            background: "#e5f3ea",
+            color: "#1c6b3a",
+            fontSize: 13,
             fontWeight: 500,
-            color: "#37352f",
           }}
         >
-          Annuler
-        </Link>
-      </div>
+          {successMessage}
+        </div>
+      )}
     </form>
   );
 }

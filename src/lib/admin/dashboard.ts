@@ -30,49 +30,55 @@ export async function getDashboardData(range: DashboardRange) {
   const previousStart = daysAgo(range * 2 - 1, now);
   const todayStart = startOfDay(now);
 
-  const [periodOrders, previousRevenue, ordersToday, lowStockProducts, outOfStockCount, productCount, latestOrders, orderItems] =
-    await Promise.all([
-      prisma.order.findMany({
-        where: { createdAt: { gte: periodStart } },
-        select: {
-          totalCents: true,
-          currency: true,
-          status: true,
-          createdAt: true,
-          user: { select: { createdAt: true } },
-        },
-        orderBy: { createdAt: "asc" },
-      }),
-      prisma.order.aggregate({
-        where: { createdAt: { gte: previousStart, lt: periodStart }, status: { in: REVENUE_STATUSES } },
-        _sum: { totalCents: true },
-      }),
-      prisma.order.count({ where: { createdAt: { gte: todayStart } } }),
-      prisma.product.findMany({
-        where: { stock: { lte: LOW_STOCK_THRESHOLD } },
-        orderBy: { stock: "asc" },
-        take: 4,
-        select: { id: true, name: true, stock: true },
-      }),
-      prisma.product.count({ where: { stock: 0 } }),
-      prisma.product.count(),
-      prisma.order.findMany({
-        take: 6,
-        orderBy: { createdAt: "desc" },
-        select: {
-          id: true,
-          status: true,
-          totalCents: true,
-          currency: true,
-          createdAt: true,
-          user: { select: { name: true, email: true } },
-        },
-      }),
-      prisma.orderItem.findMany({
-        where: { order: { createdAt: { gte: periodStart }, status: { in: REVENUE_STATUSES } } },
-        select: { productId: true, quantity: true, priceCents: true },
-      }),
-    ]);
+  const [periodOrders, previousRevenue, ordersToday, productsStock, latestOrders, orderItems] = await Promise.all([
+    prisma.order.findMany({
+      where: { createdAt: { gte: periodStart } },
+      select: {
+        totalCents: true,
+        currency: true,
+        status: true,
+        createdAt: true,
+        user: { select: { createdAt: true } },
+      },
+      orderBy: { createdAt: "asc" },
+    }),
+    prisma.order.aggregate({
+      where: { createdAt: { gte: previousStart, lt: periodStart }, status: { in: REVENUE_STATUSES } },
+      _sum: { totalCents: true },
+    }),
+    prisma.order.count({ where: { createdAt: { gte: todayStart } } }),
+    prisma.product.findMany({
+      select: { id: true, name: true, sizes: { select: { stock: true } } },
+    }),
+    prisma.order.findMany({
+      take: 6,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        status: true,
+        totalCents: true,
+        currency: true,
+        createdAt: true,
+        user: { select: { name: true, email: true } },
+      },
+    }),
+    prisma.orderItem.findMany({
+      where: { order: { createdAt: { gte: periodStart }, status: { in: REVENUE_STATUSES } } },
+      select: { productId: true, quantity: true, priceCents: true },
+    }),
+  ]);
+
+  const productsWithStock = productsStock.map((p) => ({
+    id: p.id,
+    name: p.name,
+    stock: p.sizes.reduce((sum, s) => sum + s.stock, 0),
+  }));
+  const lowStockProducts = productsWithStock
+    .filter((p) => p.stock <= LOW_STOCK_THRESHOLD)
+    .sort((a, b) => a.stock - b.stock)
+    .slice(0, 4);
+  const outOfStockCount = productsWithStock.filter((p) => p.stock === 0).length;
+  const productCount = productsWithStock.length;
 
   const revenueOrders = periodOrders.filter((o) => REVENUE_STATUSES.includes(o.status));
   const currency = revenueOrders[0]?.currency ?? "EUR";
@@ -119,7 +125,7 @@ export async function getDashboardData(range: DashboardRange) {
     .map(([productId]) => productId);
   const topProductRecords = await prisma.product.findMany({
     where: { id: { in: topProductIds } },
-    select: { id: true, name: true, images: true, stock: true },
+    select: { id: true, name: true, images: true, sizes: { select: { stock: true } } },
   });
   const maxTopQuantity = Math.max(1, ...topProductIds.map((id) => productSales.get(id)!.quantity));
   const topProducts = topProductIds
@@ -131,7 +137,7 @@ export async function getDashboardData(range: DashboardRange) {
         id,
         name: product.name,
         image: product.images[0] ?? null,
-        stock: product.stock,
+        stock: product.sizes.reduce((sum, s) => sum + s.stock, 0),
         quantity: sales.quantity,
         revenueCents: sales.revenueCents,
         barPercent: Math.round((sales.quantity / maxTopQuantity) * 100),

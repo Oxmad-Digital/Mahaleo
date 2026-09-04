@@ -19,7 +19,11 @@ function parsePriceCents(price: string) {
   return Math.round(parseFloat(price.replace(",", ".")) * 100);
 }
 
-export async function createProduct(_state: ProductFormState, formData: FormData): Promise<ProductFormState> {
+export async function createProduct(
+  redirectOnSuccess: boolean,
+  _state: ProductFormState,
+  formData: FormData
+): Promise<ProductFormState> {
   await requireAdmin();
 
   const validatedFields = ProductFormSchema.safeParse({
@@ -27,16 +31,15 @@ export async function createProduct(_state: ProductFormState, formData: FormData
     slug: formData.get("slug"),
     description: formData.get("description"),
     price: formData.get("price"),
-    stock: formData.get("stock"),
     images: formData.get("images"),
-    size: formData.get("size"),
+    sizes: formData.get("sizes"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, stock, images, size } = validatedFields.data;
+  const { name, slug, description, price, images, sizes } = validatedFields.data;
 
   try {
     await prisma.product.create({
@@ -45,9 +48,10 @@ export async function createProduct(_state: ProductFormState, formData: FormData
         slug,
         description: description || null,
         priceCents: parsePriceCents(price),
-        stock: parseInt(stock, 10),
         images: parseImages(images),
-        size: size || null,
+        sizes: {
+          create: sizes.map((entry) => ({ size: entry.size, stock: parseInt(entry.stock, 10) })),
+        },
       },
     });
   } catch (error) {
@@ -58,10 +62,16 @@ export async function createProduct(_state: ProductFormState, formData: FormData
   }
 
   revalidatePath("/admin/produits");
-  redirect("/admin/produits");
+  if (redirectOnSuccess) redirect("/admin/produits");
+  return { success: true };
 }
 
-export async function updateProduct(id: string, _state: ProductFormState, formData: FormData): Promise<ProductFormState> {
+export async function updateProduct(
+  id: string,
+  redirectOnSuccess: boolean,
+  _state: ProductFormState,
+  formData: FormData
+): Promise<ProductFormState> {
   await requireAdmin();
 
   const validatedFields = ProductFormSchema.safeParse({
@@ -69,16 +79,15 @@ export async function updateProduct(id: string, _state: ProductFormState, formDa
     slug: formData.get("slug"),
     description: formData.get("description"),
     price: formData.get("price"),
-    stock: formData.get("stock"),
     images: formData.get("images"),
-    size: formData.get("size"),
+    sizes: formData.get("sizes"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, stock, images, size } = validatedFields.data;
+  const { name, slug, description, price, images, sizes } = validatedFields.data;
 
   try {
     await prisma.product.update({
@@ -88,9 +97,11 @@ export async function updateProduct(id: string, _state: ProductFormState, formDa
         slug,
         description: description || null,
         priceCents: parsePriceCents(price),
-        stock: parseInt(stock, 10),
         images: parseImages(images),
-        size: size || null,
+        sizes: {
+          deleteMany: {},
+          create: sizes.map((entry) => ({ size: entry.size, stock: parseInt(entry.stock, 10) })),
+        },
       },
     });
   } catch (error) {
@@ -101,7 +112,8 @@ export async function updateProduct(id: string, _state: ProductFormState, formDa
   }
 
   revalidatePath("/admin/produits");
-  redirect("/admin/produits");
+  if (redirectOnSuccess) redirect("/admin/produits");
+  return { success: true };
 }
 
 export async function deleteProduct(id: string) {

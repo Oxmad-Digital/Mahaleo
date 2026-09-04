@@ -14,7 +14,7 @@ export default async function NewProductPage() {
       userEmail={session.user.email ?? ""}
     >
       <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Nouveau produit</div>
-      <ProductForm action={createProduct} submitLabel="Créer le produit" pendingLabel="Création..." />
+      <ProductForm action={createProduct.bind(null, true)} submitLabel="Créer le produit" pendingLabel="Création..." />
     </AdminShell>
   );
 }
