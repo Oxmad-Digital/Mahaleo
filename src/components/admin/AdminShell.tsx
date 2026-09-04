@@ -7,7 +7,7 @@ type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statist
 const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" }[] = [
   { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
   { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
-  { key: "produits", label: "Produits", href: null, icon: "package" },
+  { key: "produits", label: "Produits", href: "/admin/produits", icon: "package" },
   { key: "clients", label: "Clients", href: null, icon: "users" },
   { key: "statistiques", label: "Statistiques", href: null, icon: "chart" },
 ];

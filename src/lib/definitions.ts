@@ -38,3 +38,38 @@ export type LoginFormState =
       message?: string;
     }
   | undefined;
+
+export const ProductFormSchema = z.object({
+  name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
+  slug: z
+    .string()
+    .min(2, { error: "Le slug doit contenir au moins 2 caractères." })
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+      error: "Le slug ne doit contenir que des lettres minuscules, des chiffres et des tirets.",
+    })
+    .trim(),
+  description: z.string().trim().optional(),
+  price: z
+    .string()
+    .trim()
+    .regex(/^\d+([.,]\d{1,2})?$/, { error: "Veuillez saisir un prix valide, ex. 49.90." }),
+  stock: z
+    .string()
+    .trim()
+    .regex(/^\d+$/, { error: "Veuillez saisir un stock valide." }),
+  images: z.string().trim().optional(),
+});
+
+export type ProductFormState =
+  | {
+      errors?: {
+        name?: string[];
+        slug?: string[];
+        description?: string[];
+        price?: string[];
+        stock?: string[];
+        images?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
