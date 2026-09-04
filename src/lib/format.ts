@@ -22,6 +22,14 @@ export function formatDate(date: Date) {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(date);
 }
 
+export function formatDuration(ms: number | null) {
+  if (ms == null) return "—";
+  const totalSeconds = Math.round(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return minutes > 0 ? `${minutes} min ${seconds.toString().padStart(2, "0")}` : `${seconds} s`;
+}
+
 export function formatDateTime(date: Date) {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(
     date

@@ -122,3 +122,18 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+
+model PageView {
+  id          String   @id @default(cuid())
+  day         String
+  path        String
+  referrer    String   @default("")
+  deviceType  String   @default("desktop")
+  country     String   @default("")
+  duration    Int?
+  visitorHash String
+  createdAt   DateTime @default(now())
+
+  @@index([day])
+  @@index([day, path])
+}

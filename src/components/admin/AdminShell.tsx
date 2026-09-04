@@ -11,7 +11,7 @@ const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "
   { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
   { key: "produits", label: "Produits", href: "/admin/produits", icon: "package" },
   { key: "clients", label: "Clients", href: "/admin/clients", icon: "users" },
-  { key: "statistiques", label: "Statistiques", href: null, icon: "chart" },
+  { key: "statistiques", label: "Statistiques", href: "/admin/statistiques", icon: "chart" },
 ];
 
 function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "chart" | "settings" | "logout" }) {

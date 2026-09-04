@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { DASHBOARD_RANGES, type DashboardRange } from "@/lib/admin/dashboard";
 
-export function RangeSwitcher({ active }: { active: DashboardRange }) {
+export function RangeSwitcher({ active, basePath = "/admin" }: { active: DashboardRange; basePath?: string }) {
   return (
     <div
       style={{
@@ -19,7 +19,7 @@ export function RangeSwitcher({ active }: { active: DashboardRange }) {
         return (
           <Link
             key={range}
-            href={`/admin?range=${range}`}
+            href={`${basePath}?range=${range}`}
             style={{
               padding: "6px 14px",
               borderRadius: 6,
