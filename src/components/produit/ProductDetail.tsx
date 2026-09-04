@@ -1,35 +1,60 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
 import { Breadcrumb } from "@/components/scene/Breadcrumb";
 import { IconRail } from "@/components/scene/IconRail";
 import { Footer } from "@/components/scene/Footer";
-import { CartIcon, HeartIcon, ShippingIcon } from "@/components/icons";
+import { CartIcon, HeartFilledIcon, HeartIcon, ShippingIcon } from "@/components/icons";
 import { capped, vmin } from "@/lib/fluid";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { addFavorite, removeFavorite } from "@/app/actions/favorites";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
+const THUMBNAIL_SLOTS = 4;
 
 export function ProductDetail({
   product,
   isNewArrival,
+  isAuthenticated,
+  initialFavorite,
 }: {
   product: NonNullable<ShopProductDetail>;
   isNewArrival: boolean;
+  isAuthenticated: boolean;
+  initialFavorite: boolean;
 }) {
   const images = product.images.length > 0 ? product.images : [PLACEHOLDER_IMAGE];
   const [thumb, setThumb] = useState(0);
+
+  const thumbColumnRef = useRef<HTMLDivElement>(null);
+  const [thumbSize, setThumbSize] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = thumbColumnRef.current;
+    if (!el) return;
+    const measure = () => {
+      const firstThumb = el.firstElementChild as HTMLElement | null;
+      if (firstThumb) setThumbSize(firstThumb.getBoundingClientRect().height);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const availableSizes = useMemo(() => product.sizes.filter((s) => s.stock > 0), [product.sizes]);
   const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string | undefined>(availableSizes[0]?.size);
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
+  const router = useRouter();
+  const [favorite, setFavorite] = useState(initialFavorite);
 
   const canAddToCart = requiresSize ? !!size : true;
 
@@ -46,6 +71,18 @@ export function ProductDetail({
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 1600);
+  };
+
+  const handleToggleFavorite = () => {
+    if (!isAuthenticated) {
+      router.push("/connexion");
+      return;
+    }
+    const next = !favorite;
+    setFavorite(next);
+    (next ? addFavorite(product.id) : removeFavorite(product.id)).then((result) => {
+      if (result?.error) setFavorite(!next);
+    });
   };
 
   return (
@@ -67,12 +104,58 @@ export function ProductDetail({
           gap: vmin(60),
         }}
       >
-        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: vmin(22) }}>
+        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "row", gap: vmin(14) }}>
+          <div
+            ref={thumbColumnRef}
+            style={{
+              flex: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: vmin(12),
+            }}
+          >
+            {Array.from({ length: THUMBNAIL_SLOTS }).map((_, i) => {
+              const image = images[i % images.length];
+              const active = i === thumb;
+              return (
+                <button
+                  key={i}
+                  onClick={() => setThumb(i)}
+                  style={{
+                    width: thumbSize ?? vmin(84),
+                    flex: 1,
+                    minHeight: 0,
+                    borderRadius: "var(--radius-md)",
+                    background: "var(--glass-fill-strong-top)",
+                    border: `1px solid ${
+                      active ? "rgba(255,255,255,0.75)" : "var(--glass-border-strong)"
+                    }`,
+                    boxShadow: active
+                      ? "0 14px 30px rgba(0,0,0,0.28)"
+                      : "0 8px 20px rgba(0,0,0,0.16)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                    padding: 0,
+                    cursor: "pointer",
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt="Vue produit"
+                    style={{ width: "84%", height: "84%", objectFit: "contain" }}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
           <div
             style={{
               position: "relative",
               flex: 1,
-              minHeight: 0,
+              minWidth: 0,
               borderRadius: "var(--radius-2xl)",
               background:
                 "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
@@ -87,7 +170,7 @@ export function ProductDetail({
             }}
           >
             <img
-              src={images[thumb]}
+              src={images[thumb % images.length]}
               alt={product.name}
               style={{
                 width: "88%",
@@ -116,48 +199,9 @@ export function ProductDetail({
               </div>
             )}
           </div>
-
-          {images.length > 1 && (
-            <div style={{ flex: "none", display: "flex", alignItems: "center", gap: vmin(14) }}>
-              {images.map((image, i) => {
-                const active = i === thumb;
-                return (
-                  <button
-                    key={image}
-                    onClick={() => setThumb(i)}
-                    style={{
-                      width: vmin(104),
-                      height: vmin(104),
-                      flex: "none",
-                      borderRadius: "var(--radius-md)",
-                      background: "var(--glass-fill-strong-top)",
-                      border: `1px solid ${
-                        active ? "rgba(255,255,255,0.75)" : "var(--glass-border-strong)"
-                      }`,
-                      boxShadow: active
-                        ? "0 14px 30px rgba(0,0,0,0.28)"
-                        : "0 8px 20px rgba(0,0,0,0.16)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      overflow: "hidden",
-                      padding: 0,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <img
-                      src={image}
-                      alt="Vue produit"
-                      style={{ width: "84%", height: "84%", objectFit: "contain" }}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-          )}
         </div>
 
-        <div style={{ width: capped(440), flex: "none", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: capped(520), flex: "none", display: "flex", flexDirection: "column" }}>
           <div
             style={{
               flex: 1,
@@ -262,7 +306,8 @@ export function ProductDetail({
                 </span>
               </button>
               <button
-                aria-label="Ajouter aux favoris"
+                aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+                onClick={handleToggleFavorite}
                 style={{
                   width: vmin(60),
                   height: vmin(60),
@@ -276,7 +321,7 @@ export function ProductDetail({
                   cursor: "pointer",
                 }}
               >
-                <HeartIcon />
+                {favorite ? <HeartFilledIcon /> : <HeartIcon />}
               </button>
             </div>
 
