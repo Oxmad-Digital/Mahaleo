@@ -62,7 +62,12 @@ export async function login(
     throw error;
   }
 
-  redirect("/");
+  const user = await prisma.user.findUnique({
+    where: { email: validatedFields.data.email },
+    select: { role: true },
+  });
+
+  redirect(user?.role === "ADMIN" ? "/admin" : "/");
 }
 
 export async function logout() {

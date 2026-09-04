@@ -1,17 +1,30 @@
+"use client";
+
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { CartIcon, HangerIcon, HeartIcon, ProfileIcon } from "../icons";
 import { vmin } from "@/lib/fluid";
 
 export type RailKey = "shop" | "cart" | "heart" | "profile";
 
-const items: { key: RailKey; href: string; icon: React.ReactNode; label: string }[] = [
-  { key: "shop", href: "/", icon: <HangerIcon />, label: "Boutique" },
-  { key: "cart", href: "/panier", icon: <CartIcon />, label: "Panier" },
-  { key: "heart", href: "/favoris", icon: <HeartIcon />, label: "Favoris" },
-  { key: "profile", href: "/connexion", icon: <ProfileIcon />, label: "Connexion" },
-];
-
 export function IconRail({ active }: { active: RailKey }) {
+  const { data: session } = useSession();
+
+  const items: { key: RailKey; href: string; icon: React.ReactNode; label: string; connected?: boolean }[] = [
+    { key: "shop", href: "/", icon: <HangerIcon />, label: "Boutique" },
+    { key: "cart", href: "/panier", icon: <CartIcon />, label: "Panier" },
+    { key: "heart", href: "/favoris", icon: <HeartIcon />, label: "Favoris" },
+    session?.user
+      ? {
+          key: "profile",
+          href: session.user.role === "ADMIN" ? "/admin" : "/",
+          icon: <ProfileIcon />,
+          label: `Connecté — ${session.user.name ?? session.user.email}`,
+          connected: true,
+        }
+      : { key: "profile", href: "/connexion", icon: <ProfileIcon />, label: "Connexion" },
+  ];
+
   return (
     <div
       style={{
@@ -38,8 +51,10 @@ export function IconRail({ active }: { active: RailKey }) {
             key={item.key}
             href={item.href}
             aria-label={item.label}
+            title={item.label}
             className="rail-link"
             style={{
+              position: "relative",
               width: vmin(46),
               height: vmin(46),
               borderRadius: "var(--radius-pill)",
@@ -51,6 +66,20 @@ export function IconRail({ active }: { active: RailKey }) {
             }}
           >
             {item.icon}
+            {item.connected && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: vmin(6),
+                  right: vmin(6),
+                  width: vmin(9),
+                  height: vmin(9),
+                  borderRadius: "50%",
+                  background: "var(--brand-green, #2e7d32)",
+                  border: "1.5px solid rgba(0,0,0,0.4)",
+                }}
+              />
+            )}
           </Link>
         );
       })}
