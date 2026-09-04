@@ -63,8 +63,9 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
       ) : (
         <div style={{ display: "flex", flexDirection: "column" }}>
           {orders.map((order, i) => (
-            <div
+            <Link
               key={order.id}
+              href={`/admin/commandes/${order.id}`}
               style={{
                 display: "grid",
                 gridTemplateColumns: GRID_COLUMNS,
@@ -72,6 +73,7 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
                 alignItems: "center",
                 padding: "12px 0",
                 borderBottom: i === orders.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
+                color: "inherit",
               }}
             >
               <span style={{ fontSize: 14, fontWeight: 500, color: "rgba(55,53,47,0.6)" }}>#{order.id.slice(-5).toUpperCase()}</span>
@@ -82,7 +84,7 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
               <StatusBadge status={order.status} />
               <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
               <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
-            </div>
+            </Link>
           ))}
         </div>
       )}

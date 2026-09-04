@@ -119,7 +119,7 @@ export default function ConnexionPage() {
               Se souvenir de moi
             </label>
             <Link
-              href="#"
+              href="/mot-de-passe-oublie"
               className="link-brand"
               style={{ fontSize: vmin(13), fontWeight: 600 }}
             >

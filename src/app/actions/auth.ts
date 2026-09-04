@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { sendWelcomeEmail } from "@/lib/emails/send";
 import {
   SignupFormSchema,
   LoginFormSchema,
@@ -35,6 +36,8 @@ export async function signup(
 
   const passwordHash = await bcrypt.hash(password, 10);
   await prisma.user.create({ data: { name, email, passwordHash } });
+
+  await sendWelcomeEmail(email, name);
 
   await signIn("credentials", { email, password, redirect: false });
   redirect("/");

@@ -39,6 +39,39 @@ export type LoginFormState =
     }
   | undefined;
 
+export const RequestPasswordResetSchema = z.object({
+  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+});
+
+export type RequestPasswordResetState =
+  | {
+      errors?: { email?: string[] };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;
+
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { error: "8 caractères minimum." })
+      .regex(/[a-zA-Z]/, { error: "Doit contenir au moins une lettre." })
+      .regex(/[0-9]/, { error: "Doit contenir au moins un chiffre." }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    error: "Les mots de passe ne correspondent pas.",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordState =
+  | {
+      errors?: { password?: string[]; confirmPassword?: string[] };
+      message?: string;
+    }
+  | undefined;
+
 const ProductSizeEntrySchema = z.object({
   size: z.string().trim().min(1),
   stock: z.string().trim().regex(/^\d+$/),

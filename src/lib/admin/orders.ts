@@ -73,3 +73,27 @@ export async function getOrdersData({
 }
 
 export type OrdersData = Awaited<ReturnType<typeof getOrdersData>>;
+
+export async function getOrderById(id: string) {
+  return prisma.order.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      status: true,
+      totalCents: true,
+      currency: true,
+      createdAt: true,
+      user: { select: { id: true, name: true, email: true } },
+      items: {
+        select: {
+          id: true,
+          quantity: true,
+          priceCents: true,
+          product: { select: { name: true, slug: true } },
+        },
+      },
+    },
+  });
+}
+
+export type OrderDetail = NonNullable<Awaited<ReturnType<typeof getOrderById>>>;
