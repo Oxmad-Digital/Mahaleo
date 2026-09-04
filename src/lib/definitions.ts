@@ -87,6 +87,18 @@ export const ProductFormSchema = z.object({
       }
       return result.data;
     }),
+  onSale: z
+    .union([z.literal("on"), z.undefined()])
+    .optional()
+    .transform((v) => v === "on"),
+  salePrice: z
+    .string()
+    .trim()
+    .optional()
+    .refine((v) => !v || /^\d+([.,]\d{1,2})?$/.test(v), { error: "Veuillez saisir un prix valide, ex. 39.90." }),
+}).refine((data) => !data.onSale || Boolean(data.salePrice), {
+  error: "Indiquez un prix promotionnel.",
+  path: ["salePrice"],
 });
 
 export type ProductFormState =
@@ -98,6 +110,7 @@ export type ProductFormState =
         price?: string[];
         images?: string[];
         sizes?: string[];
+        salePrice?: string[];
       };
       message?: string;
       success?: boolean;

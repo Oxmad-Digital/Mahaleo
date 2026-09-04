@@ -25,15 +25,15 @@ export async function getProductsData({ query, page }: { query?: string; page: n
         priceCents: true,
         currency: true,
         images: true,
-        sizes: { select: { stock: true } },
+        sizes: { select: { size: true, stock: true }, orderBy: { size: "asc" } },
       },
     }),
     prisma.product.count({ where }),
   ]);
 
-  const products = rawProducts.map(({ sizes, ...product }) => ({
+  const products = rawProducts.map((product) => ({
     ...product,
-    stock: sizes.reduce((sum, s) => sum + s.stock, 0),
+    stock: product.sizes.reduce((sum, s) => sum + s.stock, 0),
   }));
 
   return {

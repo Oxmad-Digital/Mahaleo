@@ -33,6 +33,8 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
           price: (product.priceCents / 100).toFixed(2),
           images: product.images.join("\n"),
           sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock) })),
+          onSale: product.onSale,
+          salePrice: product.salePriceCents !== null ? (product.salePriceCents / 100).toFixed(2) : "",
         }}
       />
     </AdminShell>

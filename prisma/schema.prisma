@@ -43,6 +43,8 @@ model Product {
   description String?
   priceCents  Int
   currency    String   @default("EUR")
+  onSale      Boolean  @default(false)
+  salePriceCents Int?
   images      String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

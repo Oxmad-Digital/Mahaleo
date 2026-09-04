@@ -4,7 +4,7 @@ import { formatCents } from "@/lib/format";
 import { DeleteProductButton } from "./DeleteProductButton";
 import type { ProductsData } from "@/lib/admin/products";
 
-const GRID_COLUMNS = "48px minmax(0, 1.8fr) minmax(90px, 0.8fr) minmax(80px, 0.7fr) minmax(70px, 0.6fr)";
+const GRID_COLUMNS = "48px minmax(0, 1.8fr) minmax(90px, 0.8fr) minmax(140px, 1.1fr) minmax(70px, 0.6fr)";
 
 function buildHref(params: { q?: string; page: number }) {
   const search = new URLSearchParams();
@@ -60,8 +60,6 @@ export function ProductsTable({ data, query }: { data: ProductsData; query?: str
       ) : (
         <div style={{ display: "flex", flexDirection: "column" }}>
           {products.map((product, i) => {
-            const outOfStock = product.stock === 0;
-            const lowStock = !outOfStock && product.stock <= 5;
             return (
               <div
                 key={product.id}
@@ -98,9 +96,17 @@ export function ProductsTable({ data, query }: { data: ProductsData; query?: str
                   <span style={{ fontSize: 12, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>{product.slug}</span>
                 </div>
                 <span style={{ fontSize: 14, fontWeight: 600 }}>{formatCents(product.priceCents, product.currency)}</span>
-                <Badge tone={outOfStock ? "red" : lowStock ? "yellow" : "neutral"}>
-                  {outOfStock ? "Rupture" : `${product.stock} en stock`}
-                </Badge>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {product.sizes.length === 0 ? (
+                    <Badge tone="neutral">Aucune taille</Badge>
+                  ) : (
+                    product.sizes.map((s) => (
+                      <Badge key={s.size} tone={s.stock === 0 ? "red" : s.stock <= 5 ? "yellow" : "neutral"}>
+                        {s.size} · {s.stock}
+                      </Badge>
+                    ))
+                  )}
+                </div>
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
                   <Link
                     href={`/admin/produits/${product.id}`}

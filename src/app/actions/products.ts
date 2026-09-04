@@ -33,13 +33,15 @@ export async function createProduct(
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
+    onSale: formData.get("onSale") ?? undefined,
+    salePrice: formData.get("salePrice"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, images, sizes } = validatedFields.data;
+  const { name, slug, description, price, images, sizes, onSale, salePrice } = validatedFields.data;
 
   try {
     await prisma.product.create({
@@ -48,6 +50,8 @@ export async function createProduct(
         slug,
         description: description || null,
         priceCents: parsePriceCents(price),
+        onSale,
+        salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
         images: parseImages(images),
         sizes: {
           create: sizes.map((entry) => ({ size: entry.size, stock: parseInt(entry.stock, 10) })),
@@ -81,13 +85,15 @@ export async function updateProduct(
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
+    onSale: formData.get("onSale") ?? undefined,
+    salePrice: formData.get("salePrice"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, images, sizes } = validatedFields.data;
+  const { name, slug, description, price, images, sizes, onSale, salePrice } = validatedFields.data;
 
   try {
     await prisma.product.update({
@@ -97,6 +103,8 @@ export async function updateProduct(
         slug,
         description: description || null,
         priceCents: parsePriceCents(price),
+        onSale,
+        salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
         images: parseImages(images),
         sizes: {
           deleteMany: {},

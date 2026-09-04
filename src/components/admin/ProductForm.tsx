@@ -58,6 +58,8 @@ export function ProductForm({
     price: string;
     images: string;
     sizes: ProductSizeEntry[];
+    onSale: boolean;
+    salePrice: string;
   };
   submitLabel: string;
   pendingLabel: string;
@@ -84,6 +86,7 @@ export function ProductForm({
   const [sizes, setSizes] = useState<ProductSizeEntry[]>(
     () => initial?.sizes ?? [{ size: "", stock: "0" }]
   );
+  const [onSale, setOnSale] = useState(initial?.onSale ?? false);
 
   function updateSize(index: number, patch: Partial<ProductSizeEntry>) {
     setSizes((prev) => prev.map((entry, i) => (i === index ? { ...entry, ...patch } : entry)));
@@ -192,6 +195,33 @@ export function ProductForm({
         </label>
         <input id="price" name="price" type="text" inputMode="decimal" defaultValue={initial?.price} placeholder="49.90" style={inputStyle} />
         {state?.errors?.price && <FieldError messages={state.errors.price} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            name="onSale"
+            checked={onSale}
+            onChange={(e) => setOnSale(e.target.checked)}
+          />
+          <span style={labelStyle}>Produit en promotion</span>
+        </label>
+
+        {onSale && (
+          <div style={{ maxWidth: 200 }}>
+            <input
+              id="salePrice"
+              name="salePrice"
+              type="text"
+              inputMode="decimal"
+              defaultValue={initial?.salePrice}
+              placeholder="Prix promo (EUR), ex. 39.90"
+              style={inputStyle}
+            />
+            {state?.errors?.salePrice && <FieldError messages={state.errors.salePrice} />}
+          </div>
+        )}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
