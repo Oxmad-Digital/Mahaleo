@@ -1,8 +1,17 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import Link from "next/link";
 import type { ProductFormState } from "@/lib/definitions";
+import { uploadProductImage } from "@/app/actions/uploads";
+
+function parseImagesList(raw: string | undefined) {
+  if (!raw) return [];
+  return raw
+    .split(/\r?\n|,/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
 
 function slugify(value: string) {
   return value
@@ -46,6 +55,7 @@ export function ProductForm({
     price: string;
     stock: string;
     images: string;
+    size: string;
   };
   submitLabel: string;
   pendingLabel: string;
@@ -53,6 +63,30 @@ export function ProductForm({
   const [state, formAction, pending] = useActionState(action, undefined);
   const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [slug, setSlug] = useState(initial?.slug ?? "");
+  const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFilesSelected(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    setUploadError(null);
+
+    for (const file of Array.from(files)) {
+      const fd = new FormData();
+      fd.set("file", file);
+      const result = await uploadProductImage(fd);
+      if ("error" in result) {
+        setUploadError(result.error);
+      } else {
+        setImages((prev) => [...prev, result.url]);
+      }
+    }
+
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
 
   return (
     <form
@@ -119,7 +153,7 @@ export function ProductForm({
         {state?.errors?.description && <FieldError messages={state.errors.description} />}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <label htmlFor="price" style={labelStyle}>
             Prix (EUR)
@@ -135,22 +169,76 @@ export function ProductForm({
           <input id="stock" name="stock" type="text" inputMode="numeric" defaultValue={initial?.stock} placeholder="10" style={inputStyle} />
           {state?.errors?.stock && <FieldError messages={state.errors.stock} />}
         </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <label htmlFor="size" style={labelStyle}>
+            Taille
+          </label>
+          <input id="size" name="size" type="text" defaultValue={initial?.size} placeholder="M" style={inputStyle} />
+          {state?.errors?.size && <FieldError messages={state.errors.size} />}
+        </div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <label htmlFor="images" style={labelStyle}>
-          Images
-        </label>
-        <textarea
-          id="images"
-          name="images"
-          defaultValue={initial?.images}
-          placeholder={"Une URL d'image par ligne\n/images/produit.webp"}
-          rows={3}
-          style={{ ...inputStyle, resize: "vertical" }}
+        <label style={labelStyle}>Images</label>
+        <input type="hidden" name="images" value={images.join("\n")} />
+
+        {images.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {images.map((url, index) => (
+              <div
+                key={url}
+                style={{
+                  position: "relative",
+                  width: 84,
+                  height: 84,
+                  borderRadius: 6,
+                  border: index === 0 ? "2px solid var(--brand-green, #1c6b3a)" : "1px solid rgba(55,53,47,0.15)",
+                  overflow: "hidden",
+                  background: "#f7f6f4",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <button
+                  type="button"
+                  onClick={() => setImages((prev) => prev.filter((u) => u !== url))}
+                  aria-label="Supprimer l'image"
+                  style={{
+                    position: "absolute",
+                    top: 2,
+                    right: 2,
+                    width: 20,
+                    height: 20,
+                    borderRadius: "50%",
+                    border: "none",
+                    background: "rgba(0,0,0,0.6)",
+                    color: "#fff",
+                    fontSize: 12,
+                    lineHeight: 1,
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          multiple
+          disabled={uploading}
+          onChange={(e) => handleFilesSelected(e.target.files)}
+          style={inputStyle}
         />
+        {uploading && <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>Envoi en cours…</span>}
+        {uploadError && <p style={{ fontSize: 12, color: "#a82c2c", margin: 0 }}>{uploadError}</p>}
         {state?.errors?.images && <FieldError messages={state.errors.images} />}
-        <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>Une URL par ligne. La première image sera utilisée comme visuel principal.</span>
+        <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>La première image sera utilisée comme visuel principal.</span>
       </div>
 
       {state?.message && <p style={{ fontSize: 13, color: "#a82c2c", margin: 0 }}>{state.message}</p>}

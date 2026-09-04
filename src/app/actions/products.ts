@@ -29,13 +29,14 @@ export async function createProduct(_state: ProductFormState, formData: FormData
     price: formData.get("price"),
     stock: formData.get("stock"),
     images: formData.get("images"),
+    size: formData.get("size"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, stock, images } = validatedFields.data;
+  const { name, slug, description, price, stock, images, size } = validatedFields.data;
 
   try {
     await prisma.product.create({
@@ -46,6 +47,7 @@ export async function createProduct(_state: ProductFormState, formData: FormData
         priceCents: parsePriceCents(price),
         stock: parseInt(stock, 10),
         images: parseImages(images),
+        size: size || null,
       },
     });
   } catch (error) {
@@ -69,13 +71,14 @@ export async function updateProduct(id: string, _state: ProductFormState, formDa
     price: formData.get("price"),
     stock: formData.get("stock"),
     images: formData.get("images"),
+    size: formData.get("size"),
   });
 
   if (!validatedFields.success) {
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, stock, images } = validatedFields.data;
+  const { name, slug, description, price, stock, images, size } = validatedFields.data;
 
   try {
     await prisma.product.update({
@@ -87,6 +90,7 @@ export async function updateProduct(id: string, _state: ProductFormState, formDa
         priceCents: parsePriceCents(price),
         stock: parseInt(stock, 10),
         images: parseImages(images),
+        size: size || null,
       },
     });
   } catch (error) {

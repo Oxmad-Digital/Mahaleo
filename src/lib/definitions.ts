@@ -58,6 +58,7 @@ export const ProductFormSchema = z.object({
     .trim()
     .regex(/^\d+$/, { error: "Veuillez saisir un stock valide." }),
   images: z.string().trim().optional(),
+  size: z.string().trim().optional(),
 });
 
 export type ProductFormState =
@@ -69,6 +70,7 @@ export type ProductFormState =
         price?: string[];
         stock?: string[];
         images?: string[];
+        size?: string[];
       };
       message?: string;
     }
