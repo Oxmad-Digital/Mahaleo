@@ -18,6 +18,10 @@ export function formatDayLabel(date: Date) {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" }).format(date);
 }
 
+export function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(date);
+}
+
 export function formatDateTime(date: Date) {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(
     date

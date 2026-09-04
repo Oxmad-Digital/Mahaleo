@@ -73,3 +73,18 @@ export type ProductFormState =
       message?: string;
     }
   | undefined;
+
+export const ClientFormSchema = z.object({
+  name: z.string().trim().optional(),
+  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+});
+
+export type ClientFormState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
