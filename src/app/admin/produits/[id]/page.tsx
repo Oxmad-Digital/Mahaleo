@@ -15,7 +15,12 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
   const action = updateProduct.bind(null, product.id);
 
   return (
-    <AdminShell breadcrumb={product.name} active="produits" userName={session.user.name} userEmail={session.user.email ?? ""}>
+    <AdminShell
+      breadcrumb={[{ label: "Tableau de bord", href: "/admin" }, { label: "Produits", href: "/admin/produits" }, { label: product.name }]}
+      active="produits"
+      userName={session.user.name}
+      userEmail={session.user.email ?? ""}
+    >
       <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Modifier le produit</div>
       <ProductForm
         action={action}

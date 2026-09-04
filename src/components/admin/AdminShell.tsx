@@ -1,6 +1,8 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
 import { logout } from "@/app/actions/auth";
+
+type Crumb = { label: string; href?: string };
 
 type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques";
 
@@ -8,7 +10,7 @@ const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "
   { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
   { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
   { key: "produits", label: "Produits", href: "/admin/produits", icon: "package" },
-  { key: "clients", label: "Clients", href: null, icon: "users" },
+  { key: "clients", label: "Clients", href: "/admin/clients", icon: "users" },
   { key: "statistiques", label: "Statistiques", href: null, icon: "chart" },
 ];
 
@@ -92,7 +94,7 @@ export function AdminShell({
   userEmail,
   children,
 }: {
-  breadcrumb: string;
+  breadcrumb: Crumb[];
   active: AdminNavKey;
   userName: string | null | undefined;
   userEmail: string;
@@ -202,11 +204,20 @@ export function AdminShell({
                 textOverflow: "ellipsis",
               }}
             >
-              <span>Mahaleo</span>
+              <Link href="/" style={{ color: "inherit" }}>
+                Mahaleo
+              </Link>
               <span style={{ opacity: 0.5 }}>/</span>
-              <span style={{ color: "#37352f", fontWeight: 600 }}>Espace admin</span>
-              <span style={{ opacity: 0.5 }}>/</span>
-              <span style={{ color: "#37352f", fontWeight: 600 }}>{breadcrumb}</span>
+              {breadcrumb.map((crumb, i) => {
+                const isLast = i === breadcrumb.length - 1;
+                const crumbStyle = { color: isLast ? "#37352f" : "inherit", fontWeight: isLast ? 600 : 500 };
+                return (
+                  <Fragment key={crumb.label}>
+                    {crumb.href ? <Link href={crumb.href} style={crumbStyle}>{crumb.label}</Link> : <span style={crumbStyle}>{crumb.label}</span>}
+                    {!isLast && <span style={{ opacity: 0.5 }}>/</span>}
+                  </Fragment>
+                );
+              })}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div

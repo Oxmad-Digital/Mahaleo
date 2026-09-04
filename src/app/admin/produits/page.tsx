@@ -20,7 +20,12 @@ export default async function AdminProductsPage(props: PageProps<"/admin/produit
   const data = await getProductsData({ query, page });
 
   return (
-    <AdminShell breadcrumb="Produits" active="produits" userName={session.user.name} userEmail={session.user.email ?? ""}>
+    <AdminShell
+      breadcrumb={[{ label: "Tableau de bord", href: "/admin" }, { label: "Produits" }]}
+      active="produits"
+      userName={session.user.name}
+      userEmail={session.user.email ?? ""}
+    >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
         <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Produits</div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -37,7 +42,7 @@ export default async function AdminProductsPage(props: PageProps<"/admin/produit
               whiteSpace: "nowrap",
             }}
           >
-            + Ajouter un produit
+            Ajouter un produit
           </Link>
         </div>
       </div>

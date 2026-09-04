@@ -20,7 +20,12 @@ export default async function AdminOrdersPage(props: PageProps<"/admin/commandes
   const data = await getOrdersData({ status, query, page });
 
   return (
-    <AdminShell breadcrumb="Commandes" active="commandes" userName={session.user.name} userEmail={session.user.email ?? ""}>
+    <AdminShell
+      breadcrumb={[{ label: "Tableau de bord", href: "/admin" }, { label: "Commandes" }]}
+      active="commandes"
+      userName={session.user.name}
+      userEmail={session.user.email ?? ""}
+    >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
         <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Commandes</div>
         <OrderSearchForm query={query} status={status} />
