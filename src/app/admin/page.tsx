@@ -20,7 +20,7 @@ export default async function AdminDashboardPage(props: PageProps<"/admin">) {
   const today = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
 
   return (
-    <AdminShell breadcrumb="Tableau de bord" userName={session.user.name} userEmail={session.user.email ?? ""}>
+    <AdminShell breadcrumb="Tableau de bord" active="dashboard" userName={session.user.name} userEmail={session.user.email ?? ""}>
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15 }}>Tableau de bord</div>

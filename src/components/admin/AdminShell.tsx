@@ -1,15 +1,18 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { logout } from "@/app/actions/auth";
 
-const NAV_ITEMS = [
-  { label: "Tableau de bord", href: "/admin", active: true, icon: "grid" as const },
-  { label: "Commandes", href: null, icon: "cart" as const },
-  { label: "Produits", href: null, icon: "package" as const },
-  { label: "Clients", href: null, icon: "users" as const },
-  { label: "Statistiques", href: null, icon: "chart" as const },
+type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques";
+
+const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" }[] = [
+  { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
+  { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
+  { key: "produits", label: "Produits", href: null, icon: "package" },
+  { key: "clients", label: "Clients", href: null, icon: "users" },
+  { key: "statistiques", label: "Statistiques", href: null, icon: "chart" },
 ];
 
-function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "chart" | "settings" }) {
+function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "chart" | "settings" | "logout" }) {
   const common = {
     width: 19,
     height: 19,
@@ -64,6 +67,13 @@ function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "char
           <path d="M12 3v2.2M12 18.8V21M4.2 7.5l1.9 1.1M17.9 15.4l1.9 1.1M4.2 16.5l1.9-1.1M17.9 8.6l1.9-1.1" />
         </svg>
       );
+    case "logout":
+      return (
+        <svg {...common} stroke="rgba(55,53,47,0.55)">
+          <path d="M15 3.5H6.5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1H15" />
+          <path d="M20.5 12H10M20.5 12l-3.5-3.5M20.5 12L17 15.5" />
+        </svg>
+      );
   }
 }
 
@@ -77,11 +87,13 @@ function initialsFor(name: string | null | undefined, email: string) {
 
 export function AdminShell({
   breadcrumb,
+  active,
   userName,
   userEmail,
   children,
 }: {
   breadcrumb: string;
+  active: AdminNavKey;
   userName: string | null | undefined;
   userEmail: string;
   children: ReactNode;
@@ -138,7 +150,7 @@ export function AdminShell({
                       width: 38,
                       height: 38,
                       borderRadius: 8,
-                      background: item.active ? "rgba(55,53,47,0.08)" : "transparent",
+                      background: item.key === active ? "rgba(55,53,47,0.08)" : "transparent",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -226,6 +238,25 @@ export function AdminShell({
                   {userName ?? userEmail}
                 </span>
               </div>
+              <form action={logout}>
+                <button
+                  type="submit"
+                  title="Déconnexion"
+                  style={{
+                    width: 34,
+                    height: 34,
+                    borderRadius: 8,
+                    border: "1px solid rgba(55,53,47,0.09)",
+                    background: "transparent",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <NavIcon kind="logout" />
+                </button>
+              </form>
             </div>
           </div>
 
