@@ -15,12 +15,18 @@ model User {
   email        String   @unique
   passwordHash String
   name         String?
+  role         Role     @default(USER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   cartItems  CartItem[]
   favorites  Favorite[]
   orders     Order[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Product {
