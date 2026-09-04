@@ -120,6 +120,23 @@ export function ChevronLeftIcon({ size = vmin(18) }: { size?: IconSize }) {
   );
 }
 
+export function ChevronRightIcon({ size = vmin(18) }: { size?: IconSize }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#fff"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
+
 export function ArrowRightIcon({
   size = vmin(18),
   stroke = "#fff",

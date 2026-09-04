@@ -39,9 +39,15 @@ export function Footer({ active }: { active?: FooterActive }) {
       >
         Conditions de ventes
       </Link>
-      <span className="footer-link" style={linkStyle(false)}>
+      <a
+        href="https://oxmad-digital.mg"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="footer-link"
+        style={linkStyle(false)}
+      >
         Réalisé par Oxmad Digital
-      </span>
+      </a>
     </div>
   );
 }
