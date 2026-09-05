@@ -38,12 +38,18 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
           gap: 32,
         }}
       >
-        <InfoField label="Client" value={order.user.name ?? order.user.email} />
+        <InfoField label="Client" value={order.customerName || order.customerEmail} />
+        <InfoField label="E-mail" value={order.customerEmail} />
+        {order.phone && <InfoField label="Téléphone" value={order.phone} />}
         <InfoField label="Statut">
           <StatusBadge status={order.status} />
         </InfoField>
         <InfoField label="Date" value={formatDateTime(order.createdAt)} />
         <InfoField label="Total" value={formatCents(order.totalCents, order.currency)} />
+        <InfoField
+          label="Livraison"
+          value={`${order.shippingAddress}, ${order.shippingPostalCode} ${order.shippingCity}, ${order.shippingCountry}`}
+        />
       </div>
 
       <div

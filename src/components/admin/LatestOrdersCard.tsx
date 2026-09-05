@@ -56,7 +56,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
             >
               <span style={{ fontSize: 14, fontWeight: 500, color: "rgba(55,53,47,0.6)" }}>#{order.id.slice(-5).toUpperCase()}</span>
               <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                {order.user.name ?? order.user.email}
+                {order.customerName || order.customerEmail}
               </span>
               <StatusBadge status={order.status} />
               <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>

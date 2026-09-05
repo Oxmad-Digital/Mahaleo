@@ -59,7 +59,8 @@ export async function getDashboardData(range: DashboardRange) {
         totalCents: true,
         currency: true,
         createdAt: true,
-        user: { select: { name: true, email: true } },
+        customerName: true,
+        customerEmail: true,
       },
     }),
     prisma.orderItem.findMany({
@@ -92,7 +93,7 @@ export async function getDashboardData(range: DashboardRange) {
   const totalItemsSold = orderItems.reduce((sum, item) => sum + item.quantity, 0);
   const avgItemsPerOrder = revenueOrders.length > 0 ? totalItemsSold / revenueOrders.length : 0;
 
-  const newCustomerOrders = periodOrders.filter((o) => o.user.createdAt >= periodStart);
+  const newCustomerOrders = periodOrders.filter((o) => o.user != null && o.user.createdAt >= periodStart);
   const newCustomersShare = periodOrders.length > 0 ? (newCustomerOrders.length / periodOrders.length) * 100 : 0;
   const newCustomersCount = await prisma.user.count({
     where: { role: "USER", createdAt: { gte: periodStart } },

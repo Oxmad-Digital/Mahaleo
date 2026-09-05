@@ -33,7 +33,8 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
       totalCents: true,
       currency: true,
       createdAt: true,
-      user: { select: { name: true, email: true } },
+      customerName: true,
+      customerEmail: true,
       items: {
         select: { quantity: true, priceCents: true, product: { select: { name: true } } },
       },
@@ -58,7 +59,7 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
           priceCents: item.priceCents,
         })),
       };
-      await sender(order.user.email, order.user.name, emailData);
+      await sender(order.customerEmail, order.customerName, emailData);
     }
   }
 

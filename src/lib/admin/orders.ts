@@ -24,8 +24,8 @@ export async function getOrdersData({
     ? {
         OR: [
           { id: { contains: query, mode: "insensitive" } },
-          { user: { name: { contains: query, mode: "insensitive" } } },
-          { user: { email: { contains: query, mode: "insensitive" } } },
+          { customerName: { contains: query, mode: "insensitive" } },
+          { customerEmail: { contains: query, mode: "insensitive" } },
         ],
       }
     : undefined;
@@ -47,7 +47,8 @@ export async function getOrdersData({
         totalCents: true,
         currency: true,
         createdAt: true,
-        user: { select: { name: true, email: true } },
+        customerName: true,
+        customerEmail: true,
         _count: { select: { items: true } },
       },
     }),
@@ -83,6 +84,13 @@ export async function getOrderById(id: string) {
       totalCents: true,
       currency: true,
       createdAt: true,
+      customerName: true,
+      customerEmail: true,
+      shippingAddress: true,
+      shippingCity: true,
+      shippingPostalCode: true,
+      shippingCountry: true,
+      phone: true,
       user: { select: { id: true, name: true, email: true } },
       items: {
         select: {

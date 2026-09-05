@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
@@ -17,6 +18,7 @@ const SHIPPING_COST_CENTS = 800;
 
 export default function PanierPage() {
   const { items, itemCount, subtotalCents, updateQty, removeItem } = useCart();
+  const router = useRouter();
 
   const shippingFree = subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS;
   const shippingCents = shippingFree ? 0 : items.length ? SHIPPING_COST_CENTS : 0;
@@ -291,6 +293,7 @@ export default function PanierPage() {
 
           <button
             disabled={isEmpty}
+            onClick={() => router.push("/checkout")}
             style={{
               display: "flex",
               alignItems: "center",

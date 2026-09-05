@@ -78,7 +78,7 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
             >
               <span style={{ fontSize: 14, fontWeight: 500, color: "rgba(55,53,47,0.6)" }}>#{order.id.slice(-5).toUpperCase()}</span>
               <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                {order.user.name ?? order.user.email}
+                {order.customerName || order.customerEmail}
               </span>
               <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>{order._count.items}</span>
               <StatusBadge status={order.status} />

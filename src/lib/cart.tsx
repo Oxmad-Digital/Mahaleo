@@ -17,6 +17,7 @@ type CartContextValue = {
   items: CartItem[];
   itemCount: number;
   subtotalCents: number;
+  hydrated: boolean;
   addItem: (item: Omit<CartItem, "qty">, qty?: number) => void;
   updateQty: (productId: string, size: string | undefined, delta: number) => void;
   removeItem: (productId: string, size: string | undefined) => void;
@@ -82,8 +83,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const subtotalCents = useMemo(() => items.reduce((n, c) => n + c.priceCents * c.qty, 0), [items]);
 
   const value = useMemo(
-    () => ({ items, itemCount, subtotalCents, addItem, updateQty, removeItem, clear }),
-    [items, itemCount, subtotalCents, addItem, updateQty, removeItem, clear]
+    () => ({ items, itemCount, subtotalCents, hydrated, addItem, updateQty, removeItem, clear }),
+    [items, itemCount, subtotalCents, hydrated, addItem, updateQty, removeItem, clear]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

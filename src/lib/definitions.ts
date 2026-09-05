@@ -164,3 +164,32 @@ export type ClientFormState =
       message?: string;
     }
   | undefined;
+
+export const CheckoutFormSchema = z.object({
+  name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
+  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : undefined)),
+  address: z.string().min(5, { error: "Veuillez saisir une adresse complète." }).trim(),
+  city: z.string().min(2, { error: "Veuillez saisir une ville." }).trim(),
+  postalCode: z.string().min(4, { error: "Code postal invalide." }).trim(),
+  country: z.string().min(2, { error: "Veuillez saisir un pays." }).trim(),
+});
+
+export type CheckoutFormState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+        phone?: string[];
+        address?: string[];
+        city?: string[];
+        postalCode?: string[];
+        country?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
