@@ -7,6 +7,7 @@ import {
   orderDeliveredEmailTemplate,
   orderCancelledEmailTemplate,
   passwordResetEmailTemplate,
+  adminInviteEmailTemplate,
   type OrderEmailData,
 } from "./templates";
 
@@ -49,4 +50,8 @@ export function sendOrderCancelledEmail(to: string, name: string | null, order: 
 
 export function sendPasswordResetEmail(to: string, name: string | null, resetUrl: string) {
   return safeSend(to, passwordResetEmailTemplate(name, resetUrl));
+}
+
+export function sendAdminInviteEmail(to: string, name: string | null, setPasswordUrl: string) {
+  return safeSend(to, adminInviteEmailTemplate(name, setPasswordUrl));
 }

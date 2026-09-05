@@ -150,6 +150,12 @@ model PasswordResetToken {
   @@index([userId])
 }
 
+model SiteSettings {
+  id              String   @id @default("singleton")
+  maintenanceMode Boolean  @default(false)
+  updatedAt       DateTime @updatedAt
+}
+
 model PageView {
   id          String   @id @default(cuid())
   day         String

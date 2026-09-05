@@ -165,6 +165,25 @@ export type ClientFormState =
     }
   | undefined;
 
+export const InviteAdminSchema = z.object({
+  name: z
+    .string()
+    .min(2, { error: "Le nom doit contenir au moins 2 caractères." })
+    .trim(),
+  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+});
+
+export type InviteAdminState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+      };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;
+
 export const CheckoutFormSchema = z.object({
   name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
   email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),

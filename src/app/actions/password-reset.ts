@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { sendPasswordResetEmail } from "@/lib/emails/send";
 import { APP_URL } from "@/lib/emails/constants";
+import { hashToken } from "@/lib/tokens";
 import {
   RequestPasswordResetSchema,
   ResetPasswordSchema,
@@ -14,10 +15,6 @@ import {
 } from "@/lib/definitions";
 
 const RESET_TOKEN_TTL_MS = 60 * 60 * 1000;
-
-function hashToken(token: string) {
-  return crypto.createHash("sha256").update(token).digest("hex");
-}
 
 export async function requestPasswordReset(
   _state: RequestPasswordResetState,

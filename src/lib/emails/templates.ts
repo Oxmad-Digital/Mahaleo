@@ -140,6 +140,25 @@ export function orderCancelledEmailTemplate(name: string | null, order: OrderEma
   return { subject, html };
 }
 
+export function adminInviteEmailTemplate(name: string | null, setPasswordUrl: string) {
+  const subject = "Vous êtes maintenant administrateur Mahaleo";
+  const html = emailLayout({
+    previewText: "Un accès administrateur a été créé pour vous.",
+    bodyHtml: `
+      <h1 style="font-size:20px; font-weight:700; color:${ink}; margin:0 0 16px;">Accès administrateur créé</h1>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0 0 8px;">${greeting(name)}</p>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0;">
+        Un compte administrateur vient d'être créé pour vous sur Mahaleo. Choisissez votre mot de passe pour y accéder. Ce lien expire dans 1 heure.
+      </p>
+      ${button(setPasswordUrl, "Choisir mon mot de passe")}
+      <p style="font-size:13px; line-height:1.6; color:${inkMuted}; margin:0;">
+        Si vous ne vous attendiez pas à cet e-mail, vous pouvez l'ignorer.
+      </p>
+    `,
+  });
+  return { subject, html };
+}
+
 export function passwordResetEmailTemplate(name: string | null, resetUrl: string) {
   const subject = "Réinitialisez votre mot de passe Mahaleo";
   const html = emailLayout({

@@ -4,7 +4,7 @@ import { logout } from "@/app/actions/auth";
 
 type Crumb = { label: string; href?: string };
 
-type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques";
+type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques" | "parametres";
 
 const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" }[] = [
   { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
@@ -172,12 +172,21 @@ export function AdminShell({
               })}
             </div>
           </div>
-          <div
+          <Link
+            href="/admin/parametres"
             title="Réglages"
-            style={{ width: 38, height: 38, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 8,
+              background: active === "parametres" ? "rgba(55,53,47,0.08)" : "transparent",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <NavIcon kind="settings" />
-          </div>
+          </Link>
         </div>
 
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
