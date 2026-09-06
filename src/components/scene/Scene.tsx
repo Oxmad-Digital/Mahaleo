@@ -3,10 +3,11 @@ import { vmin } from "@/lib/fluid";
 
 /**
  * Full-viewport, no-scroll shell for the storefront pages: fills 100% width
- * and 100dvh height (fluid, no fixed canvas / JS scaling), with three
- * internal scroll regions (.cart-scroll, .fav-scroll, .legal-scroll) handling
- * variable-length content. A future admin dashboard should use a different
- * wrapper that allows normal page scroll instead of this one.
+ * and 100dvh height (fluid, no fixed canvas / JS scaling), with three internal
+ * scroll regions (.cart-scroll, .fav-scroll — whose styling the home photo
+ * wall reuses when it overflows — and .legal-scroll) handling variable-length
+ * content. A future admin dashboard should use a different wrapper that allows
+ * normal page scroll instead of this one.
  */
 export function Scene({ children }: { children: ReactNode }) {
   return (
