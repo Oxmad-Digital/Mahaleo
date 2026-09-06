@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Site en maintenance — Mahaleo",
 };
@@ -37,6 +39,9 @@ export default function MaintenancePage() {
         Nous effectuons actuellement une opération de maintenance. Le site sera de nouveau disponible très prochainement. Merci de votre
         patience.
       </p>
+      <Link href="/connexion" style={{ fontSize: 13, color: "rgba(55,53,47,0.4)", textDecoration: "none" }}>
+        Connexion administrateur
+      </Link>
     </div>
   );
 }
