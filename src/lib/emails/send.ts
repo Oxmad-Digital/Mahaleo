@@ -1,5 +1,5 @@
 import { sendEmail } from "@/lib/plunk";
-import { EMAIL_FROM } from "./constants";
+import { EMAIL_FROM, SUPPORT_EMAIL } from "./constants";
 import {
   welcomeEmailTemplate,
   orderConfirmationEmailTemplate,
@@ -8,6 +8,7 @@ import {
   orderCancelledEmailTemplate,
   passwordResetEmailTemplate,
   adminInviteEmailTemplate,
+  contactMessageEmailTemplate,
   type OrderEmailData,
 } from "./templates";
 
@@ -54,4 +55,8 @@ export function sendPasswordResetEmail(to: string, name: string | null, resetUrl
 
 export function sendAdminInviteEmail(to: string, name: string | null, setPasswordUrl: string) {
   return safeSend(to, adminInviteEmailTemplate(name, setPasswordUrl));
+}
+
+export function sendContactMessageEmail(name: string, fromEmail: string, message: string) {
+  return safeSend(SUPPORT_EMAIL, contactMessageEmailTemplate(name, fromEmail, message));
 }

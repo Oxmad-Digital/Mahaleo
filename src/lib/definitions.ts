@@ -212,3 +212,21 @@ export type CheckoutFormState =
       message?: string;
     }
   | undefined;
+
+export const ContactFormSchema = z.object({
+  name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
+  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  message: z.string().min(10, { error: "Votre message doit contenir au moins 10 caractères." }).trim(),
+});
+
+export type ContactFormState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+        message?: string[];
+      };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;

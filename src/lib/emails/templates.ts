@@ -8,6 +8,15 @@ function greeting(name: string | null) {
   return name ? `Bonjour ${name},` : "Bonjour,";
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function orderReference(orderId: string) {
   return `#${orderId.slice(-5).toUpperCase()}`;
 }
@@ -154,6 +163,19 @@ export function adminInviteEmailTemplate(name: string | null, setPasswordUrl: st
       <p style="font-size:13px; line-height:1.6; color:${inkMuted}; margin:0;">
         Si vous ne vous attendiez pas à cet e-mail, vous pouvez l'ignorer.
       </p>
+    `,
+  });
+  return { subject, html };
+}
+
+export function contactMessageEmailTemplate(name: string, fromEmail: string, message: string) {
+  const subject = `Nouveau message de contact de ${name}`;
+  const html = emailLayout({
+    previewText: `${name} vous a envoyé un message depuis le site.`,
+    bodyHtml: `
+      <h1 style="font-size:20px; font-weight:700; color:${ink}; margin:0 0 16px;">Nouveau message de contact</h1>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0 0 4px;"><strong>${escapeHtml(name)}</strong> (${escapeHtml(fromEmail)})</p>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:16px 0 0; white-space:pre-wrap;">${escapeHtml(message)}</p>
     `,
   });
   return { subject, html };

@@ -3,9 +3,10 @@ import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
 import { IconRail } from "@/components/scene/IconRail";
+import { ContactButton } from "@/components/scene/ContactButton";
 import { Footer } from "@/components/scene/Footer";
 import { HomeCarousel } from "@/components/home/HomeCarousel";
-import { BagIcon, GridIcon, LocationDotIcon, MenuIcon } from "@/components/icons";
+import { BagIcon, GridIcon, MenuIcon } from "@/components/icons";
 import { vmin } from "@/lib/fluid";
 import { getShopProducts } from "@/lib/shop";
 
@@ -38,9 +39,7 @@ export default async function Home() {
         left={
           <>
             <LogoPill />
-            <HeaderIconButton>
-              <LocationDotIcon />
-            </HeaderIconButton>
+            <ContactButton />
             <HeaderIconButton>
               <GridIcon />
             </HeaderIconButton>
