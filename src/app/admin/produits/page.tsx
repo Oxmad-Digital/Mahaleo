@@ -26,12 +26,18 @@ export default async function AdminProductsPage(props: PageProps<"/admin/produit
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-        <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Produits</div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div
+        className="admin-page-header-row"
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}
+      >
+        <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>
+          Produits
+        </div>
+        <div className="admin-product-actions" style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <ProductSearchForm query={query} />
           <Link
             href="/admin/produits/nouveau"
+            className="admin-product-add-btn"
             style={{
               padding: "9px 16px",
               borderRadius: 6,
@@ -40,6 +46,7 @@ export default async function AdminProductsPage(props: PageProps<"/admin/produit
               fontSize: 14,
               fontWeight: 600,
               whiteSpace: "nowrap",
+              textAlign: "center",
             }}
           >
             Ajouter un produit

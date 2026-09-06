@@ -23,8 +23,13 @@ export default async function AdminClientsPage(props: PageProps<"/admin/clients"
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-        <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Clients</div>
+      <div
+        className="admin-page-header-row"
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}
+      >
+        <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>
+          Clients
+        </div>
         <ClientSearchForm query={query} />
       </div>
 

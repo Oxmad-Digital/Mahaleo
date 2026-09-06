@@ -1228,4 +1228,33 @@ button.header-icon-button:hover,
   .admin-order-tabs a {
     flex-shrink: 0;
   }
+
+  /* Page Clients : recherche pleine largeur et tableau défilant horizontalement. */
+  .admin-client-search-form,
+  .admin-client-search-input {
+    width: 100% !important;
+  }
+
+  .admin-clients-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Page Produits : actions (recherche + ajout) empilées et tableau défilant horizontalement. */
+  .admin-product-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100%;
+  }
+
+  .admin-product-search-form,
+  .admin-product-search-input,
+  .admin-product-add-btn {
+    width: 100% !important;
+  }
+
+  .admin-products-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
 }

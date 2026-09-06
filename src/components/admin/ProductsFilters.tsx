@@ -1,11 +1,12 @@
 export function ProductSearchForm({ query }: { query?: string }) {
   return (
-    <form action="/admin/produits" method="get" style={{ display: "flex" }}>
+    <form action="/admin/produits" method="get" className="admin-product-search-form" style={{ display: "flex" }}>
       <input
         type="text"
         name="q"
         defaultValue={query}
         placeholder="Rechercher un produit, un slug…"
+        className="admin-product-search-input"
         style={{
           width: 260,
           padding: "8px 12px",
