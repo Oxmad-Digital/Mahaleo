@@ -38,6 +38,7 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
       </div>
 
       <div
+        className="admin-orders-header"
         style={{
           display: "grid",
           gridTemplateColumns: GRID_COLUMNS,
@@ -66,6 +67,7 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
             <Link
               key={order.id}
               href={`/admin/commandes/${order.id}`}
+              className="admin-orders-row"
               style={{
                 display: "grid",
                 gridTemplateColumns: GRID_COLUMNS,
@@ -80,10 +82,14 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
               <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {order.customerName || order.customerEmail}
               </span>
-              <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>{order._count.items}</span>
+              <span className="admin-orders-items" data-label="Articles" style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>
+                {order._count.items}
+              </span>
               <StatusBadge status={order.status} />
               <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-              <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
+              <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
+                {formatCents(order.totalCents, order.currency)}
+              </span>
             </Link>
           ))}
         </div>
@@ -95,6 +101,8 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            flexWrap: "wrap",
+            rowGap: 8,
             paddingTop: 12,
             borderTop: "1px solid rgba(55,53,47,0.09)",
           }}

@@ -36,6 +36,7 @@ export function OrderStatusTabs({
 
   return (
     <div
+      className="admin-order-tabs"
       style={{
         display: "flex",
         alignItems: "center",
@@ -80,13 +81,14 @@ export function OrderStatusTabs({
 
 export function OrderSearchForm({ query, status }: { query?: string; status?: OrderStatus }) {
   return (
-    <form action="/admin/commandes" method="get" style={{ display: "flex" }}>
+    <form action="/admin/commandes" method="get" className="admin-order-search-form" style={{ display: "flex" }}>
       {status && <input type="hidden" name="status" value={status} />}
       <input
         type="text"
         name="q"
         defaultValue={query}
         placeholder="Rechercher une commande, un client…"
+        className="admin-order-search-input"
         style={{
           width: 260,
           padding: "8px 12px",

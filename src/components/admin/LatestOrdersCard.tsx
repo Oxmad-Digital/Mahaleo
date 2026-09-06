@@ -19,6 +19,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
       <div style={{ fontSize: 17, fontWeight: 600 }}>Dernières commandes</div>
 
       <div
+        className="admin-orders-header"
         style={{
           display: "grid",
           gridTemplateColumns: GRID_COLUMNS,
@@ -45,6 +46,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
           {orders.map((order, i) => (
             <div
               key={order.id}
+              className="admin-orders-row"
               style={{
                 display: "grid",
                 gridTemplateColumns: GRID_COLUMNS,
@@ -60,7 +62,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
               </span>
               <StatusBadge status={order.status} />
               <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-              <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
+              <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
             </div>
           ))}
         </div>

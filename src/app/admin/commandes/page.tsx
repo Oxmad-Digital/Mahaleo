@@ -26,8 +26,13 @@ export default async function AdminOrdersPage(props: PageProps<"/admin/commandes
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-        <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Commandes</div>
+      <div
+        className="admin-page-header-row"
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}
+      >
+        <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>
+          Commandes
+        </div>
         <OrderSearchForm query={query} status={status} />
       </div>
 

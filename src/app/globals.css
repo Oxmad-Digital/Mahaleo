@@ -1108,3 +1108,124 @@ button.header-icon-button:hover,
     --m-pad: 10px;
   }
 }
+
+/*
+ * Mise en page mobile de l'espace admin (/admin et ses sous-pages).
+ *
+ * Ces composants sont stylés en inline (sidebar fixe + contenu), donc les
+ * règles ci-dessous utilisent `!important` pour prendre le dessus sur ces
+ * styles inline aux petits écrans plutôt que de réécrire chaque composant.
+ */
+@media (max-width: 768px) {
+  .admin-shell-row {
+    flex-direction: column !important;
+  }
+
+  /* La sidebar verticale devient une barre de navigation fixe en bas. */
+  .admin-sidebar {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+    border-right: none !important;
+    border-top: 1px solid rgba(55, 53, 47, 0.09);
+    z-index: 30;
+  }
+
+  .admin-sidebar-inner {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    width: 100%;
+  }
+
+  .admin-logo {
+    display: none !important;
+  }
+
+  .admin-nav-list {
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    gap: 2px !important;
+    flex: 1;
+  }
+
+  .admin-nav-item {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  /* Laisse la place à la barre de navigation fixe en bas. */
+  .admin-main {
+    padding-bottom: 64px;
+  }
+
+  .admin-header {
+    padding: 10px 16px !important;
+  }
+
+  .admin-user-name {
+    display: none !important;
+  }
+
+  .admin-content {
+    padding: 20px 16px 32px !important;
+    gap: 20px !important;
+  }
+
+  .admin-page-title {
+    font-size: 24px !important;
+  }
+
+  /* Les grilles à deux colonnes du tableau de bord passent en une colonne. */
+  .admin-dashboard-split {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Le tableau des dernières commandes devient une liste de cartes. */
+  .admin-orders-header {
+    display: none !important;
+  }
+
+  .admin-orders-row {
+    grid-template-columns: 1fr !important;
+    justify-items: start !important;
+    gap: 4px !important;
+  }
+
+  .admin-orders-amount {
+    text-align: left !important;
+  }
+
+  .admin-orders-items::before {
+    content: attr(data-label) ": ";
+    color: rgba(55, 53, 47, 0.4);
+  }
+
+  /* Page Commandes : l'entête (titre + recherche) passe en colonne. */
+  .admin-page-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .admin-order-search-form,
+  .admin-order-search-input {
+    width: 100% !important;
+  }
+
+  /* Les onglets de statut défilent horizontalement plutôt que de passer à la ligne. */
+  .admin-order-tabs {
+    width: 100% !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-order-tabs a {
+    flex-shrink: 0;
+  }
+}

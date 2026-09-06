@@ -103,6 +103,7 @@ export function AdminShell({
 }) {
   return (
     <div
+      className="admin-shell"
       style={{
         position: "fixed",
         inset: 0,
@@ -112,8 +113,9 @@ export function AdminShell({
         color: "#37352f",
       }}
     >
-      <div style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+      <div className="admin-shell-row" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
         <div
+          className="admin-sidebar"
           style={{
             position: "sticky",
             top: 0,
@@ -129,8 +131,9 @@ export function AdminShell({
             borderRight: "1px solid rgba(55,53,47,0.09)",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 22 }}>
+          <div className="admin-sidebar-inner" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 22 }}>
             <div
+              className="admin-logo"
               style={{
                 width: 34,
                 height: 34,
@@ -143,11 +146,12 @@ export function AdminShell({
             >
               <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>M</span>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div className="admin-nav-list" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {NAV_ITEMS.map((item) => {
                 const content = (
                   <div
                     title={item.label}
+                    className="admin-nav-item"
                     style={{
                       width: 38,
                       height: 38,
@@ -174,8 +178,9 @@ export function AdminShell({
           </div>
         </div>
 
-        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+        <div className="admin-main" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
           <div
+            className="admin-header"
             style={{
               display: "flex",
               alignItems: "center",
@@ -186,6 +191,7 @@ export function AdminShell({
             }}
           >
             <div
+              className="admin-breadcrumb"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -213,8 +219,9 @@ export function AdminShell({
                 );
               })}
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div className="admin-header-actions" style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div
+                className="admin-user-chip"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -239,7 +246,7 @@ export function AdminShell({
                 >
                   {initialsFor(userName, userEmail)}
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 500, color: "#37352f", whiteSpace: "nowrap" }}>
+                <span className="admin-user-name" style={{ fontSize: 14, fontWeight: 500, color: "#37352f", whiteSpace: "nowrap" }}>
                   {userName ?? userEmail}
                 </span>
               </div>
@@ -265,7 +272,7 @@ export function AdminShell({
             </div>
           </div>
 
-          <div style={{ padding: "40px 40px 64px", display: "flex", flexDirection: "column", gap: 32 }}>{children}</div>
+          <div className="admin-content" style={{ padding: "40px 40px 64px", display: "flex", flexDirection: "column", gap: 32 }}>{children}</div>
         </div>
       </div>
     </div>
