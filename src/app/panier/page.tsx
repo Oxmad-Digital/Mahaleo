@@ -256,41 +256,6 @@ export default function PanierPage() {
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: vmin(10) }}>
-            <input
-              type="text"
-              placeholder="Code promo"
-              style={{
-                flex: 1,
-                minWidth: 0,
-                padding: `${vmin(14)} ${vmin(18)}`,
-                borderRadius: "var(--radius-sm)",
-                background: "var(--glass-fill-strong-top)",
-                border: "1px solid var(--glass-border)",
-                color: "#fff",
-                fontSize: vmin(14),
-                fontWeight: 500,
-                outline: "none",
-                fontFamily: "inherit",
-              }}
-            />
-            <div
-              style={{
-                flex: "none",
-                padding: `${vmin(14)} ${vmin(22)}`,
-                borderRadius: "var(--radius-sm)",
-                background: "var(--glass-border-strong)",
-                border: "1px solid var(--glass-border-strong)",
-                fontSize: vmin(14),
-                fontWeight: 600,
-                whiteSpace: "nowrap",
-                cursor: "pointer",
-              }}
-            >
-              Appliquer
-            </div>
-          </div>
-
           <button
             disabled={isEmpty}
             onClick={() => router.push("/checkout")}
