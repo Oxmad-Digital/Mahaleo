@@ -33,10 +33,14 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
   const isEmpty = favorites.length === 0;
 
   return (
-    <div style={{ width: capped(760), flex: "none", display: "flex", flexDirection: "column", gap: vmin(16) }}>
+    <div
+      className="fav-list"
+      style={{ width: capped(760), flex: "none", display: "flex", flexDirection: "column", gap: vmin(16) }}
+    >
       {favorites.map((item) => (
         <div
           key={item.productId}
+          className="fav-item"
           style={{
             flex: "none",
             display: "flex",
@@ -51,6 +55,7 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
           }}
         >
           <div
+            className="fav-item-image"
             style={{
               width: vmin(120),
               height: vmin(120),
@@ -71,16 +76,16 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
             />
           </div>
 
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: vmin(6) }}>
-            <div style={{ fontSize: vmin(19), fontWeight: 600 }}>{item.name}</div>
+          <div className="fav-item-info" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: vmin(6) }}>
+            <div className="fav-item-name" style={{ fontSize: vmin(19), fontWeight: 600 }}>{item.name}</div>
             <div style={{ display: "flex", alignItems: "baseline", gap: vmin(10) }}>
-              <span style={{ fontSize: vmin(20), fontWeight: 700 }}>
+              <span className="fav-item-price" style={{ fontSize: vmin(20), fontWeight: 700 }}>
                 {formatCents(item.priceCents, item.currency)}
               </span>
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: vmin(8), flex: "none" }}>
+          <div className="fav-item-actions" style={{ display: "flex", alignItems: "center", gap: vmin(8), flex: "none" }}>
             <button
               onClick={() =>
                 addItem({
@@ -92,6 +97,7 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
                   currency: item.currency,
                 })
               }
+              className="fav-item-add"
               style={{
                 flex: "none",
                 padding: `${vmin(12)} ${vmin(22)}`,
@@ -111,6 +117,7 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
             <button
               onClick={() => removeItem(item.productId)}
               aria-label={`Retirer ${item.name} des favoris`}
+              className="fav-item-remove"
               style={{
                 width: vmin(44),
                 height: vmin(44),
@@ -132,6 +139,7 @@ export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] 
 
       {isEmpty && (
         <div
+          className="fav-empty"
           style={{
             flex: 1,
             display: "flex",

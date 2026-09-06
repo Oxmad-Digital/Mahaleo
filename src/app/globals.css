@@ -215,11 +215,12 @@ button.header-icon-button:hover,
  * règles ci-dessous doivent donc être `!important` pour passer devant (même
  * raison que `.home-side-item` plus haut). Tout est porté par `.scene-mobile`,
  * la classe qu'une page passe à `Scene` pour opter dans la bascule — la
- * boutique, la fiche produit, le panier et les pages légales aujourd'hui. Les
- * sélecteurs propres à une page (`.home-*`, `.product-*`, `.cart-*`,
- * `.legal-*`) restent des descendants : ils ne
- * s'appliquent qu'à celle dont ils décrivent le contenu, et les pages qui n'ont
- * pas encore opté gardent leur rendu actuel.
+ * boutique, la fiche produit, le panier, les favoris, les pages légales, ainsi
+ * que la connexion et l'inscription aujourd'hui. Les sélecteurs propres à une
+ * page (`.home-*`, `.product-*`, `.cart-*`, `.fav-*`, `.legal-*`, `.auth-*`)
+ * restent des descendants : ils ne s'appliquent qu'à celle dont ils décrivent
+ * le contenu, et les pages qui n'ont pas encore opté gardent leur rendu
+ * actuel.
  */
 @media (max-width: 768px), (orientation: landscape) and (max-height: 500px) {
   .scene-mobile {
@@ -791,6 +792,10 @@ button.header-icon-button:hover,
     max-width: none !important;
     flex: 1 1 auto;
     gap: var(--m-gap) !important;
+    /* S'ajoute au `gap` de `.scene-frame` entre la barre du haut et cette zone,
+       pour doubler l'espacement au-dessus du panier sans toucher aux autres
+       écarts (liste ↔ rail d'onglets) qui partagent la même variable. */
+    margin-top: var(--m-gap) !important;
     padding-right: 0 !important;
     padding-bottom: 0 !important;
   }
@@ -897,6 +902,188 @@ button.header-icon-button:hover,
     width: 15px;
     height: 15px;
     flex: none;
+  }
+
+  /* --- Favoris ------------------------------------------------------------- */
+  /* Même raisonnement que `.cart-crumb` : le fil d'Ariane répète « Favoris »,
+     déjà porté par le lien de retour dans la même barre. */
+  .scene-mobile .fav-crumb {
+    display: none !important;
+  }
+
+  .scene-mobile .fav-scroll {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    align-items: stretch !important;
+    width: auto !important;
+    max-width: none !important;
+    flex: 1 1 auto;
+    gap: var(--m-gap) !important;
+    /* Même écart doublé au-dessus de la liste qu'en haut du panier : voir
+       `.cart-scroll` ci-dessus. */
+    margin-top: var(--m-gap) !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .scene-mobile .fav-list {
+    width: 100% !important;
+    box-sizing: border-box;
+    gap: 10px !important;
+  }
+
+  /* Même bascule que `.cart-item` : image + nom/prix sur la première ligne,
+     les actions (ajouter au panier / retirer) réordonnées sur toute la largeur
+     de la seconde, faute de place pour les quatre blocs côte à côte. */
+  .scene-mobile .fav-item {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+
+  .scene-mobile .fav-item-image {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .scene-mobile .fav-item-name {
+    font-size: 15px !important;
+  }
+
+  .scene-mobile .fav-item-price {
+    font-size: 17px !important;
+  }
+
+  .scene-mobile .fav-item-actions {
+    order: 3;
+    flex: 1 1 100% !important;
+    gap: 10px !important;
+  }
+
+  .scene-mobile .fav-item-add {
+    flex: 1 1 auto !important;
+    padding: 11px 14px !important;
+    font-size: 13px !important;
+    text-align: center;
+  }
+
+  .scene-mobile .fav-item-remove {
+    width: 38px !important;
+    height: 38px !important;
+    flex: none !important;
+  }
+
+  .scene-mobile .fav-item-remove svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .scene-mobile .fav-empty {
+    padding: 30px 0 !important;
+  }
+
+  /* --- Connexion / inscription --------------------------------------------- */
+  /* Le fil d'Ariane répète « Connexion »/« Inscription », déjà porté par le
+     lien de retour dans la même barre : sur la largeur d'un téléphone il ne
+     ferait que la déborder. */
+  .scene-mobile .auth-crumb {
+    display: none !important;
+  }
+
+  /* La carte quitte le centrage absolu pour devenir un bloc de la colonne,
+     comme `.legal-card`, mais sans `flex: 1` : son contenu est court et de
+     taille fixe (contrairement au texte des pages légales), donc la carte
+     doit épouser sa hauteur de contenu plutôt que de s'étirer. Des marges
+     `auto` verticales absorbent l'espace libre pour la centrer, tout en
+     laissant le pied de page en bas de l'écran (l'espace libre restant se
+     répartit également entre les deux marges, donc ce qui suit la carte finit
+     exactement en bas du cadre). */
+  .scene-mobile .auth-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    flex: none !important;
+    margin: auto 0 !important;
+    padding: 22px 18px !important;
+    border-radius: 16px !important;
+    gap: 18px !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  .scene-mobile .auth-head {
+    gap: 4px !important;
+  }
+
+  .scene-mobile .auth-title {
+    font-size: 21px !important;
+  }
+
+  .scene-mobile .auth-subtitle {
+    font-size: 13px !important;
+  }
+
+  .scene-mobile .auth-fields {
+    gap: 14px !important;
+  }
+
+  .scene-mobile .auth-field {
+    gap: 6px !important;
+  }
+
+  .scene-mobile .auth-label {
+    font-size: 12px !important;
+  }
+
+  /* 16px minimum : en dessous, Safari iOS zoome la page à la mise au point du
+     champ. */
+  .scene-mobile .auth-input {
+    padding: 12px 14px !important;
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .auth-error {
+    font-size: 12px !important;
+  }
+
+  .scene-mobile .auth-error ul {
+    padding-left: 16px !important;
+  }
+
+  .scene-mobile .auth-row {
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+
+  .scene-mobile .auth-remember {
+    gap: 6px !important;
+    font-size: 12px !important;
+  }
+
+  .scene-mobile .auth-checkbox {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .scene-mobile .auth-forgot {
+    font-size: 12px !important;
+  }
+
+  .scene-mobile .auth-submit {
+    padding: 14px 0 !important;
+    font-size: 15px !important;
+  }
+
+  .scene-mobile .auth-divider span {
+    font-size: 11px !important;
+  }
+
+  .scene-mobile .auth-switch {
+    font-size: 13px !important;
   }
 
   /* --- Pied de page ------------------------------------------------------ */

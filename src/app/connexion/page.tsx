@@ -17,19 +17,21 @@ export default function ConnexionPage() {
   const [remember, setRemember] = useState(true);
 
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={
           <>
             <LogoPill />
             <BackLink href="/" label="Continuer mes achats" />
           </>
         }
-        right={<Breadcrumb items={["Boutique", "Connexion"]} />}
+        right={<Breadcrumb className="auth-crumb" items={["Boutique", "Connexion"]} />}
       />
 
       <form
         action={formAction}
+        className="auth-card"
         style={{
           position: "absolute",
           top: "50%",
@@ -48,16 +50,16 @@ export default function ConnexionPage() {
           color: "var(--ink)",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: vmin(6), alignItems: "center", textAlign: "center" }}>
-          <div style={{ fontSize: vmin(26), fontWeight: 700 }}>Connexion</div>
-          <div style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
+        <div className="auth-head" style={{ display: "flex", flexDirection: "column", gap: vmin(6), alignItems: "center", textAlign: "center" }}>
+          <div className="auth-title" style={{ fontSize: vmin(26), fontWeight: 700 }}>Connexion</div>
+          <div className="auth-subtitle" style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
             Accédez à votre compte pour suivre vos commandes
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: vmin(16) }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-            <label htmlFor="email" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+        <div className="auth-fields" style={{ display: "flex", flexDirection: "column", gap: vmin(16) }}>
+          <div className="auth-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+            <label htmlFor="email" className="auth-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
               Adresse e-mail
             </label>
             <input
@@ -65,17 +67,17 @@ export default function ConnexionPage() {
               name="email"
               type="email"
               placeholder="vous@exemple.com"
-              className="login-input"
+              className="login-input auth-input"
               style={inputStyle}
             />
             {state?.errors?.email && (
-              <p style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
+              <p className="auth-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
                 {state.errors.email[0]}
               </p>
             )}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-            <label htmlFor="password" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+          <div className="auth-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+            <label htmlFor="password" className="auth-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
               Mot de passe
             </label>
             <input
@@ -83,23 +85,24 @@ export default function ConnexionPage() {
               name="password"
               type="password"
               placeholder="••••••••"
-              className="login-input"
+              className="login-input auth-input"
               style={inputStyle}
             />
             {state?.errors?.password && (
-              <p style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
+              <p className="auth-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
                 {state.errors.password[0]}
               </p>
             )}
           </div>
           {state?.message && (
-            <p style={{ fontSize: vmin(13), color: "var(--brand-red, #c0392b)", margin: 0, textAlign: "center" }}>
+            <p className="auth-error" style={{ fontSize: vmin(13), color: "var(--brand-red, #c0392b)", margin: 0, textAlign: "center" }}>
               {state.message}
             </p>
           )}
 
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div className="auth-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <label
+              className="auth-remember"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -114,13 +117,14 @@ export default function ConnexionPage() {
                 type="checkbox"
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
+                className="auth-checkbox"
                 style={{ width: vmin(16), height: vmin(16), accentColor: "var(--brand-green)" }}
               />
               Se souvenir de moi
             </label>
             <Link
               href="/mot-de-passe-oublie"
-              className="link-brand"
+              className="link-brand auth-forgot"
               style={{ fontSize: vmin(13), fontWeight: 600 }}
             >
               Mot de passe oublié ?
@@ -131,7 +135,7 @@ export default function ConnexionPage() {
         <button
           type="submit"
           disabled={pending}
-          className="dark-cta"
+          className="dark-cta auth-submit"
           style={{
             padding: vmin(14),
             borderRadius: "var(--radius-xs)",
@@ -150,7 +154,7 @@ export default function ConnexionPage() {
           {pending ? "Connexion..." : "Se connecter"}
         </button>
 
-        <div style={{ display: "flex", alignItems: "center", gap: vmin(12) }}>
+        <div className="auth-divider" style={{ display: "flex", alignItems: "center", gap: vmin(12) }}>
           <div style={{ flex: 1, height: 1, background: "var(--ink-border)" }} />
           <span style={{ fontSize: vmin(12), fontWeight: 600, color: "var(--ink-quaternary)", whiteSpace: "nowrap" }}>
             ou
@@ -158,7 +162,7 @@ export default function ConnexionPage() {
           <div style={{ flex: 1, height: 1, background: "var(--ink-border)" }} />
         </div>
 
-        <div style={{ fontSize: vmin(14), fontWeight: 500, textAlign: "center", color: "var(--ink-tertiary)" }}>
+        <div className="auth-switch" style={{ fontSize: vmin(14), fontWeight: 500, textAlign: "center", color: "var(--ink-tertiary)" }}>
           Pas encore de compte ?{" "}
           <Link href="/inscription" className="link-brand" style={{ fontWeight: 700 }}>
             Créer un compte

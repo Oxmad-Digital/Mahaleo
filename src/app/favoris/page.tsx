@@ -26,15 +26,16 @@ export default async function FavorisPage() {
   }));
 
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={
           <>
             <LogoPill />
             <BackLink href="/" label="Continuer mes achats" />
           </>
         }
-        right={<Breadcrumb items={["Boutique", "Favoris"]} />}
+        right={<Breadcrumb className="fav-crumb" items={["Boutique", "Favoris"]} />}
       />
 
       <div

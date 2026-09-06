@@ -16,19 +16,21 @@ export default function InscriptionPage() {
   const [state, formAction, pending] = useActionState(signup, undefined);
 
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={
           <>
             <LogoPill />
             <BackLink href="/" label="Continuer mes achats" />
           </>
         }
-        right={<Breadcrumb items={["Boutique", "Inscription"]} />}
+        right={<Breadcrumb className="auth-crumb" items={["Boutique", "Inscription"]} />}
       />
 
       <form
         action={formAction}
+        className="auth-card"
         style={{
           position: "absolute",
           top: "50%",
@@ -47,16 +49,16 @@ export default function InscriptionPage() {
           color: "var(--ink)",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: vmin(6), alignItems: "center", textAlign: "center" }}>
-          <div style={{ fontSize: vmin(26), fontWeight: 700 }}>Créer un compte</div>
-          <div style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
+        <div className="auth-head" style={{ display: "flex", flexDirection: "column", gap: vmin(6), alignItems: "center", textAlign: "center" }}>
+          <div className="auth-title" style={{ fontSize: vmin(26), fontWeight: 700 }}>Créer un compte</div>
+          <div className="auth-subtitle" style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
             Rejoignez-nous pour suivre vos commandes et vos favoris
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: vmin(16) }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-            <label htmlFor="name" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+        <div className="auth-fields" style={{ display: "flex", flexDirection: "column", gap: vmin(16) }}>
+          <div className="auth-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+            <label htmlFor="name" className="auth-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
               Nom
             </label>
             <input
@@ -64,18 +66,18 @@ export default function InscriptionPage() {
               name="name"
               type="text"
               placeholder="Votre nom"
-              className="login-input"
+              className="login-input auth-input"
               style={inputStyle}
             />
             {state?.errors?.name && (
-              <p style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
+              <p className="auth-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
                 {state.errors.name[0]}
               </p>
             )}
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-            <label htmlFor="email" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+          <div className="auth-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+            <label htmlFor="email" className="auth-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
               Adresse e-mail
             </label>
             <input
@@ -83,18 +85,18 @@ export default function InscriptionPage() {
               name="email"
               type="email"
               placeholder="vous@exemple.com"
-              className="login-input"
+              className="login-input auth-input"
               style={inputStyle}
             />
             {state?.errors?.email && (
-              <p style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
+              <p className="auth-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>
                 {state.errors.email[0]}
               </p>
             )}
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-            <label htmlFor="password" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+          <div className="auth-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+            <label htmlFor="password" className="auth-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
               Mot de passe
             </label>
             <input
@@ -102,11 +104,11 @@ export default function InscriptionPage() {
               name="password"
               type="password"
               placeholder="••••••••"
-              className="login-input"
+              className="login-input auth-input"
               style={inputStyle}
             />
             {state?.errors?.password && (
-              <div style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)" }}>
+              <div className="auth-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)" }}>
                 <p style={{ margin: 0 }}>Le mot de passe doit :</p>
                 <ul style={{ margin: "4px 0 0", paddingLeft: vmin(18) }}>
                   {state.errors.password.map((error) => (
@@ -118,7 +120,7 @@ export default function InscriptionPage() {
           </div>
 
           {state?.message && (
-            <p style={{ fontSize: vmin(13), color: "var(--brand-red, #c0392b)", margin: 0, textAlign: "center" }}>
+            <p className="auth-error" style={{ fontSize: vmin(13), color: "var(--brand-red, #c0392b)", margin: 0, textAlign: "center" }}>
               {state.message}
             </p>
           )}
@@ -127,7 +129,7 @@ export default function InscriptionPage() {
         <button
           type="submit"
           disabled={pending}
-          className="dark-cta"
+          className="dark-cta auth-submit"
           style={{
             padding: vmin(14),
             borderRadius: "var(--radius-xs)",
@@ -146,7 +148,7 @@ export default function InscriptionPage() {
           {pending ? "Création..." : "Créer mon compte"}
         </button>
 
-        <div style={{ fontSize: vmin(14), fontWeight: 500, textAlign: "center", color: "var(--ink-tertiary)" }}>
+        <div className="auth-switch" style={{ fontSize: vmin(14), fontWeight: 500, textAlign: "center", color: "var(--ink-tertiary)" }}>
           Déjà un compte ?{" "}
           <Link href="/connexion" className="link-brand" style={{ fontWeight: 700 }}>
             Se connecter

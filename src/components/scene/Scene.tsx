@@ -10,8 +10,9 @@ import { vmin } from "@/lib/fluid";
  * normal page scroll instead of this one.
  *
  * `className` lands on the outer element and is how a page opts into a mobile
- * layout: the shop, product and legal pages pass `scene-mobile`, whose media
- * queries in globals.css turn this shell into a scrolling column below 768px.
+ * layout: the shop, product, legal, login and signup pages pass
+ * `scene-mobile`, whose media queries in globals.css turn this shell into a
+ * scrolling column below 768px.
  * `.scene-overlay` and `.scene-frame` are the hooks those rules need. Pages
  * that have not opted in keep the vmin-scaled desktop rendering everywhere.
  */
