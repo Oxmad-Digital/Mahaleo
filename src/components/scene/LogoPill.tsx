@@ -3,6 +3,7 @@ import { vmin } from "@/lib/fluid";
 export function LogoPill() {
   return (
     <div
+      className="logo-pill"
       style={{
         display: "flex",
         alignItems: "center",

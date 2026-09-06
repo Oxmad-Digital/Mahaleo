@@ -52,7 +52,7 @@ function CarouselSlot({ product, offset }: { product: ShopProduct; offset: numbe
   return (
     <Link
       href={`/produit/${product.slug}`}
-      className={isCenter ? undefined : "home-side-item"}
+      className={isCenter ? "home-slot" : "home-slot home-side-item"}
       style={{
         position: "absolute",
         top: "50%",
@@ -82,6 +82,7 @@ function CarouselSlot({ product, offset }: { product: ShopProduct; offset: numbe
         }}
       />
       <div
+        className="home-slot-caption"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -127,6 +128,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
   if (products.length === 0) {
     return (
       <div
+        className="home-empty"
         style={{
           position: "absolute",
           top: vmin(44),
@@ -179,6 +181,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
 
       {products.length > 1 && (
         <div
+          className="home-dots"
           style={{
             position: "absolute",
             bottom: vmin(232),
@@ -195,6 +198,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
               key={product.id}
               aria-label={`Voir ${product.name}`}
               onClick={() => setStep((s) => s + (i - mod(s, products.length)))}
+              className={i === activeIndex ? "home-dot home-dot-active" : "home-dot"}
               style={dotStyle(i === activeIndex)}
             />
           ))}
@@ -202,6 +206,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
       )}
 
       <div
+        className="home-nav"
         style={{
           position: "absolute",
           bottom: vmin(110),
@@ -217,6 +222,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
             type="button"
             aria-label="Produit précédent"
             onClick={() => goTo(-1)}
+            className="home-nav-button"
             style={navButtonStyle}
           >
             <ChevronLeftIcon />
@@ -225,6 +231,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
 
         <Link
           href={`/produit/${featured.slug}`}
+          className="home-featured"
           style={{
             width: capped(500),
             boxSizing: "border-box",
@@ -242,6 +249,7 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
           }}
         >
           <div
+            className="home-featured-row"
             style={{
               display: "flex",
               alignItems: "center",
@@ -250,15 +258,26 @@ export function HomeCarousel({ products }: { products: ShopProduct[] }) {
               padding: `0 ${vmin(4)}`,
             }}
           >
-            <span style={{ fontSize: vmin(21), fontWeight: 600, whiteSpace: "nowrap" }}>{featured.name}</span>
-            <span style={{ fontSize: vmin(28), fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap" }}>
+            <span className="home-featured-name" style={{ fontSize: vmin(21), fontWeight: 600, whiteSpace: "nowrap" }}>
+              {featured.name}
+            </span>
+            <span
+              className="home-featured-price"
+              style={{ fontSize: vmin(28), fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap" }}
+            >
               {formatCents(featured.priceCents, featured.currency)}
             </span>
           </div>
         </Link>
 
         {showSides && (
-          <button type="button" aria-label="Produit suivant" onClick={() => goTo(1)} style={navButtonStyle}>
+          <button
+            type="button"
+            aria-label="Produit suivant"
+            onClick={() => goTo(1)}
+            className="home-nav-button"
+            style={navButtonStyle}
+          >
             <ChevronRightIcon />
           </button>
         )}

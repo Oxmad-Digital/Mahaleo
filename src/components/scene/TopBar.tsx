@@ -1,9 +1,18 @@
 import type { ReactNode } from "react";
 import { vmin } from "@/lib/fluid";
 
-export function TopBar({ left, right }: { left: ReactNode; right: ReactNode }) {
+export function TopBar({
+  left,
+  right,
+  className,
+}: {
+  left: ReactNode;
+  right: ReactNode;
+  className?: string;
+}) {
   return (
     <div
+      className={className}
       style={{
         position: "absolute",
         top: vmin(18),

@@ -31,6 +31,7 @@ export function IconRail({ active }: { active: RailKey }) {
 
   return (
     <div
+      className="icon-rail"
       style={{
         position: "absolute",
         left: vmin(26),
@@ -72,6 +73,7 @@ export function IconRail({ active }: { active: RailKey }) {
             {item.icon}
             {item.connected && (
               <span
+                className="rail-dot"
                 style={{
                   position: "absolute",
                   top: vmin(6),
@@ -86,6 +88,7 @@ export function IconRail({ active }: { active: RailKey }) {
             )}
             {!!item.badge && (
               <span
+                className="rail-badge"
                 style={{
                   position: "absolute",
                   top: vmin(-4),

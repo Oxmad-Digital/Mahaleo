@@ -4,10 +4,9 @@ import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
 import { IconRail } from "@/components/scene/IconRail";
 import { ContactButton } from "@/components/scene/ContactButton";
-import { HeaderIconButton } from "@/components/scene/HeaderIconButton";
 import { Footer } from "@/components/scene/Footer";
 import { GalleryToggle, HomeStage, HomeViewProvider } from "@/components/home/HomeView";
-import { BagIcon, MenuIcon } from "@/components/icons";
+import { BagIcon } from "@/components/icons";
 import { vmin } from "@/lib/fluid";
 import { getShopProducts } from "@/lib/shop";
 
@@ -15,22 +14,21 @@ export default async function Home() {
   const products = await getShopProducts();
 
   return (
-    <Scene>
+    <Scene className="shop-scene">
       <HomeViewProvider>
         <TopBar
+          className="shop-topbar"
           left={
             <>
               <LogoPill />
               <ContactButton />
               <GalleryToggle />
-              <HeaderIconButton>
-                <MenuIcon />
-              </HeaderIconButton>
             </>
           }
           right={
             <Link
               href="/panier"
+              className="shop-checkout"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -42,7 +40,10 @@ export default async function Home() {
               }}
             >
               <BagIcon />
-              <span style={{ fontSize: vmin(15), fontWeight: 500, whiteSpace: "nowrap" }}>
+              <span
+                className="shop-checkout-label"
+                style={{ fontSize: vmin(15), fontWeight: 500, whiteSpace: "nowrap" }}
+              >
                 Passer la commande
               </span>
             </Link>

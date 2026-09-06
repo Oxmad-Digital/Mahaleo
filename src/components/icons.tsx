@@ -199,6 +199,7 @@ export function TrashIcon({ size = vmin(17) }: { size?: IconSize }) {
 export function LocationDotIcon() {
   return (
     <div
+      className="location-dot"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -207,6 +208,7 @@ export function LocationDotIcon() {
       }}
     >
       <div
+        className="location-dot-head"
         style={{
           width: vmin(6),
           height: vmin(6),
@@ -215,6 +217,7 @@ export function LocationDotIcon() {
         }}
       />
       <div
+        className="location-dot-stem"
         style={{
           width: vmin(4),
           height: vmin(11),
@@ -229,6 +232,7 @@ export function LocationDotIcon() {
 export function GridIcon() {
   return (
     <div
+      className="grid-icon"
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(3, ${vmin(4)})`,
@@ -238,27 +242,6 @@ export function GridIcon() {
     >
       {Array.from({ length: 9 }).map((_, i) => (
         <div key={i} style={{ background: "#fff", borderRadius: 1 }} />
-      ))}
-    </div>
-  );
-}
-
-export function MenuIcon() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: vmin(4),
-      }}
-    >
-      {Array.from({ length: 3 }).map((_, i) => (
-        <div
-          key={i}
-          style={{ width: vmin(16), height: vmin(2), borderRadius: 2, background: "#fff" }}
-        />
       ))}
     </div>
   );

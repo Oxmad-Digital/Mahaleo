@@ -13,6 +13,7 @@ export function Footer({ active }: { active?: FooterActive }) {
 
   return (
     <div
+      className="scene-footer"
       style={{
         position: "absolute",
         bottom: 0,

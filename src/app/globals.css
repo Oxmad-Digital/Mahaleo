@@ -179,3 +179,347 @@ button.header-icon-button:hover,
     transform: none;
   }
 }
+
+/*
+ * ---------------------------------------------------------------------------
+ * Boutique (/) — mise en page mobile
+ * ---------------------------------------------------------------------------
+ * La scène est dessinée pour un canvas 1440x960 en paysage : toutes ses tailles
+ * passent par `vmin()`, donc sur un téléphone en portrait — où vmin vaut la
+ * largeur — le logo, les icônes et les textes tombent à quelques pixels. Et la
+ * contrainte « tout tient dans un écran » n'a pas de sens sur mobile : sous
+ * 768px de large (ou sur un téléphone couché), la boutique repasse donc en flux
+ * normal et défile.
+ *
+ * Ce qui change :
+ *   - `.shop-scene` (l'enveloppe plein écran) devient la zone de défilement ;
+ *     le voile dégradé passe en `fixed` pour couvrir l'écran quel que soit le
+ *     décalage, l'image de fond ne défile pas avec le contenu.
+ *   - le cadre de verre passe en colonne flex : barre du haut, scène produit,
+ *     pastilles, carte produit, rail d'icônes, pied de page — dans l'ordre du
+ *     DOM, donc sans réordonnancement.
+ *   - le rail vertical devient une barre d'onglets horizontale, posée juste
+ *     au-dessus du pied de page — qui reste le dernier élément, tout en bas —
+ *     et collée au bord bas de l'écran tant que le contenu défile.
+ *   - les tailles repassent en pixels, avec des cibles tactiles de 36 à 44px.
+ *
+ * Les composants de la scène posent leurs dimensions en style inline : les
+ * règles ci-dessous doivent donc être `!important` pour passer devant (même
+ * raison que `.home-side-item` plus haut). Tout est porté par `.shop-scene`,
+ * la classe que la page boutique passe à `Scene` : les autres pages gardent
+ * leur rendu actuel et pourront adopter la bascule en passant la classe à leur
+ * tour.
+ */
+@media (max-width: 768px), (orientation: landscape) and (max-height: 500px) {
+  .shop-scene {
+    --m-gap: 14px;
+    --m-inset: 8px;
+    --m-pad: 12px;
+    --m-rail: 56px;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  /* Le voile couvre l'écran quel que soit le décalage, et récupère le flou du
+     cadre : ici le cadre fait toute la hauteur du contenu, le flouter reviendrait
+     à repeindre un calque haut de plusieurs écrans à chaque image de défilement,
+     alors que le voile est de la taille de la fenêtre et ne bouge pas.
+
+     Ne pas doubler `backdrop-filter` d'un `-webkit-backdrop-filter` écrit à la
+     main : le minifieur voit deux fois la même propriété et ne garde que la
+     forme préfixée, que Chrome n'implémente pas — la déclaration devient morte,
+     le cadre garde son flou et la barre d'onglets se met à défiler avec la
+     page. Sur la seule forme standard, il génère lui-même les deux. */
+  .shop-scene .scene-overlay {
+    position: fixed !important;
+    backdrop-filter: blur(var(--blur-standard));
+  }
+
+  .shop-scene .scene-frame {
+    position: relative !important;
+    inset: auto !important;
+    overflow: visible !important;
+    backdrop-filter: none !important;
+    border-radius: 18px !important;
+    box-sizing: border-box;
+    margin: var(--m-inset);
+    min-height: calc(100dvh - 2 * var(--m-inset));
+    padding: var(--m-pad);
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-gap);
+  }
+
+  /* --- Barre du haut ----------------------------------------------------- */
+  .shop-scene .shop-topbar {
+    position: static !important;
+    flex: none;
+    gap: 8px !important;
+  }
+
+  .shop-scene .shop-topbar > div {
+    gap: 8px !important;
+    min-width: 0;
+  }
+
+  .shop-scene .logo-pill {
+    padding: 7px 14px !important;
+  }
+
+  .shop-scene .logo-pill img {
+    height: 20px !important;
+  }
+
+  .shop-scene .contact-button,
+  .shop-scene .header-icon-button {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .shop-scene .location-dot {
+    gap: 2px !important;
+  }
+
+  .shop-scene .location-dot-head {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .shop-scene .location-dot-stem {
+    width: 4px !important;
+    height: 10px !important;
+  }
+
+  .shop-scene .grid-icon {
+    grid-template-columns: repeat(3, 4px) !important;
+    grid-auto-rows: 4px !important;
+    gap: 2px !important;
+  }
+
+  /* Le panier a sa place dans la barre d'onglets du bas : en haut il ne reste
+     que l'icône, le libellé ne tiendrait pas sur la largeur d'un téléphone. */
+  .shop-scene .shop-checkout {
+    width: 36px !important;
+    height: 36px !important;
+    flex: none !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    justify-content: center !important;
+  }
+
+  .shop-scene .shop-checkout-label {
+    display: none !important;
+  }
+
+  .shop-scene .shop-checkout svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  /* --- Carrousel --------------------------------------------------------- */
+  /* La scène produit prend exactement la hauteur qui reste, sans plancher : un
+     plancher chiffré ignore ce que prennent ses voisins et déborde de quelques
+     pixels dès que la barre du haut, les pastilles, la carte produit et le pied
+     de page ne rentrent plus dans le reste — la page se met alors à défiler et
+     le pied de page passe sous la ligne de flottaison. La vue carrousel tient
+     donc toujours dans un écran, pied de page collé tout en bas. */
+  .shop-scene .home-hero-row,
+  .shop-scene .home-empty {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .shop-scene .home-empty {
+    font-size: 15px !important;
+    text-align: center;
+  }
+
+  .shop-scene .home-hero-row {
+    perspective: none !important;
+  }
+
+  /* Les vignettes latérales sont déjà masquées sous 4/3 ; on reprend la règle
+     ici pour le téléphone couché, où la vignette centrale prend tout le cadre. */
+  .shop-scene .home-side-item {
+    display: none !important;
+  }
+
+  .shop-scene .home-slot {
+    inset: 0 !important;
+    transform: none !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+  }
+
+  .shop-scene .home-slot img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  /* Légende de la vignette : invisible au centre, et les côtés n'existent plus
+     ici — on lui reprend sa place pour agrandir la photo. */
+  .shop-scene .home-slot-caption {
+    display: none !important;
+  }
+
+  .shop-scene .home-dots {
+    position: static !important;
+    inset: auto !important;
+    flex: none;
+    flex-wrap: wrap !important;
+    gap: 7px !important;
+  }
+
+  .shop-scene .home-dot {
+    width: 7px !important;
+    height: 7px !important;
+    flex: none !important;
+  }
+
+  .shop-scene .home-dot-active {
+    width: 22px !important;
+  }
+
+  .shop-scene .home-nav {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    flex: none;
+    gap: 8px !important;
+  }
+
+  .shop-scene .home-nav-button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .shop-scene .home-nav-button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .shop-scene .home-featured {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 52px !important;
+    justify-content: center !important;
+    padding: 0 14px !important;
+    gap: 0 !important;
+  }
+
+  .shop-scene .home-featured-row {
+    gap: 10px !important;
+    padding: 0 !important;
+  }
+
+  .shop-scene .home-featured-name {
+    font-size: 14px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .shop-scene .home-featured-price {
+    font-size: 18px !important;
+  }
+
+  /* --- Mur photo --------------------------------------------------------- */
+  /* Sous 560px le composant bascule tout seul en grille 2 colonnes de hauteur
+     libre : c'est la page qui défile, plus le mur. */
+  .shop-scene .photo-wall {
+    position: relative !important;
+    inset: auto !important;
+    flex: 1 1 auto;
+  }
+
+  /* Pas de survol au doigt : la légende des tuiles reste affichée. */
+  .shop-scene .wall-tile-overlay {
+    opacity: 1 !important;
+    padding: 18px 8px 7px !important;
+  }
+
+  .shop-scene .wall-tile-name {
+    font-size: 11px !important;
+  }
+
+  .shop-scene .wall-tile-price {
+    font-size: 12px !important;
+  }
+
+  /* --- Rail d'icônes → barre d'onglets ------------------------------------ */
+  /* La barre reste dans le flux, à sa place dans le DOM : juste avant le pied de
+     page, qui garde ainsi le bas de l'écran. `sticky` la colle au bord bas de la
+     fenêtre tant que la page défile — elle reste donc sous le pouce sans sortir
+     du flux ni passer devant le pied de page, qu'elle laisse apparaître en fin
+     de défilement. */
+  .shop-scene .icon-rail {
+    position: sticky !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: var(--m-pad) !important;
+    height: var(--m-rail) !important;
+    box-sizing: border-box !important;
+    flex: none;
+    z-index: 5;
+    transform: none !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    gap: 0 !important;
+    padding: 6px !important;
+  }
+
+  .shop-scene .icon-rail .rail-link {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .shop-scene .icon-rail svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .shop-scene .rail-badge {
+    top: -2px !important;
+    right: -2px !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    padding: 0 4px !important;
+    font-size: 10px !important;
+  }
+
+  .shop-scene .rail-dot {
+    top: 7px !important;
+    right: 7px !important;
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  /* --- Pied de page ------------------------------------------------------ */
+  .shop-scene .scene-footer {
+    position: static !important;
+    inset: auto !important;
+    height: auto !important;
+    flex: none;
+    flex-wrap: wrap !important;
+    gap: 6px 16px !important;
+  }
+
+  .shop-scene .scene-footer a {
+    font-size: 11px !important;
+  }
+}
+
+/* Téléphone couché : la hauteur est la ressource rare, on resserre le gabarit. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .shop-scene {
+    --m-gap: 10px;
+    --m-pad: 10px;
+  }
+}

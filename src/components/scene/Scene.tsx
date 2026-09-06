@@ -8,10 +8,16 @@ import { vmin } from "@/lib/fluid";
  * wall reuses when it overflows — and .legal-scroll) handling variable-length
  * content. A future admin dashboard should use a different wrapper that allows
  * normal page scroll instead of this one.
+ *
+ * `className` lands on the outer element and is how a page opts into a mobile
+ * layout: the shop page passes `shop-scene`, whose media queries in globals.css
+ * turn this shell into a scrolling column below 768px. `.scene-overlay` and
+ * `.scene-frame` are the hooks those rules need.
  */
-export function Scene({ children }: { children: ReactNode }) {
+export function Scene({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
+      className={className}
       style={{
         position: "relative",
         width: "100%",
@@ -24,6 +30,7 @@ export function Scene({ children }: { children: ReactNode }) {
       }}
     >
       <div
+        className="scene-overlay"
         style={{
           position: "absolute",
           inset: 0,
@@ -32,7 +39,9 @@ export function Scene({ children }: { children: ReactNode }) {
         }}
       />
 
-      <div style={glassFrame}>{children}</div>
+      <div className="scene-frame" style={glassFrame}>
+        {children}
+      </div>
     </div>
   );
 }

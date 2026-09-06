@@ -15,6 +15,7 @@ export function ContactButton() {
         aria-label="Nous contacter"
         title="Nous contacter"
         onClick={() => setOpen(true)}
+        className="contact-button"
         style={{
           width: vmin(40),
           height: vmin(40),

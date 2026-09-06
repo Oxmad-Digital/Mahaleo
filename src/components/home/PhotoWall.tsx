@@ -16,6 +16,12 @@ const TALLEST_TILE_ASPECT = 0.6;
 const MIN_TILE_WIDTH = 132;
 /** A handful of photos should not blow up into a couple of poster-sized tiles. */
 const MAX_TILE_WIDTH = 460;
+/**
+ * A phone is too narrow to solve a wall against: two columns is the only
+ * sensible answer, and the page — not the wall — is what scrolls there.
+ */
+const COMPACT_MAX_WIDTH = 560;
+const COMPACT_GAP = 10;
 
 type Photo = {
   key: string;
@@ -90,6 +96,78 @@ function solveLayout(count: number, width: number, height: number): WallLayout {
   return { tileWidth, tileHeight, gap, scrolls: false };
 }
 
+function WallTile({
+  photo,
+  index,
+  size,
+}: {
+  photo: Photo;
+  index: number;
+  size: React.CSSProperties;
+}) {
+  return (
+    <Link
+      href={`/produit/${photo.slug}`}
+      className="wall-tile"
+      title={photo.name}
+      style={{
+        position: "relative",
+        ...size,
+        borderRadius: "var(--radius-md)",
+        background:
+          "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
+        border: "1px solid var(--glass-border)",
+        backdropFilter: "blur(var(--blur-standard))",
+        WebkitBackdropFilter: "blur(var(--blur-standard))",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        animationDelay: `${Math.min(index, 24) * 30}ms`,
+      }}
+    >
+      <img
+        src={photo.src}
+        alt={photo.name}
+        loading={index < 12 ? undefined : "lazy"}
+        style={{ width: "88%", height: "88%", objectFit: "contain" }}
+      />
+
+      <div
+        className="wall-tile-overlay"
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          padding: `${vmin(22)} ${vmin(12)} ${vmin(10)}`,
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: vmin(8),
+          background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)",
+        }}
+      >
+        <span
+          className="wall-tile-name"
+          style={{
+            fontSize: vmin(14),
+            fontWeight: 600,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {photo.name}
+        </span>
+        <span className="wall-tile-price" style={{ fontSize: vmin(15), fontWeight: 700, whiteSpace: "nowrap" }}>
+          {formatCents(photo.priceCents, photo.currency)}
+        </span>
+      </div>
+    </Link>
+  );
+}
+
 export function PhotoWall({ products }: { products: ShopProduct[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState<{ width: number; height: number } | null>(null);
@@ -99,21 +177,27 @@ export function PhotoWall({ products }: { products: ShopProduct[] }) {
     if (!node) return;
     const observer = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
-      setBox({ width, height });
+      // In the compact grid the wall's own height follows its content, so only
+      // commit real changes — re-rendering on every reported height would loop.
+      setBox((prev) =>
+        prev && prev.width === width && prev.height === height ? prev : { width, height },
+      );
     });
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
   const photos = useMemo(() => toPhotos(products), [products]);
+  const compact = box !== null && box.width <= COMPACT_MAX_WIDTH;
   const layout = useMemo(
-    () => (box && photos.length > 0 ? solveLayout(photos.length, box.width, box.height) : null),
-    [box, photos.length],
+    () => (box && !compact && photos.length > 0 ? solveLayout(photos.length, box.width, box.height) : null),
+    [box, compact, photos.length],
   );
 
   return (
     <div
       ref={containerRef}
+      className="photo-wall"
       style={{
         position: "absolute",
         top: vmin(76),
@@ -137,6 +221,18 @@ export function PhotoWall({ products }: { products: ShopProduct[] }) {
         >
           Aucune photo à afficher pour le moment.
         </div>
+      ) : compact ? (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            gap: COMPACT_GAP,
+          }}
+        >
+          {photos.map((photo, index) => (
+            <WallTile key={photo.key} photo={photo} index={index} size={{ aspectRatio: "4 / 5" }} />
+          ))}
+        </div>
       ) : (
         layout && (
           <div
@@ -156,69 +252,17 @@ export function PhotoWall({ products }: { products: ShopProduct[] }) {
             }}
           >
             {photos.map((photo, index) => (
-              <Link
+              <WallTile
                 key={photo.key}
-                href={`/produit/${photo.slug}`}
-                className="wall-tile"
-                title={photo.name}
-                style={{
-                  position: "relative",
+                photo={photo}
+                index={index}
+                size={{
                   // A hair under the solved width so rounding never wraps a column early.
                   width: layout.tileWidth - 0.5,
                   height: layout.tileHeight,
                   flex: "none",
-                  borderRadius: "var(--radius-md)",
-                  background:
-                    "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
-                  border: "1px solid var(--glass-border)",
-                  backdropFilter: "blur(var(--blur-standard))",
-                  WebkitBackdropFilter: "blur(var(--blur-standard))",
-                  overflow: "hidden",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  animationDelay: `${Math.min(index, 24) * 30}ms`,
                 }}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.name}
-                  loading={index < 12 ? undefined : "lazy"}
-                  style={{ width: "88%", height: "88%", objectFit: "contain" }}
-                />
-
-                <div
-                  className="wall-tile-overlay"
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    padding: `${vmin(22)} ${vmin(12)} ${vmin(10)}`,
-                    display: "flex",
-                    alignItems: "baseline",
-                    justifyContent: "space-between",
-                    gap: vmin(8),
-                    background:
-                      "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: vmin(14),
-                      fontWeight: 600,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {photo.name}
-                  </span>
-                  <span style={{ fontSize: vmin(15), fontWeight: 700, whiteSpace: "nowrap" }}>
-                    {formatCents(photo.priceCents, photo.currency)}
-                  </span>
-                </div>
-              </Link>
+              />
             ))}
           </div>
         )
