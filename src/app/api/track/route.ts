@@ -25,6 +25,13 @@ export async function POST(request: NextRequest) {
   }
 
   const host = request.headers.get("host");
+  const hostname = host?.split(":")[0] ?? "";
+  const isLocalHost =
+    hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+  if (isLocalHost) {
+    return NextResponse.json({ ok: true });
+  }
+
   const origin = request.headers.get("origin");
   if (origin && host) {
     try {
