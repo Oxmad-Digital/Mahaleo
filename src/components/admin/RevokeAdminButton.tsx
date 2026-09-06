@@ -1,19 +1,18 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { revokeAdmin } from "@/app/actions/settings";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export function RevokeAdminButton({ id, name }: { id: string; name: string }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+
   return (
-    <form
-      action={revokeAdmin.bind(null, id)}
-      onSubmit={(event) => {
-        if (!window.confirm(`Retirer les droits administrateur de « ${name} » ?`)) {
-          event.preventDefault();
-        }
-      }}
-    >
+    <>
       <button
-        type="submit"
+        type="button"
+        onClick={() => setConfirmOpen(true)}
         style={{
           padding: "9px 16px",
           borderRadius: 6,
@@ -28,6 +27,21 @@ export function RevokeAdminButton({ id, name }: { id: string; name: string }) {
       >
         Retirer les droits admin
       </button>
-    </form>
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Retirer les droits admin"
+        message={`Retirer les droits administrateur de « ${name} » ?`}
+        confirmLabel="Retirer"
+        danger
+        pending={pending}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          startTransition(async () => {
+            await revokeAdmin(id);
+            setConfirmOpen(false);
+          });
+        }}
+      />
+    </>
   );
 }

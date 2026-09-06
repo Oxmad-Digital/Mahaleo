@@ -1,22 +1,22 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { setMaintenanceMode } from "@/app/actions/settings";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export function MaintenanceToggle({ enabled }: { enabled: boolean }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+
+  const confirmMessage = enabled
+    ? "Désactiver le mode maintenance ? Le site redeviendra accessible à tous les visiteurs."
+    : "Activer le mode maintenance ? Le site affichera un écran de maintenance à tous les visiteurs (les administrateurs connectés continueront d'y accéder normalement).";
+
   return (
-    <form
-      action={setMaintenanceMode.bind(null, !enabled)}
-      onSubmit={(event) => {
-        const confirmMessage = enabled
-          ? "Désactiver le mode maintenance ? Le site redeviendra accessible à tous les visiteurs."
-          : "Activer le mode maintenance ? Le site affichera un écran de maintenance à tous les visiteurs (les administrateurs connectés continueront d'y accéder normalement).";
-        if (!window.confirm(confirmMessage)) {
-          event.preventDefault();
-        }
-      }}
-    >
+    <>
       <button
-        type="submit"
+        type="button"
+        onClick={() => setConfirmOpen(true)}
         style={{
           padding: "10px 18px",
           borderRadius: 6,
@@ -30,6 +30,21 @@ export function MaintenanceToggle({ enabled }: { enabled: boolean }) {
       >
         {enabled ? "Désactiver le mode maintenance" : "Activer le mode maintenance"}
       </button>
-    </form>
+      <ConfirmDialog
+        open={confirmOpen}
+        title={enabled ? "Désactiver la maintenance" : "Activer la maintenance"}
+        message={confirmMessage}
+        confirmLabel={enabled ? "Désactiver" : "Activer"}
+        danger={enabled}
+        pending={pending}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          startTransition(async () => {
+            await setMaintenanceMode(!enabled);
+            setConfirmOpen(false);
+          });
+        }}
+      />
+    </>
   );
 }

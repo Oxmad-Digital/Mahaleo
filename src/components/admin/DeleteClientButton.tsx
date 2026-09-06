@@ -1,19 +1,18 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { deleteClient } from "@/app/actions/clients";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export function DeleteClientButton({ id, name }: { id: string; name: string }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+
   return (
-    <form
-      action={deleteClient.bind(null, id)}
-      onSubmit={(event) => {
-        if (!window.confirm(`Supprimer définitivement le compte de « ${name} » ? Cette action est irréversible.`)) {
-          event.preventDefault();
-        }
-      }}
-    >
+    <>
       <button
-        type="submit"
+        type="button"
+        onClick={() => setConfirmOpen(true)}
         style={{
           padding: "9px 16px",
           borderRadius: 6,
@@ -27,6 +26,21 @@ export function DeleteClientButton({ id, name }: { id: string; name: string }) {
       >
         Supprimer le compte
       </button>
-    </form>
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Supprimer le compte"
+        message={`Supprimer définitivement le compte de « ${name} » ? Cette action est irréversible.`}
+        confirmLabel="Supprimer"
+        danger
+        pending={pending}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          startTransition(async () => {
+            await deleteClient(id);
+            setConfirmOpen(false);
+          });
+        }}
+      />
+    </>
   );
 }
