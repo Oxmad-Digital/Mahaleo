@@ -6,12 +6,13 @@ type Crumb = { label: string; href?: string };
 
 type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques" | "parametres";
 
-const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" }[] = [
+const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" | "settings" }[] = [
   { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
   { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
   { key: "produits", label: "Produits", href: "/admin/produits", icon: "package" },
   { key: "clients", label: "Clients", href: "/admin/clients", icon: "users" },
   { key: "statistiques", label: "Statistiques", href: "/admin/statistiques", icon: "chart" },
+  { key: "parametres", label: "Réglages", href: "/admin/parametres", icon: "settings" },
 ];
 
 function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "chart" | "settings" | "logout" }) {
@@ -65,8 +66,8 @@ function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "char
     case "settings":
       return (
         <svg {...common} stroke="rgba(55,53,47,0.55)">
-          <circle cx="12" cy="12" r="3.2" />
-          <path d="M12 3v2.2M12 18.8V21M4.2 7.5l1.9 1.1M17.9 15.4l1.9 1.1M4.2 16.5l1.9-1.1M17.9 8.6l1.9-1.1" />
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
       );
     case "logout":
@@ -124,7 +125,6 @@ export function AdminShell({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "space-between",
             background: "#f7f7f5",
             borderRight: "1px solid rgba(55,53,47,0.09)",
           }}
@@ -172,21 +172,6 @@ export function AdminShell({
               })}
             </div>
           </div>
-          <Link
-            href="/admin/parametres"
-            title="Réglages"
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 8,
-              background: active === "parametres" ? "rgba(55,53,47,0.08)" : "transparent",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <NavIcon kind="settings" />
-          </Link>
         </div>
 
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
