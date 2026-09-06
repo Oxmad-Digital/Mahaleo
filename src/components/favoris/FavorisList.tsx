@@ -5,6 +5,7 @@ import { HeartFilledIcon } from "@/components/icons";
 import { capped, vmin } from "@/lib/fluid";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { useFavorites } from "@/lib/favorites";
 import { removeFavorite } from "@/app/actions/favorites";
 
 const PRODUCT_IMAGE = "/images/product-photo-sample.webp";
@@ -21,9 +22,11 @@ export type FavoriteProduct = {
 export function FavorisList({ initialItems }: { initialItems: FavoriteProduct[] }) {
   const [favorites, setFavorites] = useState(initialItems);
   const { addItem } = useCart();
+  const { decrement: decrementFavorites } = useFavorites();
 
   const removeItem = (productId: string) => {
     setFavorites((s) => s.filter((f) => f.productId !== productId));
+    decrementFavorites();
     removeFavorite(productId);
   };
 

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { getFavoriteCount as getUserFavoriteCount } from "@/lib/favorites-data";
 
 export async function addFavorite(productId: string) {
   const session = await auth();
@@ -30,4 +31,10 @@ export async function removeFavorite(productId: string) {
   revalidatePath("/favoris");
   revalidatePath("/produit/[slug]", "page");
   return { ok: true as const };
+}
+
+export async function getFavoriteCount() {
+  const session = await auth();
+  if (!session?.user) return 0;
+  return getUserFavoriteCount(session.user.id);
 }

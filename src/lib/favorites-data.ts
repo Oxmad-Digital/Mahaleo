@@ -26,3 +26,7 @@ export async function isProductFavorite(userId: string, productId: string) {
   });
   return !!favorite;
 }
+
+export async function getFavoriteCount(userId: string) {
+  return prisma.favorite.count({ where: { userId } });
+}

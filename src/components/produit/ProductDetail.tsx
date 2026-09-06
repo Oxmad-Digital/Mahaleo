@@ -12,6 +12,7 @@ import { CartIcon, HeartFilledIcon, HeartIcon, ShippingIcon } from "@/components
 import { capped, vmin } from "@/lib/fluid";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { useFavorites } from "@/lib/favorites";
 import { addFavorite, removeFavorite } from "@/app/actions/favorites";
 import type { ShopProductDetail } from "@/lib/shop";
 
@@ -52,6 +53,7 @@ export function ProductDetail({
   const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string | undefined>(availableSizes[0]?.size);
   const { addItem } = useCart();
+  const { increment: incrementFavorites, decrement: decrementFavorites } = useFavorites();
   const [added, setAdded] = useState(false);
   const router = useRouter();
   const [favorite, setFavorite] = useState(initialFavorite);
@@ -80,8 +82,14 @@ export function ProductDetail({
     }
     const next = !favorite;
     setFavorite(next);
+    if (next) incrementFavorites();
+    else decrementFavorites();
     (next ? addFavorite(product.id) : removeFavorite(product.id)).then((result) => {
-      if (result?.error) setFavorite(!next);
+      if (result?.error) {
+        setFavorite(!next);
+        if (next) decrementFavorites();
+        else incrementFavorites();
+      }
     });
   };
 

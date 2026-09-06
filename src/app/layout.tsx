@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import { CartProvider } from "@/lib/cart";
+import { FavoritesProvider } from "@/lib/favorites";
 import { Tracker } from "@/components/Tracker";
 import "./globals.css";
 
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Tracker />
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <FavoritesProvider>{children}</FavoritesProvider>
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
