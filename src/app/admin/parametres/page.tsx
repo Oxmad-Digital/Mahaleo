@@ -20,7 +20,7 @@ export default async function AdminSettingsPage(props: PageProps<"/admin/paramet
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Paramètres</div>
+      <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>Paramètres</div>
 
       {errorParam && (
         <div style={{ padding: "12px 16px", borderRadius: 6, background: "#fbe4e4", color: "#a82c2c", fontSize: 14, fontWeight: 500 }}>
@@ -42,7 +42,7 @@ export default async function AdminSettingsPage(props: PageProps<"/admin/paramet
             flexWrap: "wrap",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, maxWidth: 480 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, maxWidth: 480, minWidth: 0 }}>
             <span style={{ fontSize: 14, fontWeight: 600 }}>
               {settings.maintenanceMode ? "Le site est actuellement en maintenance" : "Le site est actuellement accessible"}
             </span>
@@ -71,14 +71,14 @@ export default async function AdminSettingsPage(props: PageProps<"/admin/paramet
                 flexWrap: "wrap",
               }}
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span style={{ fontSize: 14, fontWeight: 600 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+                <span style={{ fontSize: 14, fontWeight: 600, overflowWrap: "break-word" }}>
                   {admin.name ?? admin.email}
                   {admin.id === session.user.id && (
                     <span style={{ marginLeft: 8, fontSize: 12, fontWeight: 500, color: "rgba(55,53,47,0.45)" }}>(vous)</span>
                   )}
                 </span>
-                <span style={{ fontSize: 13, color: "rgba(55,53,47,0.6)" }}>
+                <span style={{ fontSize: 13, color: "rgba(55,53,47,0.6)", overflowWrap: "break-word" }}>
                   {admin.email} · Administrateur depuis le {formatDate(admin.createdAt)}
                 </span>
               </div>

@@ -38,7 +38,9 @@ export default async function AdminStatsPage(props: PageProps<"/admin/statistiqu
     >
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15 }}>Statistiques</div>
+          <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+            Statistiques
+          </div>
           <div style={{ fontSize: 15, fontWeight: 400, color: "rgba(55,53,47,0.6)" }}>
             Fréquentation du site sur les {range} derniers jours
           </div>
@@ -67,7 +69,7 @@ export default async function AdminStatsPage(props: PageProps<"/admin/statistiqu
         <TrafficChart daily={data.daily} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "stretch" }}>
+      <div className="admin-stats-topgrid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12, alignItems: "stretch" }}>
         <BarListCard title="Pages les plus vues" items={data.topPages.map((p) => ({ label: p.path, value: p.views }))} />
         <BarListCard
           title="Provenance"
@@ -93,13 +95,26 @@ export default async function AdminStatsPage(props: PageProps<"/admin/statistiqu
         }}
       >
         <div style={{ fontSize: 17, fontWeight: 600 }}>Origine géographique</div>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.3fr)", gap: 24, alignItems: "center" }}>
+        <div
+          className="admin-stats-geo-grid"
+          style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.3fr)", gap: 24, alignItems: "center" }}
+        >
           <BarList items={data.topCountries.slice(0, 10).map((c) => ({ label: countryLabel(c.country), value: c.views }))} />
           <WorldMapCard countries={data.topCountries} />
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 28, paddingTop: 8, borderTop: "1px solid rgba(55,53,47,0.09)" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          rowGap: 8,
+          gap: 28,
+          paddingTop: 8,
+          borderTop: "1px solid rgba(55,53,47,0.09)",
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>Mentions légales</span>
         <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>Conditions de ventes</span>
         <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>Réalisé par Oxmad Digital</span>

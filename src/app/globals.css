@@ -1257,4 +1257,10 @@ button.header-icon-button:hover,
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
   }
+
+  /* Page Statistiques : les grilles à colonnes fixes passent en une colonne. */
+  .admin-stats-topgrid,
+  .admin-stats-geo-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
