@@ -3,9 +3,16 @@ import { vmin } from "@/lib/fluid";
 
 export type BreadcrumbItem = string | { label: string; href: string };
 
-export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
+export function Breadcrumb({
+  items,
+  className,
+}: {
+  items: BreadcrumbItem[];
+  className?: string;
+}) {
   return (
     <div
+      className={className}
       style={{
         display: "flex",
         alignItems: "center",

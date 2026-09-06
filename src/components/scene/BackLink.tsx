@@ -6,6 +6,7 @@ export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
+      className="back-link"
       style={{
         display: "flex",
         alignItems: "center",
@@ -18,6 +19,7 @@ export function BackLink({ href, label }: { href: string; label: string }) {
     >
       <ChevronLeftIcon />
       <span
+        className="back-link-label"
         style={{
           fontSize: vmin(15),
           fontWeight: 500,

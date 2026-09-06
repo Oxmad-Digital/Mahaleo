@@ -14,10 +14,10 @@ export default async function Home() {
   const products = await getShopProducts();
 
   return (
-    <Scene className="shop-scene">
+    <Scene className="scene-mobile">
       <HomeViewProvider>
         <TopBar
-          className="shop-topbar"
+          className="scene-topbar"
           left={
             <>
               <LogoPill />

@@ -27,15 +27,16 @@ export default function PanierPage() {
   const currency = items[0]?.currency ?? "EUR";
 
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={
           <>
             <LogoPill />
             <BackLink href="/" label="Continuer mes achats" />
           </>
         }
-        right={<Breadcrumb items={["Boutique", "Panier"]} />}
+        right={<Breadcrumb className="cart-crumb" items={["Boutique", "Panier"]} />}
       />
 
       <div
@@ -57,10 +58,14 @@ export default function PanierPage() {
           paddingRight: vmin(60),
         }}
       >
-        <div style={{ width: capped(720), flex: "none", display: "flex", flexDirection: "column", gap: vmin(16) }}>
+        <div
+          className="cart-list"
+          style={{ width: capped(720), flex: "none", display: "flex", flexDirection: "column", gap: vmin(16) }}
+        >
           {items.map((item) => (
             <div
               key={`${item.productId}-${item.size ?? ""}`}
+              className="cart-item"
               style={{
                 flex: "none",
                 display: "flex",
@@ -76,6 +81,7 @@ export default function PanierPage() {
               }}
             >
               <div
+                className="cart-item-image"
                 style={{
                   width: vmin(108),
                   height: vmin(108),
@@ -97,6 +103,7 @@ export default function PanierPage() {
               </div>
 
               <div
+                className="cart-item-info"
                 style={{
                   flex: 1,
                   minWidth: 0,
@@ -106,6 +113,7 @@ export default function PanierPage() {
                 }}
               >
                 <div
+                  className="cart-item-name"
                   style={{
                     fontSize: vmin(19),
                     fontWeight: 600,
@@ -118,6 +126,7 @@ export default function PanierPage() {
                 </div>
                 {item.size && (
                   <div
+                    className="cart-item-size"
                     style={{
                       fontSize: vmin(14),
                       fontWeight: 500,
@@ -130,44 +139,53 @@ export default function PanierPage() {
                 )}
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: vmin(10),
-                  padding: vmin(6),
-                  borderRadius: "var(--radius-pill)",
-                  background: "var(--glass-fill-strong-top)",
-                  border: "1px solid var(--glass-border)",
-                  flex: "none",
-                }}
-              >
-                <button
-                  onClick={() => updateQty(item.productId, item.size, -1)}
-                  style={qtyButtonStyle}
-                  aria-label={`Diminuer la quantité de ${item.name}`}
+              <div className="cart-item-meta" style={{ display: "flex", alignItems: "center", gap: vmin(22) }}>
+                <div
+                  className="cart-item-qty"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: vmin(10),
+                    padding: vmin(6),
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--glass-fill-strong-top)",
+                    border: "1px solid var(--glass-border)",
+                    flex: "none",
+                  }}
                 >
-                  −
-                </button>
-                <span style={{ minWidth: vmin(22), textAlign: "center", fontSize: vmin(16), fontWeight: 600 }}>
-                  {item.qty}
-                </span>
-                <button
-                  onClick={() => updateQty(item.productId, item.size, 1)}
-                  style={qtyButtonStyle}
-                  aria-label={`Augmenter la quantité de ${item.name}`}
-                >
-                  +
-                </button>
-              </div>
+                  <button
+                    onClick={() => updateQty(item.productId, item.size, -1)}
+                    className="cart-qty-btn"
+                    style={qtyButtonStyle}
+                    aria-label={`Diminuer la quantité de ${item.name}`}
+                  >
+                    −
+                  </button>
+                  <span style={{ minWidth: vmin(22), textAlign: "center", fontSize: vmin(16), fontWeight: 600 }}>
+                    {item.qty}
+                  </span>
+                  <button
+                    onClick={() => updateQty(item.productId, item.size, 1)}
+                    className="cart-qty-btn"
+                    style={qtyButtonStyle}
+                    aria-label={`Augmenter la quantité de ${item.name}`}
+                  >
+                    +
+                  </button>
+                </div>
 
-              <div style={{ width: vmin(90), flex: "none", textAlign: "right", fontSize: vmin(20), fontWeight: 700 }}>
-                {formatCents(item.priceCents * item.qty, item.currency)}
+                <div
+                  className="cart-item-price"
+                  style={{ width: vmin(90), flex: "none", textAlign: "right", fontSize: vmin(20), fontWeight: 700 }}
+                >
+                  {formatCents(item.priceCents * item.qty, item.currency)}
+                </div>
               </div>
 
               <button
                 onClick={() => removeItem(item.productId, item.size)}
                 aria-label={`Retirer ${item.name} du panier`}
+                className="cart-item-remove"
                 style={{
                   width: vmin(40),
                   height: vmin(40),
@@ -188,6 +206,7 @@ export default function PanierPage() {
 
           {isEmpty && (
             <div
+              className="cart-empty"
               style={{
                 flex: 1,
                 display: "flex",
@@ -206,6 +225,7 @@ export default function PanierPage() {
         </div>
 
         <div
+          className="cart-summary"
           style={{
             width: capped(720),
             flex: "none",
@@ -222,10 +242,13 @@ export default function PanierPage() {
             WebkitBackdropFilter: "blur(var(--blur-strong))",
           }}
         >
-          <div style={{ fontSize: vmin(21), fontWeight: 700 }}>Récapitulatif</div>
+          <div className="cart-summary-title" style={{ fontSize: vmin(21), fontWeight: 700 }}>
+            Récapitulatif
+          </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: vmin(14) }}>
             <div
+              className="cart-summary-row"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -238,6 +261,7 @@ export default function PanierPage() {
               <span>{formatCents(subtotalCents, currency)}</span>
             </div>
             <div
+              className="cart-summary-row"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -249,16 +273,21 @@ export default function PanierPage() {
               <span>Livraison</span>
               <span>{shippingFree ? "Offerte" : formatCents(shippingCents, currency)}</span>
             </div>
-            <div style={{ height: 1, background: "var(--glass-border-strong)" }} />
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: vmin(17), fontWeight: 600 }}>Total</span>
-              <span style={{ fontSize: vmin(28), fontWeight: 700 }}>{formatCents(totalCents, currency)}</span>
+            <div className="cart-divider" style={{ height: 1, background: "var(--glass-border-strong)" }} />
+            <div className="cart-total" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span className="cart-total-label" style={{ fontSize: vmin(17), fontWeight: 600 }}>
+                Total
+              </span>
+              <span className="cart-total-value" style={{ fontSize: vmin(28), fontWeight: 700 }}>
+                {formatCents(totalCents, currency)}
+              </span>
             </div>
           </div>
 
           <button
             disabled={isEmpty}
             onClick={() => router.push("/checkout")}
+            className="cart-checkout"
             style={{
               display: "flex",
               alignItems: "center",
@@ -274,11 +303,14 @@ export default function PanierPage() {
               opacity: isEmpty ? 0.6 : 1,
             }}
           >
-            <span style={{ fontSize: vmin(17), fontWeight: 700 }}>Passer la commande</span>
+            <span className="cart-checkout-label" style={{ fontSize: vmin(17), fontWeight: 700 }}>
+              Passer la commande
+            </span>
             <ArrowRightIcon stroke="#10222c" />
           </button>
 
           <div
+            className="cart-shipping-note"
             style={{
               display: "flex",
               alignItems: "center",

@@ -1,8 +1,16 @@
+import Link from "next/link";
 import { vmin } from "@/lib/fluid";
 
+/**
+ * Le logo de la barre du haut. C'est un lien vers la boutique : sur toutes les
+ * pages sauf celle-ci, il est le chemin de retour attendu — et sur la boutique
+ * elle-même, cliquer le logo ne fait que recharger la page où l'on est.
+ */
 export function LogoPill() {
   return (
-    <div
+    <Link
+      href="/"
+      aria-label="Mahaleo — retour à la boutique"
       className="logo-pill"
       style={{
         display: "flex",
@@ -19,6 +27,6 @@ export function LogoPill() {
         alt="Mahaleo"
         style={{ height: vmin(26), width: "auto", display: "block" }}
       />
-    </div>
+    </Link>
   );
 }

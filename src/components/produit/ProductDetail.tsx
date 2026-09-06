@@ -6,9 +6,16 @@ import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
 import { LogoPill } from "@/components/scene/LogoPill";
 import { Breadcrumb } from "@/components/scene/Breadcrumb";
+import { HeaderIconButton } from "@/components/scene/HeaderIconButton";
 import { IconRail } from "@/components/scene/IconRail";
 import { Footer } from "@/components/scene/Footer";
-import { CartIcon, HeartFilledIcon, HeartIcon, ShippingIcon } from "@/components/icons";
+import {
+  CartIcon,
+  ChevronLeftIcon,
+  HeartFilledIcon,
+  HeartIcon,
+  ShippingIcon,
+} from "@/components/icons";
 import { capped, vmin } from "@/lib/fluid";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
@@ -19,6 +26,14 @@ import type { ShopProductDetail } from "@/lib/shop";
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
 const THUMBNAIL_SLOTS = 4;
 
+/**
+ * Fiche produit : galerie à gauche, panneau d'achat à droite. Elle passe
+ * `scene-mobile` à `Scene`, donc sous 768px (ou sur un téléphone couché) la
+ * scène repasse en flux normal et c'est la page qui défile — les deux colonnes
+ * s'empilent, les vignettes passent sous la photo en une rangée. Voir les
+ * règles `.scene-mobile .product-*` dans globals.css, qui s'appuient sur les
+ * classes posées ici pour repasser les tailles en pixels.
+ */
 export function ProductDetail({
   product,
   isNewArrival,
@@ -94,13 +109,25 @@ export function ProductDetail({
   };
 
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={<LogoPill />}
-        right={<Breadcrumb items={[{ label: "Boutique", href: "/" }, product.name]} />}
+        right={
+          <>
+            <Breadcrumb
+              className="product-crumb"
+              items={[{ label: "Boutique", href: "/" }, product.name]}
+            />
+            <HeaderIconButton className="product-back" href="/" label="Retour à la boutique">
+              <ChevronLeftIcon />
+            </HeaderIconButton>
+          </>
+        }
       />
 
       <div
+        className="product-layout"
         style={{
           position: "absolute",
           top: vmin(104),
@@ -112,9 +139,13 @@ export function ProductDetail({
           gap: vmin(60),
         }}
       >
-        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "row", gap: vmin(14) }}>
+        <div
+          className="product-gallery"
+          style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "row", gap: vmin(14) }}
+        >
           <div
             ref={thumbColumnRef}
+            className="product-thumbs"
             style={{
               flex: "none",
               display: "flex",
@@ -128,6 +159,7 @@ export function ProductDetail({
               return (
                 <button
                   key={i}
+                  className="product-thumb"
                   onClick={() => setThumb(i)}
                   style={{
                     width: thumbSize ?? vmin(84),
@@ -160,6 +192,7 @@ export function ProductDetail({
           </div>
 
           <div
+            className="product-stage"
             style={{
               position: "relative",
               flex: 1,
@@ -189,6 +222,7 @@ export function ProductDetail({
             />
             {isNewArrival && (
               <div
+                className="product-badge"
                 style={{
                   position: "absolute",
                   top: vmin(20),
@@ -209,8 +243,12 @@ export function ProductDetail({
           </div>
         </div>
 
-        <div style={{ width: capped(520), flex: "none", display: "flex", flexDirection: "column" }}>
+        <div
+          className="product-aside"
+          style={{ width: capped(520), flex: "none", display: "flex", flexDirection: "column" }}
+        >
           <div
+            className="product-card"
             style={{
               flex: 1,
               minHeight: 0,
@@ -230,32 +268,47 @@ export function ProductDetail({
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
-              <div style={{ fontSize: vmin(44), fontWeight: 700, lineHeight: 1.06 }}>{product.name}</div>
+              <div className="product-title" style={{ fontSize: vmin(44), fontWeight: 700, lineHeight: 1.06 }}>
+                {product.name}
+              </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: vmin(14) }}>
-                <span style={{ fontSize: vmin(38), fontWeight: 700, lineHeight: 1 }}>
+                <span className="product-price" style={{ fontSize: vmin(38), fontWeight: 700, lineHeight: 1 }}>
                   {formatCents(product.priceCents, product.currency)}
                 </span>
               </div>
             </div>
 
             {product.description && (
-              <div style={{ fontSize: vmin(16), lineHeight: 1.6, color: "var(--text-on-scene-secondary)" }}>
+              <div
+                className="product-description"
+                style={{ fontSize: vmin(16), lineHeight: 1.6, color: "var(--text-on-scene-secondary)" }}
+              >
                 {product.description}
               </div>
             )}
 
             {product.sizes.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
-                <div style={{ fontSize: vmin(14), fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>
+              <div
+                className="product-sizes-block"
+                style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}
+              >
+                <div
+                  className="product-sizes-label"
+                  style={{ fontSize: vmin(14), fontWeight: 600, color: "rgba(255,255,255,0.78)" }}
+                >
                   Taille
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: vmin(10), flexWrap: "wrap" }}>
+                <div
+                  className="product-sizes"
+                  style={{ display: "flex", alignItems: "center", gap: vmin(10), flexWrap: "wrap" }}
+                >
                   {product.sizes.map(({ size: label, stock }) => {
                     const on = label === size;
                     const disabled = stock === 0;
                     return (
                       <button
                         key={label}
+                        className="product-size"
                         disabled={disabled}
                         onClick={() => setSize(label)}
                         style={{
@@ -281,10 +334,14 @@ export function ProductDetail({
               </div>
             )}
 
-            <div style={{ height: vmin(14) }} />
+            <div className="product-spacer" style={{ height: vmin(14) }} />
 
-            <div style={{ display: "flex", alignItems: "center", gap: vmin(12) }}>
+            <div
+              className="product-actions"
+              style={{ display: "flex", alignItems: "center", gap: vmin(12) }}
+            >
               <button
+                className="product-add"
                 disabled={!canAddToCart}
                 onClick={handleAddToCart}
                 style={{
@@ -305,7 +362,10 @@ export function ProductDetail({
                 }}
               >
                 <CartIcon size={vmin(21)} stroke="#10222c" />
-                <span style={{ fontSize: vmin(17), fontWeight: 700, whiteSpace: "nowrap" }}>
+                <span
+                  className="product-add-label"
+                  style={{ fontSize: vmin(17), fontWeight: 700, whiteSpace: "nowrap" }}
+                >
                   {!canAddToCart
                     ? "Rupture de stock"
                     : added
@@ -314,6 +374,7 @@ export function ProductDetail({
                 </span>
               </button>
               <button
+                className="product-fav"
                 aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
                 onClick={handleToggleFavorite}
                 style={{
@@ -334,6 +395,7 @@ export function ProductDetail({
             </div>
 
             <div
+              className="product-shipping"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -351,7 +413,7 @@ export function ProductDetail({
               <span>Livraison offerte dès 150 € · retours 30 jours</span>
             </div>
 
-            <div style={{ flex: 1 }} />
+            <div className="product-filler" style={{ flex: 1 }} />
           </div>
         </div>
       </div>

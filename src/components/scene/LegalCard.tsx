@@ -7,6 +7,14 @@ import { Breadcrumb } from "./Breadcrumb";
 import { Footer, type FooterActive } from "./Footer";
 import { capped, vmin } from "@/lib/fluid";
 
+/**
+ * Shell des pages légales (mentions, CGV) : une carte claire qui défile dans la
+ * scène. Elle passe `scene-mobile` à `Scene`, donc sous 768px (ou sur un
+ * téléphone couché) la scène repasse en flux normal et c'est la page qui
+ * défile, la carte n'étant plus qu'un bloc de la colonne — voir les règles
+ * `.scene-mobile .legal-*` dans globals.css, qui s'appuient sur les classes
+ * posées ici pour repasser les tailles en pixels.
+ */
 export function LegalCard({
   crumb,
   footerActive,
@@ -21,18 +29,20 @@ export function LegalCard({
   children: ReactNode;
 }) {
   return (
-    <Scene>
+    <Scene className="scene-mobile">
       <TopBar
+        className="scene-topbar"
         left={
           <>
             <LogoPill />
             <BackLink href="/" label="Retour à la boutique" />
           </>
         }
-        right={<Breadcrumb items={["Boutique", crumb]} />}
+        right={<Breadcrumb className="legal-crumb" items={["Boutique", crumb]} />}
       />
 
       <div
+        className="legal-card"
         style={{
           position: "absolute",
           top: vmin(112),
@@ -52,9 +62,17 @@ export function LegalCard({
           gap: vmin(18),
         }}
       >
-        <div style={{ flex: "none", display: "flex", flexDirection: "column", gap: vmin(4) }}>
-          <div style={{ fontSize: vmin(30), fontWeight: 700 }}>{title}</div>
-          <div style={{ fontSize: vmin(13), fontWeight: 500, color: "var(--ink-quaternary)" }}>
+        <div
+          className="legal-head"
+          style={{ flex: "none", display: "flex", flexDirection: "column", gap: vmin(4) }}
+        >
+          <div className="legal-title" style={{ fontSize: vmin(30), fontWeight: 700 }}>
+            {title}
+          </div>
+          <div
+            className="legal-updated"
+            style={{ fontSize: vmin(13), fontWeight: 500, color: "var(--ink-quaternary)" }}
+          >
             Dernière mise à jour : {updatedAt}
           </div>
         </div>
@@ -85,8 +103,16 @@ export function LegalCard({
 
 export function LegalSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-      <div style={{ fontSize: vmin(17), fontWeight: 700, color: "var(--ink)" }}>{title}</div>
+    <div
+      className="legal-section"
+      style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}
+    >
+      <div
+        className="legal-section-title"
+        style={{ fontSize: vmin(17), fontWeight: 700, color: "var(--ink)" }}
+      >
+        {title}
+      </div>
       {children}
     </div>
   );
