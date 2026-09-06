@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { ORDER_STATUS_FILTERS } from "@/lib/admin/orders";
+import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 import type { OrderStatus } from "@/generated/prisma/client";
-
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  PENDING: "En attente",
-  PAID: "Payée",
-  SHIPPED: "Expédiée",
-  DELIVERED: "Livrée",
-  CANCELLED: "Annulée",
-};
 
 function buildHref(params: { status?: OrderStatus; q?: string }) {
   const search = new URLSearchParams();
@@ -31,7 +24,7 @@ export function OrderStatusTabs({
 }) {
   const tabs: { key?: OrderStatus; label: string; count: number }[] = [
     { key: undefined, label: "Toutes", count: total },
-    ...ORDER_STATUS_FILTERS.map((s) => ({ key: s, label: STATUS_LABELS[s], count: counts[s] })),
+    ...ORDER_STATUS_FILTERS.map((s) => ({ key: s, label: ORDER_STATUS_LABELS[s], count: counts[s] })),
   ];
 
   return (

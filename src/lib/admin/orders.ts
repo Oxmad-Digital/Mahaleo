@@ -3,7 +3,7 @@ import type { OrderStatus, Prisma } from "@/generated/prisma/client";
 
 export const ORDERS_PAGE_SIZE = 20;
 
-export const ORDER_STATUS_FILTERS = ["PENDING", "PAID", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
+export const ORDER_STATUS_FILTERS = ["PENDING", "PAID", "PREPARING", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
 export function isOrderStatus(value: string): value is OrderStatus {
   return (ORDER_STATUS_FILTERS as readonly string[]).includes(value);
@@ -84,6 +84,7 @@ export async function getOrderById(id: string) {
       totalCents: true,
       currency: true,
       createdAt: true,
+      updatedAt: true,
       customerName: true,
       customerEmail: true,
       shippingAddress: true,
@@ -91,17 +92,29 @@ export async function getOrderById(id: string) {
       shippingPostalCode: true,
       shippingCountry: true,
       phone: true,
+      stripePaymentIntentId: true,
       user: { select: { id: true, name: true, email: true } },
       items: {
         select: {
           id: true,
           quantity: true,
           priceCents: true,
-          product: { select: { name: true, slug: true } },
+          product: { select: { id: true, name: true, slug: true, images: true } },
         },
       },
+      shipment: true,
+      invoice: true,
+      extraPayments: { orderBy: { createdAt: "desc" } },
     },
   });
+}
+
+/**
+ * Sous-total des articles. Il peut différer du total de la commande, qui inclut
+ * les frais de livraison calculés au moment du paiement.
+ */
+export function itemsSubtotalCents(items: { quantity: number; priceCents: number }[]) {
+  return items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0);
 }
 
 export type OrderDetail = NonNullable<Awaited<ReturnType<typeof getOrderById>>>;

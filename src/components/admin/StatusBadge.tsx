@@ -1,11 +1,13 @@
 import type { OrderStatus } from "@/generated/prisma/client";
+import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 
-const STATUS_STYLE: Record<OrderStatus, { label: string; bg: string; ink: string }> = {
-  PENDING: { label: "En attente", bg: "#fbf3db", ink: "#8a6416" },
-  PAID: { label: "Payée", bg: "#dbeddb", ink: "#1c6b3a" },
-  SHIPPED: { label: "Expédiée", bg: "#f1f1ef", ink: "rgba(55,53,47,0.65)" },
-  DELIVERED: { label: "Livrée", bg: "#dbeddb", ink: "#1c6b3a" },
-  CANCELLED: { label: "Annulée", bg: "#fbe4e4", ink: "#a82c2c" },
+const STATUS_STYLE: Record<OrderStatus, { bg: string; ink: string }> = {
+  PENDING: { bg: "#fbf3db", ink: "#8a6416" },
+  PAID: { bg: "#dbeddb", ink: "#1c6b3a" },
+  PREPARING: { bg: "#e8e3f5", ink: "#5b4b8a" },
+  SHIPPED: { bg: "#f1f1ef", ink: "rgba(55,53,47,0.65)" },
+  DELIVERED: { bg: "#dbeddb", ink: "#1c6b3a" },
+  CANCELLED: { bg: "#fbe4e4", ink: "#a82c2c" },
 };
 
 export function StatusBadge({ status }: { status: OrderStatus }) {
@@ -22,7 +24,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
         color: style.ink,
       }}
     >
-      {style.label}
+      {ORDER_STATUS_LABELS[status]}
     </span>
   );
 }

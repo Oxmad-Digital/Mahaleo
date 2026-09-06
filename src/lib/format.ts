@@ -4,6 +4,20 @@ export function formatCents(cents: number, currency = "EUR") {
   );
 }
 
+/**
+ * Comme `formatCents`, mais conserve les centimes quand le montant n'est pas
+ * rond : les prix catalogue sont entiers, pas les paiements à montant libre.
+ */
+export function formatCentsExact(cents: number, currency = "EUR") {
+  const digits = cents % 100 === 0 ? 0 : 2;
+  return new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(cents / 100);
+}
+
 export function formatNumber(value: number) {
   return new Intl.NumberFormat("fr-FR").format(value);
 }

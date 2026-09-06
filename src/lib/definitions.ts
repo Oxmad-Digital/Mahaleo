@@ -230,3 +230,76 @@ export type ContactFormState =
       success?: boolean;
     }
   | undefined;
+
+/* ------------------------------------------------------------------ */
+/* Espace admin : fiche commande                                       */
+/* ------------------------------------------------------------------ */
+
+export const OrderCustomerSchema = z.object({
+  customerName: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
+  customerEmail: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : null)),
+  shippingAddress: z.string().min(5, { error: "Veuillez saisir une adresse complète." }).trim(),
+  shippingPostalCode: z.string().min(4, { error: "Code postal invalide." }).trim(),
+  shippingCity: z.string().min(2, { error: "Veuillez saisir une ville." }).trim(),
+  shippingCountry: z
+    .string()
+    .trim()
+    .length(2, { error: "Utilisez le code pays à 2 lettres (FR, BE…)." })
+    .transform((v) => v.toUpperCase()),
+});
+
+export type OrderCustomerState =
+  | {
+      errors?: {
+        customerName?: string[];
+        customerEmail?: string[];
+        phone?: string[];
+        shippingAddress?: string[];
+        shippingPostalCode?: string[];
+        shippingCity?: string[];
+        shippingCountry?: string[];
+      };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;
+
+export const ShippingLabelSchema = z.object({
+  weightGrams: z.coerce
+    .number({ error: "Indiquez un poids." })
+    .int({ error: "Le poids doit être un nombre entier de grammes." })
+    .min(1, { error: "Le poids doit être supérieur à 0." })
+    .max(70000, { error: "70 kg maximum." }),
+  methodId: z.coerce.number({ error: "Choisissez une méthode d'expédition." }).int().positive({
+    error: "Choisissez une méthode d'expédition.",
+  }),
+});
+
+export type ShippingLabelState =
+  | {
+      errors?: { weightGrams?: string[]; methodId?: string[] };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;
+
+export const ExtraPaymentSchema = z.object({
+  label: z.string().min(3, { error: "Décrivez le motif en quelques mots." }).trim(),
+  amountEuros: z.coerce
+    .number({ error: "Indiquez un montant." })
+    .min(0.5, { error: "Le montant minimum est de 0,50 €." })
+    .max(10000, { error: "10 000 € maximum." }),
+});
+
+export type ExtraPaymentState =
+  | {
+      errors?: { label?: string[]; amountEuros?: string[] };
+      message?: string;
+      success?: boolean;
+    }
+  | undefined;

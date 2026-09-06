@@ -1,4 +1,4 @@
-import { formatCents, formatDate } from "@/lib/format";
+import { formatCents, formatCentsExact, formatDate } from "@/lib/format";
 import { emailLayout, button, emailTextStyles } from "./layout";
 import { APP_URL } from "./constants";
 
@@ -33,6 +33,7 @@ export type OrderEmailData = {
   currency: string;
   createdAt: Date;
   items: OrderEmailItem[];
+  tracking?: { number: string | null; url: string | null; carrier: string | null } | null;
 };
 
 function itemsTable(items: OrderEmailItem[], currency: string) {
@@ -59,6 +60,48 @@ function orderSummaryBlock(order: OrderEmailData) {
         <td style="padding-top:8px; font-size:15px; font-weight:700; color:${ink}; text-align:right;">${formatCents(order.totalCents, order.currency)}</td>
       </tr>
     </table>`;
+}
+
+function trackingBlock(order: OrderEmailData) {
+  const tracking = order.tracking;
+  if (!tracking?.number) return "";
+
+  const carrier = tracking.carrier ? `${escapeHtml(tracking.carrier.toUpperCase())} · ` : "";
+  const link = tracking.url ? button(tracking.url, "Suivre mon colis") : "";
+  return `
+    <p style="font-size:14px; line-height:1.6; color:${inkMuted}; margin:16px 0 0;">
+      ${carrier}Numéro de suivi : <strong style="color:${ink};">${escapeHtml(tracking.number)}</strong>
+    </p>
+    ${link}`;
+}
+
+export function extraPaymentEmailTemplate(
+  name: string | null,
+  { orderId, label, amountCents, currency, checkoutUrl }: {
+    orderId: string;
+    label: string;
+    amountCents: number;
+    currency: string;
+    checkoutUrl: string;
+  }
+) {
+  const subject = `Complément à régler pour votre commande ${orderReference(orderId)}`;
+  const html = emailLayout({
+    previewText: `Un complément de ${formatCentsExact(amountCents, currency)} est à régler.`,
+    bodyHtml: `
+      <h1 style="font-size:20px; font-weight:700; color:${ink}; margin:0 0 16px;">Un complément à régler</h1>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0 0 8px;">${greeting(name)}</p>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0;">
+        Pour finaliser votre commande ${orderReference(orderId)}, un complément de
+        <strong>${formatCentsExact(amountCents, currency)}</strong> reste à régler au titre de : ${escapeHtml(label)}.
+      </p>
+      ${button(checkoutUrl, "Régler le complément")}
+      <p style="font-size:14px; line-height:1.6; color:${inkMuted}; margin:16px 0 0;">
+        Le paiement est sécurisé par Stripe. Une question ? Répondez simplement à cet e-mail.
+      </p>
+    `,
+  });
+  return { subject, html };
 }
 
 export function welcomeEmailTemplate(name: string | null) {
@@ -96,6 +139,22 @@ export function orderConfirmationEmailTemplate(name: string | null, order: Order
   return { subject, html };
 }
 
+export function orderPreparingEmailTemplate(name: string | null, order: OrderEmailData) {
+  const subject = `Votre commande ${orderReference(order.id)} est en préparation`;
+  const html = emailLayout({
+    previewText: `Nous préparons votre commande ${orderReference(order.id)}.`,
+    bodyHtml: `
+      <h1 style="font-size:20px; font-weight:700; color:${ink}; margin:0 0 16px;">Commande en préparation</h1>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0 0 8px;">${greeting(name)}</p>
+      <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0;">
+        Votre commande ${orderReference(order.id)} est en cours de préparation dans notre atelier. Elle partira très bientôt.
+      </p>
+      ${orderSummaryBlock(order)}
+    `,
+  });
+  return { subject, html };
+}
+
 export function orderShippedEmailTemplate(name: string | null, order: OrderEmailData) {
   const subject = `Votre commande ${orderReference(order.id)} est expédiée`;
   const html = emailLayout({
@@ -106,6 +165,7 @@ export function orderShippedEmailTemplate(name: string | null, order: OrderEmail
       <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0;">
         Bonne nouvelle : votre commande ${orderReference(order.id)} vient d'être expédiée.
       </p>
+      ${trackingBlock(order)}
       ${orderSummaryBlock(order)}
     `,
   });

@@ -3,12 +3,14 @@ import { EMAIL_FROM, SUPPORT_EMAIL } from "./constants";
 import {
   welcomeEmailTemplate,
   orderConfirmationEmailTemplate,
+  orderPreparingEmailTemplate,
   orderShippedEmailTemplate,
   orderDeliveredEmailTemplate,
   orderCancelledEmailTemplate,
   passwordResetEmailTemplate,
   adminInviteEmailTemplate,
   contactMessageEmailTemplate,
+  extraPaymentEmailTemplate,
   type OrderEmailData,
 } from "./templates";
 
@@ -37,6 +39,10 @@ export function sendOrderConfirmationEmail(to: string, name: string | null, orde
   return safeSend(to, orderConfirmationEmailTemplate(name, order));
 }
 
+export function sendOrderPreparingEmail(to: string, name: string | null, order: OrderEmailData) {
+  return safeSend(to, orderPreparingEmailTemplate(name, order));
+}
+
 export function sendOrderShippedEmail(to: string, name: string | null, order: OrderEmailData) {
   return safeSend(to, orderShippedEmailTemplate(name, order));
 }
@@ -55,6 +61,14 @@ export function sendPasswordResetEmail(to: string, name: string | null, resetUrl
 
 export function sendAdminInviteEmail(to: string, name: string | null, setPasswordUrl: string) {
   return safeSend(to, adminInviteEmailTemplate(name, setPasswordUrl));
+}
+
+export function sendExtraPaymentEmail(
+  to: string,
+  name: string | null,
+  payment: { orderId: string; label: string; amountCents: number; currency: string; checkoutUrl: string }
+) {
+  return safeSend(to, extraPaymentEmailTemplate(name, payment));
 }
 
 export function sendContactMessageEmail(name: string, fromEmail: string, message: string) {

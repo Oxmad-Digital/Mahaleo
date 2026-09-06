@@ -1263,4 +1263,55 @@ button.header-icon-button:hover,
   .admin-stats-geo-grid {
     grid-template-columns: 1fr !important;
   }
+
+  /* Fiche commande : la colonne latérale passe sous le contenu principal. */
+  .admin-order-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-order-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+  }
+
+  .admin-order-pills > * {
+    flex: 1 1 0;
+    min-width: 0 !important;
+  }
+
+  /* Le fil des statuts reste sur une ligne : les libellés se resserrent. */
+  .admin-order-stepper-hint {
+    display: none !important;
+  }
+
+  .admin-order-step-label {
+    font-size: 11px !important;
+    line-height: 1.3;
+  }
+
+  .admin-order-stepper-footer {
+    align-items: flex-start !important;
+  }
+
+  /* Formulaires de la fiche (client, étiquette) : une colonne. */
+  .admin-order-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Le tableau des articles défile horizontalement plutôt que de s'écraser. */
+  .admin-order-items-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-order-items-header,
+  .admin-order-item-row {
+    min-width: 460px;
+  }
+
+  .admin-order-customer-row,
+  .admin-order-shipping-grid {
+    gap: 18px !important;
+  }
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
+import { ensureInvoiceForOrder } from "@/lib/admin/invoices";
 import { sendOrderConfirmationEmail } from "@/lib/emails/send";
 
 export async function POST(request: Request) {
@@ -25,8 +26,16 @@ export async function POST(request: Request) {
   if (event.type === "checkout.session.completed") {
     const checkoutSession = event.data.object;
     const orderId = checkoutSession.metadata?.orderId;
+    const extraPaymentId = checkoutSession.metadata?.extraPaymentId;
 
-    if (orderId) {
+    // Complément à montant libre créé depuis la fiche commande : il ne touche ni
+    // au statut de la commande ni à la facture, seulement à sa propre ligne.
+    if (extraPaymentId) {
+      await prisma.extraPayment.update({
+        where: { id: extraPaymentId },
+        data: { status: "PAID", paidAt: new Date() },
+      });
+    } else if (orderId) {
       const paymentIntentId =
         typeof checkoutSession.payment_intent === "string"
           ? checkoutSession.payment_intent
@@ -37,6 +46,8 @@ export async function POST(request: Request) {
         data: { status: "PAID", stripePaymentIntentId: paymentIntentId },
         include: { items: { include: { product: { select: { name: true } } } } },
       });
+
+      await ensureInvoiceForOrder(order.id);
 
       await sendOrderConfirmationEmail(order.customerEmail, order.customerName, {
         id: order.id,
