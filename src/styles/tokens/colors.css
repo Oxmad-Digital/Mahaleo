@@ -37,6 +37,15 @@
   --brand-green: #1c6b3a;
   --brand-green-hover: #134f29;
 
+  /* Erreurs sur scène — le rouge de marque n'a pas assez de contraste posé sur
+     du verre translucide devant une photo claire : le bandeau devient une
+     surface opaque à texte clair, et le message inline sous un champ vire au
+     rose très pâle pour rester aussi lisible que les libellés blancs. */
+  --danger-surface: rgba(122, 26, 18, 0.92);
+  --danger-border: rgba(255, 173, 158, 0.55);
+  --danger-on-surface: #fff1ed;
+  --danger-on-scene: #ffd2c8;
+
   /* Surfaces solides */
   --surface-light: rgba(255, 255, 255, 0.92);
   --surface-light-border: rgba(255, 255, 255, 0.7);

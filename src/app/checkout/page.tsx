@@ -40,7 +40,8 @@ const inputStyle: React.CSSProperties = {
 
 const errorTextStyle: React.CSSProperties = {
   fontSize: vmin(12),
-  color: "var(--brand-red, #e07a6b)",
+  fontWeight: 600,
+  color: "var(--danger-on-scene)",
 };
 
 export default function CheckoutPage() {
@@ -94,13 +95,22 @@ export default function CheckoutPage() {
           alignItems: "flex-start",
           gap: vmin(24),
           overflowY: "auto",
+          // `overflow-y: auto` fait passer l'axe horizontal de `visible` à
+          // `auto` : dès que la barre verticale apparaît, elle mange quelques
+          // pixels de la largeur de contenu et une barre horizontale surgit
+          // pour ces quelques pixels. Les deux colonnes ci-dessous peuvent
+          // maintenant se rétracter (`flex: 0 1 auto`), donc il n'y a plus rien
+          // à faire défiler latéralement.
+          overflowX: "hidden",
           paddingBottom: vmin(20),
+          paddingRight: vmin(10),
         }}
       >
         <div
           style={{
             width: capped(560),
-            flex: "none",
+            flex: "0 1 auto",
+            minWidth: 0,
             display: "flex",
             flexDirection: "column",
             gap: vmin(20),
@@ -141,7 +151,8 @@ export default function CheckoutPage() {
         <div
           style={{
             width: capped(420),
-            flex: "none",
+            flex: "0 1 auto",
+            minWidth: 0,
             display: "flex",
             flexDirection: "column",
             gap: vmin(18),
@@ -193,10 +204,12 @@ export default function CheckoutPage() {
               style={{
                 padding: `${vmin(12)} ${vmin(16)}`,
                 borderRadius: "var(--radius-sm)",
-                background: "rgba(224,122,107,0.12)",
-                border: "1px solid rgba(224,122,107,0.35)",
+                background: "var(--danger-surface)",
+                border: "1px solid var(--danger-border)",
                 fontSize: vmin(13),
-                color: "var(--brand-red, #e07a6b)",
+                fontWeight: 500,
+                lineHeight: 1.45,
+                color: "var(--danger-on-surface)",
               }}
             >
               {state.message}
