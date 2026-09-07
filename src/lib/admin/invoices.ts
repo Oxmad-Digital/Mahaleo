@@ -1,6 +1,57 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@/generated/prisma/client";
 
+export const INVOICES_PAGE_SIZE = 20;
+
+export async function getInvoicesData({ query, page }: { query?: string; page: number }) {
+  const pageSize = INVOICES_PAGE_SIZE;
+
+  const where: Prisma.InvoiceWhereInput | undefined = query
+    ? {
+        OR: [
+          { number: { contains: query, mode: "insensitive" } },
+          { orderId: { contains: query, mode: "insensitive" } },
+          { order: { customerName: { contains: query, mode: "insensitive" } } },
+          { order: { customerEmail: { contains: query, mode: "insensitive" } } },
+        ],
+      }
+    : undefined;
+
+  const [invoices, total] = await Promise.all([
+    prisma.invoice.findMany({
+      where,
+      orderBy: { issuedAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      select: {
+        id: true,
+        number: true,
+        issuedAt: true,
+        order: {
+          select: {
+            id: true,
+            customerName: true,
+            customerEmail: true,
+            totalCents: true,
+            currency: true,
+          },
+        },
+      },
+    }),
+    prisma.invoice.count({ where }),
+  ]);
+
+  return {
+    invoices,
+    total,
+    page,
+    pageSize,
+    pageCount: Math.max(1, Math.ceil(total / pageSize)),
+  };
+}
+
+export type InvoicesData = Awaited<ReturnType<typeof getInvoicesData>>;
+
 function invoiceNumber(year: number, sequence: number) {
   return `FACT-${year}-${String(sequence).padStart(4, "0")}`;
 }

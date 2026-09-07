@@ -1206,6 +1206,26 @@ button.header-icon-button:hover,
     color: rgba(55, 53, 47, 0.4);
   }
 
+  /* Le tableau des factures devient une liste de cartes. */
+  .admin-invoices-header {
+    display: none !important;
+  }
+
+  .admin-invoices-row {
+    grid-template-columns: 1fr !important;
+    justify-items: start !important;
+    gap: 4px !important;
+  }
+
+  .admin-invoices-amount {
+    text-align: left !important;
+  }
+
+  .admin-invoices-order::before {
+    content: attr(data-label) ": ";
+    color: rgba(55, 53, 47, 0.4);
+  }
+
   /* Page Commandes : l'entête (titre + recherche) passe en colonne. */
   .admin-page-header-row {
     flex-direction: column !important;

@@ -15,6 +15,7 @@ const BORDER = "1px solid rgba(55,53,47,0.09)";
 export default async function AdminOrderInvoicePage(props: PageProps<"/admin/commandes/[id]/facture">) {
   await requireAdmin();
   const { id } = await props.params;
+  const searchParams = await props.searchParams;
 
   const order = await getOrderById(id);
   if (!order) notFound();
@@ -22,6 +23,10 @@ export default async function AdminOrderInvoicePage(props: PageProps<"/admin/com
 
   const subtotalCents = itemsSubtotalCents(order.items);
   const shippingCents = order.totalCents - subtotalCents;
+
+  const fromFactures = searchParams.from === "factures";
+  const backHref = fromFactures ? "/admin/factures" : `/admin/commandes/${order.id}`;
+  const backLabel = fromFactures ? "Retour aux factures" : "Retour à la commande";
 
   return (
     <div style={{ minHeight: "100dvh", background: "#f7f7f5", fontFamily: "var(--font-family)", color: INK }}>
@@ -39,13 +44,13 @@ export default async function AdminOrderInvoicePage(props: PageProps<"/admin/com
         }}
       >
         <Link
-          href={`/admin/commandes/${order.id}`}
+          href={backHref}
           style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 500, color: MUTED }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 5l-7 7 7 7" />
           </svg>
-          Retour à la commande
+          {backLabel}
         </Link>
         <PrintButton />
       </div>

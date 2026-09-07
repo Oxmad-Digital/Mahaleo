@@ -4,18 +4,19 @@ import { logout } from "@/app/actions/auth";
 
 type Crumb = { label: string; href?: string };
 
-type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "statistiques" | "parametres";
+type AdminNavKey = "dashboard" | "commandes" | "produits" | "clients" | "factures" | "statistiques" | "parametres";
 
-const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "chart" | "settings" }[] = [
+const NAV_ITEMS: { key: AdminNavKey; label: string; href: string | null; icon: "grid" | "cart" | "package" | "users" | "receipt" | "chart" | "settings" }[] = [
   { key: "dashboard", label: "Tableau de bord", href: "/admin", icon: "grid" },
   { key: "commandes", label: "Commandes", href: "/admin/commandes", icon: "cart" },
   { key: "produits", label: "Produits", href: "/admin/produits", icon: "package" },
   { key: "clients", label: "Clients", href: "/admin/clients", icon: "users" },
+  { key: "factures", label: "Factures", href: "/admin/factures", icon: "receipt" },
   { key: "statistiques", label: "Statistiques", href: "/admin/statistiques", icon: "chart" },
   { key: "parametres", label: "Réglages", href: "/admin/parametres", icon: "settings" },
 ];
 
-function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "chart" | "settings" | "logout" }) {
+function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "receipt" | "chart" | "settings" | "logout" }) {
   const common = {
     width: 19,
     height: 19,
@@ -55,6 +56,13 @@ function NavIcon({ kind }: { kind: "grid" | "cart" | "package" | "users" | "char
         <svg {...common} stroke="rgba(55,53,47,0.55)">
           <circle cx="12" cy="8.5" r="3.5" />
           <path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5" />
+        </svg>
+      );
+    case "receipt":
+      return (
+        <svg {...common} stroke="rgba(55,53,47,0.55)">
+          <path d="M6 3h12v18l-3-2-2 2-2-2-2 2-3-2z" />
+          <path d="M9 8h6M9 12h6M9 16h3" />
         </svg>
       );
     case "chart":
