@@ -24,7 +24,14 @@ export function AccountShell({
   children: ReactNode;
 }) {
   return (
-    <ConsoleShell nav={NAV_ITEMS} active={active} breadcrumb={breadcrumb} userName={userName} userEmail={userEmail}>
+    <ConsoleShell
+      nav={NAV_ITEMS}
+      active={active}
+      breadcrumb={breadcrumb}
+      userName={userName}
+      userEmail={userEmail}
+      variant="account"
+    >
       {children}
     </ConsoleShell>
   );

@@ -118,6 +118,7 @@ export function ConsoleShell({
   userName,
   userEmail,
   children,
+  variant = "admin",
 }: {
   nav: ConsoleNavItem[];
   active: string;
@@ -125,10 +126,11 @@ export function ConsoleShell({
   userName: string | null | undefined;
   userEmail: string;
   children: ReactNode;
+  variant?: "admin" | "account";
 }) {
   return (
     <div
-      className="admin-shell"
+      className={variant === "account" ? "admin-shell account-shell" : "admin-shell"}
       style={{
         position: "fixed",
         inset: 0,

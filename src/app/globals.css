@@ -193,11 +193,16 @@ button.header-icon-button:hover,
  * Mise en page mobile (boutique, fiche produit, pages légales)
  * ---------------------------------------------------------------------------
  * La scène est dessinée pour un canvas 1440x960 en paysage : toutes ses tailles
- * passent par `vmin()`, donc sur un téléphone en portrait — où vmin vaut la
- * largeur — le logo, les icônes et les textes tombent à quelques pixels. Et la
- * contrainte « tout tient dans un écran » n'a pas de sens sur mobile : sous
- * 768px de large (ou sur un téléphone couché), la boutique repasse donc en flux
- * normal et défile.
+ * passent par `vmin()`, donc sur un écran en portrait — où vmin vaut la
+ * largeur — le logo, les icônes et les textes tombent à quelques pixels, et
+ * la rangée héro à trois colonnes (masquée sous 4/3, cf. plus haut) laisse un
+ * vide vertical béant une fois les vignettes latérales retirées : rien ne
+ * reste pour occuper la hauteur d'un écran nettement plus haut que large. Et
+ * la contrainte « tout tient dans un écran » n'a pas de sens sur mobile : sous
+ * 768px de large, sur un téléphone couché, ou sur une tablette en portrait
+ * (jusqu'à 1024px de large — au-delà, `max-aspect-ratio: 4/3` seul suffit à
+ * garder la scène lisible), la boutique repasse donc en flux normal et
+ * défile.
  *
  * Ce qui change :
  *   - `.scene-mobile` (l'enveloppe plein écran) devient la zone de défilement ;
@@ -222,7 +227,8 @@ button.header-icon-button:hover,
  * le contenu, et les pages qui n'ont pas encore opté gardent leur rendu
  * actuel.
  */
-@media (max-width: 768px), (orientation: landscape) and (max-height: 500px) {
+@media (max-width: 768px), (orientation: landscape) and (max-height: 500px),
+  (orientation: portrait) and (max-width: 1024px) {
   .scene-mobile {
     --m-gap: 14px;
     --m-inset: 8px;
@@ -309,24 +315,10 @@ button.header-icon-button:hover,
     gap: 2px !important;
   }
 
-  /* Le panier a sa place dans la barre d'onglets du bas : en haut il ne reste
-     que l'icône, le libellé ne tiendrait pas sur la largeur d'un téléphone. */
-  .scene-mobile .shop-checkout {
-    width: 36px !important;
-    height: 36px !important;
-    flex: none !important;
-    padding: 0 !important;
-    gap: 0 !important;
-    justify-content: center !important;
-  }
-
-  .scene-mobile .shop-checkout-label {
+  /* Le titre n'a pas la place de tenir à côté du logo et des icônes sur la
+     largeur d'un téléphone ; la marque reste portée par le logo. */
+  .scene-mobile .shop-title {
     display: none !important;
-  }
-
-  .scene-mobile .shop-checkout svg {
-    width: 19px !important;
-    height: 19px !important;
   }
 
   /* --- Carrousel --------------------------------------------------------- */
@@ -1110,6 +1102,336 @@ button.header-icon-button:hover,
 }
 
 /*
+ * Tablette en portrait : la scène bascule dans le même flux que le mobile
+ * (cf. règle `(orientation: portrait) and (max-width: 1024px)` plus haut),
+ * mais dispose de bien plus de largeur qu'un téléphone. Le groupe
+ * [précédent · fiche produit · suivant] et la barre d'onglets sont pensés
+ * pour occuper toute la largeur d'un téléphone (`flex: 1 1 auto`, `space-
+ * around`) : sans correctif ils s'étirent d'un bord à l'autre de l'écran. On
+ * leur redonne leur taille naturelle (épouser leur contenu) et on les
+ * recentre, comme sur desktop.
+ */
+@media (orientation: portrait) and (min-width: 769px) and (max-width: 1024px) {
+  .scene-mobile .home-nav {
+    align-self: center !important;
+  }
+
+  .scene-mobile .home-featured {
+    flex: none !important;
+    width: auto !important;
+  }
+
+  .scene-mobile .icon-rail {
+    align-self: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  /*
+   * Fiche produit : les tailles ci-dessus (`.product-*` dans la bascule
+   * mobile) sont calibrées pour un téléphone étroit. Sur une tablette
+   * portrait, les reprendre telles quelles laisse un bloc empilé qui
+   * s'étire d'un bord à l'autre d'un écran deux à trois fois plus large —
+   * photo géante contre le bord, texte minuscule perdu dedans. On recentre
+   * la colonne à une largeur de lecture confortable et on remonte les
+   * tailles vers celles du desktop (`vmin`), plafonnées en pixels puisque
+   * `vmin` lui-même ne convient pas ici (cf. le commentaire plus haut sur
+   * le choix du flux normal en portrait).
+   */
+  /* `gap` double l'écart entre les deux containers principaux (galerie et
+     carte) ; `margin-top`/`margin-bottom` s'ajoutent au `gap` du `.scene-frame`
+     (`--m-gap`, posé plus haut) pour doubler aussi l'écart avec la barre du
+     haut et la barre d'onglets/le pied de page, sans toucher à la variable
+     partagée — qui déciderait aussi de l'espacement des autres pages
+     (`.cart-*`, `.fav-*`, ...) passées par `.scene-mobile`. */
+  .scene-mobile .product-layout {
+    align-self: center !important;
+    width: 100% !important;
+    max-width: 640px !important;
+    gap: 28px !important;
+    margin-top: 14px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* La galerie reprend l'agencement desktop (vignettes à gauche, photo à
+     droite) au lieu de l'empilement du téléphone : la largeur recentrée
+     laisse assez de place pour les deux colonnes côte à côte. `column-reverse`
+     et les tailles en rangée du mode téléphone (cf. `.product-gallery` et
+     `.product-thumb` plus haut) sont annulés ; comme le bloc n'est plus
+     positionné en absolu (cf. `.product-layout` du flux normal), la rangée
+     reçoit une hauteur explicite (`--gallery-h`) pour que les vignettes en
+     colonne aient une base sur laquelle se caler.
+
+     La colonne de vignettes ne peut pas se fier au `flex:none` (rétrécit à
+     son contenu) posé en style inline pour le mode desktop : en colonne, ses
+     enfants en `width:auto` s'étireraient (stretch) à la largeur du parent,
+     qui se rétrécit lui-même à son contenu — référence circulaire que les
+     navigateurs résolvent en laissant les vignettes s'étaler sur toute la
+     largeur de la rangée. La largeur de la colonne est donc calculée
+     explicitement pour que 4 carrés plus leurs 3 espacements remplissent
+     exactement `--gallery-h`, comme sur desktop. */
+  .scene-mobile .product-gallery {
+    --gallery-h: min(560px, 58dvh);
+    flex-direction: row !important;
+    height: var(--gallery-h) !important;
+    gap: 14px !important;
+  }
+
+  .scene-mobile .product-thumbs {
+    flex-direction: column !important;
+    flex: none !important;
+    width: calc((var(--gallery-h) - 36px) / 4) !important;
+    height: 100% !important;
+    gap: 12px !important;
+  }
+
+  .scene-mobile .product-thumb {
+    width: 100% !important;
+    height: auto !important;
+    flex: none !important;
+    min-height: 0;
+    max-width: none !important;
+    aspect-ratio: 1 !important;
+  }
+
+  .scene-mobile .product-stage {
+    flex: 1 !important;
+    height: 100% !important;
+    aspect-ratio: auto !important;
+    max-height: none !important;
+  }
+
+  /* `.product-aside` hérite d'un `flex:1` du mode téléphone, où il occupe le
+     reste de `.product-layout` (qui grandit lui-même pour garder la barre
+     d'onglets et le pied de page en bas d'un écran court, cf. plus haut) :
+     sur une tablette, la galerie tient dans une hauteur fixe bien plus petite
+     que l'écran, donc ce `flex:1` étire la carte bien au-delà de son contenu
+     et laisse un grand vide sous la ligne de livraison. En repassant à
+     `flex:none`, la carte reprend la hauteur de son contenu ; l'espace qui
+     reste sous elle redevient du fond visible, comme sur téléphone. */
+  .scene-mobile .product-aside {
+    flex: none !important;
+  }
+
+  .scene-mobile .product-card {
+    padding: 28px !important;
+    gap: 20px !important;
+  }
+
+  .scene-mobile .product-title {
+    font-size: 32px !important;
+  }
+
+  .scene-mobile .product-price {
+    font-size: 28px !important;
+  }
+
+  .scene-mobile .product-description {
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .product-sizes-label {
+    font-size: 14px !important;
+  }
+
+  .scene-mobile .product-size {
+    min-width: 64px !important;
+    padding: 16px 0 !important;
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .product-actions {
+    gap: 14px !important;
+  }
+
+  .scene-mobile .product-add {
+    padding: 19px 0 !important;
+    gap: 14px !important;
+  }
+
+  .scene-mobile .product-add-label {
+    font-size: 17px !important;
+  }
+
+  .scene-mobile .product-fav {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  .scene-mobile .product-shipping {
+    padding: 16px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /*
+   * Panier : même logique que la fiche produit ci-dessus. Les règles mobile
+   * (`.cart-*`, plus haut) calibrent chaque article pour la largeur d'un
+   * téléphone et l'enroulent sur deux lignes (image/nom puis quantité/prix) —
+   * sur une tablette portrait, ça laisse une carte étirée d'un bord à l'autre
+   * de l'écran avec du texte minuscule. On recentre la liste et le
+   * récapitulatif à une largeur de lecture confortable et on repasse chaque
+   * article sur une seule ligne, comme sur desktop.
+   */
+  .scene-mobile .cart-scroll {
+    align-items: center !important;
+  }
+
+  .scene-mobile .cart-list,
+  .scene-mobile .cart-summary {
+    width: 100% !important;
+    max-width: 640px !important;
+  }
+
+  .scene-mobile .cart-list {
+    gap: 16px !important;
+  }
+
+  .scene-mobile .cart-item {
+    flex-wrap: nowrap !important;
+    gap: 18px !important;
+    padding: 18px !important;
+  }
+
+  .scene-mobile .cart-item-image {
+    width: 84px !important;
+    height: 84px !important;
+  }
+
+  .scene-mobile .cart-item-name {
+    font-size: 17px !important;
+  }
+
+  .scene-mobile .cart-item-size {
+    font-size: 13px !important;
+  }
+
+  .scene-mobile .cart-item-remove {
+    order: initial;
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .scene-mobile .cart-item-remove svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .scene-mobile .cart-item-meta {
+    order: initial;
+    flex: none !important;
+    gap: 20px !important;
+  }
+
+  .scene-mobile .cart-qty-btn {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 17px !important;
+  }
+
+  .scene-mobile .cart-item-price {
+    font-size: 18px !important;
+  }
+
+  .scene-mobile .cart-summary {
+    padding: 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .scene-mobile .cart-summary-title {
+    font-size: 19px !important;
+  }
+
+  .scene-mobile .cart-summary-row {
+    font-size: 14px !important;
+  }
+
+  .scene-mobile .cart-total-label {
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .cart-total-value {
+    font-size: 25px !important;
+  }
+
+  .scene-mobile .cart-checkout {
+    padding: 17px 0 !important;
+  }
+
+  .scene-mobile .cart-checkout-label {
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .cart-shipping-note {
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+  }
+
+  .scene-mobile .cart-shipping-note svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /*
+   * Favoris : même logique que le panier ci-dessus. Les règles mobile
+   * (`.fav-*`, plus haut) calibrent chaque article pour la largeur d'un
+   * téléphone et l'enroulent sur deux lignes (image/nom puis actions) — sur
+   * une tablette portrait, ça laisse une carte étirée d'un bord à l'autre de
+   * l'écran avec du texte minuscule. On recentre la liste à une largeur de
+   * lecture confortable et on repasse chaque article sur une seule ligne,
+   * comme sur desktop.
+   */
+  .scene-mobile .fav-scroll {
+    align-items: center !important;
+  }
+
+  .scene-mobile .fav-list {
+    width: 100% !important;
+    max-width: 640px !important;
+    gap: 16px !important;
+  }
+
+  .scene-mobile .fav-item {
+    flex-wrap: nowrap !important;
+    gap: 18px !important;
+    padding: 18px !important;
+  }
+
+  .scene-mobile .fav-item-image {
+    width: 84px !important;
+    height: 84px !important;
+  }
+
+  .scene-mobile .fav-item-name {
+    font-size: 17px !important;
+  }
+
+  .scene-mobile .fav-item-price {
+    font-size: 18px !important;
+  }
+
+  .scene-mobile .fav-item-actions {
+    order: initial;
+    gap: 12px !important;
+  }
+
+  .scene-mobile .fav-item-add {
+    flex: none !important;
+    padding: 13px 24px !important;
+    font-size: 14px !important;
+  }
+
+  .scene-mobile .fav-item-remove {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .scene-mobile .fav-item-remove svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/*
  * Tableau des consoles qui défile latéralement plutôt que de se comprimer.
  * Sans effet sur grand écran : la largeur minimale n'entre en jeu qu'au mobile.
  */
@@ -1356,5 +1678,30 @@ button.header-icon-button:hover,
   .admin-order-customer-row,
   .admin-order-shipping-grid {
     gap: 18px !important;
+  }
+}
+
+/*
+ * Tablette, suite : la boutique (scène `vmin`) a sa propre bascule portrait
+ * ci-dessus (`.scene-mobile`, jusqu'à 1024px de large). Ici c'est l'espace
+ * client (`.account-shell`, cf. ConsoleShell — un flux normal, pas la scène),
+ * qui a besoin d'un ajustement distinct entre le mobile (≤768px) et le
+ * desktop. La sidebar icône (72px) tient sans souci à cette largeur, seules
+ * les grilles à deux colonnes du tableau de bord et de la fiche commande sont
+ * trop étroites pour rester côte à côte : elles passeraient sous leur largeur
+ * minimale (le tableau "Dernières commandes" par ex. déborderait de sa
+ * colonne de 1fr).
+ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .account-shell .admin-content {
+    padding: 32px 28px 56px !important;
+  }
+
+  .account-shell .admin-dashboard-split {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .account-shell .admin-order-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }
