@@ -21,7 +21,7 @@ export function IconRail({ active }: { active: RailKey }) {
     session?.user
       ? {
           key: "profile",
-          href: session.user.role === "ADMIN" ? "/admin" : "/",
+          href: session.user.role === "ADMIN" ? "/admin" : "/compte",
           icon: <ProfileIcon />,
           label: `Connecté — ${session.user.name ?? session.user.email}`,
           connected: true,

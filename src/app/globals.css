@@ -1110,7 +1110,9 @@ button.header-icon-button:hover,
 }
 
 /*
- * Mise en page mobile de l'espace admin (/admin et ses sous-pages).
+ * Mise en page mobile des consoles : l'espace admin (/admin) et l'espace client
+ * (/compte), qui partagent la même coque (`ConsoleShell`) et donc les mêmes
+ * classes `admin-*`.
  *
  * Ces composants sont stylés en inline (sidebar fixe + contenu), donc les
  * règles ci-dessous utilisent `!important` pour prendre le dessus sur ces

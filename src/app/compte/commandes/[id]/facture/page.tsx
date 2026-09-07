@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
-import { requireAdmin } from "@/lib/admin/require-admin";
-import { getOrderById } from "@/lib/admin/orders";
+import { requireUser } from "@/lib/account/require-user";
+import { getAccountOrderById } from "@/lib/account/orders";
 import { InvoiceSheet } from "@/components/invoice/InvoiceSheet";
 
-export default async function AdminOrderInvoicePage(props: PageProps<"/admin/commandes/[id]/facture">) {
-  await requireAdmin();
+export default async function AccountOrderInvoicePage(props: PageProps<"/compte/commandes/[id]/facture">) {
+  const session = await requireUser();
   const { id } = await props.params;
   const searchParams = await props.searchParams;
 
-  const order = await getOrderById(id);
+  const order = await getAccountOrderById(session.user.id, id);
   if (!order) notFound();
   if (!order.invoice) notFound();
 
@@ -17,7 +17,7 @@ export default async function AdminOrderInvoicePage(props: PageProps<"/admin/com
   return (
     <InvoiceSheet
       order={{ ...order, invoice: order.invoice }}
-      backHref={fromFactures ? "/admin/factures" : `/admin/commandes/${order.id}`}
+      backHref={fromFactures ? "/compte/factures" : `/compte/commandes/${order.id}`}
       backLabel={fromFactures ? "Retour aux factures" : "Retour à la commande"}
     />
   );

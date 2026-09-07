@@ -70,7 +70,8 @@ export async function login(
     select: { role: true },
   });
 
-  redirect(user?.role === "ADMIN" ? "/admin" : "/");
+  // Chacun arrive dans sa console : l'admin sur /admin, le client sur /compte.
+  redirect(user?.role === "ADMIN" ? "/admin" : "/compte");
 }
 
 export async function logout() {
