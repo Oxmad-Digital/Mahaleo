@@ -8,6 +8,8 @@ import { GalleryToggle, HomeStage, HomeViewProvider } from "@/components/home/Ho
 import { vmin } from "@/lib/fluid";
 import { getShopProducts } from "@/lib/shop";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const products = await getShopProducts();
 
