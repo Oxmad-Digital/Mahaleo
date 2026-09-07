@@ -32,62 +32,64 @@ export function AccountInvoicesTable({ data }: { data: AccountInvoicesData }) {
         </div>
       </div>
 
-      <div
-        className="admin-invoices-header"
-        style={{
-          display: "grid",
-          gridTemplateColumns: GRID_COLUMNS,
-          gap: 16,
-          alignItems: "center",
-          fontSize: 12,
-          fontWeight: 500,
-          color: "rgba(55,53,47,0.45)",
-          paddingBottom: 10,
-          borderBottom: BORDER,
-        }}
-      >
-        <span>Facture</span>
-        <span>Commande</span>
-        <span>Émise le</span>
-        <span style={{ textAlign: "right" }}>Montant</span>
+      {/* Sur mobile le tableau ne rétrécit pas : il défile latéralement. */}
+      <div className="admin-table-scroll">
+        <div className="admin-table-scroll-inner admin-table-scroll-inner--compact">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: GRID_COLUMNS,
+              gap: 16,
+              alignItems: "center",
+              fontSize: 12,
+              fontWeight: 500,
+              color: "rgba(55,53,47,0.45)",
+              paddingBottom: 10,
+              borderBottom: BORDER,
+            }}
+          >
+            <span>Facture</span>
+            <span>Commande</span>
+            <span>Émise le</span>
+            <span style={{ textAlign: "right" }}>Montant</span>
+          </div>
+
+          {invoices.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {invoices.map((invoice, i) => (
+                <Link
+                  key={invoice.id}
+                  href={`/compte/commandes/${invoice.order.id}/facture?from=factures`}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: GRID_COLUMNS,
+                    gap: 16,
+                    alignItems: "center",
+                    padding: "12px 0",
+                    borderBottom: i === invoices.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>{invoice.number}</span>
+                  <span style={{ fontSize: 13, color: "rgba(55,53,47,0.55)" }}>{orderReference(invoice.order.id)}</span>
+                  <span style={{ fontSize: 13, color: "rgba(55,53,47,0.5)", whiteSpace: "nowrap" }}>
+                    {formatDate(invoice.issuedAt)}
+                  </span>
+                  <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right", whiteSpace: "nowrap" }}>
+                    {formatCents(invoice.order.totalCents, invoice.order.currency)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {invoices.length === 0 ? (
+      {/* Hors de la zone défilante : le message reste lisible sans défiler. */}
+      {invoices.length === 0 && (
         <p style={{ fontSize: 14, color: "rgba(55,53,47,0.55)", margin: 0, padding: "24px 0" }}>
           {"Aucune facture pour le moment. Une facture est émise dès qu'une commande est payée."}
         </p>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {invoices.map((invoice, i) => (
-            <Link
-              key={invoice.id}
-              href={`/compte/commandes/${invoice.order.id}/facture?from=factures`}
-              className="admin-invoices-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: GRID_COLUMNS,
-                gap: 16,
-                alignItems: "center",
-                padding: "12px 0",
-                borderBottom: i === invoices.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
-                color: "inherit",
-              }}
-            >
-              <span style={{ fontSize: 14, fontWeight: 600 }}>{invoice.number}</span>
-              <span
-                className="admin-invoices-order"
-                data-label="Commande"
-                style={{ fontSize: 13, color: "rgba(55,53,47,0.55)" }}
-              >
-                {orderReference(invoice.order.id)}
-              </span>
-              <span style={{ fontSize: 13, color: "rgba(55,53,47,0.5)" }}>{formatDate(invoice.issuedAt)}</span>
-              <span className="admin-invoices-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
-                {formatCents(invoice.order.totalCents, invoice.order.currency)}
-              </span>
-            </Link>
-          ))}
-        </div>
       )}
 
       {pageCount > 1 && (

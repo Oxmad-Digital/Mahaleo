@@ -26,28 +26,63 @@ export function AccountLatestOrders({ orders }: { orders: AccountOverview["lates
         </Link>
       </div>
 
-      <div
-        className="admin-orders-header"
-        style={{
-          display: "grid",
-          gridTemplateColumns: GRID_COLUMNS,
-          gap: 16,
-          alignItems: "center",
-          fontSize: 12,
-          fontWeight: 500,
-          color: "rgba(55,53,47,0.45)",
-          paddingBottom: 10,
-          borderBottom: BORDER,
-        }}
-      >
-        <span>Commande</span>
-        <span>Articles</span>
-        <span>Statut</span>
-        <span>Date</span>
-        <span style={{ textAlign: "right" }}>Montant</span>
+      {/* Sur mobile le tableau ne rétrécit pas : il défile latéralement. */}
+      <div className="admin-table-scroll">
+        <div className="admin-table-scroll-inner admin-table-scroll-inner--compact">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: GRID_COLUMNS,
+              gap: 16,
+              alignItems: "center",
+              fontSize: 12,
+              fontWeight: 500,
+              color: "rgba(55,53,47,0.45)",
+              paddingBottom: 10,
+              borderBottom: BORDER,
+            }}
+          >
+            <span>Commande</span>
+            <span>Articles</span>
+            <span>Statut</span>
+            <span>Date</span>
+            <span style={{ textAlign: "right" }}>Montant</span>
+          </div>
+
+          {orders.length > 0 && (
+            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+              {orders.map((order, i) => (
+                <Link
+                  key={order.id}
+                  href={`/compte/commandes/${order.id}`}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: GRID_COLUMNS,
+                    gap: 16,
+                    alignItems: "center",
+                    padding: "12px 0",
+                    borderBottom: i === orders.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>{orderReference(order.id)}</span>
+                  <span style={{ fontSize: 13, color: "rgba(55,53,47,0.55)" }}>{order._count.items}</span>
+                  <StatusBadge status={order.status} />
+                  <span style={{ fontSize: 13, color: "rgba(55,53,47,0.5)", whiteSpace: "nowrap" }}>
+                    {formatDateTime(order.createdAt)}
+                  </span>
+                  <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right", whiteSpace: "nowrap" }}>
+                    {formatCents(order.totalCents, order.currency)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {orders.length === 0 ? (
+      {/* Hors de la zone défilante : le message reste lisible sans défiler. */}
+      {orders.length === 0 && (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, padding: "16px 0 20px" }}>
           <p style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", margin: 0 }}>
             {"Vous n'avez pas encore passé de commande."}
@@ -58,35 +93,6 @@ export function AccountLatestOrders({ orders }: { orders: AccountOverview["lates
           >
             Découvrir la boutique
           </Link>
-        </div>
-      ) : (
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          {orders.map((order, i) => (
-            <Link
-              key={order.id}
-              href={`/compte/commandes/${order.id}`}
-              className="admin-orders-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: GRID_COLUMNS,
-                gap: 16,
-                alignItems: "center",
-                padding: "12px 0",
-                borderBottom: i === orders.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
-                color: "inherit",
-              }}
-            >
-              <span style={{ fontSize: 14, fontWeight: 600 }}>{orderReference(order.id)}</span>
-              <span className="admin-orders-items" data-label="Articles" style={{ fontSize: 13, color: "rgba(55,53,47,0.55)" }}>
-                {order._count.items}
-              </span>
-              <StatusBadge status={order.status} />
-              <span style={{ fontSize: 13, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-              <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
-                {formatCents(order.totalCents, order.currency)}
-              </span>
-            </Link>
-          ))}
         </div>
       )}
     </div>

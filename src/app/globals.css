@@ -1110,6 +1110,20 @@ button.header-icon-button:hover,
 }
 
 /*
+ * Tableau des consoles qui défile latéralement plutôt que de se comprimer.
+ * Sans effet sur grand écran : la largeur minimale n'entre en jeu qu'au mobile.
+ */
+.admin-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.admin-table-scroll-inner {
+  min-width: 100%;
+}
+
+/*
  * Mise en page mobile des consoles : l'espace admin (/admin) et l'espace client
  * (/compte), qui partagent la même coque (`ConsoleShell`) et donc les mêmes
  * classes `admin-*`.
@@ -1183,12 +1197,16 @@ button.header-icon-button:hover,
     font-size: 24px !important;
   }
 
-  /* Les grilles à deux colonnes du tableau de bord passent en une colonne. */
+  /*
+   * Les grilles à deux colonnes du tableau de bord passent en une colonne.
+   * `minmax(0, 1fr)` plutôt que `1fr` : la colonne ne s'élargit pas au contenu
+   * des tableaux qui défilent latéralement.
+   */
   .admin-dashboard-split {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  /* Le tableau des dernières commandes devient une liste de cartes. */
+  /* Les tableaux de commandes de l'admin deviennent des listes de cartes. */
   .admin-orders-header {
     display: none !important;
   }
@@ -1208,24 +1226,27 @@ button.header-icon-button:hover,
     color: rgba(55, 53, 47, 0.4);
   }
 
-  /* Le tableau des factures devient une liste de cartes. */
-  .admin-invoices-header {
-    display: none !important;
+  /*
+   * Les tableaux marqués `admin-table-scroll` gardent leurs colonnes et
+   * défilent latéralement : le tableau des factures de l'admin et tous les
+   * tableaux de l'espace client. Ils débordent jusqu'aux bords de la carte pour
+   * que la zone de défilement occupe toute la largeur de l'écran.
+   */
+  .admin-table-scroll {
+    margin-inline: -24px;
+    padding-inline: 24px;
   }
 
-  .admin-invoices-row {
-    grid-template-columns: 1fr !important;
-    justify-items: start !important;
-    gap: 4px !important;
+  .admin-table-scroll-inner {
+    min-width: 620px;
   }
 
-  .admin-invoices-amount {
-    text-align: left !important;
-  }
-
-  .admin-invoices-order::before {
-    content: attr(data-label) ": ";
-    color: rgba(55, 53, 47, 0.4);
+  /*
+   * Les tableaux de l'espace client ont une colonne de moins que ceux de
+   * l'admin (pas de colonne client) : ils tiennent dans moins de large.
+   */
+  .admin-table-scroll-inner--compact {
+    min-width: 520px;
   }
 
   /* Page Commandes : l'entête (titre + recherche) passe en colonne. */

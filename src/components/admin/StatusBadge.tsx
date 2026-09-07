@@ -22,6 +22,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
         fontSize: 12,
         fontWeight: 500,
         color: style.ink,
+        whiteSpace: "nowrap",
       }}
     >
       {ORDER_STATUS_LABELS[status]}
