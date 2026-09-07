@@ -47,8 +47,8 @@ export default async function AdminSettingsPage(props: PageProps<"/admin/paramet
               {settings.maintenanceMode ? "Le site est actuellement en maintenance" : "Le site est actuellement accessible"}
             </span>
             <span style={{ fontSize: 13, color: "rgba(55,53,47,0.6)" }}>
-              Lorsqu'il est activé, les visiteurs voient un écran de maintenance sur toutes les pages publiques. Les administrateurs
-              connectés continuent d'accéder au site et à l'espace admin normalement.
+              Lorsqu&apos;il est activé, les visiteurs voient un écran de maintenance sur toutes les pages publiques. Les administrateurs
+              connectés continuent d&apos;accéder au site et à l&apos;espace admin normalement.
             </span>
           </div>
           <MaintenanceToggle enabled={settings.maintenanceMode} />
@@ -93,7 +93,7 @@ export default async function AdminSettingsPage(props: PageProps<"/admin/paramet
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ fontSize: 15, fontWeight: 600 }}>Ajouter un administrateur</div>
         <p style={{ fontSize: 13, color: "rgba(55,53,47,0.6)", margin: 0 }}>
-          Un compte administrateur est créé immédiatement et un e-mail est envoyé à la personne pour qu'elle choisisse son mot de passe.
+          Un compte administrateur est créé immédiatement et un e-mail est envoyé à la personne pour qu&apos;elle choisisse son mot de passe.
         </p>
         <AdminInviteForm />
       </div>

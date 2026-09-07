@@ -18,6 +18,8 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (status !== "authenticated") {
+      // Reset local count when the session ends; nothing external to synchronize with here.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCount(0);
       return;
     }
