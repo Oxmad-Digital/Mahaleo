@@ -51,9 +51,22 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Link
             href="/admin/commandes"
-            style={{ padding: "7px 14px", borderRadius: 6, border: BORDER, fontSize: 13, fontWeight: 500, color: "#37352f" }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "7px 14px",
+              borderRadius: 6,
+              border: BORDER,
+              fontSize: 13,
+              fontWeight: 500,
+              color: "#37352f",
+            }}
           >
-            ← Commandes
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
+            Commandes
           </Link>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>

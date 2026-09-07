@@ -38,8 +38,14 @@ export default async function AdminOrderInvoicePage(props: PageProps<"/admin/com
           borderBottom: BORDER,
         }}
       >
-        <Link href={`/admin/commandes/${order.id}`} style={{ fontSize: 14, fontWeight: 500, color: MUTED }}>
-          ← Retour à la commande
+        <Link
+          href={`/admin/commandes/${order.id}`}
+          style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 500, color: MUTED }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+          Retour à la commande
         </Link>
         <PrintButton />
       </div>
