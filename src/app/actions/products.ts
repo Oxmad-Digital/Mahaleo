@@ -34,7 +34,7 @@ export async function createProduct(
     images: formData.get("images"),
     sizes: formData.get("sizes"),
     onSale: formData.get("onSale") ?? undefined,
-    salePrice: formData.get("salePrice"),
+    salePrice: formData.get("salePrice") ?? undefined,
   });
 
   if (!validatedFields.success) {
@@ -86,7 +86,7 @@ export async function updateProduct(
     images: formData.get("images"),
     sizes: formData.get("sizes"),
     onSale: formData.get("onSale") ?? undefined,
-    salePrice: formData.get("salePrice"),
+    salePrice: formData.get("salePrice") ?? undefined,
   });
 
   if (!validatedFields.success) {

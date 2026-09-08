@@ -77,8 +77,12 @@ export function ProductForm({
     }, 1200);
     return () => clearTimeout(timeout);
   }, [state, router]);
+  const [name, setName] = useState(initial?.name ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [slug, setSlug] = useState(initial?.slug ?? "");
+  const [description, setDescription] = useState(initial?.description ?? "");
+  const [price, setPrice] = useState(initial?.price ?? "");
+  const [salePrice, setSalePrice] = useState(initial?.salePrice ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -145,10 +149,11 @@ export function ProductForm({
           id="name"
           name="name"
           type="text"
-          defaultValue={initial?.name}
+          value={name}
           placeholder="Pull crème en maille"
           style={inputStyle}
           onChange={(e) => {
+            setName(e.target.value);
             if (!slugTouched) setSlug(slugify(e.target.value));
           }}
         />
@@ -181,7 +186,8 @@ export function ProductForm({
         <textarea
           id="description"
           name="description"
-          defaultValue={initial?.description}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           placeholder="Description du produit…"
           rows={4}
           style={{ ...inputStyle, resize: "vertical" }}
@@ -193,7 +199,16 @@ export function ProductForm({
         <label htmlFor="price" style={labelStyle}>
           Prix (EUR)
         </label>
-        <input id="price" name="price" type="text" inputMode="decimal" defaultValue={initial?.price} placeholder="49.90" style={inputStyle} />
+        <input
+          id="price"
+          name="price"
+          type="text"
+          inputMode="decimal"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          placeholder="49.90"
+          style={inputStyle}
+        />
         {state?.errors?.price && <FieldError messages={state.errors.price} />}
       </div>
 
@@ -215,7 +230,8 @@ export function ProductForm({
               name="salePrice"
               type="text"
               inputMode="decimal"
-              defaultValue={initial?.salePrice}
+              value={salePrice}
+              onChange={(e) => setSalePrice(e.target.value)}
               placeholder="Prix promo (EUR), ex. 39.90"
               style={inputStyle}
             />
