@@ -1501,8 +1501,22 @@ button.header-icon-button:hover,
  * styles inline aux petits écrans plutôt que de réécrire chaque composant.
  */
 @media (max-width: 768px) {
+  /*
+   * `align-items: flex-start` (style inline, utile à la sidebar collante sur
+   * grand écran) dimensionnerait ici les enfants à leur contenu : la largeur
+   * minimale des tableaux qui défilent (bloc ≤1024px) étirerait alors
+   * `.admin-main`, et c'est la page entière — entête, recherche, bouton —
+   * qui déborderait au lieu du seul tableau. `stretch` les borne à la
+   * largeur de l'écran ; le débordement reste dans `.admin-table-scroll`.
+   */
   .admin-shell-row {
     flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .admin-main {
+    width: 100%;
+    max-width: 100%;
   }
 
   /* La sidebar verticale devient une barre de navigation fixe en bas. */
@@ -1600,9 +1614,15 @@ button.header-icon-button:hover,
     align-items: stretch !important;
   }
 
+  /*
+   * `box-sizing` : ces champs et boutons sont stylés en inline sans réinitialisation
+   * globale, donc `width: 100%` ajouterait leur padding et leur bordure à la
+   * largeur de l'écran et les ferait déborder à droite.
+   */
   .admin-order-search-form,
   .admin-order-search-input {
     width: 100% !important;
+    box-sizing: border-box;
   }
 
   /* Les onglets de statut défilent horizontalement plutôt que de passer à la ligne. */
@@ -1621,6 +1641,7 @@ button.header-icon-button:hover,
   .admin-client-search-form,
   .admin-client-search-input {
     width: 100% !important;
+    box-sizing: border-box;
   }
 
   /* Page Produits : actions (recherche + ajout) empilées. */
@@ -1634,6 +1655,7 @@ button.header-icon-button:hover,
   .admin-product-search-input,
   .admin-product-add-btn {
     width: 100% !important;
+    box-sizing: border-box;
   }
 
   /* Page Statistiques : les grilles à colonnes fixes passent en une colonne. */
