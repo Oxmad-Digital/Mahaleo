@@ -30,6 +30,7 @@ export async function createProduct(
     name: formData.get("name"),
     slug: formData.get("slug"),
     description: formData.get("description"),
+    color: formData.get("color") ?? undefined,
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
@@ -41,7 +42,7 @@ export async function createProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, images, sizes, onSale, salePrice } = validatedFields.data;
+  const { name, slug, description, color, price, images, sizes, onSale, salePrice } = validatedFields.data;
 
   try {
     await prisma.product.create({
@@ -49,6 +50,7 @@ export async function createProduct(
         name,
         slug,
         description: description || null,
+        color: color || null,
         priceCents: parsePriceCents(price),
         onSale,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
@@ -82,6 +84,7 @@ export async function updateProduct(
     name: formData.get("name"),
     slug: formData.get("slug"),
     description: formData.get("description"),
+    color: formData.get("color") ?? undefined,
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
@@ -93,7 +96,7 @@ export async function updateProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, price, images, sizes, onSale, salePrice } = validatedFields.data;
+  const { name, slug, description, color, price, images, sizes, onSale, salePrice } = validatedFields.data;
 
   try {
     await prisma.product.update({
@@ -102,6 +105,7 @@ export async function updateProduct(
         name,
         slug,
         description: description || null,
+        color: color || null,
         priceCents: parsePriceCents(price),
         onSale,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,

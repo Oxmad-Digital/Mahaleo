@@ -55,6 +55,7 @@ export function ProductForm({
     name: string;
     slug: string;
     description: string;
+    color: string;
     price: string;
     images: string;
     sizes: ProductSizeEntry[];
@@ -81,6 +82,8 @@ export function ProductForm({
   const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
+  const [hasColor, setHasColor] = useState(Boolean(initial?.color));
+  const [color, setColor] = useState(initial?.color || "#1c6b3a");
   const [price, setPrice] = useState(initial?.price ?? "");
   const [salePrice, setSalePrice] = useState(initial?.salePrice ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
@@ -193,6 +196,55 @@ export function ProductForm({
           style={{ ...inputStyle, resize: "vertical" }}
         />
         {state?.errors?.description && <FieldError messages={state.errors.description} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            checked={hasColor}
+            onChange={(e) => setHasColor(e.target.checked)}
+          />
+          <span style={labelStyle}>Ce produit a une couleur</span>
+        </label>
+
+        {hasColor && (
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <input
+              id="color"
+              name="color"
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="color-swatch-input"
+              style={{
+                width: 44,
+                height: 44,
+                padding: 0,
+                borderRadius: "50%",
+                border: "1px solid rgba(55,53,47,0.15)",
+                overflow: "hidden",
+                cursor: "pointer",
+                background: "transparent",
+              }}
+            />
+            <style>{`
+              .color-swatch-input::-webkit-color-swatch-wrapper {
+                padding: 0;
+              }
+              .color-swatch-input::-webkit-color-swatch {
+                border: none;
+                border-radius: 50%;
+              }
+              .color-swatch-input::-moz-color-swatch {
+                border: none;
+                border-radius: 50%;
+              }
+            `}</style>
+            <span style={{ fontSize: 13, color: "rgba(55,53,47,0.6)" }}>{color}</span>
+          </div>
+        )}
+        {state?.errors?.color && <FieldError messages={state.errors.color} />}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 200 }}>

@@ -287,6 +287,29 @@ export function ProductDetail({
               </div>
             )}
 
+            {product.color && (
+              <div
+                className="product-color"
+                style={{ display: "flex", alignItems: "center", gap: vmin(10), fontSize: vmin(14) }}
+              >
+                <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Couleur</span>
+                <span
+                  role="img"
+                  aria-label={`Couleur du produit : ${product.color}`}
+                  title={product.color}
+                  style={{
+                    width: vmin(22),
+                    height: vmin(22),
+                    borderRadius: "50%",
+                    background: product.color,
+                    border: "1px solid rgba(255,255,255,0.6)",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                    flex: "none",
+                  }}
+                />
+              </div>
+            )}
+
             {product.sizes.length > 0 && (
               <div
                 className="product-sizes-block"

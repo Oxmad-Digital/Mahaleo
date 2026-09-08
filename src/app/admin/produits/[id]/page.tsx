@@ -30,6 +30,7 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
           name: product.name,
           slug: product.slug,
           description: product.description ?? "",
+          color: product.color ?? "",
           price: (product.priceCents / 100).toFixed(2),
           images: product.images.join("\n"),
           sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock) })),

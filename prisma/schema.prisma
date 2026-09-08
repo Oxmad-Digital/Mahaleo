@@ -42,6 +42,7 @@ model Product {
   slug        String   @unique
   name        String
   description String?
+  color       String?
   priceCents  Int
   currency    String   @default("EUR")
   onSale      Boolean  @default(false)
