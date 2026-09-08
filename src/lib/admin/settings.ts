@@ -10,6 +10,10 @@ type SiteSettings = Awaited<ReturnType<typeof loadSiteSettings>>;
 let cache: { value: SiteSettings; expiresAt: number } | null = null;
 let inFlight: Promise<SiteSettings> | null = null;
 let generation = 0;
+// Dernière valeur lue avec succès. Le proxy s'exécute sur chaque page : sans ce
+// repli, une coupure passagère de Postgres ferait échouer le middleware et donc
+// tomber le site entier, au lieu de le laisser servir le dernier état connu.
+let lastKnown: SiteSettings | null = null;
 
 async function loadSiteSettings() {
   const settings = await prisma.siteSettings.findUnique({ where: { id: SETTINGS_ID } });
@@ -26,7 +30,13 @@ export async function getSiteSettings() {
         if (requestGeneration === generation) {
           cache = { value, expiresAt: Date.now() + CACHE_TTL_MS };
         }
+        lastKnown = value;
         return value;
+      })
+      .catch((error) => {
+        console.error("Lecture des réglages du site impossible :", error);
+        // On ne met pas ce repli en cache : la prochaine requête retentera.
+        return lastKnown ?? { id: SETTINGS_ID, maintenanceMode: false, updatedAt: new Date() };
       })
       .finally(() => {
         inFlight = null;
