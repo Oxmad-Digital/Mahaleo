@@ -1429,11 +1429,49 @@ button.header-icon-button:hover,
     width: 18px;
     height: 18px;
   }
+
+  /*
+   * Connexion / inscription : même logique que la fiche produit et le panier
+   * ci-dessus. `.auth-card` hérite d'un `width: auto` du mode téléphone, où le
+   * flex `stretch` de `.scene-frame` l'étire jusqu'aux bords de l'écran — sur
+   * une tablette portrait ça laisse une carte bien plus large que sa taille
+   * de conception, avec les paddings et polices resserrés pour un téléphone.
+   * On la recentre à sa largeur desktop (460px) et on remonte ses tailles
+   * vers les valeurs desktop d'origine plutôt que le vmin-scale, pour la même
+   * raison que `.product-layout` plus haut (le flux normal en portrait ne
+   * s'y prête pas).
+   */
+  .scene-mobile .auth-card {
+    align-self: center !important;
+    width: 100% !important;
+    max-width: 460px !important;
+    padding: 36px !important;
+    border-radius: 24px !important;
+    gap: 24px !important;
+  }
+
+  .scene-mobile .auth-title {
+    font-size: 25px !important;
+  }
+
+  .scene-mobile .auth-subtitle {
+    font-size: 14px !important;
+  }
+
+  .scene-mobile .auth-input {
+    padding: 13px 16px !important;
+  }
+
+  .scene-mobile .auth-submit {
+    padding: 14px 0 !important;
+    font-size: 15px !important;
+  }
 }
 
 /*
  * Tableau des consoles qui défile latéralement plutôt que de se comprimer.
- * Sans effet sur grand écran : la largeur minimale n'entre en jeu qu'au mobile.
+ * Sans effet sur grand écran : la largeur minimale de `-inner` n'est posée
+ * qu'en dessous de 1024px (bloc plus bas), donc rien ne déborde au-dessus.
  */
 .admin-table-scroll {
   overflow-x: auto;
@@ -1548,29 +1586,6 @@ button.header-icon-button:hover,
     color: rgba(55, 53, 47, 0.4);
   }
 
-  /*
-   * Les tableaux marqués `admin-table-scroll` gardent leurs colonnes et
-   * défilent latéralement : le tableau des factures de l'admin et tous les
-   * tableaux de l'espace client. Ils débordent jusqu'aux bords de la carte pour
-   * que la zone de défilement occupe toute la largeur de l'écran.
-   */
-  .admin-table-scroll {
-    margin-inline: -24px;
-    padding-inline: 24px;
-  }
-
-  .admin-table-scroll-inner {
-    min-width: 620px;
-  }
-
-  /*
-   * Les tableaux de l'espace client ont une colonne de moins que ceux de
-   * l'admin (pas de colonne client) : ils tiennent dans moins de large.
-   */
-  .admin-table-scroll-inner--compact {
-    min-width: 520px;
-  }
-
   /* Page Commandes : l'entête (titre + recherche) passe en colonne. */
   .admin-page-header-row {
     flex-direction: column !important;
@@ -1594,18 +1609,13 @@ button.header-icon-button:hover,
     flex-shrink: 0;
   }
 
-  /* Page Clients : recherche pleine largeur et tableau défilant horizontalement. */
+  /* Page Clients : recherche pleine largeur. */
   .admin-client-search-form,
   .admin-client-search-input {
     width: 100% !important;
   }
 
-  .admin-clients-scroll {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Page Produits : actions (recherche + ajout) empilées et tableau défilant horizontalement. */
+  /* Page Produits : actions (recherche + ajout) empilées. */
   .admin-product-actions {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1616,11 +1626,6 @@ button.header-icon-button:hover,
   .admin-product-search-input,
   .admin-product-add-btn {
     width: 100% !important;
-  }
-
-  .admin-products-scroll {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* Page Statistiques : les grilles à colonnes fixes passent en une colonne. */
@@ -1664,7 +1669,50 @@ button.header-icon-button:hover,
     grid-template-columns: 1fr !important;
   }
 
-  /* Le tableau des articles défile horizontalement plutôt que de s'écraser. */
+  .admin-order-customer-row,
+  .admin-order-shipping-grid {
+    gap: 18px !important;
+  }
+}
+
+/*
+ * Tableaux des consoles, du téléphone à la tablette (≤1024px). La sidebar
+ * (72px) et les paddings de carte laissent moins de 800px au contenu : sous
+ * leur largeur naturelle, les tableaux gardent leurs colonnes et défilent
+ * latéralement dans leur carte plutôt que de se comprimer.
+ *
+ * Les largeurs minimales ne vivent que dans ce bloc : `.admin-table-scroll`
+ * (plus haut) est `overflow-x: auto` en permanence, sans effet tant que rien
+ * ne dépasse.
+ */
+@media (max-width: 1024px) {
+  /*
+   * La zone défilante déborde jusqu'aux bords de la carte (24px de padding
+   * horizontal) pour occuper toute sa largeur.
+   */
+  .admin-table-scroll {
+    margin-inline: -24px;
+    padding-inline: 24px;
+  }
+
+  .admin-table-scroll-inner {
+    min-width: 620px;
+  }
+
+  /*
+   * Un tableau d'une colonne de moins : ceux de l'espace client (pas de colonne
+   * client) et les dernières commandes du tableau de bord.
+   */
+  .admin-table-scroll-inner--compact {
+    min-width: 520px;
+  }
+
+  /* Le tableau des clients a huit colonnes, dont deux colonnes d'icônes. */
+  .admin-table-scroll-inner--wide {
+    min-width: 680px;
+  }
+
+  /* Fiche commande : le tableau des articles défile sur le même principe. */
   .admin-order-items-scroll {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
@@ -1674,34 +1722,55 @@ button.header-icon-button:hover,
   .admin-order-item-row {
     min-width: 460px;
   }
+}
 
-  .admin-order-customer-row,
-  .admin-order-shipping-grid {
-    gap: 18px !important;
+/*
+ * Sur téléphone seulement, les deux tableaux de commandes de l'admin passent en
+ * listes de cartes (règles `.admin-orders-*` plus haut) : leur zone défilante
+ * n'a alors pas de largeur minimale, elle ne sert qu'à partir de la tablette.
+ * Ce bloc doit suivre celui ci-dessus pour le surcharger (même spécificité).
+ */
+@media (max-width: 768px) {
+  .admin-table-scroll-inner--tablet-only {
+    min-width: 100%;
   }
 }
 
 /*
- * Tablette, suite : la boutique (scène `vmin`) a sa propre bascule portrait
- * ci-dessus (`.scene-mobile`, jusqu'à 1024px de large). Ici c'est l'espace
- * client (`.account-shell`, cf. ConsoleShell — un flux normal, pas la scène),
- * qui a besoin d'un ajustement distinct entre le mobile (≤768px) et le
- * desktop. La sidebar icône (72px) tient sans souci à cette largeur, seules
- * les grilles à deux colonnes du tableau de bord et de la fiche commande sont
- * trop étroites pour rester côte à côte : elles passeraient sous leur largeur
- * minimale (le tableau "Dernières commandes" par ex. déborderait de sa
- * colonne de 1fr).
+ * Tablette : la boutique (scène `vmin`) a sa propre bascule portrait ci-dessus
+ * (`.scene-mobile`, jusqu'à 1024px de large). Ici ce sont les deux consoles
+ * (`.admin-shell`, cf. ConsoleShell — un flux normal, pas la scène) : l'espace
+ * admin (/admin) comme l'espace client (/compte). La sidebar icône (72px)
+ * tient sans souci à cette largeur, ce sont les grilles à deux colonnes qui
+ * sont trop étroites pour rester côte à côte : leurs colonnes passeraient sous
+ * la largeur minimale de leur contenu, et les tableaux défileraient dans une
+ * colonne de quelques centaines de pixels au lieu de la page entière.
  */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .account-shell .admin-content {
+  .admin-shell .admin-header {
+    padding: 12px 28px !important;
+  }
+
+  .admin-shell .admin-content {
     padding: 32px 28px 56px !important;
   }
 
-  .account-shell .admin-dashboard-split {
+  /* Tableau de bord et fiche commande : une seule colonne. */
+  .admin-shell .admin-dashboard-split,
+  .admin-shell .admin-order-layout {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .account-shell .admin-order-layout {
+  /*
+   * Page Statistiques (admin seul) : les trois listes du haut deviennent
+   * illisibles côte à côte à cette largeur, et la carte du monde passe sous
+   * son classement plutôt qu'à côté.
+   */
+  .admin-stats-topgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .admin-stats-geo-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }

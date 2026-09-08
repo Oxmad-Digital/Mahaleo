@@ -47,8 +47,8 @@ export function ClientsTable({ data, query }: { data: ClientsData; query?: strin
       {clients.length === 0 ? (
         <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "24px 0" }}>Aucun client ne correspond à ces critères.</div>
       ) : (
-        <div className="admin-clients-scroll">
-          <div style={{ minWidth: 680 }}>
+        <div className="admin-table-scroll">
+          <div className="admin-table-scroll-inner admin-table-scroll-inner--wide">
             <div
               style={{
                 display: "grid",

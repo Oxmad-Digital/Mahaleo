@@ -35,7 +35,7 @@ export function InvoicesTable({ data, query }: { data: InvoicesData; query?: str
         </div>
       </div>
 
-      {/* Sur mobile le tableau ne rétrécit pas : il défile latéralement. */}
+      {/* Du téléphone à la tablette le tableau ne rétrécit pas : il défile latéralement. */}
       <div className="admin-table-scroll">
         <div className="admin-table-scroll-inner">
           <div
@@ -58,11 +58,7 @@ export function InvoicesTable({ data, query }: { data: InvoicesData; query?: str
             <span style={{ textAlign: "right" }}>Montant</span>
           </div>
 
-          {invoices.length === 0 ? (
-            <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "24px 0" }}>
-              Aucune facture ne correspond à ces critères.
-            </div>
-          ) : (
+          {invoices.length > 0 && (
             <div style={{ display: "flex", flexDirection: "column" }}>
               {invoices.map((invoice, i) => (
                 <Link
@@ -97,6 +93,13 @@ export function InvoicesTable({ data, query }: { data: InvoicesData; query?: str
           )}
         </div>
       </div>
+
+      {/* Hors de la zone défilante : le message reste lisible sans défiler. */}
+      {invoices.length === 0 && (
+        <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "24px 0" }}>
+          Aucune facture ne correspond à ces critères.
+        </div>
+      )}
 
       {pageCount > 1 && (
         <div

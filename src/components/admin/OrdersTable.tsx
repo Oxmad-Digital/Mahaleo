@@ -37,62 +37,70 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
         </div>
       </div>
 
-      <div
-        className="admin-orders-header"
-        style={{
-          display: "grid",
-          gridTemplateColumns: GRID_COLUMNS,
-          gap: 16,
-          alignItems: "center",
-          fontSize: 12,
-          fontWeight: 500,
-          color: "rgba(55,53,47,0.45)",
-          paddingBottom: 10,
-          borderBottom: "1px solid rgba(55,53,47,0.09)",
-        }}
-      >
-        <span>Commande</span>
-        <span>Client</span>
-        <span>Articles</span>
-        <span>Statut</span>
-        <span>Date</span>
-        <span style={{ textAlign: "right" }}>Montant</span>
+      {/* Du téléphone à la tablette le tableau ne rétrécit pas : il défile latéralement. */}
+      <div className="admin-table-scroll">
+        <div className="admin-table-scroll-inner admin-table-scroll-inner--tablet-only">
+          <div
+            className="admin-orders-header"
+            style={{
+              display: "grid",
+              gridTemplateColumns: GRID_COLUMNS,
+              gap: 16,
+              alignItems: "center",
+              fontSize: 12,
+              fontWeight: 500,
+              color: "rgba(55,53,47,0.45)",
+              paddingBottom: 10,
+              borderBottom: "1px solid rgba(55,53,47,0.09)",
+            }}
+          >
+            <span>Commande</span>
+            <span>Client</span>
+            <span>Articles</span>
+            <span>Statut</span>
+            <span>Date</span>
+            <span style={{ textAlign: "right" }}>Montant</span>
+          </div>
+
+          {orders.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {orders.map((order, i) => (
+                <Link
+                  key={order.id}
+                  href={`/admin/commandes/${order.id}`}
+                  className="admin-orders-row"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: GRID_COLUMNS,
+                    gap: 16,
+                    alignItems: "center",
+                    padding: "12px 0",
+                    borderBottom: i === orders.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <span style={{ fontSize: 14, fontWeight: 500, color: "rgba(55,53,47,0.6)" }}>#{order.id.slice(-5).toUpperCase()}</span>
+                  <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {order.customerName || order.customerEmail}
+                  </span>
+                  <span className="admin-orders-items" data-label="Articles" style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>
+                    {order._count.items}
+                  </span>
+                  <StatusBadge status={order.status} />
+                  <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
+                  <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
+                    {formatCents(order.totalCents, order.currency)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {orders.length === 0 ? (
+      {/* Hors de la zone défilante : le message reste lisible sans défiler. */}
+      {orders.length === 0 && (
         <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "24px 0" }}>Aucune commande ne correspond à ces critères.</div>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {orders.map((order, i) => (
-            <Link
-              key={order.id}
-              href={`/admin/commandes/${order.id}`}
-              className="admin-orders-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: GRID_COLUMNS,
-                gap: 16,
-                alignItems: "center",
-                padding: "12px 0",
-                borderBottom: i === orders.length - 1 ? "none" : "1px solid rgba(55,53,47,0.06)",
-                color: "inherit",
-              }}
-            >
-              <span style={{ fontSize: 14, fontWeight: 500, color: "rgba(55,53,47,0.6)" }}>#{order.id.slice(-5).toUpperCase()}</span>
-              <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                {order.customerName || order.customerEmail}
-              </span>
-              <span className="admin-orders-items" data-label="Articles" style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>
-                {order._count.items}
-              </span>
-              <StatusBadge status={order.status} />
-              <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-              <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
-                {formatCents(order.totalCents, order.currency)}
-              </span>
-            </Link>
-          ))}
-        </div>
       )}
 
       {pageCount > 1 && (

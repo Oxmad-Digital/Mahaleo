@@ -38,8 +38,8 @@ export function ProductsTable({ data, query }: { data: ProductsData; query?: str
       {products.length === 0 ? (
         <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "24px 0" }}>Aucun produit ne correspond à ces critères.</div>
       ) : (
-        <div className="admin-products-scroll">
-          <div style={{ minWidth: 640 }}>
+        <div className="admin-table-scroll">
+          <div className="admin-table-scroll-inner">
             <div
               style={{
                 display: "grid",
