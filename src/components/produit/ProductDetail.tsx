@@ -24,6 +24,12 @@ import { addFavorite, removeFavorite } from "@/app/actions/favorites";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
+/**
+ * Gabarit de la colonne de vignettes : tant qu'il y a moins de photos que ça,
+ * les vignettes gardent la taille qu'elles auraient à quatre et la colonne est
+ * simplement plus courte. Au-delà, elles rétrécissent pour tenir dans la
+ * hauteur de la photo principale.
+ */
 const THUMBNAIL_SLOTS = 4;
 
 /**
@@ -48,21 +54,33 @@ export function ProductDetail({
   const images = product.images.length > 0 ? product.images : [PLACEHOLDER_IMAGE];
   const [thumb, setThumb] = useState(0);
 
+  // Une seule photo : pas de colonne de vignettes, la photo prend toute la
+  // largeur de la galerie.
+  const hasThumbs = images.length > 1;
+  const slots = Math.max(images.length, THUMBNAIL_SLOTS);
+  const activeImage = images[Math.min(thumb, images.length - 1)];
+
   const thumbColumnRef = useRef<HTMLDivElement>(null);
   const [thumbSize, setThumbSize] = useState<number | null>(null);
 
+  // La colonne s'étire sur toute la hauteur de la galerie (`align-items:
+  // stretch`) même quand elle contient moins de vignettes : on part de cette
+  // hauteur, et non de celle des vignettes, pour calculer leur côté — sinon la
+  // mesure dépendrait de ce qu'elle sert à fixer.
   useEffect(() => {
     const el = thumbColumnRef.current;
     if (!el) return;
     const measure = () => {
-      const firstThumb = el.firstElementChild as HTMLElement | null;
-      if (firstThumb) setThumbSize(firstThumb.getBoundingClientRect().height);
+      const height = el.getBoundingClientRect().height;
+      if (!height) return;
+      const gap = parseFloat(getComputedStyle(el).rowGap) || 0;
+      setThumbSize((height - (slots - 1) * gap) / slots);
     };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [slots]);
 
   const availableSizes = useMemo(() => product.sizes.filter((s) => s.stock > 0), [product.sizes]);
   const requiresSize = product.sizes.length > 0;
@@ -143,53 +161,58 @@ export function ProductDetail({
           className="product-gallery"
           style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "row", gap: vmin(14) }}
         >
-          <div
-            ref={thumbColumnRef}
-            className="product-thumbs"
-            style={{
-              flex: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: vmin(12),
-            }}
-          >
-            {Array.from({ length: THUMBNAIL_SLOTS }).map((_, i) => {
-              const image = images[i % images.length];
-              const active = i === thumb;
-              return (
-                <button
-                  key={i}
-                  className="product-thumb"
-                  onClick={() => setThumb(i)}
-                  style={{
-                    width: thumbSize ?? vmin(84),
-                    flex: 1,
-                    minHeight: 0,
-                    borderRadius: "var(--radius-md)",
-                    background: "var(--glass-fill-strong-top)",
-                    border: `1px solid ${
-                      active ? "rgba(255,255,255,0.75)" : "var(--glass-border-strong)"
-                    }`,
-                    boxShadow: active
-                      ? "0 14px 30px rgba(0,0,0,0.28)"
-                      : "0 8px 20px rgba(0,0,0,0.16)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "hidden",
-                    padding: 0,
-                    cursor: "pointer",
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt="Vue produit"
-                    style={{ width: "84%", height: "84%", objectFit: "contain" }}
-                  />
-                </button>
-              );
-            })}
-          </div>
+          {hasThumbs && (
+            <div
+              ref={thumbColumnRef}
+              className="product-thumbs"
+              style={{
+                flex: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: vmin(12),
+                // Lu par les bascules tablette/mobile de globals.css, qui
+                // dimensionnent la colonne en CSS pur.
+                ["--thumb-slots" as string]: slots,
+              }}
+            >
+              {images.map((image, i) => {
+                const active = i === thumb;
+                return (
+                  <button
+                    key={`${image}-${i}`}
+                    className="product-thumb"
+                    onClick={() => setThumb(i)}
+                    style={{
+                      width: thumbSize ?? vmin(84),
+                      height: thumbSize ?? vmin(84),
+                      flex: "none",
+                      minHeight: 0,
+                      borderRadius: "var(--radius-md)",
+                      background: "var(--glass-fill-strong-top)",
+                      border: `1px solid ${
+                        active ? "rgba(255,255,255,0.75)" : "var(--glass-border-strong)"
+                      }`,
+                      boxShadow: active
+                        ? "0 14px 30px rgba(0,0,0,0.28)"
+                        : "0 8px 20px rgba(0,0,0,0.16)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      overflow: "hidden",
+                      padding: 0,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`${product.name} — vue ${i + 1}`}
+                      style={{ width: "84%", height: "84%", objectFit: "contain" }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div
             className="product-stage"
@@ -211,7 +234,7 @@ export function ProductDetail({
             }}
           >
             <img
-              src={images[thumb % images.length]}
+              src={activeImage}
               alt={product.name}
               style={{
                 width: "88%",

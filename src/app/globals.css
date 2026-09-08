@@ -625,9 +625,13 @@ button.header-icon-button:hover,
 
   /* Le plafond est pour le téléphone couché : quatre carrés qui se partagent
      800px de large feraient des vignettes plus hautes que la photo qu'elles
-     pilotent. La rangée est centrée pour absorber ce qu'il reste. */
+     pilotent. La rangée est centrée pour absorber ce qu'il reste — c'est aussi
+     ce qui garde une galerie de deux ou trois photos alignée sous la photo
+     principale plutôt que collée à gauche. La hauteur calculée en JS pour la
+     colonne du mode desktop est rendue à `aspect-ratio`. */
   .scene-mobile .product-thumb {
     width: auto !important;
+    height: auto !important;
     flex: 1 1 0 !important;
     min-width: 0;
     max-width: 88px;
@@ -1168,8 +1172,10 @@ button.header-icon-button:hover,
      qui se rétrécit lui-même à son contenu — référence circulaire que les
      navigateurs résolvent en laissant les vignettes s'étaler sur toute la
      largeur de la rangée. La largeur de la colonne est donc calculée
-     explicitement pour que 4 carrés plus leurs 3 espacements remplissent
-     exactement `--gallery-h`, comme sur desktop. */
+     explicitement pour que les carrés plus leurs espacements remplissent
+     exactement `--gallery-h`, comme sur desktop. Le nombre de carrés est celui
+     du gabarit posé par `ProductDetail` (`--thumb-slots` : quatre tant qu'il y
+     a moins de photos, le nombre de photos au-delà). */
   .scene-mobile .product-gallery {
     --gallery-h: min(560px, 58dvh);
     flex-direction: row !important;
@@ -1180,7 +1186,9 @@ button.header-icon-button:hover,
   .scene-mobile .product-thumbs {
     flex-direction: column !important;
     flex: none !important;
-    width: calc((var(--gallery-h) - 36px) / 4) !important;
+    width: calc(
+      (var(--gallery-h) - (var(--thumb-slots, 4) - 1) * 12px) / var(--thumb-slots, 4)
+    ) !important;
     height: 100% !important;
     gap: 12px !important;
   }

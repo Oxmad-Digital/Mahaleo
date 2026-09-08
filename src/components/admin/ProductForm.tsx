@@ -36,6 +36,18 @@ const inputStyle: React.CSSProperties = {
   outline: "none",
 };
 
+const moveButtonStyle: React.CSSProperties = {
+  flex: 1,
+  padding: "2px 0",
+  border: "none",
+  background: "transparent",
+  color: "#fff",
+  fontSize: 13,
+  lineHeight: 1.2,
+  textAlign: "center",
+  cursor: "pointer",
+};
+
 const labelStyle: React.CSSProperties = {
   fontSize: 13,
   fontWeight: 600,
@@ -87,6 +99,7 @@ export function ProductForm({
   const [price, setPrice] = useState(initial?.price ?? "");
   const [salePrice, setSalePrice] = useState(initial?.salePrice ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -105,6 +118,21 @@ export function ProductForm({
 
   function removeSize(index: number) {
     setSizes((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== index) : prev));
+  }
+
+  /** Déplace une image dans la liste ; l'ordre du tableau est l'ordre d'affichage. */
+  function moveImage(from: number, to: number) {
+    setImages((prev) => {
+      if (to < 0 || to >= prev.length || from === to) return prev;
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
+      return next;
+    });
+  }
+
+  function removeImage(index: number) {
+    setImages((prev) => prev.filter((_, i) => i !== index));
   }
 
   async function handleFilesSelected(files: FileList | null) {
@@ -364,44 +392,123 @@ export function ProductForm({
 
         {images.length > 0 && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            {images.map((url, index) => (
-              <div
-                key={url}
-                style={{
-                  position: "relative",
-                  width: 84,
-                  height: 84,
-                  borderRadius: 6,
-                  border: index === 0 ? "2px solid var(--brand-green, #1c6b3a)" : "1px solid rgba(55,53,47,0.15)",
-                  overflow: "hidden",
-                  background: "#f7f6f4",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                <button
-                  type="button"
-                  onClick={() => setImages((prev) => prev.filter((u) => u !== url))}
-                  aria-label="Supprimer l'image"
+            {images.map((url, index) => {
+              const first = index === 0;
+              const last = index === images.length - 1;
+              return (
+                <div
+                  key={`${url}-${index}`}
+                  draggable
+                  onDragStart={() => setDragIndex(index)}
+                  onDragEnd={() => setDragIndex(null)}
+                  onDragOver={(e) => {
+                    // Le glisser-déposer réordonne à la volée : la vignette
+                    // tirée prend la place de celle qu'elle survole, et le
+                    // curseur suit son nouvel index.
+                    e.preventDefault();
+                    if (dragIndex === null || dragIndex === index) return;
+                    moveImage(dragIndex, index);
+                    setDragIndex(index);
+                  }}
+                  onDrop={(e) => e.preventDefault()}
                   style={{
-                    position: "absolute",
-                    top: 2,
-                    right: 2,
-                    width: 20,
-                    height: 20,
-                    borderRadius: "50%",
-                    border: "none",
-                    background: "rgba(0,0,0,0.6)",
-                    color: "#fff",
-                    fontSize: 12,
-                    lineHeight: 1,
-                    cursor: "pointer",
+                    position: "relative",
+                    width: 96,
+                    height: 96,
+                    borderRadius: 6,
+                    border: first
+                      ? "2px solid var(--brand-green, #1c6b3a)"
+                      : "1px solid rgba(55,53,47,0.15)",
+                    overflow: "hidden",
+                    background: "#f7f6f4",
+                    cursor: "grab",
+                    opacity: dragIndex === index ? 0.4 : 1,
                   }}
                 >
-                  ×
-                </button>
-              </div>
-            ))}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={url}
+                    alt=""
+                    draggable={false}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    aria-label="Supprimer l'image"
+                    style={{
+                      position: "absolute",
+                      top: 2,
+                      right: 2,
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                      border: "none",
+                      background: "rgba(0,0,0,0.6)",
+                      color: "#fff",
+                      fontSize: 12,
+                      lineHeight: 1,
+                      cursor: "pointer",
+                    }}
+                  >
+                    ×
+                  </button>
+
+                  {first && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: 2,
+                        left: 2,
+                        padding: "1px 6px",
+                        borderRadius: 999,
+                        background: "var(--brand-green, #1c6b3a)",
+                        color: "#fff",
+                        fontSize: 10,
+                        fontWeight: 600,
+                      }}
+                    >
+                      Principale
+                    </span>
+                  )}
+
+                  {/* Les flèches doublent le glisser-déposer : au clavier comme
+                      au doigt, elles restent le seul moyen de réordonner. */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      display: "flex",
+                      background: "rgba(0,0,0,0.55)",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => moveImage(index, index - 1)}
+                      disabled={first}
+                      aria-label="Déplacer l'image vers la gauche"
+                      style={{ ...moveButtonStyle, opacity: first ? 0.35 : 1 }}
+                    >
+                      ‹
+                    </button>
+                    <span style={{ ...moveButtonStyle, cursor: "default", flex: "none", width: 22 }}>
+                      {index + 1}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => moveImage(index, index + 1)}
+                      disabled={last}
+                      aria-label="Déplacer l'image vers la droite"
+                      style={{ ...moveButtonStyle, opacity: last ? 0.35 : 1 }}
+                    >
+                      ›
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -417,7 +524,10 @@ export function ProductForm({
         {uploading && <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>Envoi en cours…</span>}
         {uploadError && <p style={{ fontSize: 12, color: "#a82c2c", margin: 0 }}>{uploadError}</p>}
         {state?.errors?.images && <FieldError messages={state.errors.images} />}
-        <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>La première image sera utilisée comme visuel principal.</span>
+        <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>
+          Glissez-déposez les vignettes (ou les flèches ‹ ›) pour changer l’ordre d’affichage. La première
+          image est le visuel principal.
+        </span>
       </div>
 
       {state?.message && <p style={{ fontSize: 13, color: "#a82c2c", margin: 0 }}>{state.message}</p>}
