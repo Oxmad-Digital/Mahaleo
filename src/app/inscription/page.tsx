@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
@@ -13,7 +14,16 @@ import { capped, vmin } from "@/lib/fluid";
 import { signup } from "@/app/actions/auth";
 
 export default function InscriptionPage() {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(signup, undefined);
+
+  useEffect(() => {
+    if (!state?.success) return;
+    const timeout = setTimeout(() => {
+      router.push("/compte");
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, [state, router]);
 
   return (
     <Scene className="scene-mobile">
@@ -120,7 +130,15 @@ export default function InscriptionPage() {
           </div>
 
           {state?.message && (
-            <p className="auth-error" style={{ fontSize: vmin(13), color: "var(--brand-red, #c0392b)", margin: 0, textAlign: "center" }}>
+            <p
+              className={state.success ? "auth-success" : "auth-error"}
+              style={{
+                fontSize: vmin(13),
+                color: state.success ? "var(--brand-green, #1c6b3a)" : "var(--brand-red, #c0392b)",
+                margin: 0,
+                textAlign: "center",
+              }}
+            >
               {state.message}
             </p>
           )}
@@ -128,7 +146,7 @@ export default function InscriptionPage() {
 
         <button
           type="submit"
-          disabled={pending}
+          disabled={pending || state?.success}
           className="dark-cta auth-submit"
           style={{
             padding: vmin(14),
@@ -138,14 +156,14 @@ export default function InscriptionPage() {
             fontSize: vmin(15),
             fontWeight: 600,
             textAlign: "center",
-            cursor: pending ? "default" : "pointer",
-            opacity: pending ? 0.7 : 1,
+            cursor: pending || state?.success ? "default" : "pointer",
+            opacity: pending || state?.success ? 0.7 : 1,
             border: "none",
             boxShadow: "0 14px 30px rgba(0,0,0,0.18)",
             fontFamily: "inherit",
           }}
         >
-          {pending ? "Création..." : "Créer mon compte"}
+          {state?.success ? "Compte créé ✓" : pending ? "Création..." : "Créer mon compte"}
         </button>
 
         <div className="auth-switch" style={{ fontSize: vmin(14), fontWeight: 500, textAlign: "center", color: "var(--ink-tertiary)" }}>

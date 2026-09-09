@@ -40,7 +40,11 @@ export async function signup(
   await sendWelcomeEmail(email, name);
 
   await signIn("credentials", { email, password, redirect: false });
-  redirect("/");
+
+  return {
+    success: true,
+    message: "Votre compte a été créé avec succès. Redirection vers votre espace client…",
+  };
 }
 
 export async function login(
