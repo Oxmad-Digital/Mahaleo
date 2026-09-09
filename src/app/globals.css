@@ -286,6 +286,10 @@ body.contact-modal-open .icon-rail {
     gap: 8px !important;
   }
 
+  .scene-mobile .scene-topbar > div:first-child {
+    flex: none !important;
+  }
+
   .scene-mobile .scene-topbar > div {
     gap: 8px !important;
     min-width: 0;
@@ -325,10 +329,18 @@ body.contact-modal-open .icon-rail {
     gap: 2px !important;
   }
 
-  /* Le titre n'a pas la place de tenir à côté du logo et des icônes sur la
-     largeur d'un téléphone ; la marque reste portée par le logo. */
+  /* Le titre n'a pas la place de tenir en entier à côté du logo et des icônes
+     sur la largeur d'un téléphone : on le garde (H1 visible, important pour le
+     SEO en mobile-first indexing) mais en petit, et il tronque avec une
+     ellipse plutôt que de déborder — `.scene-topbar > div:first-child` ci-
+     dessus est figé (`flex: none`) pour que ce soit toujours lui qui rétrécit,
+     jamais le logo ni les icônes. */
   .scene-mobile .shop-title {
-    display: none !important;
+    display: block !important;
+    font-size: 10px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   /* --- Carrousel --------------------------------------------------------- */
@@ -1189,7 +1201,7 @@ body.contact-modal-open .icon-rail {
  * leur redonne leur taille naturelle (épouser leur contenu) et on les
  * recentre, comme sur desktop.
  */
-@media (orientation: portrait) and (min-width: 769px) and (max-width: 1024px) {
+@media (orientation: portrait) and (min-width: 768px) and (max-width: 1024px) {
   .scene-mobile .home-nav {
     align-self: center !important;
   }
@@ -1197,6 +1209,12 @@ body.contact-modal-open .icon-rail {
   .scene-mobile .home-featured {
     flex: none !important;
     width: auto !important;
+  }
+
+  /* Plus de largeur qu'un téléphone : le titre tient plus confortablement,
+     on remonte sa taille tout en gardant le repli en ellipse. */
+  .scene-mobile .shop-title {
+    font-size: 14px !important;
   }
 
   .scene-mobile .icon-rail {
