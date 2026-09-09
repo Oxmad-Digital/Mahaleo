@@ -51,6 +51,14 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [handleClose]);
 
+  // Masque le rail d'icônes (barre de navigation en bas sur mobile) tant que
+  // la modale est ouverte : sinon il reste visible, seulement assombri par le
+  // voile semi-transparent.
+  useEffect(() => {
+    document.body.classList.add("contact-modal-open");
+    return () => document.body.classList.remove("contact-modal-open");
+  }, []);
+
   return (
     <div
       onClick={handleClose}
@@ -70,6 +78,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-label="Nous contacter"
+        className="contact-modal"
         style={{
           position: "relative",
           width: capped(460),
@@ -90,6 +99,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           onClick={handleClose}
           aria-label="Fermer"
           disabled={pending}
+          className="contact-modal-close"
           style={{
             position: "absolute",
             top: vmin(16),
@@ -117,37 +127,37 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           </svg>
         </button>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: vmin(6) }}>
-          <div style={{ fontSize: vmin(24), fontWeight: 700 }}>Nous contacter</div>
-          <div style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
+        <div className="contact-modal-header" style={{ display: "flex", flexDirection: "column", gap: vmin(6) }}>
+          <div className="contact-modal-title" style={{ fontSize: vmin(24), fontWeight: 700 }}>Nous contacter</div>
+          <div className="contact-modal-subtitle" style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink-tertiary)" }}>
             Une question, une remarque ? Envoyez-nous un message, nous vous répondrons par e-mail.
           </div>
         </div>
 
         {state?.success ? (
-          <p style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink)", margin: 0 }}>
+          <p className="contact-modal-subtitle" style={{ fontSize: vmin(14), fontWeight: 500, color: "var(--ink)", margin: 0 }}>
             Merci, votre message a bien été envoyé.
           </p>
         ) : (
-          <form action={formAction} style={{ display: "flex", flexDirection: "column", gap: vmin(18) }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-              <label htmlFor="contact-name" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+          <form action={formAction} className="contact-modal-form" style={{ display: "flex", flexDirection: "column", gap: vmin(18) }}>
+            <div className="contact-modal-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+              <label htmlFor="contact-name" className="contact-modal-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
                 Nom
               </label>
-              <input id="contact-name" name="name" type="text" placeholder="Votre nom" style={inputStyle} />
+              <input id="contact-name" name="name" type="text" placeholder="Votre nom" className="contact-modal-input" style={inputStyle} />
               {state?.errors?.name && <FieldError message={state.errors.name[0]} />}
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-              <label htmlFor="contact-email" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+            <div className="contact-modal-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+              <label htmlFor="contact-email" className="contact-modal-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
                 Adresse e-mail
               </label>
-              <input id="contact-email" name="email" type="email" placeholder="vous@exemple.com" style={inputStyle} />
+              <input id="contact-email" name="email" type="email" placeholder="vous@exemple.com" className="contact-modal-input" style={inputStyle} />
               {state?.errors?.email && <FieldError message={state.errors.email[0]} />}
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
-              <label htmlFor="contact-message" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
+            <div className="contact-modal-field" style={{ display: "flex", flexDirection: "column", gap: vmin(8) }}>
+              <label htmlFor="contact-message" className="contact-modal-label" style={{ fontSize: vmin(13), fontWeight: 600, color: "var(--ink-secondary)" }}>
                 Message
               </label>
               <textarea
@@ -155,6 +165,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                 name="message"
                 rows={4}
                 placeholder="Votre message"
+                className="contact-modal-input"
                 style={{ ...inputStyle, resize: "vertical", fontFamily: "inherit" }}
               />
               {state?.errors?.message && <FieldError message={state.errors.message[0]} />}
@@ -163,6 +174,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={pending}
+              className="contact-modal-submit"
               style={{
                 padding: vmin(14),
                 borderRadius: "var(--radius-xs)",
@@ -189,7 +201,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
 function FieldError({ message }: { message: string }) {
   return (
-    <p style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>{message}</p>
+    <p className="contact-modal-error" style={{ fontSize: vmin(12), color: "var(--brand-red, #c0392b)", margin: 0 }}>{message}</p>
   );
 }
 

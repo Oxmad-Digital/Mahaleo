@@ -20,9 +20,8 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
 
       {/* Du téléphone à la tablette le tableau ne rétrécit pas : il défile latéralement. */}
       <div className="admin-table-scroll">
-        <div className="admin-table-scroll-inner admin-table-scroll-inner--compact admin-table-scroll-inner--tablet-only">
+        <div className="admin-table-scroll-inner admin-table-scroll-inner--compact">
           <div
-            className="admin-orders-header"
             style={{
               display: "grid",
               gridTemplateColumns: GRID_COLUMNS,
@@ -47,7 +46,6 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
               {orders.map((order, i) => (
                 <div
                   key={order.id}
-                  className="admin-orders-row"
                   style={{
                     display: "grid",
                     gridTemplateColumns: GRID_COLUMNS,
@@ -63,7 +61,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
                   </span>
                   <StatusBadge status={order.status} />
                   <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-                  <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>{formatCents(order.totalCents, order.currency)}</span>
                 </div>
               ))}
             </div>

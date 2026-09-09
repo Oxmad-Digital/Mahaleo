@@ -15,12 +15,23 @@ export function vmin(px: number): string {
 /**
  * For content blocks (cards, panels) that should track the design at the
  * reference size but must never overflow a narrow viewport nor balloon past
- * their original pixel width on a huge screen: the smallest of a `%` of the
- * viewport (guarantees it always fits), the vmin-scaled value (matches the
- * original design proportions) and the original pixel value (ceiling).
+ * their original pixel width on a huge screen, nor collapse below a usable
+ * size on a phone.
+ *
+ * `vmin` scales against the limiting viewport dimension, so on a portrait
+ * phone (where width << REFERENCE_HEIGHT) the design-matched value can drop
+ * far below the `viewportPercent` safety net, which then never kicks in.
+ * `clamp()` fixes that: it picks the vmin-scaled "ideal" value, but never
+ * lets it go below `min(viewportPercent%, minPx)` (a usable floor that still
+ * can't overflow a narrow viewport) nor above `max` (the ceiling for huge
+ * screens).
  */
-export function capped(px: number, opts: { max?: number; viewportPercent?: number } = {}): string {
+export function capped(
+  px: number,
+  opts: { max?: number; viewportPercent?: number; min?: number } = {},
+): string {
   const max = opts.max ?? px;
   const pct = opts.viewportPercent ?? 92;
-  return `min(${pct}%, ${vmin(px)}, ${max}px)`;
+  const min = opts.min ?? Math.min(px, 360);
+  return `clamp(min(${pct}%, ${min}px), ${vmin(px)}, ${max}px)`;
 }

@@ -39,9 +39,8 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
 
       {/* Du téléphone à la tablette le tableau ne rétrécit pas : il défile latéralement. */}
       <div className="admin-table-scroll">
-        <div className="admin-table-scroll-inner admin-table-scroll-inner--tablet-only">
+        <div className="admin-table-scroll-inner">
           <div
-            className="admin-orders-header"
             style={{
               display: "grid",
               gridTemplateColumns: GRID_COLUMNS,
@@ -68,7 +67,6 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
                 <Link
                   key={order.id}
                   href={`/admin/commandes/${order.id}`}
-                  className="admin-orders-row"
                   style={{
                     display: "grid",
                     gridTemplateColumns: GRID_COLUMNS,
@@ -83,12 +81,10 @@ export function OrdersTable({ data, status, query }: { data: OrdersData; status?
                   <span style={{ fontSize: 14, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {order.customerName || order.customerEmail}
                   </span>
-                  <span className="admin-orders-items" data-label="Articles" style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>
-                    {order._count.items}
-                  </span>
+                  <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.55)" }}>{order._count.items}</span>
                   <StatusBadge status={order.status} />
                   <span style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>{formatDateTime(order.createdAt)}</span>
-                  <span className="admin-orders-amount" style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, textAlign: "right" }}>
                     {formatCents(order.totalCents, order.currency)}
                   </span>
                 </Link>

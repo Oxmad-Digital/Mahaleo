@@ -189,6 +189,16 @@ button.header-icon-button:hover,
 }
 
 /*
+ * La modale de contact (`ContactButton`) pose `contact-modal-open` sur le
+ * `body` tant qu'elle est ouverte : sans ça le rail d'icônes (barre de
+ * navigation, en bas sur mobile / à gauche sur grand écran) reste visible,
+ * seulement assombri par le voile semi-transparent de la modale.
+ */
+body.contact-modal-open .icon-rail {
+  display: none !important;
+}
+
+/*
  * ---------------------------------------------------------------------------
  * Mise en page mobile (boutique, fiche produit, pages légales)
  * ---------------------------------------------------------------------------
@@ -1082,6 +1092,70 @@ button.header-icon-button:hover,
     font-size: 13px !important;
   }
 
+  /* --- Modale de contact ---------------------------------------------------
+   * Comme le reste de la scène, la modale pose ses dimensions en `vmin()` :
+   * cette unité suit la plus petite des deux dimensions de l'écran, donc sur
+   * un téléphone en portrait (largeur << REFERENCE_HEIGHT) tout — padding,
+   * interlignes, texte — rétrécit au point d'être illisible. Comme
+   * `.auth-card` plus haut, on repasse en pixels fixes, environ deux fois les
+   * valeurs rendues par `vmin()` à cette largeur. */
+  .scene-mobile .contact-modal {
+    padding: 26px 20px !important;
+    border-radius: 18px !important;
+    gap: 20px !important;
+  }
+
+  .scene-mobile .contact-modal-close {
+    top: 14px !important;
+    right: 14px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .scene-mobile .contact-modal-close svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  .scene-mobile .contact-modal-header {
+    gap: 6px !important;
+  }
+
+  .scene-mobile .contact-modal-title {
+    font-size: 20px !important;
+  }
+
+  .scene-mobile .contact-modal-subtitle {
+    font-size: 13px !important;
+  }
+
+  .scene-mobile .contact-modal-form {
+    gap: 16px !important;
+  }
+
+  .scene-mobile .contact-modal-field {
+    gap: 6px !important;
+  }
+
+  .scene-mobile .contact-modal-label {
+    font-size: 12px !important;
+  }
+
+  /* 16px minimum : en dessous, Safari iOS zoome la page à la mise au point du champ. */
+  .scene-mobile .contact-modal-input {
+    padding: 12px 14px !important;
+    font-size: 16px !important;
+  }
+
+  .scene-mobile .contact-modal-submit {
+    padding: 14px !important;
+    font-size: 15px !important;
+  }
+
+  .scene-mobile .contact-modal-error {
+    font-size: 12px !important;
+  }
+
   /* --- Pied de page ------------------------------------------------------ */
   .scene-mobile .scene-footer {
     position: static !important;
@@ -1566,6 +1640,12 @@ button.header-icon-button:hover,
     padding: 10px 16px !important;
   }
 
+  /* Le fil d'Ariane rétrécit plutôt que de se faire tronquer par le chip utilisateur. */
+  .admin-breadcrumb {
+    font-size: 12px !important;
+    gap: 6px !important;
+  }
+
   .admin-user-name {
     display: none !important;
   }
@@ -1586,26 +1666,6 @@ button.header-icon-button:hover,
    */
   .admin-dashboard-split {
     grid-template-columns: minmax(0, 1fr) !important;
-  }
-
-  /* Les tableaux de commandes de l'admin deviennent des listes de cartes. */
-  .admin-orders-header {
-    display: none !important;
-  }
-
-  .admin-orders-row {
-    grid-template-columns: 1fr !important;
-    justify-items: start !important;
-    gap: 4px !important;
-  }
-
-  .admin-orders-amount {
-    text-align: left !important;
-  }
-
-  .admin-orders-items::before {
-    content: attr(data-label) ": ";
-    color: rgba(55, 53, 47, 0.4);
   }
 
   /* Page Commandes : l'entête (titre + recherche) passe en colonne. */
@@ -1751,18 +1811,6 @@ button.header-icon-button:hover,
   .admin-order-items-header,
   .admin-order-item-row {
     min-width: 460px;
-  }
-}
-
-/*
- * Sur téléphone seulement, les deux tableaux de commandes de l'admin passent en
- * listes de cartes (règles `.admin-orders-*` plus haut) : leur zone défilante
- * n'a alors pas de largeur minimale, elle ne sert qu'à partir de la tablette.
- * Ce bloc doit suivre celui ci-dessus pour le surcharger (même spécificité).
- */
-@media (max-width: 768px) {
-  .admin-table-scroll-inner--tablet-only {
-    min-width: 100%;
   }
 }
 
