@@ -28,7 +28,7 @@ export function Scene({ children, className }: { children: ReactNode; className?
         color: "#fff",
         fontFamily: "var(--font-family)",
         background:
-          "#0d0805 url('/images/hero-background.jpg') center / cover no-repeat",
+          "#0d0805 url('/images/mahaleo-mur-de-brique-background.webp') center / cover no-repeat",
       }}
     >
       <div
@@ -55,8 +55,8 @@ const glassFrame: CSSProperties = {
   background:
     "linear-gradient(180deg, var(--glass-fill-top), var(--glass-fill-bottom))",
   border: "1px solid var(--glass-border)",
-  backdropFilter: "blur(var(--blur-standard))",
-  WebkitBackdropFilter: "blur(var(--blur-standard))",
+  backdropFilter: "blur(clamp(6px, 1.25vmin, 12px))",
+  WebkitBackdropFilter: "blur(clamp(6px, 1.25vmin, 12px))",
   boxShadow: "var(--shadow-outer-frame)",
   overflow: "hidden",
 };
