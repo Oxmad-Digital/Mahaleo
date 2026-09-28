@@ -22,7 +22,7 @@ export default function InscriptionPage() {
         <form action={formAction} className="retro-auth-card">
           <div className="retro-auth-head">
             <h2>REJOIGNEZ L’HISTOIRE.</h2>
-            <p>Suivez vos commandes et conservez vos pièces favorites.</p>
+            <p>Suivez vos commandes et retrouvez vos factures.</p>
           </div>
           <div className="retro-auth-fields">
             <div className="retro-field">

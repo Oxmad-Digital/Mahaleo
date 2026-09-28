@@ -51,7 +51,6 @@ export default async function AccountDashboardPage() {
         />
         <StatCard label="Total dépensé" value={formatCents(overview.totalSpentCents)} hint="hors commandes annulées" />
         <StatCard label="Factures" value={formatNumber(overview.invoiceCount)} hint="disponibles au téléchargement" tint />
-        <StatCard label="Favoris" value={formatNumber(overview.favoriteCount)} hint="articles enregistrés" tint />
       </div>
 
       <div
@@ -92,7 +91,6 @@ export default async function AccountDashboardPage() {
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>RACCOURCIS</div>
             <QuickLink href="/compte/commandes" label="Suivre mes commandes" />
             <QuickLink href="/compte/factures" label="Télécharger mes factures" />
-            <QuickLink href="/favoris" label="Mes favoris" />
             <QuickLink href="/compte/profil" label="Modifier mon profil" />
             <p style={{ fontSize: 12, color: MUTED, margin: "4px 0 0", lineHeight: 1.6 }}>
               Une question sur une commande ? Écrivez-nous à {SUPPORT_EMAIL}.

@@ -1999,9 +1999,9 @@ body.contact-modal-open .icon-rail {
 .retro-pager button:hover:not(:disabled) { border-color: var(--retro-red); color: var(--retro-red); }
 .retro-pager button:disabled { cursor: default; opacity: .35; }
 
-.retro-footer { min-width: 0; border-top: 3px double var(--retro-line); display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--retro-muted); font-size: 10px; letter-spacing: .5px; }
-.retro-footer-quote { font: italic 12px var(--retro-serif); letter-spacing: 0; }
-.retro-footer nav { display: flex; gap: 18px; }
+.retro-footer { min-width: 0; border-top: 3px double var(--retro-line); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 20px; color: var(--retro-muted); font-size: 10px; letter-spacing: .5px; }
+.retro-footer-credit { margin: 0; font: italic 12px var(--retro-serif); letter-spacing: 0; }
+.retro-footer nav { display: flex; justify-content: flex-end; gap: 18px; }
 .retro-footer a:hover { color: var(--retro-red); }
 
 @media (min-width: 1600px) {
@@ -2065,8 +2065,11 @@ body.contact-modal-open .icon-rail {
   .retro-collection-bottom p { display: none; }
   .retro-pager { margin-left: auto; }
   .retro-footer > span { display: none; }
-  .retro-footer { justify-content: center; }
-  .retro-footer nav { width: 100%; justify-content: space-between; gap: 8px; }
+  .retro-footer { display: flex; justify-content: space-between; gap: 8px; }
+  /* La mention reste au centre, entre les deux liens légaux. */
+  .retro-footer nav { display: contents; }
+  .retro-footer nav a:first-child { order: -1; }
+  .retro-footer-credit { font-size: 11px; white-space: nowrap; }
 }
 
 @media (max-height: 700px) and (min-width: 901px) {
@@ -2600,7 +2603,7 @@ body.contact-modal-open .icon-rail {
 }
 
 .retro-account-stats {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .retro-account-card {
@@ -2845,9 +2848,10 @@ body.contact-modal-open .icon-rail {
 }
 
 @media (max-width: 1180px) {
-  .retro-account-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .retro-account-stats .retro-admin-stat:nth-child(2) { border-right: 0 !important; }
-  .retro-account-stats .retro-admin-stat:nth-child(n + 3) { border-top: 1px solid var(--retro-line) !important; }
+  /* Trois chiffres seulement : ils restent sur une ligne, malgré les règles admin à 2 colonnes. */
+  .retro-account-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .retro-account-stats .retro-admin-stat { border-top: 0 !important; border-right: 1px solid var(--retro-line) !important; }
+  .retro-account-stats .retro-admin-stat:last-child { border-right: 0 !important; }
 }
 
 @media (max-width: 768px) {
@@ -2870,7 +2874,8 @@ body.contact-modal-open .icon-rail {
 
 @media (max-width: 430px) {
   .retro-account-stats { grid-template-columns: minmax(0, 1fr); }
-  .retro-account-stats .retro-admin-stat { border-right: 0 !important; }
+  .retro-account-stats .retro-admin-stat { border-right: 0 !important; border-top: 1px solid var(--retro-line) !important; }
+  .retro-account-stats .retro-admin-stat:first-child { border-top: 0 !important; }
   .retro-account-profile-meta > div {
     width: 100%;
     border-right: 0;
@@ -3295,8 +3300,6 @@ body.contact-modal-open .icon-rail {
 .retro-primary { flex: 1; min-height: 51px; padding: 0 17px; border: 1px solid var(--retro-red); background: var(--retro-red); color: #fff8e9 !important; display: flex; align-items: center; justify-content: space-between; font-size: 12px !important; letter-spacing: .5px; }
 .retro-primary:hover:not(:disabled) { background: #982719; }
 .retro-primary:disabled { cursor: not-allowed; opacity: .55; }
-.retro-favorite { width: 51px; height: 51px; border: 1px solid var(--retro-line); background: transparent; font-size: 24px !important; }
-.retro-favorite.active { border-color: var(--retro-red); color: var(--retro-red); }
 .retro-product-notes { margin-top: auto; padding-top: 20px; }
 .retro-product-notes p { display: grid; grid-template-columns: 75px 1fr; gap: 12px; margin: 0; padding: 9px 0; border-top: 1px solid var(--retro-line); font-size: 10px; line-height: 1.4; }
 .retro-product-notes strong { letter-spacing: .8px; }
@@ -3473,25 +3476,14 @@ body.contact-modal-open .icon-rail {
 .retro-auth-notes li strong { font: 700 22px/1 var(--retro-display); color: var(--retro-red); }
 .retro-auth-notes > p { margin: auto 0 0; padding-top: 14px; border-top: 3px double var(--retro-line); color: var(--retro-muted); font: italic 13px/1.4 var(--retro-serif); }
 
-/* Favoris */
-.retro-favorites-list { padding-top: 22px; }
-.retro-favorites-columns { display: grid; grid-template-columns: minmax(0, 1fr) 115px 260px; gap: 15px; padding: 0 0 9px 120px; border-bottom: 1px solid var(--retro-line); color: var(--retro-muted); font-size: 11px; letter-spacing: 1px; }
-.retro-favorite-item { position: relative; display: grid; grid-template-columns: 105px minmax(0, 1fr) 115px 260px; align-items: center; gap: 15px; padding: 14px 0; border-bottom: 1px solid var(--retro-line); }
-.retro-favorite-image { height: 112px; overflow: hidden; border: 1px solid rgb(194 179 147 / .45); background: var(--retro-photo); }
-.retro-favorite-image img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .5s ease; }
-.retro-favorite-image:hover img { transform: scale(1.045); }
-.retro-favorite-name { min-width: 0; }
-.retro-favorite-name a { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-transform: uppercase; font: 700 27px/1 var(--retro-display); }
-.retro-favorite-name a:hover { color: var(--retro-red); }
-.retro-favorite-name p { margin: 7px 0 0; color: var(--retro-muted); font: italic 12px var(--retro-serif); }
-.retro-favorite-item > strong { font-size: 12px; font-weight: 400; }
-.retro-favorite-actions { display: flex; align-items: center; gap: 16px; }
-.retro-favorite-actions .retro-primary { min-height: 44px; }
-.retro-favorite-actions .retro-remove { font-size: 11px !important; }
 
-/* Pages légales */
+/* Pages légales : texte long, on rend le défilement au document (bloqué
+   globalement sur html/body). `.retro-content-page` est déjà en hauteur de
+   contenu : le pied de page suit le texte. */
+html:has(.retro-legal-page),
+html:has(.retro-legal-page) body { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
 .retro-legal-sheet { display: grid; grid-template-columns: minmax(180px, .6fr) minmax(0, 2fr); gap: 26px; padding-top: 22px; }
-.retro-legal-date { margin: 0; padding-top: 10px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font: italic 13px/1.5 var(--retro-serif); }
+.retro-legal-date { position: sticky; top: 20px; align-self: start; margin: 0; padding-top: 10px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font: italic 13px/1.5 var(--retro-serif); }
 .retro-legal-body { max-width: 780px; padding-left: 26px; border-left: 1px solid var(--retro-line); }
 .retro-legal-section { display: grid; gap: 10px; padding: 16px 0 20px; border-top: 1px solid var(--retro-line); color: #4d483b; font-size: 14px; line-height: 1.7; }
 .retro-legal-section:first-child { border-top: 0; padding-top: 0; }
@@ -4032,13 +4024,8 @@ body.contact-modal-open .icon-rail {
 @media (max-width: 900px) {
   .retro-auth-wrap { grid-template-columns: 1fr; }
   .retro-auth-visual { display: none; }
-  .retro-favorites-columns { display: none; }
-  .retro-favorite-item { grid-template-columns: 90px minmax(0, 1fr) auto; }
-  .retro-favorite-image { height: 104px; grid-row: 1 / span 2; }
-  .retro-favorite-name { align-self: end; }
-  .retro-favorite-item > strong { grid-column: 3; grid-row: 1; align-self: end; }
-  .retro-favorite-actions { grid-column: 2 / -1; grid-row: 2; align-self: start; }
   .retro-legal-sheet { grid-template-columns: 1fr; gap: 16px; }
+  .retro-legal-date { position: static; }
   .retro-legal-body { padding-left: 0; border-left: 0; }
 }
 
@@ -4049,11 +4036,5 @@ body.contact-modal-open .icon-rail {
   .retro-content-main { padding-top: 14px; }
   .retro-auth-wrap { padding-top: 18px; }
   .retro-auth-head h2 { font-size: 30px; }
-  .retro-favorite-item { grid-template-columns: 76px minmax(0, 1fr); gap: 11px; }
-  .retro-favorite-image { height: 96px; grid-row: 1 / span 3; }
-  .retro-favorite-name a { font-size: 23px; }
-  .retro-favorite-item > strong { grid-column: 2; grid-row: 2; align-self: start; }
-  .retro-favorite-actions { grid-column: 2; grid-row: 3; gap: 12px; }
-  .retro-favorite-actions .retro-primary { flex: 1; }
   .retro-legal-section h2 { font-size: 23px; }
 }

@@ -3,7 +3,6 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { AuthProvider } from "@/components/AuthProvider";
 import { CartProvider } from "@/lib/cart";
-import { FavoritesProvider } from "@/lib/favorites";
 import { Tracker } from "@/components/Tracker";
 import "./globals.css";
 
@@ -32,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Tracker />
         <AuthProvider>
           <CartProvider>
-            <FavoritesProvider>{children}</FavoritesProvider>
+            {children}
           </CartProvider>
         </AuthProvider>
       </body>

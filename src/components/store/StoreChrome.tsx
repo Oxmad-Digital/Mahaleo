@@ -29,7 +29,6 @@ export function StoreHeader() {
           <Image src={logo} alt="Mahaleo" priority sizes="(max-width: 600px) 185px, 265px" />
         </Link>
         <nav className="retro-actions" aria-label="Navigation principale">
-          <Link href="/favoris" className="retro-action retro-action-secondary">Favoris</Link>
           <Link href={accountHref} className="retro-action retro-action-secondary">
             {session?.user ? "Compte" : "Connexion"}
           </Link>
@@ -48,7 +47,12 @@ export function StoreFooter() {
   return (
     <footer className="retro-footer">
       <span>MAHALEO · DEPUIS 1972</span>
-      <span className="retro-footer-quote">Le nom d’un groupe. Le lien entre des générations.</span>
+      <p className="retro-footer-credit">
+        Réalisé par{" "}
+        <a href="https://oxmad-digital.mg" target="_blank" rel="noopener noreferrer">
+          Oxmad Digital
+        </a>
+      </p>
       <nav aria-label="Liens légaux">
         <Link href="/mentions-legales">Mentions légales</Link>
         <Link href="/conditions-de-vente">Vente &amp; retours</Link>

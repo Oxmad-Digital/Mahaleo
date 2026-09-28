@@ -112,7 +112,7 @@ export function welcomeEmailTemplate(name: string | null) {
       <h1 style="font-size:20px; font-weight:700; color:${ink}; margin:0 0 16px;">Bienvenue !</h1>
       <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0 0 8px;">${greeting(name)}</p>
       <p style="font-size:14px; line-height:1.6; color:${ink}; margin:0;">
-        Votre compte a bien été créé. Vous pouvez dès maintenant parcourir la boutique, suivre vos commandes et retrouver vos favoris.
+        Votre compte a bien été créé. Vous pouvez dès maintenant parcourir la boutique, suivre vos commandes et retrouver vos factures.
       </p>
       ${button(APP_URL, "Découvrir la boutique")}
     `,

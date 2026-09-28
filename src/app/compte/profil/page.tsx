@@ -14,7 +14,7 @@ export default async function AccountProfilePage() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { name: true, email: true, createdAt: true, _count: { select: { orders: true, favorites: true } } },
+    select: { name: true, email: true, createdAt: true, _count: { select: { orders: true } } },
   });
   if (!user) notFound();
 
@@ -46,7 +46,6 @@ export default async function AccountProfilePage() {
       >
         <InfoField label="Client depuis" value={formatDate(user.createdAt)} />
         <InfoField label="Commandes" value={String(user._count.orders)} />
-        <InfoField label="Favoris" value={String(user._count.favorites)} />
       </div>
 
       <div className="retro-account-section" style={{ display: "flex", flexDirection: "column", gap: 12 }}>

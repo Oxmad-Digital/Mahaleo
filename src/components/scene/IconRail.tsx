@@ -2,22 +2,19 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { CartIcon, HangerIcon, HeartIcon, ProfileIcon } from "../icons";
+import { CartIcon, HangerIcon, ProfileIcon } from "../icons";
 import { vmin } from "@/lib/fluid";
 import { useCart } from "@/lib/cart";
-import { useFavorites } from "@/lib/favorites";
 
-export type RailKey = "shop" | "cart" | "heart" | "profile";
+export type RailKey = "shop" | "cart" | "profile";
 
 export function IconRail({ active }: { active: RailKey }) {
   const { data: session } = useSession();
   const { itemCount } = useCart();
-  const { count: favoriteCount } = useFavorites();
 
   const items: { key: RailKey; href: string; icon: React.ReactNode; label: string; connected?: boolean; badge?: number }[] = [
     { key: "shop", href: "/", icon: <HangerIcon />, label: "Boutique" },
     { key: "cart", href: "/panier", icon: <CartIcon />, label: "Panier", badge: itemCount },
-    { key: "heart", href: "/favoris", icon: <HeartIcon />, label: "Favoris", badge: favoriteCount },
     session?.user
       ? {
           key: "profile",

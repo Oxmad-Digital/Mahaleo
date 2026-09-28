@@ -158,14 +158,13 @@ export type AccountInvoicesData = Awaited<ReturnType<typeof getAccountInvoicesDa
 
 /** Chiffres et derniers éléments affichés sur le tableau de bord du client. */
 export async function getAccountOverview(userId: string) {
-  const [orderCount, activeCount, spend, favoriteCount, invoiceCount, latestOrders, lastOrder] = await Promise.all([
+  const [orderCount, activeCount, spend, invoiceCount, latestOrders, lastOrder] = await Promise.all([
     prisma.order.count({ where: { userId } }),
     prisma.order.count({ where: { userId, status: { in: ACCOUNT_ACTIVE_STATUSES } } }),
     prisma.order.aggregate({
       where: { userId, status: { not: "CANCELLED" } },
       _sum: { totalCents: true },
     }),
-    prisma.favorite.count({ where: { userId } }),
     prisma.invoice.count({ where: { order: { userId } } }),
     prisma.order.findMany({
       where: { userId },
@@ -199,7 +198,6 @@ export async function getAccountOverview(userId: string) {
     orderCount,
     activeCount,
     totalSpentCents: spend._sum.totalCents ?? 0,
-    favoriteCount,
     invoiceCount,
     latestOrders,
     lastAddress: lastOrder,

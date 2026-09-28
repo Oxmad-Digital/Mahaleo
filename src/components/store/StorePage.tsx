@@ -56,7 +56,7 @@ export function AuthPanel({ children, groupPhoto = false }: { children: ReactNod
         <ol>
           <li><strong>01</strong><span>Suivez vos commandes, de la préparation à la livraison.</span></li>
           <li><strong>02</strong><span>Retrouvez vos factures à tout moment.</span></li>
-          <li><strong>03</strong><span>Gardez vos pièces favorites de côté.</span></li>
+          <li><strong>03</strong><span>Gérez vos informations et votre mot de passe.</span></li>
         </ol>
         <p>Le nom d’un groupe. Le lien entre des générations.</p>
       </aside>

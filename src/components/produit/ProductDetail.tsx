@@ -2,12 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
-import { useFavorites } from "@/lib/favorites";
-import { addFavorite, removeFavorite } from "@/app/actions/favorites";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
@@ -15,13 +12,9 @@ const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
 export function ProductDetail({
   product,
   isNewArrival,
-  isAuthenticated,
-  initialFavorite,
 }: {
   product: NonNullable<ShopProductDetail>;
   isNewArrival: boolean;
-  isAuthenticated: boolean;
-  initialFavorite: boolean;
 }) {
   const images = product.images.length ? product.images : [PLACEHOLDER_IMAGE];
   const [activeImage, setActiveImage] = useState(0);
@@ -29,10 +22,7 @@ export function ProductDetail({
   const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string>();
   const [message, setMessage] = useState("");
-  const [favorite, setFavorite] = useState(initialFavorite);
   const { addItem } = useCart();
-  const { increment, decrement } = useFavorites();
-  const router = useRouter();
   const soldOut = requiresSize && availableSizes.length === 0;
 
   function addToCart() {
@@ -51,25 +41,6 @@ export function ProductDetail({
       size,
     });
     setMessage(`${product.name}${size ? ` · ${size}` : ""} ajouté au panier.`);
-  }
-
-  function toggleFavorite() {
-    if (!isAuthenticated) {
-      router.push("/connexion");
-      return;
-    }
-    const next = !favorite;
-    setFavorite(next);
-    if (next) increment();
-    else decrement();
-    (next ? addFavorite(product.id) : removeFavorite(product.id)).then((result) => {
-      if (result?.error) {
-        setFavorite(!next);
-        if (next) decrement();
-        else increment();
-        setMessage("Impossible de mettre à jour les favoris.");
-      }
-    });
   }
 
   return (
@@ -126,9 +97,6 @@ export function ProductDetail({
             <div className="retro-detail-actions">
               <button type="button" className="retro-primary" disabled={soldOut} onClick={addToCart}>
                 <span>{soldOut ? "RUPTURE DE STOCK" : "AJOUTER AU PANIER"}</span><span>↗</span>
-              </button>
-              <button type="button" className={favorite ? "retro-favorite active" : "retro-favorite"} onClick={toggleFavorite} aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"} aria-pressed={favorite}>
-                {favorite ? "♥" : "♡"}
               </button>
             </div>
             <div className="retro-product-notes">
