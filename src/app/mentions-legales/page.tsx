@@ -4,7 +4,6 @@ export default function MentionsLegalesPage() {
   return (
     <LegalCard
       crumb="Mentions légales"
-      footerActive="mentions"
       title="Mentions légales"
       updatedAt="28 septembre 2026"
     >

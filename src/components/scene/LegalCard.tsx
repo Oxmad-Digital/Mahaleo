@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { StorePage } from "@/components/store/StorePage";
-import type { FooterActive } from "./Footer";
 
-export function LegalCard({ crumb, title, updatedAt, children }: { crumb: string; footerActive: FooterActive; title: string; updatedAt: string; children: ReactNode }) {
+export function LegalCard({ crumb, title, updatedAt, children }: { crumb: string; title: string; updatedAt: string; children: ReactNode }) {
   return (
     <StorePage eyebrow={crumb.toUpperCase()} title={title.toUpperCase()} className="retro-legal-page">
       <article className="retro-legal-sheet">

@@ -2,19 +2,9 @@ import type { CSSProperties, ReactNode } from "react";
 import { vmin } from "@/lib/fluid";
 
 /**
- * Full-viewport, no-scroll shell for the storefront pages: fills 100% width
- * and 100dvh height (fluid, no fixed canvas / JS scaling), with three internal
- * scroll regions (.cart-scroll, .fav-scroll — whose styling the home photo
- * wall reuses when it overflows — and .legal-scroll) handling variable-length
- * content. A future admin dashboard should use a different wrapper that allows
- * normal page scroll instead of this one.
- *
- * `className` lands on the outer element and is how a page opts into a mobile
- * layout: the shop, product, legal, login and signup pages pass
- * `scene-mobile`, whose media queries in globals.css turn this shell into a
- * scrolling column below 768px.
- * `.scene-overlay` and `.scene-frame` are the hooks those rules need. Pages
- * that have not opted in keep the vmin-scaled desktop rendering everywhere.
+ * Full-viewport, no-scroll shell from the previous storefront design: fills
+ * 100% width and 100dvh height, with vmin-scaled content. Only the order
+ * confirmation page still uses it.
  */
 export function Scene({ children, className }: { children: ReactNode; className?: string }) {
   return (

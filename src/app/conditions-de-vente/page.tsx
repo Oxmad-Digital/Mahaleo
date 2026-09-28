@@ -4,7 +4,6 @@ export default function ConditionsDeVentePage() {
   return (
     <LegalCard
       crumb="Conditions de vente"
-      footerActive="conditions"
       title="Conditions générales de vente"
       updatedAt="3 septembre 2026"
     >
