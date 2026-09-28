@@ -7,16 +7,21 @@ export async function getShopProducts() {
       id: true,
       slug: true,
       name: true,
+      description: true,
+      color: true,
       priceCents: true,
       currency: true,
       images: true,
+      sizes: {
+        orderBy: { size: "asc" },
+        select: { size: true, stock: true },
+      },
       createdAt: true,
     },
   });
 }
 
 export type ShopProduct = Awaited<ReturnType<typeof getShopProducts>>[number];
-
 export async function getProductBySlug(slug: string) {
   return prisma.product.findUnique({
     where: { slug },

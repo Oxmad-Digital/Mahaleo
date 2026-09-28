@@ -5,6 +5,7 @@ export function StockAlertsCard({ products }: { products: DashboardData["lowStoc
 
   return (
     <div
+      className="retro-admin-card retro-admin-stock-card"
       style={{
         padding: "22px 24px 20px",
         borderRadius: 8,
@@ -15,7 +16,7 @@ export function StockAlertsCard({ products }: { products: DashboardData["lowStoc
       }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
-        <div style={{ fontSize: 17, fontWeight: 600 }}>Alertes de stock</div>
+        <div className="retro-admin-card-title">Alertes de stock</div>
         <span style={{ padding: "3px 9px", borderRadius: 4, background: "#fbe4e4", fontSize: 12, fontWeight: 500, color: "#a82c2c" }}>
           {products.length} référence{products.length > 1 ? "s" : ""}
         </span>

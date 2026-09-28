@@ -1,6 +1,8 @@
 import { Fragment, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { logout } from "@/app/actions/auth";
+import logo from "../../assets/mahaleo/logo-mahaleo.png";
 
 export type Crumb = { label: string; href?: string };
 
@@ -130,7 +132,11 @@ export function ConsoleShell({
 }) {
   return (
     <div
-      className={variant === "account" ? "admin-shell account-shell" : "admin-shell"}
+      className={
+        variant === "account"
+          ? "admin-shell account-shell retro-admin-shell retro-account-shell"
+          : "admin-shell retro-admin-shell"
+      }
       style={{
         position: "fixed",
         inset: 0,
@@ -159,20 +165,27 @@ export function ConsoleShell({
           }}
         >
           <div className="admin-sidebar-inner" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 22 }}>
-            <div
-              className="admin-logo"
-              style={{
-                width: 34,
-                height: 34,
-                borderRadius: 8,
-                background: "var(--brand-green, #1c6b3a)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>M</span>
-            </div>
+            {variant === "admin" || variant === "account" ? (
+              <Link href={variant === "admin" ? "/admin" : "/compte"} className="admin-logo admin-logo-retro" aria-label={variant === "admin" ? "Mahaleo — administration" : "Mahaleo — espace client"}>
+                <Image src={logo} alt="Mahaleo" priority sizes="160px" />
+                <span>{variant === "admin" ? "ADMINISTRATION" : "ESPACE CLIENT"}</span>
+              </Link>
+            ) : (
+              <div
+                className="admin-logo"
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: 8,
+                  background: "var(--brand-green, #1c6b3a)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>M</span>
+              </div>
+            )}
             <div className="admin-nav-list" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {nav.map((item) => {
                 const isActive = item.key === active;
@@ -180,7 +193,7 @@ export function ConsoleShell({
                   <Link key={item.key} href={item.href}>
                     <div
                       title={item.label}
-                      className="admin-nav-item"
+                      className={`admin-nav-item${isActive ? " is-active" : ""}`}
                       style={{
                         width: 38,
                         height: 38,
@@ -193,11 +206,13 @@ export function ConsoleShell({
                       }}
                     >
                       <ConsoleIcon kind={item.icon} muted={!isActive} />
+                      <span className="admin-nav-label">{item.label}</span>
                     </div>
                   </Link>
                 );
               })}
             </div>
+            <div className="admin-sidebar-edition">MAHALEO<br />DEPUIS 1972</div>
           </div>
         </div>
 
@@ -243,6 +258,7 @@ export function ConsoleShell({
               })}
             </div>
             <div className="admin-header-actions" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <Link href="/" className="admin-store-link">Voir la boutique</Link>
               <div
                 className="admin-user-chip"
                 style={{

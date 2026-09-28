@@ -1,22 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Scene } from "@/components/scene/Scene";
-import { TopBar } from "@/components/scene/TopBar";
-import { LogoPill } from "@/components/scene/LogoPill";
-import { Breadcrumb } from "@/components/scene/Breadcrumb";
-import { HeaderIconButton } from "@/components/scene/HeaderIconButton";
-import { IconRail } from "@/components/scene/IconRail";
-import { Footer } from "@/components/scene/Footer";
-import {
-  CartIcon,
-  ChevronLeftIcon,
-  HeartFilledIcon,
-  HeartIcon,
-  ShippingIcon,
-} from "@/components/icons";
-import { capped, vmin } from "@/lib/fluid";
+import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
 import { useFavorites } from "@/lib/favorites";
@@ -24,22 +11,7 @@ import { addFavorite, removeFavorite } from "@/app/actions/favorites";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
-/**
- * Gabarit de la colonne de vignettes : tant qu'il y a moins de photos que ça,
- * les vignettes gardent la taille qu'elles auraient à quatre et la colonne est
- * simplement plus courte. Au-delà, elles rétrécissent pour tenir dans la
- * hauteur de la photo principale.
- */
-const THUMBNAIL_SLOTS = 4;
 
-/**
- * Fiche produit : galerie à gauche, panneau d'achat à droite. Elle passe
- * `scene-mobile` à `Scene`, donc sous 768px (ou sur un téléphone couché) la
- * scène repasse en flux normal et c'est la page qui défile — les deux colonnes
- * s'empilent, les vignettes passent sous la photo en une rangée. Voir les
- * règles `.scene-mobile .product-*` dans globals.css, qui s'appuient sur les
- * classes posées ici pour repasser les tailles en pixels.
- */
 export function ProductDetail({
   product,
   isNewArrival,
@@ -51,50 +23,24 @@ export function ProductDetail({
   isAuthenticated: boolean;
   initialFavorite: boolean;
 }) {
-  const images = product.images.length > 0 ? product.images : [PLACEHOLDER_IMAGE];
-  const [thumb, setThumb] = useState(0);
-
-  // Une seule photo : pas de colonne de vignettes, la photo prend toute la
-  // largeur de la galerie.
-  const hasThumbs = images.length > 1;
-  const slots = Math.max(images.length, THUMBNAIL_SLOTS);
-  const activeImage = images[Math.min(thumb, images.length - 1)];
-
-  const thumbColumnRef = useRef<HTMLDivElement>(null);
-  const [thumbSize, setThumbSize] = useState<number | null>(null);
-
-  // La colonne s'étire sur toute la hauteur de la galerie (`align-items:
-  // stretch`) même quand elle contient moins de vignettes : on part de cette
-  // hauteur, et non de celle des vignettes, pour calculer leur côté — sinon la
-  // mesure dépendrait de ce qu'elle sert à fixer.
-  useEffect(() => {
-    const el = thumbColumnRef.current;
-    if (!el) return;
-    const measure = () => {
-      const height = el.getBoundingClientRect().height;
-      if (!height) return;
-      const gap = parseFloat(getComputedStyle(el).rowGap) || 0;
-      setThumbSize((height - (slots - 1) * gap) / slots);
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [slots]);
-
-  const availableSizes = useMemo(() => product.sizes.filter((s) => s.stock > 0), [product.sizes]);
+  const images = product.images.length ? product.images : [PLACEHOLDER_IMAGE];
+  const [activeImage, setActiveImage] = useState(0);
+  const availableSizes = product.sizes.filter((entry) => entry.stock > 0);
   const requiresSize = product.sizes.length > 0;
-  const [size, setSize] = useState<string | undefined>(availableSizes[0]?.size);
-  const { addItem } = useCart();
-  const { increment: incrementFavorites, decrement: decrementFavorites } = useFavorites();
-  const [added, setAdded] = useState(false);
-  const router = useRouter();
+  const [size, setSize] = useState<string>();
+  const [message, setMessage] = useState("");
   const [favorite, setFavorite] = useState(initialFavorite);
+  const { addItem } = useCart();
+  const { increment, decrement } = useFavorites();
+  const router = useRouter();
+  const soldOut = requiresSize && availableSizes.length === 0;
 
-  const canAddToCart = requiresSize ? !!size : true;
-
-  const handleAddToCart = () => {
-    if (!canAddToCart) return;
+  function addToCart() {
+    if (requiresSize && !size) {
+      setMessage("Sélectionnez une taille pour continuer.");
+      return;
+    }
+    if (soldOut) return;
     addItem({
       productId: product.id,
       slug: product.slug,
@@ -104,368 +50,94 @@ export function ProductDetail({
       currency: product.currency,
       size,
     });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
-  };
+    setMessage(`${product.name}${size ? ` · ${size}` : ""} ajouté au panier.`);
+  }
 
-  const handleToggleFavorite = () => {
+  function toggleFavorite() {
     if (!isAuthenticated) {
       router.push("/connexion");
       return;
     }
     const next = !favorite;
     setFavorite(next);
-    if (next) incrementFavorites();
-    else decrementFavorites();
+    if (next) increment();
+    else decrement();
     (next ? addFavorite(product.id) : removeFavorite(product.id)).then((result) => {
       if (result?.error) {
         setFavorite(!next);
-        if (next) decrementFavorites();
-        else incrementFavorites();
+        if (next) decrement();
+        else increment();
+        setMessage("Impossible de mettre à jour les favoris.");
       }
     });
-  };
+  }
 
   return (
-    <Scene className="scene-mobile">
-      <TopBar
-        className="scene-topbar"
-        left={<LogoPill />}
-        right={
-          <>
-            <Breadcrumb
-              className="product-crumb"
-              items={[{ label: "Boutique", href: "/" }, product.name]}
-            />
-            <HeaderIconButton className="product-back" href="/" label="Retour à la boutique">
-              <ChevronLeftIcon />
-            </HeaderIconButton>
-          </>
-        }
-      />
-
-      <div
-        className="product-layout"
-        style={{
-          position: "absolute",
-          top: vmin(104),
-          left: vmin(110),
-          right: vmin(60),
-          bottom: vmin(94),
-          display: "flex",
-          alignItems: "stretch",
-          gap: vmin(60),
-        }}
-      >
-        <div
-          className="product-gallery"
-          style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "row", gap: vmin(14) }}
-        >
-          {hasThumbs && (
-            <div
-              ref={thumbColumnRef}
-              className="product-thumbs"
-              style={{
-                flex: "none",
-                display: "flex",
-                flexDirection: "column",
-                gap: vmin(12),
-                // Lu par les bascules tablette/mobile de globals.css, qui
-                // dimensionnent la colonne en CSS pur.
-                ["--thumb-slots" as string]: slots,
-              }}
-            >
-              {images.map((image, i) => {
-                const active = i === thumb;
-                return (
-                  <button
-                    key={`${image}-${i}`}
-                    className="product-thumb"
-                    onClick={() => setThumb(i)}
-                    style={{
-                      width: thumbSize ?? vmin(84),
-                      height: thumbSize ?? vmin(84),
-                      flex: "none",
-                      minHeight: 0,
-                      borderRadius: "var(--radius-md)",
-                      background: "var(--glass-fill-strong-top)",
-                      border: `1px solid ${
-                        active ? "rgba(255,255,255,0.75)" : "var(--glass-border-strong)"
-                      }`,
-                      boxShadow: active
-                        ? "0 14px 30px rgba(0,0,0,0.28)"
-                        : "0 8px 20px rgba(0,0,0,0.16)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      overflow: "hidden",
-                      padding: 0,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.name} — vue ${i + 1}`}
-                      style={{ width: "84%", height: "84%", objectFit: "contain" }}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          <div
-            className="product-stage"
-            style={{
-              position: "relative",
-              flex: 1,
-              minWidth: 0,
-              borderRadius: "var(--radius-2xl)",
-              background:
-                "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
-              border: "1px solid var(--glass-border-strong)",
-              backdropFilter: "blur(var(--blur-strong))",
-              WebkitBackdropFilter: "blur(var(--blur-strong))",
-              boxShadow: "0 24px 60px rgba(0,0,0,0.26)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src={activeImage}
-              alt={product.name}
-              style={{
-                width: "88%",
-                height: "88%",
-                objectFit: "contain",
-                filter: "drop-shadow(0 30px 50px rgba(0,0,0,0.32))",
-              }}
-            />
-            {isNewArrival && (
-              <div
-                className="product-badge"
-                style={{
-                  position: "absolute",
-                  top: vmin(20),
-                  left: vmin(20),
-                  padding: `${vmin(9)} ${vmin(18)}`,
-                  borderRadius: "var(--radius-pill)",
-                  background: "var(--glass-fill-strong-top)",
-                  border: "1px solid var(--glass-border-strong)",
-                  fontSize: vmin(13),
-                  fontWeight: 600,
-                  letterSpacing: "var(--label-letter-spacing-tight)",
-                  textTransform: "uppercase",
-                }}
-              >
-                Nouvelle arrivée
-              </div>
-            )}
-          </div>
+    <StoreShell className="retro-detail-page">
+      <main className="retro-detail-main">
+        <div className="retro-detail-topline">
+          <Link href="/">← Retour à la collection</Link>
+          <span>LE VESTIAIRE DU GROUPE · PIÈCE {String(product.id).slice(-2).toUpperCase()}</span>
         </div>
 
-        <div
-          className="product-aside"
-          style={{ width: capped(520), flex: "none", display: "flex", flexDirection: "column" }}
-        >
-          <div
-            className="product-card"
-            style={{
-              flex: 1,
-              minHeight: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: vmin(22),
-              padding: vmin(32),
-              boxSizing: "border-box",
-              borderRadius: "var(--radius-2xl)",
-              background:
-                "linear-gradient(180deg, var(--glass-fill-strong-top), var(--glass-fill-bottom))",
-              border: "1px solid var(--glass-border-strong)",
-              backdropFilter: "blur(var(--blur-strong))",
-              WebkitBackdropFilter: "blur(var(--blur-strong))",
-              boxShadow: "0 24px 60px rgba(0,0,0,0.26)",
-              overflowY: "auto",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}>
-              <div className="product-title" style={{ fontSize: vmin(44), fontWeight: 700, lineHeight: 1.06 }}>
-                {product.name}
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: vmin(14) }}>
-                <span className="product-price" style={{ fontSize: vmin(38), fontWeight: 700, lineHeight: 1 }}>
-                  {formatCents(product.priceCents, product.currency)}
-                </span>
-              </div>
-            </div>
-
-            {product.description && (
-              <div
-                className="product-description"
-                style={{ fontSize: vmin(16), lineHeight: 1.6, color: "var(--text-on-scene-secondary)" }}
-              >
-                {product.description}
+        <div className="retro-detail-layout">
+          <section className="retro-gallery" aria-label={`Photos de ${product.name}`}>
+            {images.length > 1 && (
+              <div className="retro-thumbs">
+                {images.map((image, index) => (
+                  <button key={`${image}-${index}`} type="button" className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Afficher la vue ${index + 1}`} aria-pressed={activeImage === index}>
+                    <img src={image} alt="" />
+                  </button>
+                ))}
               </div>
             )}
+            <div className="retro-detail-photo">
+              <img src={images[activeImage]} alt={product.name} />
+              {isNewArrival && <span>NOUVELLE ARRIVÉE</span>}
+            </div>
+          </section>
+
+          <section className="retro-product-panel">
+            <span className="retro-eyebrow">MAHALEO · COLLECTION OFFICIELLE</span>
+            <h1>{product.name}</h1>
+            <p className="retro-detail-price">{formatCents(product.priceCents, product.currency)}</p>
+            {product.description && <p className="retro-detail-description">{product.description}</p>}
 
             {product.color && (
-              <div
-                className="product-color"
-                style={{ display: "flex", alignItems: "center", gap: vmin(10), fontSize: vmin(14) }}
-              >
-                <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Couleur</span>
-                <span
-                  role="img"
-                  aria-label={`Couleur du produit : ${product.color}`}
-                  title={product.color}
-                  style={{
-                    width: vmin(22),
-                    height: vmin(22),
-                    borderRadius: "50%",
-                    background: product.color,
-                    border: "1px solid rgba(255,255,255,0.6)",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
-                    flex: "none",
-                  }}
-                />
+              <div className="retro-detail-color">
+                <span>COULEUR</span><i style={{ background: product.color }} aria-hidden="true" /><strong>{product.color}</strong>
               </div>
             )}
 
-            {product.sizes.length > 0 && (
-              <div
-                className="product-sizes-block"
-                style={{ display: "flex", flexDirection: "column", gap: vmin(12) }}
-              >
-                <div
-                  className="product-sizes-label"
-                  style={{ fontSize: vmin(14), fontWeight: 600, color: "rgba(255,255,255,0.78)" }}
-                >
-                  Taille
+            {requiresSize && (
+              <fieldset className="retro-size-fieldset">
+                <legend>CHOISISSEZ VOTRE TAILLE</legend>
+                <div>
+                  {product.sizes.map((entry) => (
+                    <button key={entry.id} type="button" disabled={entry.stock === 0} className={size === entry.size ? "active" : ""} aria-pressed={size === entry.size} onClick={() => { setSize(entry.size); setMessage(`Taille ${entry.size} sélectionnée.`); }}>
+                      {entry.size}
+                    </button>
+                  ))}
                 </div>
-                <div
-                  className="product-sizes"
-                  style={{ display: "flex", alignItems: "center", gap: vmin(10), flexWrap: "wrap" }}
-                >
-                  {product.sizes.map(({ size: label, stock }) => {
-                    const on = label === size;
-                    const disabled = stock === 0;
-                    return (
-                      <button
-                        key={label}
-                        className="product-size"
-                        disabled={disabled}
-                        onClick={() => setSize(label)}
-                        style={{
-                          minWidth: vmin(60),
-                          padding: `${vmin(14)} 0`,
-                          textAlign: "center",
-                          borderRadius: "var(--radius-sm)",
-                          background: on ? "rgba(255,255,255,0.9)" : "var(--glass-fill-strong-top)",
-                          border: `1px solid ${on ? "rgba(255,255,255,0.7)" : "var(--glass-border-strong)"}`,
-                          color: disabled ? "var(--text-on-scene-quaternary)" : on ? "var(--ink)" : "#fff",
-                          fontSize: vmin(16),
-                          fontWeight: 600,
-                          cursor: disabled ? "not-allowed" : "pointer",
-                          opacity: disabled ? 0.5 : 1,
-                          textDecoration: disabled ? "line-through" : "none",
-                        }}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              </fieldset>
             )}
 
-            <div className="product-spacer" style={{ height: vmin(14) }} />
-
-            <div
-              className="product-actions"
-              style={{ display: "flex", alignItems: "center", gap: vmin(12) }}
-            >
-              <button
-                className="product-add"
-                disabled={!canAddToCart}
-                onClick={handleAddToCart}
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: vmin(12),
-                  padding: `${vmin(19)} 0`,
-                  borderRadius: "var(--radius-base)",
-                  background: "var(--surface-light)",
-                  border: "1px solid var(--surface-light-border)",
-                  color: "var(--ink)",
-                  boxShadow: "var(--shadow-cta)",
-                  cursor: canAddToCart ? "pointer" : "not-allowed",
-                  opacity: canAddToCart ? 1 : 0.6,
-                }}
-              >
-                <CartIcon size={vmin(21)} stroke="#10222c" />
-                <span
-                  className="product-add-label"
-                  style={{ fontSize: vmin(17), fontWeight: 700, whiteSpace: "nowrap" }}
-                >
-                  {!canAddToCart
-                    ? "Rupture de stock"
-                    : added
-                      ? "Ajouté au panier ✓"
-                      : `Ajouter au panier — ${formatCents(product.priceCents, product.currency)}`}
-                </span>
+            <p className="retro-product-status" aria-live="polite">{message}</p>
+            <div className="retro-detail-actions">
+              <button type="button" className="retro-primary" disabled={soldOut} onClick={addToCart}>
+                <span>{soldOut ? "RUPTURE DE STOCK" : "AJOUTER AU PANIER"}</span><span>↗</span>
               </button>
-              <button
-                className="product-fav"
-                aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
-                onClick={handleToggleFavorite}
-                style={{
-                  width: vmin(60),
-                  height: vmin(60),
-                  flex: "none",
-                  borderRadius: "var(--radius-base)",
-                  background: "var(--glass-pill-bg)",
-                  border: "1px solid var(--glass-border-strong)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                }}
-              >
-                {favorite ? <HeartFilledIcon /> : <HeartIcon />}
+              <button type="button" className={favorite ? "retro-favorite active" : "retro-favorite"} onClick={toggleFavorite} aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"} aria-pressed={favorite}>
+                {favorite ? "♥" : "♡"}
               </button>
             </div>
-
-            <div
-              className="product-shipping"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: vmin(10),
-                padding: `${vmin(16)} ${vmin(20)}`,
-                borderRadius: "var(--radius-base)",
-                background: "var(--glass-pill-bg-soft)",
-                border: "1px solid var(--glass-pill-border-soft)",
-                fontSize: vmin(14),
-                fontWeight: 500,
-                color: "var(--text-on-scene-secondary)",
-              }}
-            >
-              <ShippingIcon />
-              <span>Livraison offerte dès 150 € · retours 30 jours</span>
+            <div className="retro-product-notes">
+              <p><strong>LIVRAISON</strong><span>Calculée selon votre destination lors de la commande.</span></p>
+              <p><strong>RETOURS</strong><span>Consultez les conditions de vente avant votre achat.</span></p>
             </div>
-
-            <div className="product-filler" style={{ flex: 1 }} />
-          </div>
+          </section>
         </div>
-      </div>
-
-      <IconRail active="shop" />
-      <Footer />
-    </Scene>
+      </main>
+    </StoreShell>
   );
 }

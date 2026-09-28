@@ -10,7 +10,7 @@ export function ProfileForm({ initial }: { initial: { name: string; email: strin
   return (
     <form
       action={formAction}
-      className="admin-order-form-grid"
+      className="admin-order-form-grid retro-account-form"
       style={{
         padding: "24px 24px 22px",
         borderRadius: 8,
@@ -50,7 +50,7 @@ export function ProfileForm({ initial }: { initial: { name: string; email: strin
       {state?.message && <p style={noticeStyle(state.success)}>{state.message}</p>}
 
       <div style={{ paddingTop: 4 }}>
-        <button type="submit" disabled={pending} style={primaryButtonStyle(pending)}>
+        <button className="retro-admin-form-primary" type="submit" disabled={pending} style={primaryButtonStyle(pending)}>
           {pending ? "Enregistrement..." : "Enregistrer"}
         </button>
       </div>

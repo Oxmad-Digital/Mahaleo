@@ -7,6 +7,7 @@ const GRID_COLUMNS = "minmax(64px, 0.7fr) minmax(0, 1.6fr) minmax(84px, 1fr) min
 export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrders"] }) {
   return (
     <div
+      className="retro-admin-card retro-admin-orders-card"
       style={{
         padding: "22px 24px 12px",
         borderRadius: 8,
@@ -16,7 +17,7 @@ export function LatestOrdersCard({ orders }: { orders: DashboardData["latestOrde
         gap: 16,
       }}
     >
-      <div style={{ fontSize: 17, fontWeight: 600 }}>Dernières commandes</div>
+      <div className="retro-admin-card-title">Dernières commandes</div>
 
       {/* Du téléphone à la tablette le tableau ne rétrécit pas : il défile latéralement. */}
       <div className="admin-table-scroll">

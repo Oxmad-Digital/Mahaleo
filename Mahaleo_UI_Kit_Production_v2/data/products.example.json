@@ -1,0 +1,50 @@
+{
+  "currency": "MGA",
+  "locale": "fr-FR",
+  "products": [
+    {
+      "id": "origines",
+      "slug": "t-shirt-origines",
+      "name": "Origines",
+      "category": "tee",
+      "productType": "T-shirt",
+      "colorName": "Ivoire",
+      "colorHex": "#E4DECF",
+      "price": 65000,
+      "image": "/products/origines.webp",
+      "description": "Le rouge signature de Mahaleo sur un t-shirt ivoire.",
+      "variants": [
+        { "id": "origines-s", "size": "S", "stock": 0 },
+        { "id": "origines-m", "size": "M", "stock": 0 },
+        { "id": "origines-l", "size": "L", "stock": 0 },
+        { "id": "origines-xl", "size": "XL", "stock": 0 }
+      ]
+    },
+    {
+      "id": "heritage",
+      "slug": "t-shirt-heritage",
+      "name": "Héritage",
+      "category": "tee",
+      "productType": "T-shirt",
+      "colorName": "Noir délavé",
+      "colorHex": "#353735",
+      "price": 65000,
+      "image": "/products/heritage.webp",
+      "description": "La signature rouge de Mahaleo sur un noir délavé.",
+      "variants": []
+    },
+    {
+      "id": "ensemble",
+      "slug": "sweat-ensemble",
+      "name": "Ensemble",
+      "category": "sweat",
+      "productType": "Sweat",
+      "colorName": "Vert forêt",
+      "colorHex": "#264638",
+      "price": 125000,
+      "image": "/products/ensemble.webp",
+      "description": "Le nom du groupe, tout près du cœur.",
+      "variants": []
+    }
+  ]
+}

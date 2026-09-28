@@ -1,8 +1,8 @@
 import { ORDER_FLOW, ORDER_STATUS_LABELS } from "@/lib/order-status";
 import type { OrderStatus } from "@/generated/prisma/client";
 
-const GREEN = "var(--brand-green, #1c6b3a)";
-const LINE = "rgba(55,53,47,0.12)";
+const GREEN = "var(--retro-red)";
+const LINE = "var(--retro-line)";
 const CIRCLE = 30;
 
 /**
@@ -18,6 +18,7 @@ export function AccountOrderTimeline({ status }: { status: OrderStatus }) {
 
   return (
     <div
+      className="retro-admin-card retro-account-timeline"
       style={{
         padding: "22px 24px 18px",
         borderRadius: 8,
@@ -28,7 +29,7 @@ export function AccountOrderTimeline({ status }: { status: OrderStatus }) {
       }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
-        <div style={{ fontSize: 15, fontWeight: 600 }}>Suivi de la commande</div>
+        <div className="retro-admin-card-title">Suivi de la commande</div>
         {!cancelled && (
           <div className="admin-order-stepper-hint" style={{ fontSize: 13, color: "rgba(55,53,47,0.45)" }}>
             Vous recevez un e-mail à chaque étape
@@ -80,7 +81,7 @@ export function AccountOrderTimeline({ status }: { status: OrderStatus }) {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      background: done ? GREEN : "#fff",
+                      background: done ? GREEN : "var(--retro-paper)",
                       border: done || current ? `2px solid ${GREEN}` : `2px solid ${LINE}`,
                     }}
                   >

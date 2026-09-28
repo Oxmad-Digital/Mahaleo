@@ -41,11 +41,12 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
       userEmail={session.user.email ?? ""}
     >
       <div
-        className="admin-order-header"
+        className="admin-order-header retro-account-order-header"
         style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Link
+            className="retro-account-back-link"
             href="/compte/commandes"
             style={{
               display: "inline-flex",
@@ -86,7 +87,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
         <div style={{ display: "flex", flexDirection: "column", gap: 24, minWidth: 0 }}>
           <AccountOrderTimeline status={order.status} />
 
-          <div style={{ padding: "22px 24px 18px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 16 }}>
+          <div className="retro-account-card" style={{ padding: "22px 24px 18px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>LIVRAISON</div>
             <div className="admin-order-shipping-grid" style={{ display: "flex", flexWrap: "wrap", gap: 32 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 200 }}>
@@ -118,6 +119,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                     )}
                     {shipment.trackingUrl && (
                       <a
+                        className="retro-account-primary-link"
                         href={shipment.trackingUrl}
                         target="_blank"
                         rel="noreferrer"
@@ -147,7 +149,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
             </div>
           </div>
 
-          <div style={{ padding: "22px 24px 18px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 16 }}>
+          <div className="retro-account-card" style={{ padding: "22px 24px 18px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>ARTICLES COMMANDÉS</div>
 
             <div className="admin-order-items-scroll" style={{ display: "flex", flexDirection: "column" }}>
@@ -249,7 +251,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24, minWidth: 0 }}>
-          <div style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div className="retro-account-card" style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>RÉSUMÉ</div>
             <SidebarRow label="Statut">
               <StatusBadge status={order.status} />
@@ -269,7 +271,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
             </div>
           </div>
 
-          <div style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div className="retro-account-card" style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>FACTURE</div>
             {order.invoice ? (
               <>
@@ -280,6 +282,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                   <span style={{ fontSize: 13, fontWeight: 600 }}>{formatDate(order.invoice.issuedAt)}</span>
                 </SidebarRow>
                 <Link
+                  className="retro-account-primary-link"
                   href={`/compte/commandes/${order.id}/facture`}
                   style={{
                     padding: "9px 16px",
@@ -302,7 +305,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
           </div>
 
           {pendingPayments.length > 0 && (
-            <div style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 12 }}>
+            <div className="retro-account-card" style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 12 }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>À RÉGLER</div>
               {pendingPayments.map((payment) => (
                 <div key={payment.id} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -313,6 +316,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                   </SidebarRow>
                   {payment.checkoutUrl && (
                     <a
+                      className="retro-account-primary-link"
                       href={payment.checkoutUrl}
                       style={{
                         padding: "9px 16px",
@@ -332,7 +336,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
             </div>
           )}
 
-          <div style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className="retro-account-card" style={{ padding: "18px 20px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>{"BESOIN D'AIDE ?"}</div>
             <p style={{ fontSize: 13, color: "rgba(55,53,47,0.6)", margin: 0, lineHeight: 1.6 }}>
               Écrivez-nous à {SUPPORT_EMAIL} en précisant la référence {reference}.
@@ -346,7 +350,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
 
 function Pill({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
   return (
-    <div style={{ padding: "10px 16px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 4, minWidth: 90 }}>
+    <div className="retro-account-pill" style={{ padding: "10px 16px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 4, minWidth: 90 }}>
       <span style={{ fontSize: 11, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>{label.toUpperCase()}</span>
       <span style={{ fontSize: strong ? 16 : 14, fontWeight: strong ? 700 : 600 }}>{value}</span>
     </div>

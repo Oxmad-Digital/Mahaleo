@@ -33,9 +33,10 @@ export function SalesChart({ series }: { series: { label: string; revenueCents: 
     : [];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div className="retro-admin-chart">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 12 }}>
         <div
+          className="retro-admin-chart-toggle"
           style={{
             display: "flex",
             alignItems: "center",
@@ -47,6 +48,7 @@ export function SalesChart({ series }: { series: { label: string; revenueCents: 
           }}
         >
           <button
+            className={mode === "line" ? "is-active" : undefined}
             type="button"
             onClick={() => setMode("line")}
             title="Courbe"
@@ -76,6 +78,7 @@ export function SalesChart({ series }: { series: { label: string; revenueCents: 
             </svg>
           </button>
           <button
+            className={mode === "bars" ? "is-active" : undefined}
             type="button"
             onClick={() => setMode("bars")}
             title="Barres"
@@ -110,8 +113,8 @@ export function SalesChart({ series }: { series: { label: string; revenueCents: 
       {mode === "line" ? (
         <div style={{ flex: 1, minHeight: 180, paddingBottom: 2, borderBottom: "1px solid rgba(55,53,47,0.09)" }}>
           <svg viewBox="0 0 1000 200" preserveAspectRatio="none" style={{ width: "100%", height: 180, display: "block", overflow: "visible" }}>
-            <path d={area} fill="rgba(28,107,58,0.1)" stroke="none" />
-            <path d={line} fill="none" stroke="#1c6b3a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            <path d={area} fill="rgba(189,48,32,0.09)" stroke="none" />
+            <path d={line} fill="none" stroke="var(--retro-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
           </svg>
         </div>
       ) : (
@@ -128,7 +131,7 @@ export function SalesChart({ series }: { series: { label: string; revenueCents: 
         >
           {heights.map((h, i) => (
             <div key={i} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", height: 180 }}>
-              <div style={{ borderRadius: "3px 3px 0 0", background: "#1c6b3a", height: `${h}%` }} />
+              <div style={{ background: "var(--retro-red)", height: `${h}%` }} />
             </div>
           ))}
         </div>

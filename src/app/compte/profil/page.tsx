@@ -25,14 +25,16 @@ export default async function AccountProfilePage() {
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div className="admin-page-header-row" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>
+      <div className="admin-page-header-row retro-account-page-heading" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <span className="retro-admin-kicker">Identité · sécurité</span>
+        <div className="admin-page-title">
           Mon profil
         </div>
         <div style={{ fontSize: 15, color: "rgba(55,53,47,0.6)" }}>Vos informations de connexion et votre mot de passe.</div>
       </div>
 
       <div
+        className="retro-account-profile-meta"
         style={{
           padding: "20px 24px",
           borderRadius: 8,
@@ -47,18 +49,18 @@ export default async function AccountProfilePage() {
         <InfoField label="Favoris" value={String(user._count.favorites)} />
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ fontSize: 15, fontWeight: 600 }}>Informations</div>
+      <div className="retro-account-section" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="retro-admin-card-title">Informations</div>
         <ProfileForm initial={{ name: user.name ?? "", email: user.email }} />
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ fontSize: 15, fontWeight: 600 }}>Mot de passe</div>
+      <div className="retro-account-section" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="retro-admin-card-title">Mot de passe</div>
         <PasswordForm />
       </div>
 
-      <div style={{ padding: "20px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ fontSize: 15, fontWeight: 600 }}>Supprimer mon compte</div>
+      <div className="retro-account-card retro-account-danger" style={{ padding: "20px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 8 }}>
+        <div className="retro-admin-card-title">Supprimer mon compte</div>
         <p style={{ fontSize: 13, color: "rgba(55,53,47,0.6)", margin: 0, lineHeight: 1.6 }}>
           Vos commandes sont conservées pour des raisons comptables. Pour demander la suppression de votre compte,
           écrivez-nous à {SUPPORT_EMAIL} {"depuis l'adresse associée à ce compte."}

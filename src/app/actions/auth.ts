@@ -75,7 +75,8 @@ export async function login(
   });
 
   // Chacun arrive dans sa console : l'admin sur /admin, le client sur /compte.
-  redirect(user?.role === "ADMIN" ? "/admin" : "/compte");
+  // La navigation est faite côté client, après rafraîchissement de la session.
+  return { redirectTo: user?.role === "ADMIN" ? "/admin" : "/compte" };
 }
 
 export async function logout() {

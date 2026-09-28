@@ -16,6 +16,7 @@ export function AccountInvoicesTable({ data }: { data: AccountInvoicesData }) {
 
   return (
     <div
+      className="retro-admin-card retro-account-table-card"
       style={{
         padding: "22px 24px 18px",
         borderRadius: 8,
@@ -26,7 +27,7 @@ export function AccountInvoicesTable({ data }: { data: AccountInvoicesData }) {
       }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
-        <div style={{ fontSize: 17, fontWeight: 600 }}>Mes factures</div>
+        <div className="retro-admin-card-title">Mes factures</div>
         <div style={{ fontSize: 13, fontWeight: 500, color: "rgba(55,53,47,0.5)" }}>
           {total} facture{total > 1 ? "s" : ""}
         </div>

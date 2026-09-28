@@ -26,14 +26,16 @@ export default async function AccountDashboardPage() {
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+      <div className="retro-admin-page-heading">
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+          <span className="retro-admin-kicker">Votre espace · boutique officielle</span>
+          <div className="admin-page-title">
             Bonjour {firstName ?? "et bienvenue"}
           </div>
-          <div style={{ fontSize: 15, color: "rgba(55,53,47,0.6)", textTransform: "capitalize" }}>{today}</div>
+          <div className="retro-admin-date">{today}</div>
         </div>
         <Link
+          className="retro-account-shop-link"
           href="/"
           style={{ padding: "9px 16px", borderRadius: 6, border: BORDER, fontSize: 14, fontWeight: 500, color: "#37352f" }}
         >
@@ -41,7 +43,7 @@ export default async function AccountDashboardPage() {
         </Link>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
+      <div className="retro-admin-stats retro-account-stats">
         <StatCard
           label="Commandes"
           value={formatNumber(overview.orderCount)}
@@ -53,13 +55,13 @@ export default async function AccountDashboardPage() {
       </div>
 
       <div
-        className="admin-dashboard-split"
+        className="admin-dashboard-split retro-admin-dashboard-split"
         style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.55fr) minmax(0, 1fr)", gap: 12, alignItems: "stretch" }}
       >
         <AccountLatestOrders orders={overview.latestOrders} />
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <div style={{ padding: "22px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div className="retro-account-card" style={{ padding: "22px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>DERNIÈRE ADRESSE DE LIVRAISON</div>
             {address ? (
               <div style={{ fontSize: 14, lineHeight: 1.7 }}>
@@ -86,7 +88,7 @@ export default async function AccountDashboardPage() {
             </p>
           </div>
 
-          <div style={{ padding: "22px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 12 }}>
+          <div className="retro-account-card" style={{ padding: "22px 24px", borderRadius: 8, border: BORDER, display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, letterSpacing: "0.04em" }}>RACCOURCIS</div>
             <QuickLink href="/compte/commandes" label="Suivre mes commandes" />
             <QuickLink href="/compte/factures" label="Télécharger mes factures" />
@@ -105,6 +107,7 @@ export default async function AccountDashboardPage() {
 function QuickLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
+      className="retro-account-quick-link"
       href={href}
       style={{
         display: "flex",

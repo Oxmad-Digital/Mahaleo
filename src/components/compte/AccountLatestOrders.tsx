@@ -10,6 +10,7 @@ const BORDER = "1px solid rgba(55,53,47,0.09)";
 export function AccountLatestOrders({ orders }: { orders: AccountOverview["latestOrders"] }) {
   return (
     <div
+      className="retro-admin-card retro-account-table-card"
       style={{
         padding: "22px 24px 12px",
         borderRadius: 8,
@@ -20,7 +21,7 @@ export function AccountLatestOrders({ orders }: { orders: AccountOverview["lates
       }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
-        <div style={{ fontSize: 17, fontWeight: 600 }}>Dernières commandes</div>
+        <div className="retro-admin-card-title">Dernières commandes</div>
         <Link href="/compte/commandes" style={{ fontSize: 13, fontWeight: 500, color: "rgba(55,53,47,0.5)" }}>
           Tout voir
         </Link>

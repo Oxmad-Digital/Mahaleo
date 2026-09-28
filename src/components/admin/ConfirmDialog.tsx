@@ -40,6 +40,7 @@ export function ConfirmDialog({
 
   return (
     <div
+      className="retro-admin-confirm-backdrop"
       onClick={handleCancel}
       style={{
         position: "fixed",
@@ -53,6 +54,7 @@ export function ConfirmDialog({
       }}
     >
       <div
+        className="retro-admin-confirm"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
@@ -66,15 +68,16 @@ export function ConfirmDialog({
         }}
       >
         {title && (
-          <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10 }}>
+          <div className="retro-admin-confirm-title" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10 }}>
             {title}
           </div>
         )}
-        <div style={{ fontSize: 14, color: "rgba(55,53,47,0.75)", lineHeight: 1.5, marginBottom: 22 }}>
+        <div className="retro-admin-confirm-message" style={{ fontSize: 14, color: "rgba(55,53,47,0.75)", lineHeight: 1.5, marginBottom: 22 }}>
           {message}
         </div>
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
           <button
+            className="retro-admin-form-secondary"
             type="button"
             onClick={handleCancel}
             disabled={pending}
@@ -92,6 +95,7 @@ export function ConfirmDialog({
             {cancelLabel}
           </button>
           <button
+            className={danger ? "retro-admin-form-primary is-danger" : "retro-admin-form-primary"}
             type="button"
             onClick={onConfirm}
             disabled={pending}

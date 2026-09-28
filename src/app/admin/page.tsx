@@ -21,17 +21,18 @@ export default async function AdminDashboardPage(props: PageProps<"/admin">) {
 
   return (
     <AdminShell breadcrumb={[{ label: "Tableau de bord" }]} active="dashboard" userName={session.user.name} userEmail={session.user.email ?? ""}>
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+      <div className="retro-admin-page-heading">
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15 }}>Tableau de bord</div>
-          <div style={{ fontSize: 15, fontWeight: 400, color: "rgba(55,53,47,0.6)", textTransform: "capitalize" }}>
+          <span className="retro-admin-kicker">Vue d’ensemble · boutique officielle</span>
+          <div className="admin-page-title">Tableau de bord</div>
+          <div className="retro-admin-date">
             {today} — activité des {range} derniers jours
           </div>
         </div>
         <RangeSwitcher active={range} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
+      <div className="retro-admin-stats">
         <StatCard
           label="Chiffre d'affaires"
           value={formatCents(data.periodRevenueCents, data.currency)}
@@ -66,20 +67,11 @@ export default async function AdminDashboardPage(props: PageProps<"/admin">) {
         />
       </div>
 
-      <div className="admin-dashboard-split" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.55fr) minmax(0, 1fr)", gap: 12, alignItems: "stretch" }}>
-        <div
-          style={{
-            padding: "22px 24px 18px",
-            borderRadius: 8,
-            border: "1px solid rgba(55,53,47,0.09)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 20,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
-            <div style={{ fontSize: 17, fontWeight: 600 }}>Ventes</div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "rgba(55,53,47,0.5)" }}>
+      <div className="admin-dashboard-split retro-admin-dashboard-split">
+        <div className="retro-admin-card retro-admin-sales-card">
+          <div className="retro-admin-card-heading">
+            <div className="retro-admin-card-title">Ventes</div>
+            <div className="retro-admin-card-note">
               {range} jours · {formatCents(data.periodRevenueCents, data.currency)} encaissés
             </div>
           </div>
@@ -89,7 +81,7 @@ export default async function AdminDashboardPage(props: PageProps<"/admin">) {
         <TopProductsCard products={data.topProducts} currency={data.currency} />
       </div>
 
-      <div className="admin-dashboard-split" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.55fr) minmax(0, 1fr)", gap: 12, alignItems: "stretch" }}>
+      <div className="admin-dashboard-split retro-admin-dashboard-split">
         <LatestOrdersCard orders={data.latestOrders} />
         <StockAlertsCard products={data.lowStockProducts} />
       </div>

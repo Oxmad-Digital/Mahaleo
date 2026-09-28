@@ -23,8 +23,9 @@ export default async function AccountOrdersPage(props: PageProps<"/compte/comman
       userName={session.user.name}
       userEmail={session.user.email ?? ""}
     >
-      <div className="admin-page-header-row" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        <div className="admin-page-title" style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em" }}>
+      <div className="admin-page-header-row retro-account-page-heading" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <span className="retro-admin-kicker">Historique · suivi</span>
+        <div className="admin-page-title">
           Mes commandes
         </div>
         <div style={{ fontSize: 15, color: "rgba(55,53,47,0.6)" }}>{"Suivez l'avancement et retrouvez vos factures."}</div>

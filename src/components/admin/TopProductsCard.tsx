@@ -4,6 +4,7 @@ import type { DashboardData } from "@/lib/admin/dashboard";
 export function TopProductsCard({ products, currency }: { products: DashboardData["topProducts"]; currency: string }) {
   return (
     <div
+      className="retro-admin-card retro-admin-top-products"
       style={{
         padding: "22px 24px 20px",
         borderRadius: 8,
@@ -13,20 +14,20 @@ export function TopProductsCard({ products, currency }: { products: DashboardDat
         gap: 18,
       }}
     >
-      <div style={{ fontSize: 17, fontWeight: 600 }}>Produits les plus vendus</div>
+      <div className="retro-admin-card-title">Produits les plus vendus</div>
 
       {products.length === 0 ? (
         <div style={{ fontSize: 14, color: "rgba(55,53,47,0.5)", padding: "12px 0" }}>Aucune vente sur cette période.</div>
       ) : (
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 16 }}>
           {products.map((product) => (
-            <div key={product.id} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div key={product.id} className="retro-admin-product-row" style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div
                 style={{
                   width: 44,
                   height: 44,
                   flex: "none",
-                  borderRadius: 6,
+                  borderRadius: 0,
                   background: "#f7f7f5",
                   display: "flex",
                   alignItems: "center",
@@ -46,8 +47,8 @@ export function TopProductsCard({ products, currency }: { products: DashboardDat
                   </span>
                   <span style={{ fontSize: 14, fontWeight: 600, whiteSpace: "nowrap" }}>{formatCents(product.revenueCents, currency)}</span>
                 </div>
-                <div style={{ height: 4, borderRadius: 999, background: "rgba(55,53,47,0.08)" }}>
-                  <div style={{ width: `${product.barPercent}%`, height: 4, borderRadius: 999, background: "#1c6b3a" }} />
+                <div className="retro-admin-product-track">
+                  <div style={{ width: `${product.barPercent}%` }} />
                 </div>
                 <div style={{ fontSize: 12, fontWeight: 400, color: "rgba(55,53,47,0.5)" }}>
                   {product.quantity} ventes · stock {product.stock}

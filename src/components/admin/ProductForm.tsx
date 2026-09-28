@@ -157,6 +157,7 @@ export function ProductForm({
 
   return (
     <form
+      className={`retro-admin-product-form${embedded ? " is-embedded" : ""}`}
       action={formAction}
       style={
         embedded
@@ -397,6 +398,7 @@ export function ProductForm({
               const last = index === images.length - 1;
               return (
                 <div
+                  className={`retro-admin-product-image${first ? " is-primary" : ""}`}
                   key={`${url}-${index}`}
                   draggable
                   onDragStart={() => setDragIndex(index)}
@@ -532,8 +534,9 @@ export function ProductForm({
 
       {state?.message && <p style={{ fontSize: 13, color: "#a82c2c", margin: 0 }}>{state.message}</p>}
 
-      <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4 }}>
+      <div className="retro-admin-form-actions" style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4 }}>
         <button
+          className="retro-admin-form-primary"
           type="submit"
           disabled={pending}
           style={{
@@ -552,6 +555,7 @@ export function ProductForm({
         </button>
         {embedded ? (
           <button
+            className="retro-admin-form-secondary"
             type="button"
             onClick={() => router.back()}
             style={{
@@ -569,6 +573,7 @@ export function ProductForm({
           </button>
         ) : (
           <Link
+            className="retro-admin-form-secondary"
             href="/admin/produits"
             style={{
               padding: "10px 18px",
@@ -586,6 +591,7 @@ export function ProductForm({
 
       {state?.success && (
         <div
+          className="retro-admin-form-success"
           style={{
             padding: "10px 14px",
             borderRadius: 6,

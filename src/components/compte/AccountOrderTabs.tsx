@@ -36,6 +36,7 @@ export function AccountOrderTabs({
         const isActive = tab.key === active;
         return (
           <Link
+            className={isActive ? "is-active" : undefined}
             key={tab.label}
             href={tab.key ? `/compte/commandes?status=${tab.key}` : "/compte/commandes"}
             style={{

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { AuthProvider } from "@/components/AuthProvider";
 import { CartProvider } from "@/lib/cart";
 import { FavoritesProvider } from "@/lib/favorites";
@@ -12,14 +13,21 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
+const barlowCondensed = localFont({
+  src: "../assets/mahaleo/barlow-condensed.ttf",
+  variable: "--font-barlow-condensed",
+  weight: "700",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Mahaleo — Prêt-à-porter",
-  description: "Mahaleo, boutique de prêt-à-porter en ligne.",
+  title: "Mahaleo — Le vestiaire du groupe",
+  description: "La boutique officielle Mahaleo : vêtements et souvenirs musicaux depuis 1972.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr" className={plusJakartaSans.variable}>
+    <html lang="fr" className={`${plusJakartaSans.variable} ${barlowCondensed.variable}`}>
       <body>
         <Tracker />
         <AuthProvider>

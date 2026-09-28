@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { formatCents, formatCentsExact, formatDate } from "@/lib/format";
@@ -5,10 +6,8 @@ import { countryLabel } from "@/lib/country-label";
 import { orderReference } from "@/lib/order-status";
 import { itemsSubtotalCents } from "@/lib/admin/orders";
 import { SITE_NAME, SUPPORT_EMAIL, APP_URL } from "@/lib/emails/constants";
-
-const INK = "#37352f";
-const MUTED = "rgba(55,53,47,0.5)";
-const BORDER = "1px solid rgba(55,53,47,0.09)";
+import logo from "../../assets/mahaleo/logo-mahaleo.png";
+import styles from "./InvoiceSheet.module.css";
 
 export type InvoiceSheetOrder = {
   id: string;
@@ -45,104 +44,93 @@ export function InvoiceSheet({
   const paidExtras = order.extraPayments.filter((payment) => payment.status === "PAID");
 
   return (
-    <div style={{ minHeight: "100dvh", background: "#f7f7f5", fontFamily: "var(--font-family)", color: INK }}>
-      {/* Barre d'outils : à l'écran seulement, elle disparaît à l'impression. */}
-      <div
-        className="invoice-toolbar"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 16,
-          padding: "12px 24px",
-          background: "#fff",
-          borderBottom: BORDER,
-        }}
-      >
-        <Link
-          href={backHref}
-          style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, fontWeight: 500, color: MUTED }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <div className={styles.page}>
+      <div className={styles.edition} aria-hidden="true">
+        <span>ANTSIRABE · MADAGASCAR</span>
+        <span>DOCUMENT OFFICIEL</span>
+        <span>DEPUIS 1972</span>
+      </div>
+
+      <div className={styles.toolbar}>
+        <Link href={backHref} className={styles.backLink}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M15 5l-7 7 7 7" />
           </svg>
           {backLabel}
         </Link>
-        <PrintButton />
+        <span className={styles.toolbarTitle}>Facture {order.invoice.number}</span>
+        <PrintButton className={styles.printButton} />
       </div>
 
-      <div className="invoice-sheet" style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px 64px" }}>
-        <div style={{ background: "#fff", border: BORDER, borderRadius: 8, padding: "44px 48px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
-            <div>
-              <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>{SITE_NAME}</div>
-              <div style={{ fontSize: 13, color: MUTED, marginTop: 6, lineHeight: 1.6 }}>
-                {APP_URL.replace(/^https?:\/\//, "")}
-                <br />
-                {SUPPORT_EMAIL}
-              </div>
+      <main className={styles.viewport}>
+        <article className={styles.sheet}>
+          <header className={styles.documentHeader}>
+            <div className={styles.brand}>
+              <Image src={logo} alt={SITE_NAME} priority sizes="210px" />
+              <p>La musique en héritage · Boutique officielle</p>
             </div>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-                Facture
-              </div>
-              <div style={{ fontSize: 20, fontWeight: 700, marginTop: 4 }}>{order.invoice.number}</div>
-              <div style={{ fontSize: 13, color: MUTED, marginTop: 6, lineHeight: 1.6 }}>
-                Émise le {formatDate(order.invoice.issuedAt)}
-                <br />
-                Commande {orderReference(order.id)} du {formatDate(order.createdAt)}
-              </div>
+
+            <div className={styles.invoiceIdentity}>
+              <span>Facture</span>
+              <h1>{order.invoice.number}</h1>
+              <p>Émise le {formatDate(order.invoice.issuedAt)}</p>
             </div>
+          </header>
+
+          <div className={styles.metaGrid}>
+            <section className={styles.metaBlock}>
+              <span className={styles.eyebrow}>Facturé à</span>
+              <strong>{order.customerName}</strong>
+              <address>
+                {order.shippingAddress}
+                <br />
+                {order.shippingPostalCode} {order.shippingCity}
+                <br />
+                {countryLabel(order.shippingCountry)}
+              </address>
+              <p>
+                {order.customerEmail}
+                {order.phone ? <><br />{order.phone}</> : null}
+              </p>
+            </section>
+
+            <section className={`${styles.metaBlock} ${styles.orderMeta}`}>
+              <span className={styles.eyebrow}>Référence commande</span>
+              <strong>{orderReference(order.id)}</strong>
+              <p>Passée le {formatDate(order.createdAt)}</p>
+              <span className={styles.paidStamp}>Payée</span>
+            </section>
           </div>
 
-          <div style={{ marginTop: 36, paddingTop: 24, borderTop: BORDER }}>
-            <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, marginBottom: 8 }}>Facturé à</div>
-            <div style={{ fontSize: 14, fontWeight: 600 }}>{order.customerName}</div>
-            <div style={{ fontSize: 13, color: "rgba(55,53,47,0.7)", marginTop: 4, lineHeight: 1.6 }}>
-              {order.shippingAddress}
-              <br />
-              {order.shippingPostalCode} {order.shippingCity}, {countryLabel(order.shippingCountry)}
-              <br />
-              {order.customerEmail}
-              {order.phone ? ` · ${order.phone}` : ""}
-            </div>
-          </div>
-
-          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 32 }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: "left", fontSize: 12, fontWeight: 500, color: MUTED, paddingBottom: 10, borderBottom: BORDER }}>
-                  Désignation
-                </th>
-                <th style={{ textAlign: "right", fontSize: 12, fontWeight: 500, color: MUTED, paddingBottom: 10, borderBottom: BORDER, width: 100 }}>
-                  Prix unit.
-                </th>
-                <th style={{ textAlign: "right", fontSize: 12, fontWeight: 500, color: MUTED, paddingBottom: 10, borderBottom: BORDER, width: 60 }}>
-                  Qté
-                </th>
-                <th style={{ textAlign: "right", fontSize: 12, fontWeight: 500, color: MUTED, paddingBottom: 10, borderBottom: BORDER, width: 110 }}>
-                  Montant
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {order.items.map((item) => (
-                <tr key={item.id}>
-                  <td style={{ fontSize: 14, padding: "12px 0", borderBottom: BORDER }}>{item.product.name}</td>
-                  <td style={{ fontSize: 14, padding: "12px 0", borderBottom: BORDER, textAlign: "right" }}>
-                    {formatCents(item.priceCents, order.currency)}
-                  </td>
-                  <td style={{ fontSize: 14, padding: "12px 0", borderBottom: BORDER, textAlign: "right" }}>{item.quantity}</td>
-                  <td style={{ fontSize: 14, fontWeight: 600, padding: "12px 0", borderBottom: BORDER, textAlign: "right" }}>
-                    {formatCents(item.priceCents * item.quantity, order.currency)}
-                  </td>
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Désignation</th>
+                  <th>Prix unit.</th>
+                  <th>Qté</th>
+                  <th>Montant</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {order.items.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>
+                      <span className={styles.itemIndex}>{String(index + 1).padStart(2, "0")}</span>
+                      <strong>{item.product.name}</strong>
+                    </td>
+                    <td>{formatCents(item.priceCents, order.currency)}</td>
+                    <td>× {item.quantity}</td>
+                    <td>{formatCents(item.priceCents * item.quantity, order.currency)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
-            <div style={{ width: 260, display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className={styles.summaryArea}>
+            <p className={styles.summaryNote}>Merci de faire vivre la musique et l’histoire de Mahaleo.</p>
+            <div className={styles.summary}>
               <TotalRow label="Sous-total" value={formatCents(subtotalCents, order.currency)} />
               {shippingCents !== 0 && (
                 <TotalRow
@@ -150,52 +138,46 @@ export function InvoiceSheet({
                   value={shippingCents > 0 ? formatCents(shippingCents, order.currency) : "Offerte"}
                 />
               )}
-              <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 10, borderTop: BORDER }}>
-                <span style={{ fontSize: 15, fontWeight: 700 }}>Total TTC</span>
-                <span style={{ fontSize: 15, fontWeight: 700 }}>{formatCents(order.totalCents, order.currency)}</span>
+              <div className={styles.grandTotal}>
+                <span>Total TTC</span>
+                <strong>{formatCents(order.totalCents, order.currency)}</strong>
               </div>
             </div>
           </div>
 
           {paidExtras.length > 0 && (
-            <div style={{ marginTop: 32, paddingTop: 20, borderTop: BORDER }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: MUTED, marginBottom: 10 }}>Compléments réglés</div>
+            <section className={styles.extras}>
+              <span className={styles.eyebrow}>Compléments réglés</span>
               {paidExtras.map((payment) => (
-                <div key={payment.id} style={{ display: "flex", justifyContent: "space-between", fontSize: 14, padding: "6px 0" }}>
+                <div key={payment.id}>
                   <span>
                     {payment.label}
-                    {payment.paidAt ? <span style={{ color: MUTED }}> · {formatDate(payment.paidAt)}</span> : null}
+                    {payment.paidAt ? <small> · {formatDate(payment.paidAt)}</small> : null}
                   </span>
-                  <span style={{ fontWeight: 600 }}>{formatCentsExact(payment.amountCents, payment.currency)}</span>
+                  <strong>{formatCentsExact(payment.amountCents, payment.currency)}</strong>
                 </div>
               ))}
-            </div>
+            </section>
           )}
 
-          <p style={{ fontSize: 12, color: MUTED, marginTop: 36, lineHeight: 1.6 }}>
-            Montants exprimés en euros, toutes taxes comprises. Facture émise par {SITE_NAME} et payée par carte
-            bancaire via Stripe. Pour toute question relative à cette facture, écrivez-nous à {SUPPORT_EMAIL}.
-          </p>
-        </div>
-      </div>
-
-      <style>{`
-        @media print {
-          .invoice-toolbar { display: none !important; }
-          .invoice-sheet { max-width: none; padding: 0; }
-          .invoice-sheet > div { border: none !important; border-radius: 0 !important; padding: 0 !important; }
-          @page { margin: 18mm; }
-        }
-      `}</style>
+          <footer className={styles.documentFooter}>
+            <p>Montants exprimés en euros, toutes taxes comprises. Facture payée par carte bancaire via Stripe.</p>
+            <div>
+              <span>{APP_URL.replace(/^https?:\/\//, "")}</span>
+              <span>{SUPPORT_EMAIL}</span>
+            </div>
+          </footer>
+        </article>
+      </main>
     </div>
   );
 }
 
 function TotalRow({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
-      <span style={{ color: "rgba(55,53,47,0.65)" }}>{label}</span>
-      <span style={{ fontWeight: 500 }}>{value}</span>
+    <div className={styles.totalRow}>
+      <span>{label}</span>
+      <strong>{value}</strong>
     </div>
   );
 }

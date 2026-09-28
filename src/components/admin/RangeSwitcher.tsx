@@ -4,6 +4,7 @@ import { DASHBOARD_RANGES, type DashboardRange } from "@/lib/admin/dashboard";
 export function RangeSwitcher({ active, basePath = "/admin" }: { active: DashboardRange; basePath?: string }) {
   return (
     <div
+      className="retro-admin-range"
       style={{
         display: "flex",
         alignItems: "center",
@@ -18,6 +19,7 @@ export function RangeSwitcher({ active, basePath = "/admin" }: { active: Dashboa
         const isActive = range === active;
         return (
           <Link
+            className={isActive ? "is-active" : undefined}
             key={range}
             href={`${basePath}?range=${range}`}
             style={{

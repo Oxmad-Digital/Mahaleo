@@ -15,6 +15,7 @@ export function StatCard({
 }) {
   return (
     <div
+      className={`retro-admin-stat${tint ? " retro-admin-stat--tint" : ""}`}
       style={{
         padding: "18px 20px",
         borderRadius: 8,
@@ -25,22 +26,18 @@ export function StatCard({
         gap: 10,
       }}
     >
-      <div style={{ fontSize: 13, fontWeight: 500, color: "rgba(55,53,47,0.55)" }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-        <span style={{ fontSize: 26, fontWeight: 700, letterSpacing: "-0.01em" }}>{value}</span>
+      <div className="retro-admin-stat-label">{label}</div>
+      <div className="retro-admin-stat-value-row">
+        <span className="retro-admin-stat-value">{value}</span>
         {delta && (
           <span
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: delta.positive ? "#1c6b3a" : "rgba(55,53,47,0.5)",
-            }}
+            className={delta.positive ? "retro-admin-delta is-positive" : "retro-admin-delta"}
           >
             {delta.text}
           </span>
         )}
       </div>
-      {hint && <div style={{ fontSize: 13, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>{hint}</div>}
+      {hint && <div className="retro-admin-stat-hint">{hint}</div>}
     </div>
   );
 }

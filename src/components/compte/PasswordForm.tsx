@@ -18,6 +18,7 @@ export function PasswordForm() {
 
   return (
     <form
+      className="retro-account-form"
       ref={formRef}
       action={formAction}
       style={{
@@ -78,7 +79,7 @@ export function PasswordForm() {
       {state?.message && <p style={noticeStyle(state.success)}>{state.message}</p>}
 
       <div style={{ paddingTop: 4 }}>
-        <button type="submit" disabled={pending} style={primaryButtonStyle(pending)}>
+        <button className="retro-admin-form-primary" type="submit" disabled={pending} style={primaryButtonStyle(pending)}>
           {pending ? "Mise à jour..." : "Changer le mot de passe"}
         </button>
       </div>

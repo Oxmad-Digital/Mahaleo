@@ -37,6 +37,7 @@ export type LoginFormState =
         password?: string[];
       };
       message?: string;
+      redirectTo?: string;
     }
   | undefined;
 

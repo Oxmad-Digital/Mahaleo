@@ -14,6 +14,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
   const style = STATUS_STYLE[status];
   return (
     <span
+      className="admin-status-badge"
       style={{
         justifySelf: "start",
         padding: "3px 9px",
