@@ -414,7 +414,7 @@ a {
   text-align: center;
   border-bottom: 1px solid var(--retro-line);
 }
-.retro-masthead h1 { margin: 0; white-space: nowrap; font: 700 clamp(35px, 4.5vw, 72px)/1 var(--retro-display); letter-spacing: -.8px; }
+.retro-masthead h1 { margin: 0; white-space: nowrap; font: 700 clamp(28px, 3.7vw, 58px)/1 var(--retro-display); letter-spacing: -.8px; }
 .retro-masthead > span { text-align: left; font: 11px/1.7 var(--retro-serif); letter-spacing: 1px; }
 .retro-masthead > span:last-child { text-align: right; }
 
@@ -481,7 +481,7 @@ a {
 
 @media (max-width: 1200px) {
   .retro-masthead { grid-template-columns: 125px 1fr 125px; }
-  .retro-masthead h1 { font-size: 4.7vw; }
+  .retro-masthead h1 { font-size: 3.8vw; }
   .retro-actions { gap: 12px; }
   .retro-action-secondary { display: none; }
   .retro-product-info > div:first-child { display: block; }
@@ -497,7 +497,7 @@ a {
   .retro-header-context span { display: none; }
   .retro-masthead { grid-template-columns: 1fr; }
   .retro-masthead > span { display: none; }
-  .retro-masthead h1 { font-size: clamp(42px, 8vw, 62px); }
+  .retro-masthead h1 { font-size: clamp(34px, 6.5vw, 50px); }
   .retro-home-main { display: block; padding: 17px 0 14px; }
   .retro-guitar { display: none; }
   .retro-shop { height: 100%; }
@@ -518,7 +518,7 @@ a {
   .retro-actions { grid-column: 2; grid-row: 1; gap: 0; }
   .retro-action-label { display: none; }
   .retro-action { min-width: 44px; min-height: 44px; justify-content: flex-end; gap: 6px; }
-  .retro-masthead h1 { font-size: clamp(34px, 10.5vw, 45px); }
+  .retro-masthead h1 { font-size: clamp(28px, 8.5vw, 37px); }
   .retro-home-main { padding: 11px 0 9px; }
   .retro-shop-heading { display: block; min-height: 0; margin-bottom: 9px; }
   .retro-shop-heading h2 { font-size: 22px; }
@@ -1737,24 +1737,32 @@ a {
 .retro-detail-topline { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--retro-line); color: var(--retro-muted); font-size: 11px; letter-spacing: .8px; }
 .retro-detail-topline a { color: var(--retro-ink); }
 .retro-detail-topline a:hover { color: var(--retro-red); }
-.retro-detail-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(340px, .75fr); gap: 35px; padding-top: 18px; }
-.retro-gallery { min-width: 0; min-height: 0; display: flex; gap: 12px; }
-.retro-thumbs { width: 78px; flex: none; display: flex; flex-direction: column; gap: 9px; }
-.retro-thumbs button { width: 78px; aspect-ratio: 1; padding: 4px; border: 1px solid var(--retro-line); background: var(--retro-paper); overflow: hidden; }
+.retro-detail-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr); gap: 35px; padding-top: 18px; }
+.retro-gallery { min-width: 0; min-height: 0; display: flex; align-items: flex-start; justify-content: flex-end; gap: 12px; }
+.retro-thumbs { width: 96px; max-height: max(480px, calc(100dvh - 270px)); flex: none; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; scrollbar-width: thin; }
+.retro-thumbs button { width: 96px; aspect-ratio: 1; flex: none; padding: 5px; border: 1px solid var(--retro-line); background: var(--retro-paper); overflow: hidden; }
 .retro-thumbs button.active { border: 2px solid var(--retro-red); }
 .retro-thumbs img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-.retro-detail-photo { position: relative; flex: 1; min-width: 0; min-height: 420px; overflow: hidden; border: 1px solid rgb(194 179 147 / .55); background: var(--retro-photo); }
+.retro-detail-photo { position: relative; width: 100%; max-width: max(480px, calc(100dvh - 270px)); aspect-ratio: 1; flex: 0 1 auto; min-width: 0; overflow: hidden; border: 1px solid rgb(194 179 147 / .55); background: var(--retro-photo); }
 .retro-detail-photo > img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-.retro-detail-photo > span { position: absolute; top: 15px; left: 15px; padding: 7px 9px; background: var(--retro-paper); font-size: 10px; letter-spacing: 1px; }
+.retro-detail-photo > span:not(.retro-gallery-count) { position: absolute; top: 15px; left: 15px; padding: 7px 9px; background: var(--retro-paper); font-size: 10px; letter-spacing: 1px; }
+.retro-gallery-arrow { position: absolute; top: 50%; z-index: 2; width: 42px; height: 42px; padding: 0; border: 1px solid var(--retro-line); background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 17px; transform: translateY(-50%); }
+.retro-gallery-arrow:hover { border-color: var(--retro-red); color: var(--retro-red); }
+.retro-gallery-arrow.is-previous { left: 12px; }
+.retro-gallery-arrow.is-next { right: 12px; }
+.retro-gallery-count { position: absolute; right: 12px; bottom: 12px; padding: 5px 8px; background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 10px; letter-spacing: 1px; }
 .retro-product-panel { min-height: 0; padding: 24px 0 0 30px; border-left: 1px solid var(--retro-line); display: flex; flex-direction: column; }
 .retro-eyebrow { color: var(--retro-muted); font-size: 10px; letter-spacing: 1.5px; }
 .retro-product-panel h1 { margin: 8px 0 0; text-transform: uppercase; font: 700 clamp(43px, 5vw, 76px)/.92 var(--retro-display); }
 .retro-detail-price { margin: 12px 0 20px; font: 17px var(--retro-serif); }
+.retro-detail-price s, .retro-product-info strong s { margin-right: .5em; color: var(--retro-muted); }
+.retro-detail-price:has(s) { color: var(--retro-red); }
 .retro-detail-description { max-width: 580px; margin: 0 0 20px; color: #5d5749; font: 14px/1.65 Arial, sans-serif; }
-.retro-detail-color { display: flex; align-items: center; gap: 11px; padding: 14px 0; border-top: 1px solid var(--retro-line); font-size: 11px; }
-.retro-detail-color > span { min-width: 64px; color: var(--retro-muted); letter-spacing: 1px; }
-.retro-detail-color i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--retro-line); }
-.retro-detail-color strong { font-weight: 400; }
+.retro-detail-specs { margin: 0; }
+.retro-detail-specs > div { display: flex; align-items: center; gap: 11px; padding: 12px 0; border-top: 1px solid var(--retro-line); font-size: 11px; line-height: 1.5; }
+.retro-detail-specs dt { flex: none; min-width: 64px; color: var(--retro-muted); letter-spacing: 1px; }
+.retro-detail-specs dd { display: flex; align-items: center; gap: 9px; margin: 0; }
+.retro-detail-specs i { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--retro-line); }
 .retro-size-fieldset { margin: 0; padding: 14px 0; border: 0; border-top: 1px solid var(--retro-line); }
 .retro-size-fieldset legend { padding: 0 0 11px; color: var(--retro-muted); font-size: 11px; letter-spacing: 1px; }
 .retro-size-fieldset > div { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -1775,7 +1783,9 @@ a {
   .retro-detail-page { height: auto; min-height: 100dvh; overflow: visible; }
   .retro-detail-main { min-height: auto; }
   .retro-detail-layout { display: block; }
-  .retro-gallery { height: min(62dvh, 570px); }
+  .retro-gallery { height: auto; }
+  .retro-detail-photo { max-width: min(100%, 700px); }
+  .retro-thumbs { max-height: 700px; }
   .retro-product-panel { padding: 28px 0 0; margin-top: 20px; border: 0; border-top: 3px double var(--retro-line); }
   .retro-product-notes { margin-top: 24px; }
 }
@@ -1784,10 +1794,11 @@ a {
   .retro-detail-topline span { display: none; }
   .retro-detail-main { padding-top: 12px; }
   .retro-detail-layout { padding-top: 12px; }
-  .retro-gallery { height: auto; flex-direction: column-reverse; }
-  .retro-thumbs { width: auto; flex-direction: row; }
+  .retro-gallery { height: auto; flex-direction: column-reverse; align-items: stretch; justify-content: flex-start; }
+  .retro-thumbs { width: 100%; max-height: none; flex-direction: row; overflow-x: auto; overflow-y: hidden; }
   .retro-thumbs button { width: 64px; }
-  .retro-detail-photo { flex: none; min-height: 0; aspect-ratio: 4 / 5; }
+  .retro-detail-photo { width: 100%; max-width: none; flex: none; aspect-ratio: 1; }
+  .retro-gallery-arrow { width: 38px; height: 38px; }
   .retro-product-panel h1 { font-size: 48px; }
   .retro-detail-description { font-size: 13px; }
 }

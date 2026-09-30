@@ -11,7 +11,7 @@ export default async function Home() {
     <StoreShell className="retro-home">
       <div className="retro-masthead">
         <span>UNE HISTOIRE<br />QUI SE TRANSMET</span>
-        <h1>LE VESTIAIRE DU GROUPE</h1>
+        <h1>BOUTIQUE OFFICIELLE MAHALEO</h1>
         <span>À PORTER.<br />À TRANSMETTRE.</span>
       </div>
       <RetroCatalog products={products} />

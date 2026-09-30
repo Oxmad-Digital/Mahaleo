@@ -20,7 +20,7 @@ const barlowCondensed = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mahaleo — Le vestiaire du groupe",
+  title: "Mahaleo — Boutique officielle",
   description: "La boutique officielle Mahaleo : vêtements et souvenirs musicaux depuis 1972.",
 };
 
