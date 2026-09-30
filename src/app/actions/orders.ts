@@ -37,7 +37,7 @@ import {
 import type { OrderEmailData } from "@/lib/emails/templates";
 
 const EMAIL_SENDER_BY_STATUS: Partial<
-  Record<OrderStatus, (to: string, name: string | null, order: OrderEmailData) => Promise<void>>
+  Record<OrderStatus, (to: string, name: string | null, order: OrderEmailData) => Promise<unknown>>
 > = {
   PAID: sendOrderConfirmationEmail,
   PREPARING: sendOrderPreparingEmail,

@@ -5,7 +5,7 @@ import { APP_URL } from "./constants";
 const { ink, inkMuted, border } = emailTextStyles;
 
 function greeting(name: string | null) {
-  return name ? `Bonjour ${name},` : "Bonjour,";
+  return name ? `Bonjour ${escapeHtml(name)},` : "Bonjour,";
 }
 
 function escapeHtml(value: string) {
@@ -41,7 +41,7 @@ function itemsTable(items: OrderEmailItem[], currency: string) {
     .map(
       (item) => `
         <tr>
-          <td style="padding:10px 0; border-bottom:1px solid ${border}; font-size:14px; color:${ink};">${item.productName} <span style="color:${inkMuted};">× ${item.quantity}</span></td>
+          <td style="padding:10px 0; border-bottom:1px solid ${border}; font-size:14px; color:${ink};">${escapeHtml(item.productName)} <span style="color:${inkMuted};">× ${item.quantity}</span></td>
           <td style="padding:10px 0; border-bottom:1px solid ${border}; font-size:14px; color:${ink}; text-align:right; white-space:nowrap;">${formatCents(item.priceCents * item.quantity, currency)}</td>
         </tr>`
     )

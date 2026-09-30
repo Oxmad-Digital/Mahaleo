@@ -19,7 +19,10 @@ export async function sendContactMessage(
 
   const { name, email, message } = validatedFields.data;
 
-  await sendContactMessageEmail(name, email, message);
+  const sent = await sendContactMessageEmail(name, email, message);
+  if (!sent) {
+    return { message: "Votre message n'a pas pu être envoyé. Réessayez plus tard ou écrivez-nous directement par e-mail." };
+  }
 
   return { success: true };
 }

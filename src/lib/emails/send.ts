@@ -16,8 +16,13 @@ import {
 
 // Automatic emails must never break the flow that triggers them (signup, order
 // status change, etc.) — especially while the sending domain isn't verified in
-// Plunk yet. Every sender here catches and logs instead of throwing.
-async function safeSend(to: string, template: { subject: string; html: string }) {
+// Plunk yet. Every sender here catches and logs instead of throwing, and
+// reports whether the email left so callers that must not lose it can react.
+async function safeSend(
+  to: string,
+  template: { subject: string; html: string },
+  replyTo: string = SUPPORT_EMAIL
+) {
   try {
     await sendEmail({
       to,
@@ -25,9 +30,12 @@ async function safeSend(to: string, template: { subject: string; html: string })
       body: template.html,
       from: EMAIL_FROM.email,
       name: EMAIL_FROM.name,
+      reply: replyTo,
     });
+    return true;
   } catch (error) {
     console.error(`[emails] Échec de l'envoi de "${template.subject}" à ${to}:`, error);
+    return false;
   }
 }
 
@@ -72,5 +80,5 @@ export function sendExtraPaymentEmail(
 }
 
 export function sendContactMessageEmail(name: string, fromEmail: string, message: string) {
-  return safeSend(SUPPORT_EMAIL, contactMessageEmailTemplate(name, fromEmail, message));
+  return safeSend(SUPPORT_EMAIL, contactMessageEmailTemplate(name, fromEmail, message), fromEmail);
 }

@@ -10,7 +10,7 @@ export default function ConditionsDeVentePage() {
       <LegalSection title="1. Champ d'application">
         <p style={{ margin: 0 }}>
           Les présentes conditions générales de vente régissent les relations contractuelles entre
-          Mahaleo SAS et tout client effectuant un achat sur le site mahaleo.fr. Toute commande
+          Mahaleo SAS et tout client effectuant un achat sur le site mahaleo.shop. Toute commande
           passée sur le site implique l&apos;acceptation sans réserve de ces conditions.
         </p>
       </LegalSection>

@@ -50,7 +50,7 @@ export function AdminInviteForm() {
         <label htmlFor="admin-email" style={labelStyle}>
           E-mail
         </label>
-        <input id="admin-email" name="email" type="email" placeholder="prenom@mahaleo.fr" style={inputStyle} />
+        <input id="admin-email" name="email" type="email" placeholder="prenom@mahaleo.shop" style={inputStyle} />
         {state?.errors?.email && <FieldError messages={state.errors.email} />}
       </div>
 

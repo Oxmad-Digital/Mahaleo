@@ -41,9 +41,17 @@ export async function POST(request: Request) {
           ? checkoutSession.payment_intent
           : (checkoutSession.payment_intent?.id ?? null);
 
-      const order = await prisma.order.update({
-        where: { id: orderId },
+      // Stripe peut livrer le même événement plusieurs fois : seul le
+      // passage à PAID d'une commande pas encore payée déclenche la facture et
+      // l'e-mail. Une commande annulée puis payée quand même repasse en PAID.
+      const { count } = await prisma.order.updateMany({
+        where: { id: orderId, status: { in: ["PENDING", "CANCELLED"] } },
         data: { status: "PAID", stripePaymentIntentId: paymentIntentId },
+      });
+      if (count === 0) return NextResponse.json({ received: true });
+
+      const order = await prisma.order.findUniqueOrThrow({
+        where: { id: orderId },
         include: { items: { include: { product: { select: { name: true } } } } },
       });
 

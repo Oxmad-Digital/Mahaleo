@@ -1,4 +1,4 @@
-const PLUNK_API_URL = "https://api.useplunk.com/v1/send";
+const PLUNK_API_URL = "https://next-api.useplunk.com/v1/send";
 
 type SendEmailInput = {
   to: string | string[];
@@ -6,6 +6,7 @@ type SendEmailInput = {
   body: string;
   from?: string;
   name?: string;
+  reply?: string;
 };
 
 export async function sendEmail(input: SendEmailInput) {
