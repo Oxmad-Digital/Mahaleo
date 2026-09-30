@@ -31,6 +31,11 @@ export async function createProduct(
     slug: formData.get("slug"),
     description: formData.get("description"),
     color: formData.get("color") ?? undefined,
+    productType: formData.get("productType") ?? undefined,
+    colorName: formData.get("colorName") ?? undefined,
+    material: formData.get("material") ?? undefined,
+    fit: formData.get("fit") ?? undefined,
+    care: formData.get("care") ?? undefined,
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
@@ -42,7 +47,8 @@ export async function createProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, color, price, images, sizes, onSale, salePrice } = validatedFields.data;
+  const { name, slug, description, color, price, images, sizes, onSale, salePrice, productType, colorName, material, fit, care } =
+    validatedFields.data;
 
   try {
     await prisma.product.create({
@@ -51,6 +57,11 @@ export async function createProduct(
         slug,
         description: description || null,
         color: color || null,
+        productType: productType || null,
+        colorName: colorName || null,
+        material: material || null,
+        fit: fit || null,
+        care: care || null,
         priceCents: parsePriceCents(price),
         onSale,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
@@ -85,6 +96,11 @@ export async function updateProduct(
     slug: formData.get("slug"),
     description: formData.get("description"),
     color: formData.get("color") ?? undefined,
+    productType: formData.get("productType") ?? undefined,
+    colorName: formData.get("colorName") ?? undefined,
+    material: formData.get("material") ?? undefined,
+    fit: formData.get("fit") ?? undefined,
+    care: formData.get("care") ?? undefined,
     price: formData.get("price"),
     images: formData.get("images"),
     sizes: formData.get("sizes"),
@@ -96,7 +112,8 @@ export async function updateProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, color, price, images, sizes, onSale, salePrice } = validatedFields.data;
+  const { name, slug, description, color, price, images, sizes, onSale, salePrice, productType, colorName, material, fit, care } =
+    validatedFields.data;
 
   try {
     await prisma.product.update({
@@ -106,6 +123,11 @@ export async function updateProduct(
         slug,
         description: description || null,
         color: color || null,
+        productType: productType || null,
+        colorName: colorName || null,
+        material: material || null,
+        fit: fit || null,
+        care: care || null,
         priceCents: parsePriceCents(price),
         onSale,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,

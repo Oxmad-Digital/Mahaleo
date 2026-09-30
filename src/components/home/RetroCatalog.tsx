@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { formatCents } from "@/lib/format";
+import { effectivePriceCents } from "@/lib/pricing";
 import type { ShopProduct } from "@/lib/shop";
 import guitar from "../../assets/mahaleo/guitar-retro.webp";
 
 type Filter = "all" | "tee" | "sweat";
 
-function getShopCategory(product: Pick<ShopProduct, "name" | "description">): Exclude<Filter, "all"> | "other" {
-  const text = product.name + " " + (product.description || "");
+function getShopCategory(product: Pick<ShopProduct, "productType" | "name" | "description">): Exclude<Filter, "all"> | "other" {
+  const text = [product.productType, product.name, product.description].filter(Boolean).join(" ");
   const normalized = text.toLocaleLowerCase("fr");
   if (normalized.includes("sweat") || normalized.includes("hoodie") || normalized.includes("pull")) return "sweat";
   if (normalized.includes("t-shirt") || normalized.includes("tee") || normalized.includes("maillot")) return "tee";
@@ -82,10 +83,10 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
                   <span aria-hidden="true">{soldOut ? "×" : "+"}</span>
                 </Link>
                 <div className="retro-product-info">
-                  <div><Link href={`/produit/${product.slug}`}>{product.name}</Link><strong>{formatCents(product.priceCents, product.currency)}</strong></div>
-                  <p>{product.color ? `${product.color} · ` : ""}{soldOut ? "Rupture de stock" : "Collection officielle"}</p>
+                  <div><Link href={`/produit/${product.slug}`}>{product.name}</Link><strong>{effectivePriceCents(product) !== product.priceCents && <s>{formatCents(product.priceCents, product.currency)}</s>}{formatCents(effectivePriceCents(product), product.currency)}</strong></div>
+                  <p>{product.colorName || product.color ? `${product.colorName ?? product.color} · ` : ""}{soldOut ? "Rupture de stock" : "Collection officielle"}</p>
                   <div className="retro-product-meta">
-                    <i style={{ background: product.color || "#332f26" }} aria-label={product.color ? `Couleur ${product.color}` : "Couleur non renseignée"} />
+                    <i style={{ background: product.color || "#332f26" }} aria-label={product.color ? `Couleur ${product.colorName ?? product.color}` : "Couleur non renseignée"} />
                     <span>{availableSizes.length ? availableSizes.join(" — ") : "INDISPONIBLE"}</span>
                   </div>
                 </div>

@@ -91,7 +91,12 @@ export const ProductFormSchema = z.object({
     })
     .trim(),
   description: z.string().trim().optional(),
+  productType: z.string().trim().optional(),
   color: z.string().trim().optional(),
+  colorName: z.string().trim().optional(),
+  material: z.string().trim().optional(),
+  fit: z.string().trim().optional(),
+  care: z.string().trim().optional(),
   price: z
     .string()
     .trim()
@@ -143,7 +148,12 @@ export type ProductFormState =
         name?: string[];
         slug?: string[];
         description?: string[];
+        productType?: string[];
         color?: string[];
+        colorName?: string[];
+        material?: string[];
+        fit?: string[];
+        care?: string[];
         price?: string[];
         images?: string[];
         sizes?: string[];

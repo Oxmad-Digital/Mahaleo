@@ -67,7 +67,12 @@ export function ProductForm({
     name: string;
     slug: string;
     description: string;
+    productType: string;
     color: string;
+    colorName: string;
+    material: string;
+    fit: string;
+    care: string;
     price: string;
     images: string;
     sizes: ProductSizeEntry[];
@@ -96,6 +101,11 @@ export function ProductForm({
   const [description, setDescription] = useState(initial?.description ?? "");
   const [hasColor, setHasColor] = useState(Boolean(initial?.color));
   const [color, setColor] = useState(initial?.color || "#1c6b3a");
+  const [productType, setProductType] = useState(initial?.productType ?? "");
+  const [colorName, setColorName] = useState(initial?.colorName ?? "");
+  const [material, setMaterial] = useState(initial?.material ?? "");
+  const [fit, setFit] = useState(initial?.fit ?? "");
+  const [care, setCare] = useState(initial?.care ?? "");
   const [price, setPrice] = useState(initial?.price ?? "");
   const [salePrice, setSalePrice] = useState(initial?.salePrice ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
@@ -211,6 +221,30 @@ export function ProductForm({
         {state?.errors?.slug && <FieldError messages={state.errors.slug} />}
       </div>
 
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 280 }}>
+        <label htmlFor="productType" style={labelStyle}>
+          Type de produit
+        </label>
+        <input
+          id="productType"
+          name="productType"
+          type="text"
+          list="product-type-options"
+          value={productType}
+          onChange={(e) => setProductType(e.target.value)}
+          placeholder="T-shirt"
+          style={inputStyle}
+        />
+        <datalist id="product-type-options">
+          <option value="T-shirt" />
+          <option value="Sweat" />
+          <option value="Pull" />
+          <option value="Casquette" />
+          <option value="Tote bag" />
+        </datalist>
+        {state?.errors?.productType && <FieldError messages={state.errors.productType} />}
+      </div>
+
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <label htmlFor="description" style={labelStyle}>
           Description
@@ -225,6 +259,54 @@ export function ProductForm({
           style={{ ...inputStyle, resize: "vertical" }}
         />
         {state?.errors?.description && <FieldError messages={state.errors.description} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label htmlFor="material" style={labelStyle}>
+          Matière
+        </label>
+        <input
+          id="material"
+          name="material"
+          type="text"
+          value={material}
+          onChange={(e) => setMaterial(e.target.value)}
+          placeholder="100 % coton biologique, 240 g/m²"
+          style={inputStyle}
+        />
+        {state?.errors?.material && <FieldError messages={state.errors.material} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label htmlFor="fit" style={labelStyle}>
+          Coupe et taille
+        </label>
+        <input
+          id="fit"
+          name="fit"
+          type="text"
+          value={fit}
+          onChange={(e) => setFit(e.target.value)}
+          placeholder="Coupe droite, taille normalement"
+          style={inputStyle}
+        />
+        {state?.errors?.fit && <FieldError messages={state.errors.fit} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label htmlFor="care" style={labelStyle}>
+          Entretien
+        </label>
+        <textarea
+          id="care"
+          name="care"
+          value={care}
+          onChange={(e) => setCare(e.target.value)}
+          placeholder="Lavage à 30 °C sur l’envers, pas de sèche-linge"
+          rows={2}
+          style={{ ...inputStyle, resize: "vertical" }}
+        />
+        {state?.errors?.care && <FieldError messages={state.errors.care} />}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -271,9 +353,20 @@ export function ProductForm({
               }
             `}</style>
             <span style={{ fontSize: 13, color: "rgba(55,53,47,0.6)" }}>{color}</span>
+            <input
+              id="colorName"
+              name="colorName"
+              type="text"
+              aria-label="Nom de la couleur"
+              value={colorName}
+              onChange={(e) => setColorName(e.target.value)}
+              placeholder="Nom affiché, ex. Vert forêt"
+              style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+            />
           </div>
         )}
         {state?.errors?.color && <FieldError messages={state.errors.color} />}
+        {state?.errors?.colorName && <FieldError messages={state.errors.colorName} />}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 200 }}>
@@ -516,19 +609,38 @@ export function ProductForm({
 
         <input
           ref={fileInputRef}
+          id="product-images"
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
           multiple
           disabled={uploading}
           onChange={(e) => handleFilesSelected(e.target.files)}
-          style={inputStyle}
+          style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", clipPath: "inset(50%)" }}
         />
-        {uploading && <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>Envoi en cours…</span>}
+        <button
+          type="button"
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+            alignSelf: "flex-start",
+            padding: "9px 14px",
+            borderRadius: 6,
+            border: "1px solid rgba(55,53,47,0.15)",
+            background: "transparent",
+            color: "#37352f",
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: uploading ? "wait" : "pointer",
+            opacity: uploading ? 0.65 : 1,
+          }}
+        >
+          {uploading ? "Envoi en cours…" : "+ Ajouter une ou plusieurs images"}
+        </button>
         {uploadError && <p style={{ fontSize: 12, color: "#a82c2c", margin: 0 }}>{uploadError}</p>}
         {state?.errors?.images && <FieldError messages={state.errors.images} />}
         <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>
-          Glissez-déposez les vignettes (ou les flèches ‹ ›) pour changer l’ordre d’affichage. La première
-          image est le visuel principal.
+          Sélection multiple acceptée · JPEG, PNG, WEBP ou GIF · 5 Mo maximum par image.<br />
+          Glissez-déposez les vignettes (ou utilisez les flèches ‹ ›) pour changer l’ordre. La première image est le visuel principal.
         </span>
       </div>
 

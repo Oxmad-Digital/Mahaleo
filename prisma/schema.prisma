@@ -42,7 +42,13 @@ model Product {
   slug        String   @unique
   name        String
   description String?
+  productType String?
+  /// Code couleur (#rrggbb) de la pastille ; colorName est le libellé affiché.
   color       String?
+  colorName   String?
+  material    String?
+  fit         String?
+  care        String?
   priceCents  Int
   currency    String   @default("EUR")
   onSale      Boolean  @default(false)

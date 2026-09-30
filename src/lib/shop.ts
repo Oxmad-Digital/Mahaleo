@@ -8,9 +8,13 @@ export async function getShopProducts() {
       slug: true,
       name: true,
       description: true,
+      productType: true,
       color: true,
+      colorName: true,
       priceCents: true,
       currency: true,
+      onSale: true,
+      salePriceCents: true,
       images: true,
       sizes: {
         orderBy: { size: "asc" },

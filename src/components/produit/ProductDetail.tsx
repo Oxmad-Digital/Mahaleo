@@ -5,6 +5,7 @@ import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { effectivePriceCents } from "@/lib/pricing";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
@@ -24,6 +25,16 @@ export function ProductDetail({
   const [message, setMessage] = useState("");
   const { addItem } = useCart();
   const soldOut = requiresSize && availableSizes.length === 0;
+  const priceCents = effectivePriceCents(product);
+  const discounted = priceCents !== product.priceCents;
+
+  function showPreviousImage() {
+    setActiveImage((current) => (current - 1 + images.length) % images.length);
+  }
+
+  function showNextImage() {
+    setActiveImage((current) => (current + 1) % images.length);
+  }
 
   function addToCart() {
     if (requiresSize && !size) {
@@ -36,7 +47,7 @@ export function ProductDetail({
       slug: product.slug,
       name: product.name,
       image: images[0],
-      priceCents: product.priceCents,
+      priceCents,
       currency: product.currency,
       size,
     });
@@ -52,32 +63,52 @@ export function ProductDetail({
         </div>
 
         <div className="retro-detail-layout">
-          <section className="retro-gallery" aria-label={`Photos de ${product.name}`}>
+          <section className={`retro-gallery${images.length > 1 ? " has-thumbnails" : ""}`} aria-label={`Photos de ${product.name}`}>
             {images.length > 1 && (
-              <div className="retro-thumbs">
+              <div className="retro-thumbs" aria-label="Choisir une photo">
                 {images.map((image, index) => (
                   <button key={`${image}-${index}`} type="button" className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Afficher la vue ${index + 1}`} aria-pressed={activeImage === index}>
+                    {/* Les images produit proviennent du stockage administrable. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={image} alt="" />
                   </button>
                 ))}
               </div>
             )}
             <div className="retro-detail-photo">
-              <img src={images[activeImage]} alt={product.name} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={images[activeImage]} alt={`${product.name} — vue ${activeImage + 1}`} />
               {isNewArrival && <span>NOUVELLE ARRIVÉE</span>}
+              {images.length > 1 && (
+                <>
+                  <button type="button" className="retro-gallery-arrow is-previous" onClick={showPreviousImage} aria-label="Afficher la photo précédente">←</button>
+                  <button type="button" className="retro-gallery-arrow is-next" onClick={showNextImage} aria-label="Afficher la photo suivante">→</button>
+                  <span className="retro-gallery-count" aria-live="polite">{activeImage + 1} / {images.length}</span>
+                </>
+              )}
             </div>
           </section>
 
           <section className="retro-product-panel">
-            <span className="retro-eyebrow">MAHALEO · COLLECTION OFFICIELLE</span>
+            <span className="retro-eyebrow">MAHALEO · {product.productType?.toUpperCase() ?? "COLLECTION OFFICIELLE"}</span>
             <h1>{product.name}</h1>
-            <p className="retro-detail-price">{formatCents(product.priceCents, product.currency)}</p>
+            <p className="retro-detail-price">
+              {discounted && <s>{formatCents(product.priceCents, product.currency)}</s>}
+              {formatCents(priceCents, product.currency)}
+            </p>
             {product.description && <p className="retro-detail-description">{product.description}</p>}
 
-            {product.color && (
-              <div className="retro-detail-color">
-                <span>COULEUR</span><i style={{ background: product.color }} aria-hidden="true" /><strong>{product.color}</strong>
-              </div>
+            {(product.color || product.colorName || product.material || product.fit) && (
+              <dl className="retro-detail-specs">
+                {(product.color || product.colorName) && (
+                  <div>
+                    <dt>COULEUR</dt>
+                    <dd>{product.color && <i style={{ background: product.color }} aria-hidden="true" />}{product.colorName ?? product.color}</dd>
+                  </div>
+                )}
+                {product.material && <div><dt>MATIÈRE</dt><dd>{product.material}</dd></div>}
+                {product.fit && <div><dt>COUPE</dt><dd>{product.fit}</dd></div>}
+              </dl>
             )}
 
             {requiresSize && (
@@ -100,6 +131,7 @@ export function ProductDetail({
               </button>
             </div>
             <div className="retro-product-notes">
+              {product.care && <p><strong>ENTRETIEN</strong><span>{product.care}</span></p>}
               <p><strong>LIVRAISON</strong><span>Calculée selon votre destination lors de la commande.</span></p>
               <p><strong>RETOURS</strong><span>Consultez les conditions de vente avant votre achat.</span></p>
             </div>

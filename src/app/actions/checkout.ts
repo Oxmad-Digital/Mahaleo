@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { effectivePriceCents } from "@/lib/pricing";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { CheckoutFormSchema, type CheckoutFormState } from "@/lib/definitions";
 import { APP_URL } from "@/lib/emails/constants";
@@ -64,7 +65,7 @@ export async function createCheckoutSession(
         return { message: `Stock insuffisant pour "${product.name}" (taille ${item.size}).` };
       }
     }
-    const unitPriceCents = product.onSale && product.salePriceCents != null ? product.salePriceCents : product.priceCents;
+    const unitPriceCents = effectivePriceCents(product);
     orderLines.push({
       productId: product.id,
       quantity: item.qty,
