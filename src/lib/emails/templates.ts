@@ -249,3 +249,39 @@ export function passwordResetEmailTemplate(name: string | null, resetUrl: string
   });
   return { subject, html };
 }
+
+export function signupVerificationEmailTemplate(name: string | null, verifyUrl: string) {
+  const subject = "Activez votre compte Mahaleo";
+  const html = emailLayout({
+    previewText: "Confirmez votre adresse e-mail pour activer votre compte.",
+    bodyHtml: `
+      ${heading("Votre compte", "Plus qu'une étape")}
+      ${greeting(name)}
+      ${paragraph(
+        "Pour activer votre compte Mahaleo, confirmez votre adresse e-mail en cliquant sur le bouton ci-dessous. Ce lien expire dans 24 heures.",
+        { last: true }
+      )}
+      ${button(verifyUrl, "Activer mon compte")}
+      ${note("Si vous n'êtes pas à l'origine de cette inscription, ignorez cet e-mail : aucun compte ne sera créé.")}
+    `,
+  });
+  return { subject, html };
+}
+
+export function existingAccountSignupEmailTemplate(name: string | null, loginUrl: string, resetUrl: string) {
+  const subject = "Vous avez déjà un compte Mahaleo";
+  const html = emailLayout({
+    previewText: "Une inscription a été tentée avec votre adresse e-mail.",
+    bodyHtml: `
+      ${heading("Votre compte", "Vous êtes déjà inscrit")}
+      ${greeting(name)}
+      ${paragraph(
+        "Quelqu'un, probablement vous, a essayé de créer un compte Mahaleo avec cette adresse e-mail. Un compte existe déjà : il vous suffit de vous connecter.",
+        { last: true }
+      )}
+      ${button(loginUrl, "Me connecter")}
+      ${note(`Mot de passe oublié ? <a href="${resetUrl}" style="color:${ink};">Choisissez-en un nouveau</a>. Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : votre compte n'a pas été modifié.`)}
+    `,
+  });
+  return { subject, html };
+}

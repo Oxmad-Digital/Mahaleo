@@ -11,6 +11,8 @@ import {
   adminInviteEmailTemplate,
   contactMessageEmailTemplate,
   extraPaymentEmailTemplate,
+  signupVerificationEmailTemplate,
+  existingAccountSignupEmailTemplate,
   type OrderEmailData,
 } from "./templates";
 
@@ -41,6 +43,14 @@ async function safeSend(
 
 export function sendWelcomeEmail(to: string, name: string | null) {
   return safeSend(to, welcomeEmailTemplate(name));
+}
+
+export function sendSignupVerificationEmail(to: string, name: string | null, verifyUrl: string) {
+  return safeSend(to, signupVerificationEmailTemplate(name, verifyUrl));
+}
+
+export function sendExistingAccountSignupEmail(to: string, name: string | null, loginUrl: string, resetUrl: string) {
+  return safeSend(to, existingAccountSignupEmailTemplate(name, loginUrl, resetUrl));
 }
 
 export function sendOrderConfirmationEmail(to: string, name: string | null, order: OrderEmailData) {

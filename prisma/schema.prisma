@@ -245,3 +245,18 @@ model RateLimit {
 
   @@index([resetAt])
 }
+
+/// Inscription en attente de vérification de l'e-mail. Le compte (User) n'est
+/// créé qu'au clic sur le lien : l'inscription répond toujours pareil, que
+/// l'adresse soit déjà inscrite ou non.
+model PendingSignup {
+  id           String   @id @default(cuid())
+  email        String
+  name         String
+  passwordHash String
+  tokenHash    String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+}

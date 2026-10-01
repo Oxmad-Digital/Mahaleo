@@ -1,20 +1,12 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signup } from "@/app/actions/auth";
 import { AuthPanel, StorePage } from "@/components/store/StorePage";
 
 export default function InscriptionPage() {
-  const router = useRouter();
   const [state, formAction, pending] = useActionState(signup, undefined);
-
-  useEffect(() => {
-    if (!state?.success) return;
-    const timeout = setTimeout(() => router.push("/compte"), 1500);
-    return () => clearTimeout(timeout);
-  }, [state, router]);
 
   return (
     <StorePage eyebrow="ESPACE CLIENT" title="CRÉER UN COMPTE">
@@ -45,7 +37,7 @@ export default function InscriptionPage() {
             {state?.message && <p className={state.success ? "retro-form-success" : "retro-form-error retro-form-message"}>{state.message}</p>}
           </div>
           <button type="submit" disabled={pending || state?.success} className="retro-primary retro-submit">
-            <span>{state?.success ? "COMPTE CRÉÉ ✓" : pending ? "CRÉATION…" : "CRÉER MON COMPTE"}</span><span>↗</span>
+            <span>{state?.success ? "E-MAIL ENVOYÉ ✓" : pending ? "CRÉATION…" : "CRÉER MON COMPTE"}</span><span>↗</span>
           </button>
           <div className="retro-auth-switch">
             Déjà un compte ? <Link href="/connexion" className="retro-text-link">Se connecter</Link>

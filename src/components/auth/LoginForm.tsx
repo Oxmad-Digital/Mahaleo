@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { login } from "@/app/actions/auth";
 import type { LoginFormState } from "@/lib/definitions";
 
-export function LoginForm() {
+export function LoginForm({ notice }: { notice?: string }) {
   const router = useRouter();
   const { update } = useSession();
   const [state, formAction, pending] = useActionState(
@@ -42,7 +42,11 @@ export function LoginForm() {
           <input id="password" name="password" type="password" placeholder="••••••••" />
           {state?.errors?.password && <p className="retro-form-error">{state.errors.password[0]}</p>}
         </div>
-        {state?.message && <p className="retro-form-error retro-form-message">{state.message}</p>}
+        {state?.message ? (
+          <p className="retro-form-error retro-form-message">{state.message}</p>
+        ) : (
+          notice && <p className="retro-form-success">{notice}</p>
+        )}
         <div className="retro-auth-row">
           <label className="retro-check">
             <input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} />
