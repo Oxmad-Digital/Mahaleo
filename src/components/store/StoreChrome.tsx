@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useCart } from "@/lib/cart";
 import logo from "../../assets/mahaleo/logo-mahaleo.png";
 
-export function StoreHeader() {
+function StoreHeader() {
   const { itemCount } = useCart();
   const { data: session } = useSession();
   const accountHref = session?.user
@@ -43,7 +43,7 @@ export function StoreHeader() {
   );
 }
 
-export function StoreFooter() {
+function StoreFooter() {
   return (
     <footer className="retro-footer">
       <span>MAHALEO · DEPUIS 1972</span>
@@ -54,6 +54,7 @@ export function StoreFooter() {
         </a>
       </p>
       <nav aria-label="Liens légaux">
+        <Link href="/contact">Contact</Link>
         <Link href="/mentions-legales">Mentions légales</Link>
         <Link href="/conditions-de-vente">Vente &amp; retours</Link>
       </nav>

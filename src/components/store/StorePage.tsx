@@ -37,7 +37,15 @@ export function StorePage({
   );
 }
 
-export function AuthPanel({ children, groupPhoto = false }: { children: ReactNode; groupPhoto?: boolean }) {
+export function AuthPanel({
+  children,
+  groupPhoto = false,
+  notes,
+}: {
+  children: ReactNode;
+  groupPhoto?: boolean;
+  notes?: ReactNode;
+}) {
   return (
     <div className="retro-auth-wrap">
       <aside className="retro-auth-visual" aria-hidden="true">
@@ -51,15 +59,17 @@ export function AuthPanel({ children, groupPhoto = false }: { children: ReactNod
         {groupPhoto && <span className="retro-photo-credit">© Lucien Rajaonina</span>}
       </aside>
       <section className="retro-auth-form">{children}</section>
-      <aside className="retro-auth-notes" aria-label="Votre espace client">
-        <span className="retro-eyebrow">VOTRE ESPACE</span>
-        <ol>
-          <li><strong>01</strong><span>Suivez vos commandes, de la préparation à la livraison.</span></li>
-          <li><strong>02</strong><span>Retrouvez vos factures à tout moment.</span></li>
-          <li><strong>03</strong><span>Gérez vos informations et votre mot de passe.</span></li>
-        </ol>
-        <p>Le nom d’un groupe. Le lien entre des générations.</p>
-      </aside>
+      {notes ?? (
+        <aside className="retro-auth-notes" aria-label="Votre espace client">
+          <span className="retro-eyebrow">VOTRE ESPACE</span>
+          <ol>
+            <li><strong>01</strong><span>Suivez vos commandes, de la préparation à la livraison.</span></li>
+            <li><strong>02</strong><span>Retrouvez vos factures à tout moment.</span></li>
+            <li><strong>03</strong><span>Gérez vos informations et votre mot de passe.</span></li>
+          </ol>
+          <p>Le nom d’un groupe. Le lien entre des générations.</p>
+        </aside>
+      )}
     </div>
   );
 }

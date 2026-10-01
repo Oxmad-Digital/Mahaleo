@@ -240,6 +240,8 @@ export type ContactFormState =
         email?: string[];
         message?: string[];
       };
+      // Echoed back on error so React's post-action form reset doesn't wipe what the visitor typed.
+      fields?: { name: string; email: string; message: string };
       message?: string;
       success?: boolean;
     }
