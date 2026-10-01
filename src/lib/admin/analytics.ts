@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { DASHBOARD_RANGES, isDashboardRange, type DashboardRange } from "./dashboard";
+import { isDashboardRange, type DashboardRange } from "./dashboard";
 
-export { DASHBOARD_RANGES, isDashboardRange };
+export { isDashboardRange };
 export type { DashboardRange };
 
 function dayString(date: Date) {
@@ -81,4 +81,3 @@ export async function getAnalyticsData(range: DashboardRange) {
   };
 }
 
-export type AnalyticsData = Awaited<ReturnType<typeof getAnalyticsData>>;

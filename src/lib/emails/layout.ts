@@ -13,7 +13,7 @@ const SANS = "Arial, Helvetica, sans-serif";
 const SERIF = "Georgia, 'Times New Roman', serif";
 const DISPLAY = "'Barlow Condensed', 'Arial Narrow', Arial, sans-serif";
 
-export const LOGO_URL = `${EMAIL_ASSET_URL}/images/email/logo-mahaleo.png`;
+const LOGO_URL = `${EMAIL_ASSET_URL}/images/email/logo-mahaleo.png`;
 
 export function emailLayout({ previewText, bodyHtml }: { previewText: string; bodyHtml: string }) {
   return `<!doctype html>

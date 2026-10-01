@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@/generated/prisma/client";
 
-export const PRODUCTS_PAGE_SIZE = 20;
+const PRODUCTS_PAGE_SIZE = 20;
 
 export async function getProductsData({ query, page }: { query?: string; page: number }) {
   const pageSize = PRODUCTS_PAGE_SIZE;

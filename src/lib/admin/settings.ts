@@ -46,7 +46,7 @@ export async function getSiteSettings() {
   return inFlight;
 }
 
-export function invalidateSiteSettings() {
+function invalidateSiteSettings() {
   generation += 1;
   cache = null;
   inFlight = null;

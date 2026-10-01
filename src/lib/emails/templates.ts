@@ -21,7 +21,7 @@ function orderReference(orderId: string) {
   return `#${orderId.slice(-5).toUpperCase()}`;
 }
 
-export type OrderEmailItem = {
+type OrderEmailItem = {
   productName: string;
   quantity: number;
   priceCents: number;

@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import type { OrderStatus, Prisma } from "@/generated/prisma/client";
 
-export const ACCOUNT_ORDERS_PAGE_SIZE = 10;
-export const ACCOUNT_INVOICES_PAGE_SIZE = 10;
+const ACCOUNT_ORDERS_PAGE_SIZE = 10;
+const ACCOUNT_INVOICES_PAGE_SIZE = 10;
 
 /**
  * Statuts proposés au client. `PENDING` est volontairement absent des onglets :
@@ -12,7 +12,7 @@ export const ACCOUNT_INVOICES_PAGE_SIZE = 10;
 export const ACCOUNT_STATUS_FILTERS = ["PAID", "PREPARING", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
 /** Commandes encore en cours de traitement, mises en avant sur le tableau de bord. */
-export const ACCOUNT_ACTIVE_STATUSES: OrderStatus[] = ["PENDING", "PAID", "PREPARING", "SHIPPED"];
+const ACCOUNT_ACTIVE_STATUSES: OrderStatus[] = ["PENDING", "PAID", "PREPARING", "SHIPPED"];
 
 export type AccountStatusFilter = (typeof ACCOUNT_STATUS_FILTERS)[number];
 
@@ -123,7 +123,6 @@ export async function getAccountOrderById(userId: string, id: string) {
   });
 }
 
-export type AccountOrderDetail = NonNullable<Awaited<ReturnType<typeof getAccountOrderById>>>;
 
 export async function getAccountInvoicesData({ userId, page }: { userId: string; page: number }) {
   const pageSize = ACCOUNT_INVOICES_PAGE_SIZE;

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import type { OrderStatus, Prisma } from "@/generated/prisma/client";
 
-export const ORDERS_PAGE_SIZE = 20;
+const ORDERS_PAGE_SIZE = 20;
 
 export const ORDER_STATUS_FILTERS = ["PENDING", "PAID", "PREPARING", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
@@ -117,4 +117,3 @@ export function itemsSubtotalCents(items: { quantity: number; priceCents: number
   return items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0);
 }
 
-export type OrderDetail = NonNullable<Awaited<ReturnType<typeof getOrderById>>>;

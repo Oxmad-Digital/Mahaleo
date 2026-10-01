@@ -102,7 +102,7 @@ export async function listShippingMethods({
  * sont saisies en une seule ligne au checkout : on isole le numéro de tête
  * ("10 rue André Lefebvre") et, à défaut, on laisse la ligne entière.
  */
-export function splitStreetAddress(address: string) {
+function splitStreetAddress(address: string) {
   const match = address.trim().match(/^(\d+\s*[a-zA-Z]?)\s+(.*)$/);
   if (match) return { houseNumber: match[1].trim(), street: match[2].trim() };
   return { houseNumber: "", street: address.trim() };

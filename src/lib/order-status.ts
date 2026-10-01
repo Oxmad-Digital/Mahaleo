@@ -15,7 +15,6 @@ export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
  */
 export const ORDER_FLOW = ["PENDING", "PAID", "PREPARING", "SHIPPED", "DELIVERED"] as const;
 
-export type OrderFlowStep = (typeof ORDER_FLOW)[number];
 
 export function orderReference(orderId: string) {
   return `#${orderId.slice(-5).toUpperCase()}`;

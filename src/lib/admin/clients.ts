@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@/generated/prisma/client";
 
-export const CLIENTS_PAGE_SIZE = 20;
+const CLIENTS_PAGE_SIZE = 20;
 
 export async function getClientsData({ query, page }: { query?: string; page: number }) {
   const pageSize = CLIENTS_PAGE_SIZE;
@@ -77,4 +77,3 @@ export async function getClientById(id: string) {
   return { ...client, totalSpentCents: spend._sum.totalCents ?? 0 };
 }
 
-export type ClientDetail = NonNullable<Awaited<ReturnType<typeof getClientById>>>;

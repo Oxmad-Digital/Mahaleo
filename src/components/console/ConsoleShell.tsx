@@ -6,7 +6,7 @@ import logo from "../../assets/mahaleo/logo-mahaleo.png";
 
 export type Crumb = { label: string; href?: string };
 
-export type ConsoleIconKind =
+type ConsoleIconKind =
   | "grid"
   | "cart"
   | "package"
@@ -19,7 +19,7 @@ export type ConsoleIconKind =
 
 export type ConsoleNavItem = { key: string; label: string; href: string; icon: ConsoleIconKind };
 
-export function ConsoleIcon({ kind, muted = true }: { kind: ConsoleIconKind; muted?: boolean }) {
+function ConsoleIcon({ kind, muted = true }: { kind: ConsoleIconKind; muted?: boolean }) {
   const common = {
     width: 19,
     height: 19,
