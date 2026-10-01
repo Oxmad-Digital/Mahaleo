@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { sendPasswordResetEmail } from "@/lib/emails/send";
 import { APP_URL } from "@/lib/emails/constants";
 import { hashToken } from "@/lib/tokens";
+import { HOUR, MINUTE, clientIp, rateLimit } from "@/lib/rate-limit";
 import {
   RequestPasswordResetSchema,
   ResetPasswordSchema,
@@ -30,7 +31,14 @@ export async function requestPasswordReset(
 
   const { email } = validatedFields.data;
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  if (!(await rateLimit(`reset:ip:${await clientIp()}`, 5, 15 * MINUTE))) {
+    return { message: "Trop de demandes. Réessayez dans 15 minutes." };
+  }
+  // Au-delà de la limite par adresse, on répond comme d'habitude sans envoyer :
+  // un refus explicite révélerait que le compte existe.
+  const emailAllowed = await rateLimit(`reset:email:${email.toLowerCase()}`, 3, HOUR);
+
+  const user = emailAllowed ? await prisma.user.findUnique({ where: { email } }) : null;
   if (user) {
     await prisma.passwordResetToken.deleteMany({ where: { userId: user.id, usedAt: null } });
 
@@ -75,7 +83,11 @@ export async function resetPassword(
   const passwordHash = await bcrypt.hash(validatedFields.data.password, 10);
 
   await prisma.$transaction([
-    prisma.user.update({ where: { id: resetToken.userId }, data: { passwordHash } }),
+    // sessionVersion déconnecte toutes les sessions ouvertes avec l'ancien mot de passe.
+    prisma.user.update({
+      where: { id: resetToken.userId },
+      data: { passwordHash, sessionVersion: { increment: 1 } },
+    }),
     prisma.passwordResetToken.update({ where: { id: resetToken.id }, data: { usedAt: new Date() } }),
   ]);
 

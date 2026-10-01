@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
@@ -13,15 +14,31 @@ import { formatCents } from "@/lib/format";
 export default async function CommandeConfirmationPage(props: PageProps<"/commande/confirmation">) {
   const searchParams = await props.searchParams;
   const orderId = typeof searchParams.order === "string" ? searchParams.order : "";
+  const stripeSessionId = typeof searchParams.session_id === "string" ? searchParams.session_id : "";
 
   const order = orderId
     ? await prisma.order.findUnique({
         where: { id: orderId },
-        include: { items: { include: { product: { select: { name: true } } } } },
+        include: {
+          items: { include: { product: { select: { name: true } } } },
+          extraPayments: { select: { stripeSessionId: true } },
+        },
       })
     : null;
 
   if (!order) notFound();
+
+  // La page affiche l'adresse de livraison : l'identifiant de commande seul ne
+  // suffit pas. Stripe renvoie l'identifiant de la session payée (commande ou
+  // complément) ; à défaut, le client connecté propriétaire de la commande.
+  const paidThisOrder =
+    stripeSessionId !== "" &&
+    (order.stripeSessionId === stripeSessionId ||
+      order.extraPayments.some((payment) => payment.stripeSessionId === stripeSessionId));
+  if (!paidThisOrder) {
+    const session = await auth();
+    if (!order.userId || session?.user?.id !== order.userId) notFound();
+  }
 
   const reference = `#${order.id.slice(-5).toUpperCase()}`;
   const isPaid = order.status !== "PENDING";

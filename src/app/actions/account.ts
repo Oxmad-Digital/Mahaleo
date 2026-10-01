@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/account/require-user";
+import { signIn } from "@/auth";
 import { Prisma } from "@/generated/prisma/client";
 import {
   ProfileFormSchema,
@@ -25,6 +26,23 @@ export async function updateProfile(_state: ProfileFormState, formData: FormData
   }
 
   const { name, email } = validatedFields.data;
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { email: true, passwordHash: true },
+  });
+  if (!user) {
+    return { message: "Compte introuvable." };
+  }
+
+  // L'e-mail sert d'identifiant et de canal de réinitialisation : le changer
+  // avec une session volée suffirait à prendre le compte.
+  if (email.toLowerCase() !== user.email.toLowerCase()) {
+    const currentPassword = String(formData.get("currentPassword") ?? "");
+    if (!currentPassword || !(await bcrypt.compare(currentPassword, user.passwordHash))) {
+      return { errors: { currentPassword: ["Mot de passe actuel requis pour changer d'adresse e-mail."] } };
+    }
+  }
 
   try {
     await prisma.user.update({
@@ -74,10 +92,14 @@ export async function changePassword(
     return { errors: { currentPassword: ["Mot de passe actuel incorrect."] } };
   }
 
-  await prisma.user.update({
+  // sessionVersion déconnecte les autres appareils ; la session courante est
+  // rouverte aussitôt avec le nouveau mot de passe.
+  const updated = await prisma.user.update({
     where: { id: session.user.id },
-    data: { passwordHash: await bcrypt.hash(password, 10) },
+    data: { passwordHash: await bcrypt.hash(password, 10), sessionVersion: { increment: 1 } },
+    select: { email: true },
   });
+  await signIn("credentials", { email: updated.email, password, redirect: false });
 
   return { success: true, message: "Votre mot de passe a été mis à jour." };
 }

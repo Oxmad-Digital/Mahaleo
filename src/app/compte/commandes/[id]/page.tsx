@@ -209,19 +209,22 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                         />
                       )}
                     </div>
-                    <Link
-                      href={`/produit/${item.product.slug}`}
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: "#37352f",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {item.product.name}
-                    </Link>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+                      <Link
+                        href={`/produit/${item.product.slug}`}
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                          color: "#37352f",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item.product.name}
+                      </Link>
+                      {item.size && <span style={{ fontSize: 12, color: MUTED }}>Taille {item.size}</span>}
+                    </div>
                   </div>
                   <span style={{ textAlign: "right" }}>{formatCents(item.priceCents, order.currency)}</span>
                   <span style={{ textAlign: "right", color: MUTED }}>× {item.quantity}</span>

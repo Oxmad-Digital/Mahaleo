@@ -331,7 +331,7 @@ export const ProfileFormSchema = z.object({
 
 export type ProfileFormState =
   | {
-      errors?: { name?: string[]; email?: string[] };
+      errors?: { name?: string[]; email?: string[]; currentPassword?: string[] };
       message?: string;
       success?: boolean;
     }

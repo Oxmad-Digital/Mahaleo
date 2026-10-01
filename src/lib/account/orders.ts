@@ -102,6 +102,7 @@ export async function getAccountOrderById(userId: string, id: string) {
       items: {
         select: {
           id: true,
+          size: true,
           quantity: true,
           priceCents: true,
           product: { select: { id: true, name: true, slug: true, images: true } },

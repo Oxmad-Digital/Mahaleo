@@ -2,9 +2,10 @@
 
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
-import { AuthError } from "next-auth";
+import { AuthError, CredentialsSignin } from "next-auth";
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { HOUR, clientIp, rateLimit } from "@/lib/rate-limit";
 import { sendWelcomeEmail } from "@/lib/emails/send";
 import {
   SignupFormSchema,
@@ -28,6 +29,10 @@ export async function signup(
   }
 
   const { name, email, password } = validatedFields.data;
+
+  if (!(await rateLimit(`signup:ip:${await clientIp()}`, 5, HOUR))) {
+    return { message: "Trop de tentatives. Réessayez dans une heure." };
+  }
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
@@ -63,6 +68,9 @@ export async function login(
   try {
     await signIn("credentials", { ...validatedFields.data, redirect: false });
   } catch (error) {
+    if (error instanceof CredentialsSignin && error.code === "rate_limited") {
+      return { message: "Trop de tentatives de connexion. Réessayez dans 15 minutes." };
+    }
     if (error instanceof AuthError) {
       return { message: "E-mail ou mot de passe incorrect." };
     }

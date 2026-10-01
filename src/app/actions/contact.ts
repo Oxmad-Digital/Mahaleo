@@ -1,6 +1,7 @@
 "use server";
 
 import { sendContactMessageEmail } from "@/lib/emails/send";
+import { HOUR, clientIp, rateLimit } from "@/lib/rate-limit";
 import { ContactFormSchema, type ContactFormState } from "@/lib/definitions";
 
 export async function sendContactMessage(
@@ -19,6 +20,10 @@ export async function sendContactMessage(
   }
 
   const { name, email, message } = validatedFields.data;
+
+  if (!(await rateLimit(`contact:ip:${await clientIp()}`, 5, HOUR))) {
+    return { fields, message: "Vous avez envoyé plusieurs messages récemment. Réessayez dans une heure." };
+  }
 
   const sent = await sendContactMessageEmail(name, email, message);
   if (!sent) {

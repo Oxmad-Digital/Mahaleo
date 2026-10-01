@@ -20,25 +20,25 @@ export async function POST(request: NextRequest) {
   }
 
   const host = request.headers.get("host");
+  // Les navigateurs envoient toujours Origin sur un POST (fetch comme
+  // sendBeacon) : son absence signale un appel scripté hors du site.
   const origin = request.headers.get("origin");
-  if (origin && host) {
-    try {
-      if (new URL(origin).host !== host) {
-        return NextResponse.json({ error: "Origine refusée" }, { status: 403 });
-      }
-    } catch {
-      return NextResponse.json({ error: "Origine refusée" }, { status: 403 });
-    }
+  let sameOrigin = false;
+  try {
+    sameOrigin = Boolean(origin && host && new URL(origin).host === host);
+  } catch {
+    sameOrigin = false;
+  }
+  if (!sameOrigin) {
+    return NextResponse.json({ error: "Origine refusée" }, { status: 403 });
   }
 
-  try {
-    await prisma.pageView.update({
-      where: { id },
-      data: { duration: Math.min(duration, MAX_DURATION_MS) },
-    });
-  } catch {
-    return NextResponse.json({ ok: true });
-  }
+  // Une durée ne s'écrit qu'une fois : une vue déjà renseignée ne peut pas
+  // être réécrite par un tiers qui connaîtrait son identifiant.
+  await prisma.pageView.updateMany({
+    where: { id, duration: null },
+    data: { duration: Math.round(Math.min(duration, MAX_DURATION_MS)) },
+  });
 
   return NextResponse.json({ ok: true });
 }

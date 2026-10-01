@@ -97,6 +97,7 @@ export async function getOrderById(id: string) {
       items: {
         select: {
           id: true,
+          size: true,
           quantity: true,
           priceCents: true,
           product: { select: { id: true, name: true, slug: true, images: true } },

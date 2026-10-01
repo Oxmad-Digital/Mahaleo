@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { ensureInvoiceForOrder } from "@/lib/admin/invoices";
+import { applyStockForTransition } from "@/lib/stock";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { APP_URL } from "@/lib/emails/constants";
 import { orderReference } from "@/lib/order-status";
@@ -82,6 +83,7 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
   if (order.status === status) return;
 
   await prisma.order.update({ where: { id }, data: { status } });
+  await applyStockForTransition(id, order.status, status);
 
   // Une commande payée doit toujours porter une facture numérotée.
   if (status === "PAID" || status === "PREPARING" || status === "SHIPPED" || status === "DELIVERED") {
@@ -383,8 +385,8 @@ export async function createExtraPayment(
         },
       ],
       metadata: { extraPaymentId: payment.id, orderId: order.id },
-      success_url: `${APP_URL}/commande/confirmation?order=${order.id}`,
-      cancel_url: `${APP_URL}/commande/confirmation?order=${order.id}`,
+      success_url: `${APP_URL}/commande/confirmation?order=${order.id}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: APP_URL,
     });
 
     if (!checkoutSession.url) throw new Error("Session Stripe sans URL de paiement.");

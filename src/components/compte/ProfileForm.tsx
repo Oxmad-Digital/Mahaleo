@@ -43,7 +43,24 @@ export function ProfileForm({ initial }: { initial: { name: string; email: strin
         />
         {state?.errors?.email && <p style={fieldErrorStyle}>{state.errors.email[0]}</p>}
         <p style={{ fontSize: 12, color: "rgba(55,53,47,0.45)", margin: 0 }}>
-          {"C'est l'adresse utilisée pour vous connecter et recevoir le suivi de vos commandes. Après un changement, reconnectez-vous pour la voir partout."}
+          {"C'est l'adresse utilisée pour vous connecter et recevoir le suivi de vos commandes."}
+        </p>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label htmlFor="currentPassword" style={labelStyle}>
+          Mot de passe actuel
+        </label>
+        <input
+          id="currentPassword"
+          name="currentPassword"
+          type="password"
+          autoComplete="current-password"
+          style={inputStyle}
+        />
+        {state?.errors?.currentPassword && <p style={fieldErrorStyle}>{state.errors.currentPassword[0]}</p>}
+        <p style={{ fontSize: 12, color: "rgba(55,53,47,0.45)", margin: 0 }}>
+          {"Requis uniquement pour changer d'adresse e-mail."}
         </p>
       </div>
 

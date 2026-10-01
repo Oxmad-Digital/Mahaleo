@@ -11,17 +11,19 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(cuid())
-  email        String     @unique
-  passwordHash String
-  name         String?
-  role         Role       @default(USER)
-  status       UserStatus @default(ACTIVE)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id             String     @id @default(cuid())
+  email          String     @unique
+  passwordHash   String
+  name           String?
+  role           Role       @default(USER)
+  status         UserStatus @default(ACTIVE)
+  /// Incrémenté pour invalider toutes les sessions JWT existantes (changement de mot de passe…).
+  sessionVersion Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
-  cartItems  CartItem[]
-  orders     Order[]
+  cartItems           CartItem[]
+  orders              Order[]
   passwordResetTokens PasswordResetToken[]
 }
 
@@ -37,24 +39,24 @@ enum UserStatus {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  description String?
-  productType String?
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name           String
+  description    String?
+  productType    String?
   /// Code couleur (#rrggbb) de la pastille ; colorName est le libellé affiché.
-  color       String?
-  colorName   String?
-  material    String?
-  fit         String?
-  care        String?
-  priceCents  Int
-  currency    String   @default("EUR")
-  onSale      Boolean  @default(false)
+  color          String?
+  colorName      String?
+  material       String?
+  fit            String?
+  care           String?
+  priceCents     Int
+  currency       String   @default("EUR")
+  onSale         Boolean  @default(false)
   salePriceCents Int?
-  images      String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  images         String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   sizes      ProductSize[]
   cartItems  CartItem[]
@@ -86,11 +88,11 @@ model CartItem {
 }
 
 model Order {
-  id          String      @id @default(cuid())
-  userId      String?
-  status      OrderStatus @default(PENDING)
-  totalCents  Int
-  currency    String      @default("EUR")
+  id         String      @id @default(cuid())
+  userId     String?
+  status     OrderStatus @default(PENDING)
+  totalCents Int
+  currency   String      @default("EUR")
 
   customerName  String
   customerEmail String
@@ -104,8 +106,8 @@ model Order {
   stripeSessionId       String? @unique
   stripePaymentIntentId String?
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user          User?          @relation(fields: [userId], references: [id])
   items         OrderItem[]
@@ -180,9 +182,11 @@ enum ExtraPaymentStatus {
 }
 
 model OrderItem {
-  id         String @id @default(cuid())
+  id         String  @id @default(cuid())
   orderId    String
   productId  String
+  /// Taille commandée ; null pour les commandes antérieures à son enregistrement.
+  size       String?
   quantity   Int
   priceCents Int
 
@@ -200,12 +204,12 @@ enum OrderStatus {
 }
 
 model PasswordResetToken {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
-  tokenHash String   @unique
+  tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -231,4 +235,13 @@ model PageView {
 
   @@index([day])
   @@index([day, path])
+}
+
+/// Compteur à fenêtre fixe des limites de débit (connexion, contact, checkout…).
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime
+
+  @@index([resetAt])
 }

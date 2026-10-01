@@ -222,7 +222,7 @@ export function adminInviteEmailTemplate(name: string | null, setPasswordUrl: st
 export function contactMessageEmailTemplate(name: string, fromEmail: string, message: string) {
   const subject = `Nouveau message de contact de ${name}`;
   const html = emailLayout({
-    previewText: `${name} vous a envoyé un message depuis le site.`,
+    previewText: `${escapeHtml(name)} vous a envoyé un message depuis le site.`,
     bodyHtml: `
       ${heading("Formulaire de contact", "Nouveau message")}
       ${paragraph(`<strong>${escapeHtml(name)}</strong> <span style="color:${muted};">(${escapeHtml(fromEmail)})</span>`, { last: true })}

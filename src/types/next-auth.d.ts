@@ -11,6 +11,7 @@ declare module "next-auth" {
 
   interface User {
     role: Role;
+    sessionVersion: number;
   }
 }
 
@@ -18,5 +19,6 @@ declare module "@auth/core/jwt" {
   interface JWT {
     id?: string;
     role?: Role;
+    sessionVersion?: number;
   }
 }

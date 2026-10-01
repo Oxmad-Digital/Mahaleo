@@ -178,7 +178,10 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
                       >
                         {item.product.name}
                       </Link>
-                      <span style={{ fontSize: 12, color: MUTED }}>{item.product.slug}</span>
+                      <span style={{ fontSize: 12, color: MUTED }}>
+                        {item.size ? `Taille ${item.size} · ` : ""}
+                        {item.product.slug}
+                      </span>
                     </div>
                   </div>
                   <span style={{ textAlign: "right" }}>{formatCents(item.priceCents, order.currency)}</span>
