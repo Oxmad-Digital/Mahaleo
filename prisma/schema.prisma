@@ -21,7 +21,6 @@ model User {
   updatedAt    DateTime   @updatedAt
 
   cartItems  CartItem[]
-  favorites  Favorite[]
   orders     Order[]
   passwordResetTokens PasswordResetToken[]
 }
@@ -59,7 +58,6 @@ model Product {
 
   sizes      ProductSize[]
   cartItems  CartItem[]
-  favorites  Favorite[]
   orderItems OrderItem[]
 }
 
@@ -79,18 +77,6 @@ model CartItem {
   userId    String
   productId String
   quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, productId])
-}
-
-model Favorite {
-  id        String   @id @default(cuid())
-  userId    String
-  productId String
   createdAt DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
