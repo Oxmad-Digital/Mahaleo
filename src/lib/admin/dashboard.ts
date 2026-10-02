@@ -30,7 +30,7 @@ export async function getDashboardData(range: DashboardRange) {
   const previousStart = daysAgo(range * 2 - 1, now);
   const todayStart = startOfDay(now);
 
-  const [periodOrders, previousRevenue, ordersToday, productsStock, latestOrders, orderItems] = await Promise.all([
+  const [periodOrders, previousRevenue, ordersToday, productsStock, latestOrders, orderItems, newCustomersCount] = await Promise.all([
     prisma.order.findMany({
       where: { createdAt: { gte: periodStart } },
       select: {
@@ -67,6 +67,9 @@ export async function getDashboardData(range: DashboardRange) {
       where: { order: { createdAt: { gte: periodStart }, status: { in: REVENUE_STATUSES } } },
       select: { productId: true, quantity: true, priceCents: true },
     }),
+    prisma.user.count({
+      where: { role: "USER", createdAt: { gte: periodStart } },
+    }),
   ]);
 
   const productsWithStock = productsStock.map((p) => ({
@@ -95,9 +98,6 @@ export async function getDashboardData(range: DashboardRange) {
 
   const newCustomerOrders = periodOrders.filter((o) => o.user != null && o.user.createdAt >= periodStart);
   const newCustomersShare = periodOrders.length > 0 ? (newCustomerOrders.length / periodOrders.length) * 100 : 0;
-  const newCustomersCount = await prisma.user.count({
-    where: { role: "USER", createdAt: { gte: periodStart } },
-  });
 
   const salesByDay = new Map<string, number>();
   for (let i = 0; i < range; i++) {

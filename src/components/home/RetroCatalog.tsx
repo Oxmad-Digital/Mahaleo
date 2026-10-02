@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { formatCents } from "@/lib/format";
 import { effectivePriceCents } from "@/lib/pricing";
+import { isOptimizableImage } from "@/lib/images";
 import type { ShopProduct } from "@/lib/shop";
 import guitar from "../../assets/mahaleo/guitar-retro.webp";
 
@@ -51,7 +52,7 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
       <aside className="retro-guitar">
         <div className="retro-panel-label"><span>MAHALEO</span><span>DEPUIS 1972</span></div>
         <div className="retro-guitar-image">
-          <Image src={guitar} alt="" fill priority sizes="290px" />
+          <Image src={guitar} alt="" fill preload sizes="290px" />
           <div><span>UNE HISTOIRE</span><strong>QUI SE TRANSMET.</strong></div>
         </div>
         <div className="retro-archive-note">
@@ -79,7 +80,13 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
               <article className="retro-product" key={product.id}>
                 <span className="retro-product-index">{String(safePage * pageSize + index + 1).padStart(2, "0")} / {getShopCategory(product) === "sweat" ? "SWEAT" : "PIÈCE"}</span>
                 <Link href={`/produit/${product.slug}`} className="retro-product-image" aria-label={`Voir ${product.name}`}>
-                  <img src={image} alt={product.name} />
+                  <Image
+                    src={image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    unoptimized={!isOptimizableImage(image)}
+                  />
                   <span aria-hidden="true">{soldOut ? "×" : "+"}</span>
                 </Link>
                 <div className="retro-product-info">

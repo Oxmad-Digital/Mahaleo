@@ -1,3 +1,4 @@
+import { cache } from "react";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -90,3 +91,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+/**
+ * Session pour les composants serveur, mémorisée le temps d'un rendu : une page
+ * et ses slots parallèles (modale admin) ne relisent l'utilisateur qu'une fois.
+ */
+export const getSession = cache(() => auth());

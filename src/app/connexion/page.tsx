@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getSession } from "@/auth";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { AuthPanel, StorePage } from "@/components/store/StorePage";
 
 export default async function ConnexionPage(props: PageProps<"/connexion">) {
   // Déjà connecté : on renvoie directement vers sa console au lieu de réafficher le formulaire.
-  const session = await auth();
+  const session = await getSession();
   if (session?.user) {
     redirect(session.user.role === "ADMIN" ? "/admin" : "/compte");
   }

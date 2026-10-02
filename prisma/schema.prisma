@@ -114,6 +114,9 @@ model Order {
   shipment      Shipment?
   invoice       Invoice?
   extraPayments ExtraPayment[]
+
+  @@index([userId, createdAt])
+  @@index([createdAt])
 }
 
 /// Expédition Sendcloud rattachée à une commande (un colis par commande).
@@ -151,6 +154,7 @@ model Invoice {
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@unique([year, sequence])
+  @@index([issuedAt])
 }
 
 /// Paiement complémentaire à montant libre (frais de réexpédition, correction
@@ -192,6 +196,9 @@ model OrderItem {
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
 }
 
 enum OrderStatus {

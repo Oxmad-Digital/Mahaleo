@@ -13,7 +13,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 const barlowCondensed = localFont({
-  src: "../assets/mahaleo/barlow-condensed.ttf",
+  // Sous-ensemble latin (accents, ponctuation, €, flèches) converti en woff2.
+  src: "../assets/mahaleo/barlow-condensed.woff2",
   variable: "--font-barlow-condensed",
   weight: "700",
   display: "swap",

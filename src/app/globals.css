@@ -502,6 +502,9 @@ a {
   .retro-guitar { display: none; }
   .retro-shop { height: 100%; }
   .retro-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Le rendu serveur pagine par 3 : on masque le surplus avant que le catalogue
+     ne recalcule sa pagination, pour éviter un saut de mise en page. */
+  .retro-products > .retro-product:nth-child(n + 3) { display: none; }
   .retro-product-info > div:first-child { display: flex; }
   .retro-product-info strong { display: inline; margin-top: 0; }
 }
@@ -524,6 +527,7 @@ a {
   .retro-shop-heading h2 { font-size: 22px; }
   .retro-filters { gap: 17px; padding-top: 8px; }
   .retro-products { grid-template-columns: minmax(0, 1fr); }
+  .retro-products > .retro-product:nth-child(n + 2) { display: none; }
   .retro-product-index { display: none; }
   .retro-product-info a { font-size: 25px; }
   .retro-product-info p { margin: 4px 0 8px; }

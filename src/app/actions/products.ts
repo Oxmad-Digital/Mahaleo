@@ -1,8 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { CATALOG_TAG } from "@/lib/shop";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { Prisma } from "@/generated/prisma/client";
 import { ProductFormSchema, type ProductFormState } from "@/lib/definitions";
@@ -78,6 +79,7 @@ export async function createProduct(
     throw error;
   }
 
+  updateTag(CATALOG_TAG);
   revalidatePath("/admin/produits");
   if (redirectOnSuccess) redirect("/admin/produits");
   return { success: true };
@@ -145,6 +147,7 @@ export async function updateProduct(
     throw error;
   }
 
+  updateTag(CATALOG_TAG);
   revalidatePath("/admin/produits");
   if (redirectOnSuccess) redirect("/admin/produits");
   return { success: true };
@@ -162,6 +165,7 @@ export async function deleteProduct(id: string) {
     throw error;
   }
 
+  updateTag(CATALOG_TAG);
   revalidatePath("/admin/produits");
   redirect("/admin/produits");
 }

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { auth } from "@/auth";
+import { getSession } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Scene } from "@/components/scene/Scene";
 import { TopBar } from "@/components/scene/TopBar";
@@ -36,7 +36,7 @@ export default async function CommandeConfirmationPage(props: PageProps<"/comman
     (order.stripeSessionId === stripeSessionId ||
       order.extraPayments.some((payment) => payment.stripeSessionId === stripeSessionId));
   if (!paidThisOrder) {
-    const session = await auth();
+    const session = await getSession();
     if (!order.userId || session?.user?.id !== order.userId) notFound();
   }
 

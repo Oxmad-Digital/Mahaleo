@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getSession } from "@/auth";
 
 /**
  * Garde de l'espace client : toute page sous `/compte` a besoin d'une session.
@@ -7,7 +7,7 @@ import { auth } from "@/auth";
  * commandes.
  */
 export async function requireUser() {
-  const session = await auth();
+  const session = await getSession();
 
   if (!session?.user) {
     redirect("/connexion");

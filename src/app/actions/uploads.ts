@@ -32,6 +32,9 @@ export async function uploadProductImage(formData: FormData): Promise<{ url: str
       Key: key,
       Body: buffer,
       ContentType: file.type,
+      // Clé unique par envoi : le fichier ne change jamais, il peut être mis en
+      // cache indéfiniment par le navigateur et l'optimiseur d'images.
+      CacheControl: "public, max-age=31536000, immutable",
     }),
   );
 

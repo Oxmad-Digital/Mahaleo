@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PRODUCT_IMAGE_HOST } from "./src/lib/images";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -30,6 +31,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: PRODUCT_IMAGE_HOST, pathname: "/**" }],
+    // Les images produit ont une clé UUID qui ne change jamais de contenu : leur
+    // version optimisée peut rester en cache bien au-delà des 4 h par défaut.
+    minimumCacheTTL: 31 * 24 * 60 * 60,
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { isOptimizableImage } from "@/lib/images";
 
 const FREE_SHIPPING_THRESHOLD_CENTS = 15000;
 const SHIPPING_COST_CENTS = 800;
@@ -38,7 +40,7 @@ export default function PanierPage() {
               {items.map((item, index) => (
                 <article className="retro-cart-item" key={`${item.productId}-${item.size ?? ""}`}>
                   <span className="retro-cart-index">{String(index + 1).padStart(2, "0")}</span>
-                  <Link href={`/produit/${item.slug}`} className="retro-cart-image"><img src={item.image} alt={item.name} /></Link>
+                  <Link href={`/produit/${item.slug}`} className="retro-cart-image"><Image src={item.image} alt={item.name} width={112} height={112} sizes="112px" unoptimized={!isOptimizableImage(item.image)} /></Link>
                   <div className="retro-cart-product">
                     <Link href={`/produit/${item.slug}`}>{item.name}</Link>
                     <p>{item.size ? `Taille ${item.size}` : "Taille unique"}</p>

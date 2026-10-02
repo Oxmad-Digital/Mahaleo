@@ -26,7 +26,7 @@ function StoreHeader() {
           <span>Vêtements &amp; souvenirs musicaux</span>
         </div>
         <Link href="/" className="retro-logo" aria-label="Mahaleo — retour à la boutique">
-          <Image src={logo} alt="Mahaleo" priority sizes="(max-width: 600px) 185px, 265px" />
+          <Image src={logo} alt="Mahaleo" preload sizes="(max-width: 600px) 185px, 265px" />
         </Link>
         <nav className="retro-actions" aria-label="Navigation principale">
           <Link href={accountHref} className="retro-action retro-action-secondary">

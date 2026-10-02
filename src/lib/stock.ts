@@ -1,4 +1,6 @@
+import { revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { CATALOG_TAG } from "@/lib/shop";
 import type { OrderStatus } from "@/generated/prisma/client";
 
 /** Statuts pour lesquels les articles d'une commande sont sortis du stock. */
@@ -36,4 +38,8 @@ export async function applyStockForTransition(orderId: string, from: OrderStatus
       `
     )
   );
+
+  // Pas de contenu périmé toléré : la boutique ne doit pas proposer une taille
+  // qui vient de partir (le checkout revérifie de toute façon le stock).
+  if (items.length > 0) revalidateTag(CATALOG_TAG, { expire: 0 });
 }

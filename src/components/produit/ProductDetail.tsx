@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { isOptimizableImage } from "@/lib/images";
 import { effectivePriceCents } from "@/lib/pricing";
 import type { ShopProductDetail } from "@/lib/shop";
 
@@ -68,16 +70,20 @@ export function ProductDetail({
               <div className="retro-thumbs" aria-label="Choisir une photo">
                 {images.map((image, index) => (
                   <button key={`${image}-${index}`} type="button" className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Afficher la vue ${index + 1}`} aria-pressed={activeImage === index}>
-                    {/* Les images produit proviennent du stockage administrable. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={image} alt="" />
+                    <Image src={image} alt="" width={96} height={96} sizes="96px" unoptimized={!isOptimizableImage(image)} />
                   </button>
                 ))}
               </div>
             )}
             <div className="retro-detail-photo">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={images[activeImage]} alt={`${product.name} — vue ${activeImage + 1}`} />
+              <Image
+                src={images[activeImage]}
+                alt={`${product.name} — vue ${activeImage + 1}`}
+                fill
+                preload
+                sizes="(max-width: 900px) 100vw, 700px"
+                unoptimized={!isOptimizableImage(images[activeImage])}
+              />
               {isNewArrival && <span>NOUVELLE ARRIVÉE</span>}
               {images.length > 1 && (
                 <>

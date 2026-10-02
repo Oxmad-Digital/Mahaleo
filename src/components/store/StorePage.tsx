@@ -52,7 +52,7 @@ export function AuthPanel({
         <div className="retro-panel-label"><span>MAHALEO</span><span>DEPUIS 1972</span></div>
         <div className={groupPhoto ? "retro-guitar-image retro-group-photo" : "retro-guitar-image"}>
           {groupPhoto
-            ? <img src={GROUP_PHOTO_URL} alt="" />
+            ? <Image src={GROUP_PHOTO_URL} alt="" fill sizes="300px" />
             : <Image src={guitar} alt="" fill sizes="300px" />}
           {!groupPhoto && <div><span>UNE HISTOIRE</span><strong>QUI SE TRANSMET.</strong></div>}
         </div>
