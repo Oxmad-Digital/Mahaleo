@@ -12,10 +12,42 @@
 .retro-page-heading > a { flex: none; padding: 8px 0; border-bottom: 1px solid var(--retro-ink); font-size: 12px; }
 .retro-page-heading > a:hover { color: var(--retro-red); border-color: var(--retro-red); }
 
-/* Authentification */
-.retro-auth-wrap { display: grid; grid-template-columns: minmax(210px, .8fr) minmax(0, 1.35fr) minmax(0, .85fr); gap: 26px; padding-top: 22px; }
-.retro-auth-visual { min-height: 460px; padding-right: 26px; border-right: 1px solid var(--retro-line); display: flex; flex-direction: column; }
-.retro-auth-form { min-width: 0; display: flex; justify-content: center; }
+/* Authentification : la page tient dans l'écran, sans défilement. Le titre,
+   les espacements et les champs se resserrent avec la hauteur disponible
+   (unités dvh) au lieu de pousser le formulaire sous le pli. */
+.retro-content-page:has(.retro-auth-wrap) { height: 100dvh; overflow: hidden; }
+.retro-content-main:has(.retro-auth-wrap) { min-height: 0; padding: clamp(8px, 2dvh, 20px) 0 clamp(8px, 2dvh, 28px); display: flex; flex-direction: column; }
+.retro-content-main:has(.retro-auth-wrap) .retro-page-heading { flex: none; padding-bottom: clamp(6px, 1.6dvh, 16px); }
+.retro-content-main:has(.retro-auth-wrap) .retro-page-heading h1 { font-size: clamp(30px, min(6vw, 8dvh), 76px); }
+.retro-auth-wrap { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(210px, .8fr) minmax(0, 1.35fr) minmax(0, .85fr); grid-template-rows: minmax(0, 1fr); gap: 26px; padding-top: clamp(10px, 2.5dvh, 22px); }
+.retro-auth-visual { min-height: 0; padding-right: 26px; border-right: 1px solid var(--retro-line); display: flex; flex-direction: column; }
+.retro-auth-notes { min-height: 0; overflow: hidden; }
+/* Filet de sécurité sur un écran vraiment trop bas : seul le formulaire défile. */
+.retro-auth-form { min-width: 0; min-height: 0; display: flex; justify-content: center; align-items: flex-start; overflow-y: auto; scrollbar-width: none; }
+.retro-auth-form::-webkit-scrollbar { display: none; }
+.retro-auth-wrap .retro-auth-card { gap: clamp(8px, 2dvh, 20px); }
+.retro-auth-wrap .retro-auth-head { padding-bottom: clamp(6px, 1.6dvh, 16px); }
+.retro-auth-wrap .retro-auth-head h2 { font-size: clamp(24px, min(3vw, 5dvh), 42px); }
+.retro-auth-wrap .retro-auth-head p { margin-top: clamp(2px, .8dvh, 8px); }
+.retro-auth-wrap .retro-auth-fields { gap: clamp(8px, 1.6dvh, 16px); }
+.retro-auth-wrap .retro-field { gap: clamp(4px, .7dvh, 7px); }
+.retro-auth-wrap .retro-field input { min-height: clamp(36px, 5.5dvh, 46px); padding-block: clamp(6px, 1.2dvh, 11px); }
+/* Formulaire avec message (contact) : la zone de texte absorbe la hauteur
+   restante pour que le bouton d'envoi reste visible. */
+.retro-auth-wrap .retro-auth-card:has(textarea) { height: 100%; }
+.retro-auth-wrap .retro-field:has(textarea) { flex: 1 1 0; }
+.retro-auth-wrap .retro-field textarea { flex: 1 1 0; min-height: 52px; resize: none; }
+
+/* Écran bas : on retire le sous-titre du formulaire et on resserre encore. */
+@media (max-height: 700px) {
+  .retro-content-main:has(.retro-auth-wrap) .retro-page-heading h1 { font-size: clamp(30px, min(6vw, 7dvh), 76px); }
+  .retro-auth-wrap .retro-auth-head p { display: none; }
+  .retro-auth-wrap .retro-auth-card { gap: clamp(6px, 1.6dvh, 20px); }
+  .retro-auth-wrap .retro-auth-fields { gap: clamp(6px, 1.3dvh, 16px); }
+  .retro-auth-wrap .retro-field label { line-height: 1.2; }
+}
+.retro-auth-wrap .retro-submit { min-height: clamp(40px, 6dvh, 51px); }
+.retro-auth-wrap .retro-auth-switch { padding-top: clamp(6px, 1.4dvh, 14px); }
 
 @media (max-width: 1200px) {
   .retro-auth-wrap { grid-template-columns: minmax(200px, .8fr) minmax(0, 1.6fr); }
@@ -29,6 +61,7 @@
 @media (max-width: 600px) {
   .retro-page-heading { align-items: start; }
   .retro-page-heading h1 { font-size: clamp(36px, 11vw, 46px); }
+  .retro-content-main:has(.retro-auth-wrap) .retro-page-heading h1 { font-size: clamp(30px, min(11vw, 7dvh), 46px); }
   .retro-page-heading > a { max-width: 110px; text-align: right; line-height: 1.4; }
   .retro-content-main { padding-top: 14px; }
   .retro-auth-wrap { padding-top: 18px; }
