@@ -1,0 +1,9 @@
+/* Éléments rétro communs à plusieurs pages (bouton principal, surtitre, lien texte) */
+
+.retro-eyebrow { color: var(--retro-muted); font-size: 10px; letter-spacing: 1.5px; }
+.retro-primary { flex: 1; min-height: 51px; padding: 0 17px; border: 1px solid var(--retro-red); background: var(--retro-red); color: #fff8e9 !important; display: flex; align-items: center; justify-content: space-between; font-size: 12px !important; letter-spacing: .5px; }
+.retro-primary:hover:not(:disabled) { background: #982719; }
+.retro-primary:disabled { cursor: not-allowed; opacity: .55; }
+.retro-primary { text-decoration: none; }
+.retro-text-link { border-bottom: 1px solid currentColor; }
+.retro-text-link:hover { color: var(--retro-red); }

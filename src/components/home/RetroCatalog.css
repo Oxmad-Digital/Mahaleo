@@ -1,0 +1,86 @@
+/* RetroCatalog.tsx */
+
+.retro-home-main { min-height: 0; display: grid; grid-template-columns: minmax(210px, .8fr) minmax(0, 2.2fr); gap: 26px; padding: 21px 0 20px; }
+.retro-guitar { min-height: 0; padding-right: 26px; border-right: 1px solid var(--retro-line); display: flex; flex-direction: column; }
+.retro-archive-note { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; }
+.retro-archive-note > span { color: var(--retro-muted); font: italic 13px/1.25 var(--retro-serif); }
+.retro-archive-note a { padding: 8px 0; white-space: nowrap; border-bottom: 1px solid var(--retro-ink); font-size: 11px; }
+
+.retro-shop { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.retro-shop-heading { min-height: 33px; margin-bottom: 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.retro-shop-heading h2 { margin: 0; font: 700 25px/1 var(--retro-display); letter-spacing: .2px; }
+.retro-shop-heading h2 span { display: inline-block; margin-left: 5px; padding: 3px 4px; vertical-align: middle; border: 1px solid var(--retro-line); font: 11px Arial, sans-serif; }
+.retro-filters { display: flex; gap: 14px; }
+.retro-filters button { padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--retro-muted); font-size: 11px; }
+.retro-filters button:hover,
+.retro-filters .active { color: var(--retro-red); border-bottom-color: var(--retro-red); }
+.retro-products { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.retro-product { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.retro-product-index { padding-top: 8px; margin-bottom: 9px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font-size: 11px; line-height: 1; letter-spacing: 1px; }
+.retro-product-image { position: relative; flex: 1; min-height: 0; overflow: hidden; border: 1px solid rgb(194 179 147 / .45); background: var(--retro-photo); }
+.retro-product-image img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .5s ease; }
+.retro-product-image:hover img { transform: scale(1.045); }
+.retro-product-image > span { position: absolute; right: 10px; bottom: 10px; width: 31px; height: 31px; display: grid; place-items: center; border: 1px solid var(--retro-line); background: var(--retro-paper); font-size: 21px; transition: .2s ease; }
+.retro-product-image:hover > span { border-color: var(--retro-red); background: var(--retro-red); color: #fff8e9; }
+.retro-product-info { padding-top: 11px; }
+.retro-product-info > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.retro-product-info a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-transform: uppercase; font: 700 clamp(23px, 2.1vw, 30px)/1 var(--retro-display); }
+.retro-product-info strong { flex: none; font-size: 11px; font-weight: 400; }
+.retro-product-info p { margin: 6px 0 12px; color: var(--retro-muted); font: italic 12px var(--retro-serif); }
+.retro-product-meta { display: flex; align-items: center; justify-content: space-between; }
+.retro-product-meta i { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 3px var(--retro-paper), 0 0 0 4px var(--retro-line); }
+.retro-product-meta span { color: var(--retro-muted); font: 11px var(--retro-serif); letter-spacing: .4px; }
+.retro-empty { grid-column: 1 / -1; display: grid; place-items: center; color: var(--retro-muted); font: italic 16px var(--retro-serif); }
+.retro-collection-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 17px; padding-top: 11px; border-top: 1px solid var(--retro-line); }
+.retro-collection-bottom p { margin: 0; color: var(--retro-muted); font: italic 13px var(--retro-serif); }
+.retro-pager { display: flex; align-items: center; gap: 11px; font-size: 11px; }
+.retro-pager button { width: 28px; height: 27px; border: 1px solid var(--retro-line); background: transparent; }
+.retro-pager button:hover:not(:disabled) { border-color: var(--retro-red); color: var(--retro-red); }
+.retro-pager button:disabled { cursor: default; opacity: .35; }
+
+@media (min-width: 1600px) {
+  .retro-home-main { grid-template-columns: minmax(260px, .85fr) minmax(0, 2.15fr); gap: 35px; padding: 27px 0 25px; }
+  .retro-guitar { padding-right: 35px; }
+  .retro-products { gap: 24px; }
+}
+
+@media (max-width: 1200px) {
+  .retro-product-info > div:first-child { display: block; }
+  .retro-product-info strong { display: block; margin-top: 5px; }
+  .retro-archive-note > span { display: none; }
+  .retro-archive-note a { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .retro-home-main { display: block; padding: 17px 0 14px; }
+  .retro-guitar { display: none; }
+  .retro-shop { height: 100%; }
+  .retro-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Le rendu serveur pagine par 3 : on masque le surplus avant que le catalogue
+     ne recalcule sa pagination, pour éviter un saut de mise en page. */
+  .retro-products > .retro-product:nth-child(n + 3) { display: none; }
+  .retro-product-info > div:first-child { display: flex; }
+  .retro-product-info strong { display: inline; margin-top: 0; }
+}
+
+@media (max-width: 600px) {
+  .retro-home-main { padding: 11px 0 9px; }
+  .retro-shop-heading { display: block; min-height: 0; margin-bottom: 9px; }
+  .retro-shop-heading h2 { font-size: 22px; }
+  .retro-filters { gap: 17px; padding-top: 8px; }
+  .retro-products { grid-template-columns: minmax(0, 1fr); }
+  .retro-products > .retro-product:nth-child(n + 2) { display: none; }
+  .retro-product-index { display: none; }
+  .retro-product-info a { font-size: 25px; }
+  .retro-product-info p { margin: 4px 0 8px; }
+  .retro-collection-bottom { margin-top: 8px; padding-top: 7px; }
+  .retro-collection-bottom p { display: none; }
+  .retro-pager { margin-left: auto; }
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+  .retro-home-main { padding: 12px 0; }
+  .retro-product-index { display: none; }
+  .retro-product-info p { margin: 4px 0 7px; }
+  .retro-collection-bottom { margin-top: 7px; padding-top: 6px; }
+}

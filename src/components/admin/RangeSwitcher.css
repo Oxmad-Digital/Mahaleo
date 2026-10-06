@@ -1,0 +1,33 @@
+/* RangeSwitcher.tsx */
+
+.retro-admin-range {
+  padding: 0 !important;
+  gap: 0 !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.retro-admin-range a {
+  min-width: 60px;
+  padding: 9px 14px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  text-align: center;
+  color: var(--retro-muted) !important;
+  font-size: 11px !important;
+  letter-spacing: .5px;
+}
+
+.retro-admin-range a:last-child { border-right: 0 !important; }
+.retro-admin-range a:hover { color: var(--retro-red) !important; }
+.retro-admin-range a.is-active {
+  color: #fff8e9 !important;
+  background: var(--retro-red) !important;
+}
+
+@media (max-width: 768px) {
+  .retro-admin-range { align-self: flex-start; }
+}

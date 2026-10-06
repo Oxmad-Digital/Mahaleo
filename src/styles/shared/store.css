@@ -1,0 +1,34 @@
+/* Blocs boutique partagés (photo guitare, titres panier/checkout, notes) */
+
+.retro-panel-label { display: flex; justify-content: space-between; padding-bottom: 10px; color: var(--retro-muted); font-size: 11px; letter-spacing: 1px; }
+.retro-guitar-image { position: relative; flex: 1; min-height: 0; overflow: hidden; background: #bfa77f; }
+.retro-guitar-image > img { object-fit: cover; }
+.retro-guitar-image:has(> div)::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(37 26 19 / .84), transparent 42%); }
+.retro-guitar-image > div { position: absolute; z-index: 1; left: 20px; right: 12px; bottom: 18px; color: #f7ead0; }
+.retro-guitar-image span { display: block; margin-bottom: 3px; font-size: 11px; letter-spacing: 1px; }
+.retro-guitar-image strong { display: block; white-space: nowrap; font: 700 clamp(28px, 3vw, 50px)/1 var(--retro-display); }
+.retro-detail-price s, .retro-product-info strong s { margin-right: .5em; color: var(--retro-muted); }
+.retro-cart-title { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding-bottom: 16px; border-bottom: 3px double var(--retro-line); }
+.retro-cart-title > div > span { color: var(--retro-muted); font-size: 10px; letter-spacing: 1.5px; }
+.retro-cart-title h1 { margin: 4px 0 0; font: 700 clamp(44px, 6vw, 76px)/.9 var(--retro-display); }
+.retro-cart-title sup { display: inline-block; margin-left: 7px; padding: 3px 5px; border: 1px solid var(--retro-line); vertical-align: top; font: 10px Arial, sans-serif; }
+.retro-cart-title > a { padding: 8px 0; border-bottom: 1px solid var(--retro-ink); font-size: 11px; }
+
+@media (max-width: 700px) {
+  .retro-cart-title { align-items: start; }
+  .retro-cart-title h1 { font-size: 45px; }
+}
+
+@media (max-width: 430px) {
+  .retro-cart-title > a { max-width: 95px; text-align: right; line-height: 1.4; }
+}
+
+.retro-auth-notes { padding-left: 26px; border-left: 1px solid var(--retro-line); display: flex; flex-direction: column; }
+.retro-auth-notes ol { margin: 14px 0 0; padding: 0; list-style: none; }
+.retro-auth-notes li { display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding: 14px 0; border-top: 1px solid var(--retro-line); font-size: 13px; line-height: 1.45; }
+.retro-auth-notes li strong { font: 700 22px/1 var(--retro-display); color: var(--retro-red); }
+.retro-auth-notes > p { margin: auto 0 0; padding-top: 14px; border-top: 3px double var(--retro-line); color: var(--retro-muted); font: italic 13px/1.4 var(--retro-serif); }
+
+@media (max-width: 1200px) {
+  .retro-auth-notes { display: none; }
+}

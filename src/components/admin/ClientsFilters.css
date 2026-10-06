@@ -1,0 +1,10 @@
+/* ClientsFilters.tsx */
+
+@media (max-width: 768px) {
+  /* Page Clients : recherche pleine largeur. */
+  .admin-client-search-form,
+  .admin-client-search-input {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}

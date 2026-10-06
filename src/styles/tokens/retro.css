@@ -1,0 +1,13 @@
+/* Tokens du UI Kit v2 rétro (couleurs, polices) */
+
+:root {
+  --retro-paper: #eee6d1;
+  --retro-paper-light: #f5eedb;
+  --retro-ink: #332f26;
+  --retro-red: #bd3020;
+  --retro-line: #bdb299;
+  --retro-muted: #766e5b;
+  --retro-photo: #e4d8bf;
+  --retro-display: var(--font-barlow-condensed), "Arial Narrow", Impact, sans-serif;
+  --retro-serif: Georgia, "Times New Roman", serif;
+}

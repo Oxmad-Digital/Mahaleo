@@ -1,0 +1,47 @@
+/* AccountOrderTabs.tsx */
+
+.retro-account-shell .admin-order-tabs {
+  width: fit-content;
+  padding: 0 !important;
+  gap: 0 !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.retro-account-shell .admin-order-tabs a {
+  min-height: 37px;
+  padding: 0 13px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  letter-spacing: .45px;
+}
+
+.retro-account-shell .admin-order-tabs a:last-child {
+  border-right: 0 !important;
+}
+
+.retro-account-shell .admin-order-tabs a.is-active {
+  color: #fff8e9 !important;
+  background: var(--retro-red) !important;
+}
+
+.retro-account-shell .admin-order-tabs a.is-active span {
+  color: #fff8e9 !important;
+  opacity: .72;
+}
+
+@media (max-width: 768px) {
+  .retro-account-shell .admin-order-tabs {
+    width: 100% !important;
+  }
+
+  .retro-account-shell .admin-order-tabs a {
+    min-height: 40px;
+  }
+}

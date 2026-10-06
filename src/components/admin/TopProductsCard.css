@@ -1,0 +1,18 @@
+/* TopProductsCard.tsx */
+
+.retro-admin-product-row {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgb(189 178 153 / .65);
+}
+
+.retro-admin-product-row:last-child { border-bottom: 0; }
+
+.retro-admin-product-track {
+  height: 3px;
+  background: rgb(189 178 153 / .55);
+}
+
+.retro-admin-product-track > div {
+  height: 3px;
+  background: var(--retro-red);
+}

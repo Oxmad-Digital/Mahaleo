@@ -1,0 +1,395 @@
+/* Console partagée admin / espace client (tableaux, cartes, en-têtes, détail commande) */
+
+/*
+ * Tableau des consoles qui défile latéralement plutôt que de se comprimer.
+ * Sans effet sur grand écran : la largeur minimale de `-inner` n'est posée
+ * qu'en dessous de 1024px (bloc plus bas), donc rien ne déborde au-dessus.
+ */
+.admin-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.admin-table-scroll-inner {
+  min-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .admin-page-title {
+    font-size: 24px !important;
+  }
+
+  /*
+   * Les grilles à deux colonnes du tableau de bord passent en une colonne.
+   * `minmax(0, 1fr)` plutôt que `1fr` : la colonne ne s'élargit pas au contenu
+   * des tableaux qui défilent latéralement.
+   */
+  .admin-dashboard-split {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Page Commandes : l'entête (titre + recherche) passe en colonne. */
+  .admin-page-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /*
+   * `box-sizing` : ces champs et boutons sont stylés en inline sans réinitialisation
+   * globale, donc `width: 100%` ajouterait leur padding et leur bordure à la
+   * largeur de l'écran et les ferait déborder à droite.
+   */
+  .admin-order-search-form,
+  .admin-order-search-input {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Les onglets de statut défilent horizontalement plutôt que de passer à la ligne. */
+  .admin-order-tabs {
+    width: 100% !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-order-tabs a {
+    flex-shrink: 0;
+  }
+
+  .admin-product-search-form,
+  .admin-product-search-input,
+  .admin-product-add-btn {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Fiche commande : la colonne latérale passe sous le contenu principal. */
+  .admin-order-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-order-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+  }
+
+  .admin-order-pills > * {
+    flex: 1 1 0;
+    min-width: 0 !important;
+  }
+
+  /* Le fil des statuts reste sur une ligne : les libellés se resserrent. */
+  .admin-order-stepper-hint {
+    display: none !important;
+  }
+
+  .admin-order-step-label {
+    font-size: 11px !important;
+    line-height: 1.3;
+  }
+
+  /* Formulaires de la fiche (client, étiquette) : une colonne. */
+  .admin-order-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-order-customer-row,
+  .admin-order-shipping-grid {
+    gap: 18px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /*
+   * La zone défilante déborde jusqu'aux bords de la carte (24px de padding
+   * horizontal) pour occuper toute sa largeur.
+   */
+  .admin-table-scroll {
+    margin-inline: -24px;
+    padding-inline: 24px;
+  }
+
+  .admin-table-scroll-inner {
+    min-width: 620px;
+  }
+
+  /*
+   * Un tableau d'une colonne de moins : ceux de l'espace client (pas de colonne
+   * client) et les dernières commandes du tableau de bord.
+   */
+  .admin-table-scroll-inner--compact {
+    min-width: 520px;
+  }
+
+  /* Fiche commande : le tableau des articles défile sur le même principe. */
+  .admin-order-items-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-order-items-header,
+  .admin-order-item-row {
+    min-width: 460px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tableau de bord et fiche commande : une seule colonne. */
+  .admin-shell .admin-dashboard-split,
+  .admin-shell .admin-order-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+.retro-admin-page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid var(--retro-line);
+  flex-wrap: wrap;
+}
+
+.retro-admin-kicker {
+  color: var(--retro-red);
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+.retro-admin-shell .admin-page-title {
+  margin-top: 1px;
+  text-transform: uppercase;
+  font: 700 clamp(43px, 5vw, 68px)/.92 var(--retro-display) !important;
+  letter-spacing: -.4px !important;
+}
+
+.retro-admin-date {
+  color: var(--retro-muted);
+  text-transform: capitalize;
+  font: italic 13px var(--retro-serif);
+}
+
+.retro-admin-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 3px double var(--retro-line);
+  border-bottom: 1px solid var(--retro-line);
+}
+
+.retro-admin-dashboard-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.retro-admin-card {
+  padding: 20px 0 10px !important;
+  border: 0 !important;
+  border-top: 3px double var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.retro-admin-card-title {
+  text-transform: uppercase;
+  font: 700 25px/1 var(--retro-display) !important;
+  letter-spacing: .2px;
+}
+
+.retro-admin-shell .admin-table-scroll-inner > div:first-child {
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  letter-spacing: .6px;
+  border-color: var(--retro-line) !important;
+}
+
+.retro-admin-shell .admin-table-scroll-inner > div:last-child > div {
+  border-color: rgb(189 178 153 / .55) !important;
+}
+
+@media (max-width: 1180px) {
+  .retro-admin-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1024px) {
+  .retro-admin-dashboard-split { gap: 28px; }
+}
+
+@media (max-width: 768px) {
+  .retro-admin-page-heading {
+    align-items: stretch;
+    padding-bottom: 18px;
+  }
+  .retro-admin-shell .admin-page-title { font-size: 44px !important; }
+  .retro-admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 430px) {
+  .retro-admin-stats { grid-template-columns: minmax(0, 1fr); }
+}
+
+.retro-account-shop-link,
+.retro-account-primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px !important;
+  border: 1px solid var(--retro-red) !important;
+  border-radius: 0 !important;
+  background: var(--retro-red) !important;
+  color: #fff8e9 !important;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .6px;
+}
+
+.retro-account-shop-link:hover,
+.retro-account-primary-link:hover {
+  border-color: #982719 !important;
+  background: #982719 !important;
+}
+
+.retro-account-card {
+  padding: 19px 0 12px !important;
+  border: 0 !important;
+  border-top: 3px double var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.retro-account-card > div:first-child,
+.retro-account-card > div:first-child > div:first-child {
+  color: var(--retro-muted);
+}
+
+.retro-account-page-heading {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--retro-line);
+}
+
+.retro-account-page-heading > div:last-child {
+  color: var(--retro-muted) !important;
+  font: italic 13px var(--retro-serif) !important;
+}
+
+.retro-account-table-card {
+  gap: 18px !important;
+}
+
+.retro-account-table-card > div:first-child > a {
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--retro-ink);
+  color: var(--retro-ink) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  letter-spacing: .6px;
+}
+
+.retro-account-table-card > div:first-child > a:hover {
+  color: var(--retro-red) !important;
+  border-color: var(--retro-red);
+}
+
+.retro-account-shell .admin-table-scroll-inner > div:last-child > a {
+  border-color: rgb(189 178 153 / .55) !important;
+  transition: background .18s ease;
+}
+
+.retro-account-shell .admin-table-scroll-inner > div:last-child > a:hover {
+  background: rgb(189 48 32 / .05);
+}
+
+.retro-account-form {
+  width: min(100%, 560px);
+  max-width: 560px !important;
+  padding: 20px 0 8px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.retro-account-form label {
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .8px;
+}
+
+.retro-account-form input {
+  min-height: 44px;
+  padding: 10px 12px !important;
+  color: var(--retro-ink) !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: rgb(245 238 219 / .52);
+}
+
+.retro-account-form input::placeholder {
+  color: rgb(118 110 91 / .62);
+}
+
+/* Modales et dialogues admin — rendus hors de .retro-admin-shell par le slot parallèle. */
+.retro-admin-modal-backdrop,
+.retro-admin-confirm-backdrop {
+  background: rgb(51 47 38 / .68) !important;
+  backdrop-filter: blur(2px) sepia(.12);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.retro-admin-modal :is(button, input, textarea, a):focus-visible,
+.retro-admin-confirm :is(button, a):focus-visible {
+  outline: 3px solid #8f5617;
+  outline-offset: 2px;
+}
+
+.retro-admin-form-primary,
+.retro-admin-form-secondary {
+  min-height: 42px;
+  padding: 0 17px !important;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .6px;
+}
+
+.retro-admin-form-primary {
+  border: 1px solid var(--retro-red) !important;
+  background: var(--retro-red) !important;
+  color: #fff8e9 !important;
+}
+
+.retro-admin-form-primary:hover:not(:disabled) {
+  border-color: #982719 !important;
+  background: #982719 !important;
+}
+
+.retro-admin-form-primary.is-danger {
+  border-color: var(--retro-ink) !important;
+  background: var(--retro-ink) !important;
+}
+
+.retro-admin-form-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--retro-line) !important;
+  background: transparent !important;
+  color: var(--retro-ink) !important;
+}
+
+.retro-admin-form-secondary:hover:not(:disabled) {
+  color: var(--retro-red) !important;
+  border-color: var(--retro-red) !important;
+}

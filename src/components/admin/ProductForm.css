@@ -1,0 +1,116 @@
+/* ProductForm.tsx */
+
+.retro-admin-product-form {
+  color: var(--retro-ink);
+  background: transparent !important;
+  border-color: var(--retro-line) !important;
+  border-radius: 0 !important;
+}
+
+.retro-admin-product-form.is-embedded {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 23px 24px 26px !important;
+  gap: 19px !important;
+  scrollbar-color: var(--retro-line) transparent;
+}
+
+.retro-admin-product-form label,
+.retro-admin-product-form label span {
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .8px;
+}
+
+.retro-admin-product-form input:not([type="hidden"]):not([type="checkbox"]):not([type="color"]),
+.retro-admin-product-form textarea {
+  min-height: 44px;
+  padding: 10px 12px !important;
+  color: var(--retro-ink) !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: rgb(245 238 219 / .52) !important;
+  font-size: 14px !important;
+}
+
+.retro-admin-product-form textarea { min-height: 112px; }
+
+.retro-admin-product-form input::placeholder,
+.retro-admin-product-form textarea::placeholder {
+  color: rgb(118 110 91 / .62);
+}
+
+.retro-admin-product-form input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--retro-red);
+}
+
+.retro-admin-product-form input[type="color"] {
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+}
+
+.retro-admin-product-form input[type="file"] {
+  padding: 5px !important;
+}
+
+.retro-admin-product-form input[type="file"]::file-selector-button {
+  min-height: 32px;
+  margin-right: 12px;
+  padding: 0 12px;
+  border: 0;
+  border-right: 1px solid var(--retro-line);
+  background: var(--retro-photo);
+  color: var(--retro-ink);
+  text-transform: uppercase;
+  font: 700 10px Arial, Helvetica, sans-serif;
+  letter-spacing: .6px;
+  cursor: pointer;
+}
+
+.retro-admin-product-form button {
+  border-radius: 0 !important;
+}
+
+.retro-admin-form-actions {
+  margin-top: 5px;
+  padding-top: 20px !important;
+  border-top: 3px double var(--retro-line);
+}
+
+.retro-admin-product-image {
+  border-radius: 0 !important;
+  border-color: var(--retro-line) !important;
+  background: var(--retro-photo) !important;
+}
+
+.retro-admin-product-image.is-primary {
+  border-color: var(--retro-red) !important;
+}
+
+.retro-admin-product-image > span {
+  border-radius: 0 !important;
+  background: var(--retro-red) !important;
+}
+
+.retro-admin-form-success {
+  border: 1px solid var(--retro-line);
+  border-left: 3px solid var(--retro-red);
+  border-radius: 0 !important;
+  background: var(--retro-paper-light) !important;
+  color: var(--retro-ink) !important;
+  font: italic 13px var(--retro-serif) !important;
+}
+
+@media (max-width: 600px) {
+  .retro-admin-product-form.is-embedded { padding: 20px 18px 28px !important; }
+
+  .retro-admin-product-form > div:has(> input[name="sizes"]) > div > div {
+    grid-template-columns: minmax(0, 1fr) 90px auto !important;
+    gap: 6px !important;
+  }
+}

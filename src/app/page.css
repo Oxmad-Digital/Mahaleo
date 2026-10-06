@@ -1,0 +1,39 @@
+/* Page / (accueil) */
+
+.retro-home { grid-template-rows: 26px 93px 95px minmax(0, 1fr) 45px; }
+.retro-masthead {
+  display: grid;
+  grid-template-columns: 170px 1fr 170px;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--retro-line);
+}
+.retro-masthead h1 { margin: 0; white-space: nowrap; font: 700 clamp(28px, 3.7vw, 58px)/1 var(--retro-display); letter-spacing: -.8px; }
+.retro-masthead > span { text-align: left; font: 11px/1.7 var(--retro-serif); letter-spacing: 1px; }
+.retro-masthead > span:last-child { text-align: right; }
+
+@media (min-width: 1600px) {
+  .retro-home { grid-template-rows: 27px 105px 114px minmax(0, 1fr) 52px; }
+}
+
+@media (max-width: 1200px) {
+  .retro-masthead { grid-template-columns: 125px 1fr 125px; }
+  .retro-masthead h1 { font-size: 3.8vw; }
+}
+
+@media (max-width: 900px) {
+  .retro-home { grid-template-rows: 25px 83px 80px minmax(0, 1fr) 42px; }
+  .retro-masthead { grid-template-columns: 1fr; }
+  .retro-masthead > span { display: none; }
+  .retro-masthead h1 { font-size: clamp(34px, 6.5vw, 50px); }
+}
+
+@media (max-width: 600px) {
+  .retro-home { grid-template-rows: 23px 69px 57px minmax(0, 1fr) 36px; }
+  .retro-masthead h1 { font-size: clamp(28px, 8.5vw, 37px); }
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+  .retro-home { grid-template-rows: 23px 75px 68px minmax(0, 1fr) 37px; }
+}

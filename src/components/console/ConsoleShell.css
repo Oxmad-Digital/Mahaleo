@@ -1,0 +1,337 @@
+/* ConsoleShell.tsx */
+
+@media (max-width: 768px) {
+  /*
+   * `align-items: flex-start` (style inline, utile à la sidebar collante sur
+   * grand écran) dimensionnerait ici les enfants à leur contenu : la largeur
+   * minimale des tableaux qui défilent (bloc ≤1024px) étirerait alors
+   * `.admin-main`, et c'est la page entière — entête, recherche, bouton —
+   * qui déborderait au lieu du seul tableau. `stretch` les borne à la
+   * largeur de l'écran ; le débordement reste dans `.admin-table-scroll`.
+   */
+  .admin-shell-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .admin-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* La sidebar verticale devient une barre de navigation fixe en bas. */
+  .admin-sidebar {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+    border-right: none !important;
+    border-top: 1px solid rgba(55, 53, 47, 0.09);
+    z-index: 30;
+  }
+
+  .admin-sidebar-inner {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    width: 100%;
+  }
+
+  .admin-logo {
+    display: none !important;
+  }
+
+  .admin-nav-list {
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    gap: 2px !important;
+    flex: 1;
+  }
+
+  .admin-nav-item {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  /* Laisse la place à la barre de navigation fixe en bas. */
+  .admin-main {
+    padding-bottom: 64px;
+  }
+
+  .admin-header {
+    padding: 10px 16px !important;
+  }
+
+  /* Le fil d'Ariane rétrécit plutôt que de se faire tronquer par le chip utilisateur. */
+  .admin-breadcrumb {
+    font-size: 12px !important;
+    gap: 6px !important;
+  }
+
+  .admin-user-name {
+    display: none !important;
+  }
+
+  .admin-content {
+    padding: 20px 16px 32px !important;
+    gap: 20px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .admin-shell .admin-header {
+    padding: 12px 28px !important;
+  }
+
+  .admin-shell .admin-content {
+    padding: 32px 28px 56px !important;
+  }
+}
+
+.admin-nav-label { display: none; }
+
+.retro-admin-shell,
+.retro-admin-shell * { box-sizing: border-box; }
+
+.retro-admin-shell {
+  --admin-sidebar-width: 222px;
+  color: var(--retro-ink) !important;
+  background:
+    radial-gradient(ellipse at 75% 8%, rgb(245 238 219 / .65), transparent 45%),
+    var(--retro-paper) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.retro-admin-shell :is(a, button):focus-visible {
+  outline: 3px solid #8f5617;
+  outline-offset: 3px;
+}
+
+.retro-admin-shell .admin-sidebar {
+  width: var(--admin-sidebar-width) !important;
+  padding: 30px 24px 22px !important;
+  align-items: stretch !important;
+  background: var(--retro-paper-light) !important;
+  border-right: 1px solid var(--retro-line) !important;
+}
+
+.retro-admin-shell .admin-sidebar-inner {
+  width: 100%;
+  height: 100%;
+  align-items: stretch !important;
+  gap: 30px !important;
+}
+
+.retro-admin-shell .admin-logo-retro {
+  width: 100% !important;
+  height: auto !important;
+  padding-bottom: 20px;
+  border-bottom: 3px double var(--retro-line);
+  border-radius: 0 !important;
+  background: transparent !important;
+  display: block !important;
+  text-align: center;
+}
+
+.retro-admin-shell .admin-logo-retro img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.retro-admin-shell .admin-logo-retro span {
+  display: block;
+  margin-top: 11px;
+  color: var(--retro-muted);
+  font-size: 10px;
+  letter-spacing: 2.4px;
+}
+
+.retro-admin-shell .admin-nav-list {
+  gap: 3px !important;
+}
+
+.retro-admin-shell .admin-nav-list > a {
+  display: block;
+}
+
+.retro-admin-shell .admin-nav-item {
+  position: relative;
+  width: 100% !important;
+  height: 43px !important;
+  padding: 0 10px;
+  justify-content: flex-start !important;
+  gap: 12px;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--retro-muted);
+  transition: color .18s ease, background .18s ease;
+}
+
+.retro-admin-shell .admin-nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 7px auto 7px -24px;
+  width: 3px;
+  background: transparent;
+}
+
+.retro-admin-shell .admin-nav-item:hover {
+  color: var(--retro-red);
+  background: rgb(189 48 32 / .055) !important;
+}
+
+.retro-admin-shell .admin-nav-item.is-active {
+  color: var(--retro-ink);
+  background: rgb(189 48 32 / .08) !important;
+}
+
+.retro-admin-shell .admin-nav-item.is-active::before {
+  background: var(--retro-red);
+}
+
+.retro-admin-shell .admin-nav-item svg {
+  flex: none;
+  stroke: currentColor;
+}
+
+.retro-admin-shell .admin-nav-label {
+  display: inline;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .7px;
+}
+
+.retro-admin-shell .admin-sidebar-edition {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--retro-line);
+  color: var(--retro-muted);
+  font: italic 11px/1.55 var(--retro-serif);
+  letter-spacing: .7px;
+}
+
+.retro-admin-shell .admin-main {
+  min-height: 100dvh;
+}
+
+.retro-admin-shell .admin-header {
+  min-height: 64px;
+  padding: 10px 36px !important;
+  background: rgb(238 230 209 / .78);
+  border-bottom: 3px double var(--retro-line) !important;
+  backdrop-filter: blur(8px);
+}
+
+.retro-admin-shell .admin-breadcrumb {
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  letter-spacing: .8px;
+}
+
+.retro-admin-shell .admin-breadcrumb span:last-child {
+  color: var(--retro-ink) !important;
+}
+
+.retro-admin-shell .admin-store-link {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--retro-ink);
+  text-transform: uppercase;
+  color: var(--retro-ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
+
+.retro-admin-shell .admin-store-link:hover {
+  color: var(--retro-red);
+  border-color: var(--retro-red);
+}
+
+.retro-admin-shell .admin-user-chip {
+  padding: 5px 10px 5px 5px !important;
+  border: 1px solid var(--retro-line);
+  border-radius: 0 !important;
+}
+
+.retro-admin-shell .admin-user-chip > div {
+  border-radius: 0 !important;
+  background: var(--retro-ink) !important;
+}
+
+.retro-admin-shell .admin-header-actions form button {
+  border-color: var(--retro-line) !important;
+  border-radius: 0 !important;
+}
+
+.retro-admin-shell .admin-content {
+  padding: 38px 36px 64px !important;
+  gap: 34px !important;
+}
+
+@media (max-width: 768px) {
+  .retro-admin-shell .admin-sidebar {
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid var(--retro-line) !important;
+    background: var(--retro-paper-light) !important;
+  }
+
+  .retro-admin-shell .admin-sidebar-inner {
+    height: auto;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  .retro-admin-shell .admin-nav-list { gap: 2px !important; }
+  .retro-admin-shell .admin-nav-item {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0;
+    justify-content: center !important;
+  }
+
+  .retro-admin-shell .admin-nav-item::before {
+    inset: auto 8px -6px;
+    width: auto;
+    height: 3px;
+  }
+
+  .retro-admin-shell .admin-nav-label,
+  .retro-admin-shell .admin-sidebar-edition { display: none; }
+
+  .retro-admin-shell .admin-header {
+    min-height: 56px;
+    padding: 8px 16px !important;
+  }
+
+  .retro-admin-shell .admin-store-link { display: none; }
+  .retro-admin-shell .admin-content {
+    padding: 24px 16px 38px !important;
+    gap: 26px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-admin-shell *, .retro-admin-shell *::before, .retro-admin-shell *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.retro-account-shell .admin-logo-retro span {
+  letter-spacing: 2px;
+}
+
+.retro-account-shell .admin-sidebar {
+  background:
+    linear-gradient(rgb(245 238 219 / .82), rgb(245 238 219 / .82)),
+    var(--retro-paper-light) !important;
+}

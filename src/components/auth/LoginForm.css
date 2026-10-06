@@ -1,0 +1,5 @@
+/* LoginForm.tsx */
+
+.retro-auth-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; }
+.retro-check { display: inline-flex; align-items: center; gap: 9px; cursor: pointer; }
+.retro-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--retro-red); }

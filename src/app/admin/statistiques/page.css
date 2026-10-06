@@ -1,0 +1,24 @@
+/* Page /admin/statistiques */
+
+@media (max-width: 768px) {
+  /* Page Statistiques : les grilles à colonnes fixes passent en une colonne. */
+  .admin-stats-topgrid,
+  .admin-stats-geo-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /*
+   * Page Statistiques (admin seul) : les trois listes du haut deviennent
+   * illisibles côte à côte à cette largeur, et la carte du monde passe sous
+   * son classement plutôt qu'à côté.
+   */
+  .admin-stats-topgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .admin-stats-geo-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}

@@ -1,0 +1,24 @@
+/* LegalCard.tsx */
+
+/* Pages légales : texte long, on rend le défilement au document (bloqué
+   globalement sur html/body). `.retro-content-page` est déjà en hauteur de
+   contenu : le pied de page suit le texte. */
+html:has(.retro-legal-page),
+html:has(.retro-legal-page) body { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+.retro-legal-sheet { display: grid; grid-template-columns: minmax(180px, .6fr) minmax(0, 2fr); gap: 26px; padding-top: 22px; }
+.retro-legal-date { position: sticky; top: 20px; align-self: start; margin: 0; padding-top: 10px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font: italic 13px/1.5 var(--retro-serif); }
+.retro-legal-body { max-width: 780px; padding-left: 26px; border-left: 1px solid var(--retro-line); }
+.retro-legal-section { display: grid; gap: 10px; padding: 16px 0 20px; border-top: 1px solid var(--retro-line); color: #4d483b; font-size: 14px; line-height: 1.7; }
+.retro-legal-section:first-child { border-top: 0; padding-top: 0; }
+.retro-legal-section h2 { margin: 0; color: var(--retro-ink); text-transform: uppercase; font: 700 26px/1 var(--retro-display); }
+.retro-legal-section a { color: var(--retro-red); border-bottom: 1px solid currentColor; }
+
+@media (max-width: 900px) {
+  .retro-legal-sheet { grid-template-columns: 1fr; gap: 16px; }
+  .retro-legal-date { position: static; }
+  .retro-legal-body { padding-left: 0; border-left: 0; }
+}
+
+@media (max-width: 600px) {
+  .retro-legal-section h2 { font-size: 23px; }
+}

@@ -1,0 +1,527 @@
+/* Page /maintenance */
+
+/* Maintenance */
+.retro-maintenance,
+.retro-maintenance * {
+  box-sizing: border-box;
+}
+
+.retro-maintenance {
+  width: 100%;
+  height: 100dvh;
+  padding: 19px 36px 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 26px 93px minmax(0, 1fr) 45px;
+  color: var(--retro-ink);
+  background:
+    radial-gradient(ellipse at 72% 18%, rgb(245 238 219 / .68), transparent 52%),
+    var(--retro-paper);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.retro-maintenance :is(a, button):focus-visible {
+  outline: 3px solid #8f5617;
+  outline-offset: 3px;
+}
+
+.retro-maintenance-edition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--retro-line);
+  color: var(--retro-muted);
+  font-size: 10px;
+  letter-spacing: 1.1px;
+}
+
+.retro-maintenance-edition span:nth-child(2) {
+  font: italic 11px var(--retro-serif);
+  letter-spacing: 1.5px;
+}
+
+.retro-maintenance-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 13px 0;
+  border-bottom: 3px double var(--retro-line);
+}
+
+.retro-maintenance-context {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.retro-maintenance-context strong {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.retro-maintenance-context span {
+  color: var(--retro-muted);
+  font: italic 13px var(--retro-serif);
+}
+
+.retro-maintenance-logo {
+  display: block;
+  width: 265px;
+  height: auto;
+  max-height: 66px;
+  object-fit: contain;
+}
+
+.retro-maintenance-status {
+  justify-self: end;
+  min-height: 38px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--retro-line);
+  color: var(--retro-muted);
+  text-transform: uppercase;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
+
+.retro-maintenance-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--retro-red);
+  box-shadow: 0 0 0 3px rgb(189 48 32 / .13);
+}
+
+.retro-maintenance-stage {
+  min-height: 0;
+  padding: 23px 0 22px;
+  display: grid;
+  grid-template-columns: minmax(260px, .78fr) minmax(0, 1.22fr);
+  gap: 36px;
+}
+
+.retro-maintenance-visual {
+  min-width: 0;
+  min-height: 0;
+  padding-right: 36px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--retro-line);
+}
+
+.retro-maintenance-panel-label {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--retro-muted);
+  font-size: 9px;
+  letter-spacing: 1.1px;
+}
+
+.retro-maintenance-photo {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgb(194 179 147 / .55);
+  background: #bfa77f;
+}
+
+.retro-maintenance-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(37 26 19 / .84), transparent 52%);
+}
+
+.retro-maintenance-photo > img {
+  object-fit: cover;
+  object-position: 50% 55%;
+  filter: sepia(.18) contrast(1.03);
+}
+
+.retro-maintenance-photo > div {
+  position: absolute;
+  z-index: 1;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  color: #fff4dc;
+}
+
+.retro-maintenance-photo span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 9px;
+  letter-spacing: 1.4px;
+}
+
+.retro-maintenance-photo strong {
+  display: block;
+  max-width: 420px;
+  font: 700 clamp(31px, 3.4vw, 54px)/.92 var(--retro-display);
+}
+
+.retro-maintenance-visual > p {
+  margin: 0;
+  padding-top: 12px;
+  color: var(--retro-muted);
+  font: italic 11px/1.35 var(--retro-serif);
+}
+
+.retro-maintenance-content {
+  min-width: 0;
+  min-height: 0;
+  padding: 28px 0 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.retro-maintenance-kicker {
+  color: var(--retro-red);
+  text-transform: uppercase;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.retro-maintenance-copy h1 {
+  margin: 10px 0 15px;
+  max-width: 760px;
+  text-transform: uppercase;
+  font: 700 clamp(64px, 7.7vw, 112px)/.82 var(--retro-display);
+  letter-spacing: -1.2px;
+}
+
+.retro-maintenance-copy h1 em {
+  display: block;
+  color: var(--retro-red);
+  font-style: normal;
+}
+
+.retro-maintenance-copy > p {
+  max-width: 590px;
+  margin: 0;
+  color: var(--retro-muted);
+  font: italic clamp(14px, 1.25vw, 17px)/1.55 var(--retro-serif);
+}
+
+.retro-maintenance-progress {
+  margin-top: clamp(26px, 5vh, 52px);
+  padding: 13px 0 16px;
+  border-top: 3px double var(--retro-line);
+  border-bottom: 1px solid var(--retro-line);
+}
+
+.retro-maintenance-progress > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.retro-maintenance-progress span,
+.retro-maintenance-progress strong {
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.retro-maintenance-progress strong {
+  color: var(--retro-muted);
+  font-weight: 400;
+}
+
+.retro-maintenance-progress > span {
+  height: 3px;
+  margin-top: 11px;
+  display: block;
+  overflow: hidden;
+  background: rgb(189 178 153 / .62);
+}
+
+.retro-maintenance-progress > span i {
+  display: block;
+  width: 68%;
+  height: 100%;
+  background: var(--retro-red);
+}
+
+.retro-maintenance-steps {
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+}
+
+.retro-maintenance-steps li {
+  min-width: 0;
+  padding: 0 15px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-left: 1px solid var(--retro-line);
+}
+
+.retro-maintenance-steps li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.retro-maintenance-steps strong {
+  color: var(--retro-red);
+  font: 700 21px/1 var(--retro-display);
+}
+
+.retro-maintenance-steps span {
+  color: var(--retro-muted);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: .7px;
+}
+
+.retro-maintenance-note {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.retro-maintenance-note p {
+  margin: 0;
+  color: var(--retro-muted);
+  font: italic 12px var(--retro-serif);
+}
+
+.retro-maintenance-note a {
+  padding: 9px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--retro-ink);
+  text-transform: uppercase;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
+
+.retro-maintenance-note a:hover {
+  color: var(--retro-red);
+  border-color: var(--retro-red);
+}
+
+.retro-maintenance-note a span {
+  color: var(--retro-red);
+  font-size: 16px;
+}
+
+.retro-maintenance-footer {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 3px double var(--retro-line);
+  color: var(--retro-muted);
+  font-size: 9px;
+  letter-spacing: .7px;
+}
+
+.retro-maintenance-footer span:nth-child(2) {
+  font: italic 11px var(--retro-serif);
+  letter-spacing: 0;
+}
+
+@media (max-width: 1100px) {
+  .retro-maintenance-stage {
+    gap: 26px;
+  }
+
+  .retro-maintenance-visual {
+    padding-right: 26px;
+  }
+
+  .retro-maintenance-copy h1 {
+    font-size: clamp(59px, 8vw, 88px);
+  }
+}
+
+@media (max-width: 800px) {
+  .retro-maintenance {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: auto;
+    grid-template-rows: 25px 83px auto 42px;
+    padding: 15px 24px 0;
+  }
+
+  .retro-maintenance-logo {
+    width: 235px;
+    max-height: 58px;
+  }
+
+  .retro-maintenance-context span {
+    display: none;
+  }
+
+  .retro-maintenance-stage {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 22px 0 30px;
+  }
+
+  .retro-maintenance-visual {
+    min-height: 330px;
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .retro-maintenance-photo {
+    min-height: 275px;
+  }
+
+  .retro-maintenance-content {
+    padding-top: 0;
+  }
+
+  .retro-maintenance-copy h1 {
+    max-width: none;
+    font-size: clamp(58px, 14vw, 90px);
+  }
+
+  .retro-maintenance-note {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .retro-maintenance {
+    grid-template-rows: 23px 69px auto 38px;
+    padding: 10px 18px 0;
+  }
+
+  .retro-maintenance-edition {
+    justify-content: center;
+  }
+
+  .retro-maintenance-edition span:not(:first-child) {
+    display: none;
+  }
+
+  .retro-maintenance-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 9px 0;
+  }
+
+  .retro-maintenance-context {
+    display: none;
+  }
+
+  .retro-maintenance-logo {
+    width: 175px;
+    max-height: 43px;
+  }
+
+  .retro-maintenance-status {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+
+  .retro-maintenance-status span {
+    display: none;
+  }
+
+  .retro-maintenance-stage {
+    gap: 22px;
+    padding-top: 17px;
+  }
+
+  .retro-maintenance-visual {
+    min-height: 280px;
+  }
+
+  .retro-maintenance-photo {
+    min-height: 230px;
+  }
+
+  .retro-maintenance-photo > div {
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+  }
+
+  .retro-maintenance-photo strong {
+    font-size: clamp(32px, 11vw, 46px);
+  }
+
+  .retro-maintenance-copy h1 {
+    margin-top: 8px;
+    font-size: clamp(52px, 18vw, 73px);
+  }
+
+  .retro-maintenance-copy > p {
+    font-size: 14px;
+  }
+
+  .retro-maintenance-progress {
+    margin-top: 26px;
+  }
+
+  .retro-maintenance-steps {
+    grid-template-columns: 1fr;
+    margin-top: 12px;
+  }
+
+  .retro-maintenance-steps li,
+  .retro-maintenance-steps li:first-child {
+    padding: 10px 0;
+    border-top: 1px solid var(--retro-line);
+    border-left: 0;
+  }
+
+  .retro-maintenance-note {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .retro-maintenance-footer {
+    justify-content: center;
+  }
+
+  .retro-maintenance-footer span:not(:nth-child(2)) {
+    display: none;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 801px) {
+  .retro-maintenance {
+    padding-top: 12px;
+    grid-template-rows: 23px 75px minmax(0, 1fr) 37px;
+  }
+
+  .retro-maintenance-logo {
+    width: 225px;
+    max-height: 55px;
+  }
+
+  .retro-maintenance-stage {
+    padding: 15px 0;
+  }
+
+  .retro-maintenance-content {
+    padding-top: 14px;
+  }
+
+  .retro-maintenance-progress {
+    margin-top: 22px;
+  }
+}

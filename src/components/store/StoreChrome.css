@@ -1,0 +1,107 @@
+/* StoreChrome.tsx */
+
+.retro-page,
+.retro-page * { box-sizing: border-box; }
+
+.retro-page {
+  width: 100%;
+  height: 100dvh;
+  padding: 19px 36px 0;
+  overflow: hidden;
+  color: var(--retro-ink);
+  background: radial-gradient(ellipse at 50% 35%, rgb(245 238 219 / .45), transparent 75%), var(--retro-paper);
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-rows: 26px 93px minmax(0, 1fr) 45px;
+}
+
+.retro-page button { font: inherit; color: inherit; }
+.retro-page button,
+.retro-page a { -webkit-tap-highlight-color: transparent; }
+.retro-page :is(a, button):focus-visible { outline: 3px solid #8f5617; outline-offset: 3px; }
+.retro-page button { cursor: pointer; }
+
+.retro-edition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--retro-line);
+  color: var(--retro-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.retro-edition span:nth-child(2) { font-family: var(--retro-serif); letter-spacing: 1.5px; }
+
+.retro-header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 3px double var(--retro-line);
+}
+.retro-header-context { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.retro-header-context span { color: var(--retro-muted); font: italic 13px var(--retro-serif); }
+.retro-nav-selected { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; }
+.retro-logo { display: block; line-height: 0; }
+.retro-logo img { display: block; width: 265px; height: auto; max-height: 66px; object-fit: contain; }
+.retro-actions { display: flex; justify-content: flex-end; align-items: center; gap: 18px; }
+.retro-action { display: flex; align-items: center; gap: 9px; min-height: 42px; text-transform: uppercase; font-size: 11px; letter-spacing: .5px; }
+.retro-action svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.retro-action strong { display: grid; place-items: center; min-width: 24px; height: 24px; padding: 0 4px; border: 1px solid var(--retro-line); font-size: 11px; }
+.retro-action-secondary { color: var(--retro-muted); border-bottom: 1px solid transparent; }
+.retro-action-secondary:hover { color: var(--retro-red); border-color: var(--retro-red); }
+
+.retro-footer { min-width: 0; border-top: 3px double var(--retro-line); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 20px; color: var(--retro-muted); font-size: 10px; letter-spacing: .5px; }
+.retro-footer-credit { margin: 0; font: italic 12px var(--retro-serif); letter-spacing: 0; }
+.retro-footer nav { display: flex; justify-content: flex-end; gap: 18px; }
+.retro-footer a:hover { color: var(--retro-red); }
+
+@media (min-width: 1600px) {
+  .retro-page { padding: 24px 50px 0; grid-template-rows: 27px 105px minmax(0, 1fr) 52px; }
+  .retro-logo img { width: 310px; max-height: 75px; }
+}
+
+@media (max-width: 1200px) {
+  .retro-actions { gap: 12px; }
+  .retro-action-secondary { display: none; }
+}
+
+@media (max-width: 900px) {
+  .retro-page { padding: 15px 24px 0; grid-template-rows: 25px 83px minmax(0, 1fr) 42px; }
+  .retro-logo img { width: 235px; max-height: 58px; }
+  .retro-header-context span { display: none; }
+}
+
+@media (max-width: 600px) {
+  .retro-page { padding: 10px 18px 0; grid-template-rows: 23px 69px minmax(0, 1fr) 36px; }
+  .retro-edition { justify-content: center; }
+  .retro-edition span:not(:first-child) { display: none; }
+  .retro-header { grid-template-columns: 1fr auto; padding: 9px 0; }
+  .retro-logo { grid-column: 1; grid-row: 1; justify-self: start; }
+  .retro-logo img { width: 175px; max-height: 43px; }
+  .retro-header-context { display: none; }
+  .retro-actions { grid-column: 2; grid-row: 1; gap: 0; }
+  .retro-action-label { display: none; }
+  .retro-action { min-width: 44px; min-height: 44px; justify-content: flex-end; gap: 6px; }
+  .retro-footer > span { display: none; }
+  .retro-footer { display: flex; justify-content: space-between; gap: 8px; }
+  /* La mention reste au centre, entre les deux liens légaux. */
+  .retro-footer nav { display: contents; }
+  .retro-footer nav a:first-child { order: -1; }
+  .retro-footer-credit { font-size: 11px; white-space: nowrap; }
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+  .retro-page { padding-top: 12px; grid-template-rows: 23px 75px minmax(0, 1fr) 37px; }
+  .retro-logo img { width: 225px; max-height: 55px; }
+}
+
+@media (max-height: 500px) {
+  .retro-page { height: auto; min-height: 650px; overflow: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-page *, .retro-page *::before, .retro-page *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}

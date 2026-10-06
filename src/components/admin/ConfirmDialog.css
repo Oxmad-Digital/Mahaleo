@@ -1,0 +1,40 @@
+/* ConfirmDialog.tsx */
+
+.retro-admin-confirm-title {
+  text-transform: uppercase;
+  font: 700 31px/1 var(--retro-display) !important;
+  letter-spacing: .1px !important;
+}
+
+.retro-admin-confirm-backdrop {
+  padding: 20px !important;
+}
+
+.retro-admin-confirm {
+  max-width: 440px !important;
+  padding: 25px !important;
+  color: var(--retro-ink);
+  background: var(--retro-paper) !important;
+  border: 1px solid var(--retro-line);
+  border-top: 3px double var(--retro-line);
+  border-radius: 0 !important;
+  box-shadow: 8px 10px 0 rgb(51 47 38 / .18) !important;
+}
+
+.retro-admin-confirm-title {
+  margin-bottom: 12px !important;
+  font-size: 27px !important;
+}
+
+.retro-admin-confirm-message {
+  margin-bottom: 24px !important;
+  color: var(--retro-muted) !important;
+  font: 14px/1.55 Arial, Helvetica, sans-serif !important;
+}
+
+@media (max-width: 600px) {
+  .retro-admin-confirm {
+    padding: 22px 20px !important;
+    box-shadow: 5px 6px 0 rgb(51 47 38 / .18) !important;
+  }
+}

@@ -1,0 +1,8 @@
+/* ClientsTable.tsx */
+
+@media (max-width: 1024px) {
+  /* Le tableau des clients a huit colonnes, dont deux colonnes d'icônes. */
+  .admin-table-scroll-inner--wide {
+    min-width: 680px;
+  }
+}

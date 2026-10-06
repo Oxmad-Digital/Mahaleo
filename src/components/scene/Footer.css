@@ -1,0 +1,9 @@
+/* Footer.tsx */
+
+.footer-link {
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}

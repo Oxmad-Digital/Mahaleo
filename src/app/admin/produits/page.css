@@ -1,0 +1,10 @@
+/* Page /admin/produits */
+
+@media (max-width: 768px) {
+  /* Page Produits : actions (recherche + ajout) empilées. */
+  .admin-product-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100%;
+  }
+}

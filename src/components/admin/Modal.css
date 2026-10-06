@@ -1,0 +1,177 @@
+/* Modal.tsx */
+
+.retro-admin-modal-backdrop {
+  align-items: center !important;
+  padding: 24px !important;
+  background:
+    linear-gradient(rgb(51 47 38 / .72), rgb(51 47 38 / .72)),
+    repeating-linear-gradient(90deg, transparent 0 79px, rgb(238 230 209 / .08) 79px 80px) !important;
+}
+
+.retro-admin-modal {
+  width: min(100%, 760px) !important;
+  max-width: 760px !important;
+  max-height: calc(100dvh - 48px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: var(--retro-ink);
+  background:
+    radial-gradient(ellipse at 80% 0%, rgb(245 238 219 / .75), transparent 48%),
+    var(--retro-paper) !important;
+  border: 1px solid var(--retro-line);
+  border-top: 4px solid var(--retro-red);
+  border-radius: 0 !important;
+  box-shadow:
+    12px 14px 0 rgb(51 47 38 / .2),
+    0 22px 70px rgb(27 23 17 / .24) !important;
+}
+
+.retro-admin-modal-header {
+  flex: none;
+  min-height: 112px;
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  align-items: stretch;
+  border-bottom: 3px double var(--retro-line) !important;
+}
+
+.retro-admin-modal-folio {
+  padding: 20px 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--retro-line);
+  color: var(--retro-muted);
+}
+
+.retro-admin-modal-folio span {
+  text-transform: uppercase;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.retro-admin-modal-folio strong {
+  color: var(--retro-red);
+  font: 700 30px/1 var(--retro-display);
+}
+
+.retro-admin-modal-heading {
+  min-width: 0;
+  padding: 20px 24px 18px;
+  align-self: center;
+}
+
+.retro-admin-modal-heading > span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--retro-red);
+  text-transform: uppercase;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.retro-admin-modal-title {
+  text-transform: uppercase;
+  font: 700 clamp(34px, 4vw, 44px)/.94 var(--retro-display) !important;
+  letter-spacing: .1px !important;
+}
+
+.retro-admin-modal-heading p {
+  margin: 8px 0 0;
+  color: var(--retro-muted);
+  font: italic 11px/1.25 var(--retro-serif);
+  letter-spacing: .2px;
+}
+
+.retro-admin-modal-close {
+  width: 44px !important;
+  height: 44px !important;
+  margin: 18px 20px 0 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  color: var(--retro-muted) !important;
+  background: transparent !important;
+  cursor: pointer;
+}
+
+.retro-admin-modal-close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.retro-admin-modal-close:hover {
+  color: #fff8e9 !important;
+  border-color: var(--retro-red) !important;
+  background: var(--retro-red) !important;
+}
+
+.retro-admin-modal-body {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .retro-admin-modal-backdrop {
+    align-items: stretch !important;
+    padding: 0 !important;
+  }
+
+  .retro-admin-modal {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: 100dvh;
+    min-height: 100dvh;
+    border: 0;
+    border-top: 4px solid var(--retro-red);
+    box-shadow: none !important;
+  }
+
+  .retro-admin-modal-header {
+    min-height: 91px;
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+  }
+
+  .retro-admin-modal-folio {
+    padding: 14px 11px;
+  }
+
+  .retro-admin-modal-folio strong {
+    font-size: 24px;
+  }
+
+  .retro-admin-modal-heading {
+    padding: 14px 15px 13px;
+  }
+
+  .retro-admin-modal-heading > span {
+    margin-bottom: 5px;
+    font-size: 8px;
+  }
+
+  .retro-admin-modal-heading p {
+    display: none;
+  }
+
+  .retro-admin-modal-title { font-size: 28px !important; }
+
+  .retro-admin-modal-close {
+    margin: 14px 12px 0 0;
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

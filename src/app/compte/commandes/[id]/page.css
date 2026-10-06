@@ -1,0 +1,57 @@
+/* Page /compte/commandes/[id] */
+
+.retro-account-order-header {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--retro-line);
+}
+
+.retro-account-back-link {
+  min-height: 38px;
+  padding: 0 13px !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  color: var(--retro-ink) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .5px;
+}
+
+.retro-account-back-link:hover {
+  color: var(--retro-red) !important;
+  border-color: var(--retro-red) !important;
+}
+
+.retro-account-pill {
+  padding: 9px 13px !important;
+  border: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: rgb(245 238 219 / .38);
+}
+
+.retro-account-pill span:first-child {
+  color: var(--retro-muted) !important;
+  font-size: 9px !important;
+  letter-spacing: .7px !important;
+}
+
+.retro-account-shell .admin-order-items-header {
+  color: var(--retro-muted) !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  letter-spacing: .6px;
+  border-color: var(--retro-line) !important;
+}
+
+.retro-account-shell .admin-order-item-row {
+  border-color: rgb(189 178 153 / .55) !important;
+}
+
+.retro-account-shell .admin-order-item-row > div > div {
+  border-radius: 0 !important;
+  background: var(--retro-photo) !important;
+}
+
+@media (max-width: 768px) {
+  .retro-account-order-header > div:first-child { align-items: flex-start !important; }
+}

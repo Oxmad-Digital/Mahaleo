@@ -1,0 +1,7 @@
+/* OrderStatusStepper.tsx */
+
+@media (max-width: 768px) {
+  .admin-order-stepper-footer {
+    align-items: flex-start !important;
+  }
+}

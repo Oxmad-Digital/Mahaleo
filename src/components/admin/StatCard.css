@@ -1,0 +1,81 @@
+/* StatCard.tsx */
+
+.retro-admin-stat {
+  min-width: 0;
+  padding: 18px 18px 19px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--retro-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  gap: 8px !important;
+}
+
+.retro-admin-stat:last-child { border-right: 0 !important; }
+.retro-admin-stat--tint { background: rgb(228 216 191 / .38) !important; }
+
+.retro-admin-stat-label {
+  min-height: 28px;
+  color: var(--retro-muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: .8px;
+}
+
+.retro-admin-stat-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.retro-admin-stat-value {
+  overflow-wrap: anywhere;
+  font: 700 clamp(25px, 2.35vw, 38px)/1 var(--retro-display);
+}
+
+.retro-admin-delta {
+  color: var(--retro-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.retro-admin-delta.is-positive { color: var(--retro-red); }
+
+.retro-admin-stat-hint {
+  color: var(--retro-muted);
+  font: italic 11px/1.35 var(--retro-serif);
+}
+
+@media (max-width: 1180px) {
+  .retro-admin-stat:nth-child(3) { border-right: 0 !important; }
+  .retro-admin-stat:nth-child(n + 4) { border-top: 1px solid var(--retro-line) !important; }
+}
+
+@media (max-width: 768px) {
+  .retro-admin-stat,
+  .retro-admin-stat:nth-child(3) { border-right: 1px solid var(--retro-line) !important; }
+  .retro-admin-stat:nth-child(even) { border-right: 0 !important; }
+  .retro-admin-stat:nth-child(n + 3) { border-top: 1px solid var(--retro-line) !important; }
+  .retro-admin-stat:last-child { border-right: 1px solid var(--retro-line) !important; }
+}
+
+@media (max-width: 430px) {
+  .retro-admin-stat,
+  .retro-admin-stat:nth-child(3),
+  .retro-admin-stat:last-child {
+    border-right: 0 !important;
+    border-top: 1px solid var(--retro-line) !important;
+  }
+  .retro-admin-stat:first-child { border-top: 0 !important; }
+}
+
+@media (max-width: 1180px) {
+  .retro-account-stats .retro-admin-stat { border-top: 0 !important; border-right: 1px solid var(--retro-line) !important; }
+  .retro-account-stats .retro-admin-stat:last-child { border-right: 0 !important; }
+}
+
+@media (max-width: 430px) {
+  .retro-account-stats .retro-admin-stat { border-right: 0 !important; border-top: 1px solid var(--retro-line) !important; }
+  .retro-account-stats .retro-admin-stat:first-child { border-top: 0 !important; }
+}

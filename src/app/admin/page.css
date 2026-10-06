@@ -1,0 +1,23 @@
+/* Page /admin */
+
+.retro-admin-sales-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.retro-admin-card-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.retro-admin-card-note {
+  color: var(--retro-muted);
+  font: italic 12px var(--retro-serif);
+}
+
+@media (max-width: 768px) {
+  .retro-admin-card-heading { align-items: flex-start; flex-direction: column; gap: 7px; }
+}

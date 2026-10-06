@@ -1,0 +1,9 @@
+/* AccountOrderTimeline.tsx */
+
+.retro-account-timeline {
+  padding-bottom: 22px !important;
+}
+
+.retro-account-timeline > div:first-child {
+  color: var(--retro-ink);
+}
