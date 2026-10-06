@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
@@ -67,7 +67,7 @@ export function ProductDetail({
         <div className="retro-detail-layout">
           <section className={`retro-gallery${images.length > 1 ? " has-thumbnails" : ""}`} aria-label={`Photos de ${product.name}`}>
             {images.length > 1 && (
-              <div className="retro-thumbs" aria-label="Choisir une photo">
+              <div className="retro-thumbs" aria-label="Choisir une photo" style={{ "--thumb-count": images.length } as CSSProperties}>
                 {images.map((image, index) => (
                   <button key={`${image}-${index}`} type="button" className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Afficher la vue ${index + 1}`} aria-pressed={activeImage === index}>
                     <Image src={image} alt="" width={96} height={96} sizes="96px" unoptimized={!isOptimizableImage(image)} />
