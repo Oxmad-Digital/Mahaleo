@@ -47,7 +47,8 @@
 .retro-logo { display: block; line-height: 0; }
 .retro-logo img { display: block; width: 265px; height: auto; max-height: 66px; object-fit: contain; }
 .retro-actions { display: flex; justify-content: flex-end; align-items: center; gap: 0; }
-.retro-action { display: grid; place-items: center; min-width: 42px; min-height: 42px; }
+.retro-action { position: relative; display: grid; place-items: center; min-width: 42px; min-height: 42px; }
+.retro-action-badge { position: absolute; top: 5px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--retro-red); color: var(--retro-paper); font-size: 9px; font-weight: 700; line-height: 16px; text-align: center; pointer-events: none; }
 .retro-action:hover { color: var(--retro-red); }
 .retro-action svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 

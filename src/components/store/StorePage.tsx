@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { StoreShell } from "./StoreChrome";
 import guitar from "../../assets/mahaleo/guitar-retro.webp";
 
-const GROUP_PHOTO_URL = "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/mahaleo-photo-de-groupe.webp";
+const GROUP_PHOTO_URL = "/images/mahaleo-membres-actuels-marche.webp";
 
 export function StorePage({
   eyebrow,
@@ -52,11 +52,11 @@ export function AuthPanel({
         <div className="retro-panel-label"><span>MAHALEO</span><span>DEPUIS 1972</span></div>
         <div className={groupPhoto ? "retro-guitar-image retro-group-photo" : "retro-guitar-image"}>
           {groupPhoto
-            ? <Image src={GROUP_PHOTO_URL} alt="" fill sizes="300px" />
+            ? <Image src={GROUP_PHOTO_URL} alt="" fill sizes="(max-width: 1200px) 32vw, 25vw" />
             : <Image src={guitar} alt="" fill sizes="300px" />}
           {!groupPhoto && <div><span>UNE HISTOIRE</span><strong>QUI SE TRANSMET.</strong></div>}
         </div>
-        {groupPhoto && <span className="retro-photo-credit">© Lucien Rajaonina</span>}
+        {groupPhoto && <span className="retro-photo-credit">Visuel généré · Membres actuels</span>}
       </aside>
       <section className="retro-auth-form">{children}</section>
       {notes ?? (

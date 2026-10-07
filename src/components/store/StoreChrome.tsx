@@ -31,6 +31,7 @@ function StoreHeader() {
         <nav className="retro-actions" aria-label="Navigation principale">
           <Link href="/panier" className="retro-action" aria-label={`Panier, ${itemCount} article${itemCount > 1 ? "s" : ""}`}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Zm3 0V6a4 4 0 0 1 8 0v2" /></svg>
+            {itemCount > 0 && <span className="retro-action-badge" aria-hidden="true">{itemCount > 9 ? "9+" : itemCount}</span>}
           </Link>
           <Link href={accountHref} className="retro-action" aria-label={session?.user ? "Mon compte" : "Connexion"}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
