@@ -42,8 +42,16 @@
 .retro-size-fieldset button { min-width: 48px; height: 42px; border: 1px solid var(--retro-line); background: transparent; font-size: 12px; }
 .retro-size-fieldset button:hover:not(:disabled), .retro-size-fieldset button.active { border-color: var(--retro-ink); background: var(--retro-ink); color: var(--retro-paper); }
 .retro-size-fieldset button:disabled { cursor: not-allowed; opacity: .45; text-decoration: line-through; }
+.retro-size-fieldset.has-error legend { color: var(--retro-red); }
+.retro-size-fieldset.has-error button:not(:disabled):not(.active) { border-color: var(--retro-red); animation: retro-size-shake .35s ease-in-out; }
+.retro-size-error { margin: 10px 0 0; color: var(--retro-red); font-size: 12px; font-weight: 600; }
+@keyframes retro-size-shake { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+@media (prefers-reduced-motion: reduce) { .retro-size-fieldset.has-error button { animation: none; } }
 .retro-product-status { min-height: 18px; margin: 0 0 8px; color: var(--retro-red); font-size: 11px; }
 .retro-detail-actions { display: flex; gap: 8px; }
+.retro-detail-actions .retro-primary { transition: background-color .2s, border-color .2s; }
+.retro-detail-actions .retro-primary.is-added,
+.retro-detail-actions .retro-primary.is-added:hover:not(:disabled) { border-color: var(--retro-ink); background: var(--retro-ink); }
 .retro-product-notes { margin-top: auto; padding-top: 20px; }
 .retro-product-notes p { display: grid; grid-template-columns: 75px 1fr; gap: 12px; margin: 0; padding: 9px 0; border-top: 1px solid var(--retro-line); font-size: 10px; line-height: 1.4; }
 .retro-product-notes strong { letter-spacing: .8px; }

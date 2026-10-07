@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
@@ -8,7 +8,6 @@ import { formatCents } from "@/lib/format";
 import { lineMaxQty, useCart } from "@/lib/cart";
 import { isOptimizableImage } from "@/lib/images";
 import { effectivePriceCents } from "@/lib/pricing";
-import { FREE_SHIPPING_THRESHOLD_CENTS, SHIPPING_COST_CENTS } from "@/lib/shipping";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
@@ -26,6 +25,12 @@ export function ProductDetail({
   const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string>();
   const [message, setMessage] = useState("");
+  const [sizeMissing, setSizeMissing] = useState(false);
+  const sizeFieldsetRef = useRef<HTMLFieldSetElement>(null);
+  const [added, setAdded] = useState(false);
+  const addedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => () => clearTimeout(addedTimer.current), []);
   const { items, addItem } = useCart();
   const soldOut = requiresSize && availableSizes.length === 0;
   const priceCents = effectivePriceCents(product);
@@ -41,7 +46,10 @@ export function ProductDetail({
 
   function addToCart() {
     if (requiresSize && !size) {
-      setMessage("Sélectionnez une taille pour continuer.");
+      setMessage("");
+      setSizeMissing(true);
+      sizeFieldsetRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      sizeFieldsetRef.current?.querySelector<HTMLButtonElement>("button:not(:disabled)")?.focus({ preventScroll: true });
       return;
     }
     if (soldOut) return;
@@ -61,7 +69,10 @@ export function ProductDetail({
       size,
       maxQty,
     });
-    setMessage(`${product.name}${size ? ` · ${size}` : ""} ajouté au panier.`);
+    setMessage("");
+    setAdded(true);
+    clearTimeout(addedTimer.current);
+    addedTimer.current = setTimeout(() => setAdded(false), 2000);
   }
 
   return (
@@ -126,27 +137,28 @@ export function ProductDetail({
             )}
 
             {requiresSize && (
-              <fieldset className="retro-size-fieldset">
+              <fieldset ref={sizeFieldsetRef} className={`retro-size-fieldset${sizeMissing ? " has-error" : ""}`} aria-describedby={sizeMissing ? "size-error" : undefined}>
                 <legend>CHOISISSEZ VOTRE TAILLE</legend>
                 <div>
                   {product.sizes.map((entry) => (
-                    <button key={entry.id} type="button" disabled={entry.stock === 0} className={size === entry.size ? "active" : ""} aria-pressed={size === entry.size} onClick={() => { setSize(entry.size); setMessage(`Taille ${entry.size} sélectionnée.`); }}>
+                    <button key={entry.id} type="button" disabled={entry.stock === 0} className={size === entry.size ? "active" : ""} aria-pressed={size === entry.size} onClick={() => { setSize(entry.size); setSizeMissing(false); setMessage(`Taille ${entry.size} sélectionnée.`); }}>
                       {entry.size}
                     </button>
                   ))}
                 </div>
+                {sizeMissing && <p id="size-error" className="retro-size-error" role="alert">Veuillez choisir une taille avant d&apos;ajouter au panier.</p>}
               </fieldset>
             )}
 
             <p className="retro-product-status" aria-live="polite">{message}</p>
             <div className="retro-detail-actions">
-              <button type="button" className="retro-primary" disabled={soldOut} onClick={addToCart}>
-                <span>{soldOut ? "RUPTURE DE STOCK" : "AJOUTER AU PANIER"}</span><span>↗</span>
+              <button type="button" className={`retro-primary${added ? " is-added" : ""}`} disabled={soldOut} onClick={addToCart} aria-live="polite">
+                <span>{soldOut ? "RUPTURE DE STOCK" : added ? "AJOUTÉ AU PANIER" : "AJOUTER AU PANIER"}</span><span aria-hidden="true">{added ? "✓" : "↗"}</span>
               </button>
             </div>
             <div className="retro-product-notes">
               {product.care && <p><strong>ENTRETIEN</strong><span>{product.care}</span></p>}
-              <p><strong>LIVRAISON</strong><span>Offerte dès {formatCents(FREE_SHIPPING_THRESHOLD_CENTS, product.currency)} d&apos;achat, {formatCents(SHIPPING_COST_CENTS, product.currency)} en dessous. France et Europe.</span></p>
+              <p><strong>LIVRAISON</strong><span>À domicile ou en point relais, France et Europe. Frais calculés selon le pays et le mode choisi.</span></p>
               <p><strong>RETOURS</strong><span>30 jours pour changer d&apos;avis. <Link href="/conditions-de-vente">Voir les conditions de vente</Link>.</span></p>
             </div>
           </section>
