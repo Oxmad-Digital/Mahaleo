@@ -52,7 +52,7 @@ export default async function AdminStatsPage(props: PageProps<"/admin/statistiqu
         <StatCard label={`Vues (${range} j)`} value={formatNumber(data.totalViews)} />
         <StatCard label="Visiteurs uniques" value={formatNumber(data.totalVisitors)} />
         <StatCard label="Moyenne / jour" value={formatNumber(avgPerDay)} />
-        <StatCard label="Durée moyenne / session" value={formatDuration(data.avgDurationMs)} tint />
+        <StatCard label="Durée moyenne / session" value={formatDuration(data.avgDurationMs)} />
       </div>
 
       <div

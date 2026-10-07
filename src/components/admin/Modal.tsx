@@ -86,7 +86,6 @@ export function Modal({ title, children }: { title?: string; children: React.Rea
             <div className="retro-admin-modal-heading">
               <span>Administration · boutique officielle</span>
               <div id={titleId} className="retro-admin-modal-title">{title}</div>
-              <p>Collection Mahaleo · Depuis 1972</p>
             </div>
             <button
               ref={closeButtonRef}

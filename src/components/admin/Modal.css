@@ -83,13 +83,6 @@
   letter-spacing: .1px !important;
 }
 
-.retro-admin-modal-heading p {
-  margin: 8px 0 0;
-  color: var(--retro-muted);
-  font: italic 11px/1.25 var(--retro-serif);
-  letter-spacing: .2px;
-}
-
 .retro-admin-modal-close {
   width: 44px !important;
   height: 44px !important;
@@ -161,10 +154,6 @@
   .retro-admin-modal-heading > span {
     margin-bottom: 5px;
     font-size: 8px;
-  }
-
-  .retro-admin-modal-heading p {
-    display: none;
   }
 
   .retro-admin-modal-title { font-size: 28px !important; }

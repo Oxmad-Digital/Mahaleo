@@ -60,13 +60,11 @@ export default async function AdminDashboardPage(props: PageProps<"/admin">) {
           label="Nouveaux clients"
           value={formatNumber(data.newCustomersCount)}
           hint={`${formatPercent(data.newCustomersShare)} des commandes`}
-          tint
         />
         <StatCard
           label="Articles en rupture"
           value={formatNumber(data.outOfStockCount)}
           hint={`sur ${formatNumber(data.productCount)} références`}
-          tint
         />
       </div>
 
