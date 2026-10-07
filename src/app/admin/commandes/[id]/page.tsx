@@ -227,6 +227,15 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
             shipment={order.shipment}
             configured={isSendcloudConfigured()}
             canShip={order.status !== "CANCELLED"}
+            delivery={{
+              mode: order.deliveryMode,
+              carrier: order.shippingCarrier,
+              methodId: order.shippingMethodId,
+              methodName: order.shippingMethodName,
+              servicePointId: order.servicePointId,
+              servicePointName: order.servicePointName,
+              servicePointAddress: order.servicePointAddress,
+            }}
           />
         </div>
 

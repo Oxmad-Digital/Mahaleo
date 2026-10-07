@@ -9,7 +9,8 @@ import {
 } from "@/app/actions/orders";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import type { ShippingLabelState } from "@/lib/definitions";
-import type { Shipment } from "@/generated/prisma/client";
+import type { DeliveryMode, Shipment } from "@/generated/prisma/client";
+import { DELIVERY_MODE_LABELS, carrierLabel } from "@/lib/shipping";
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
 const GREEN = "var(--brand-green, #1c6b3a)";
@@ -17,16 +18,29 @@ const MUTED = "rgba(55,53,47,0.45)";
 
 type ShippingMethodOption = { id: number; name: string; carrier: string };
 
+/** Livraison choisie par le client au checkout. */
+type OrderDelivery = {
+  mode: DeliveryMode;
+  carrier: string | null;
+  methodId: number | null;
+  methodName: string | null;
+  servicePointId: number | null;
+  servicePointName: string | null;
+  servicePointAddress: string | null;
+};
+
 export function OrderShippingPanel({
   orderId,
   shipment,
   configured,
   canShip,
+  delivery,
 }: {
   orderId: string;
   shipment: Shipment | null;
   configured: boolean;
   canShip: boolean;
+  delivery: OrderDelivery;
 }) {
   const activeLabel = shipment && !shipment.cancelledAt ? shipment : null;
   const [tab, setTab] = useState<"tracking" | "label">(activeLabel ? "tracking" : "label");
@@ -45,6 +59,24 @@ export function OrderShippingPanel({
         </div>
       </div>
 
+      <div className="admin-order-shipping-grid" style={{ display: "flex", flexWrap: "wrap", gap: 32 }}>
+        <ReadField
+          label="Choix du client"
+          value={[DELIVERY_MODE_LABELS[delivery.mode], carrierLabel(delivery.carrier)].filter(Boolean).join(" · ")}
+        />
+        <ReadField label="Méthode facturée" value={delivery.methodName ?? "Forfait (méthode à choisir)"} />
+        {delivery.mode === "SERVICE_POINT" && (
+          <ReadField
+            label={`Point de retrait${delivery.servicePointId ? ` n° ${delivery.servicePointId}` : ""}`}
+            value={
+              delivery.servicePointName
+                ? `${delivery.servicePointName} — ${delivery.servicePointAddress ?? ""}`
+                : "Non renseigné"
+            }
+          />
+        )}
+      </div>
+
       {!configured && (
         <Notice tone="warning">
           Sendcloud n&apos;est pas configuré : renseignez <code>SENDCLOUD_PUBLIC_KEY</code> et{" "}
@@ -55,7 +87,14 @@ export function OrderShippingPanel({
       {tab === "tracking" ? (
         <TrackingView orderId={orderId} shipment={shipment} activeLabel={activeLabel} />
       ) : (
-        <LabelForm orderId={orderId} activeLabel={activeLabel} configured={configured} canShip={canShip} />
+        <LabelForm
+          orderId={orderId}
+          activeLabel={activeLabel}
+          configured={configured}
+          canShip={canShip}
+          defaultMethodId={delivery.methodId}
+          servicePoint={delivery.mode === "SERVICE_POINT"}
+        />
       )}
     </div>
   );
@@ -187,11 +226,15 @@ function LabelForm({
   activeLabel,
   configured,
   canShip,
+  defaultMethodId,
+  servicePoint,
 }: {
   orderId: string;
   activeLabel: Shipment | null;
   configured: boolean;
   canShip: boolean;
+  defaultMethodId: number | null;
+  servicePoint: boolean;
 }) {
   const action = createShippingLabel.bind(null, orderId);
   const [state, formAction, pending] = useActionState<ShippingLabelState, FormData>(action, undefined);
@@ -277,9 +320,12 @@ function LabelForm({
           <label htmlFor="methodId" style={{ fontSize: 13, fontWeight: 600, color: "rgba(55,53,47,0.7)" }}>
             Méthode d&apos;expédition
           </label>
+          {/* Remonté à chaque liste : la méthode facturée au client est présélectionnée si le poids la permet. */}
           <select
+            key={methods.map((method) => method.id).join(",")}
             id="methodId"
             name="methodId"
+            defaultValue={methods.some((method) => method.id === defaultMethodId) ? String(defaultMethodId) : undefined}
             disabled={!configured || methods.length === 0}
             style={{
               boxSizing: "border-box",
@@ -312,8 +358,10 @@ function LabelForm({
       {state?.message && <Notice tone="danger">{state.message}</Notice>}
 
       <p style={{ fontSize: 13, color: "rgba(55,53,47,0.5)", margin: 0, lineHeight: 1.6 }}>
-        L&apos;étiquette est générée chez Sendcloud avec l&apos;adresse de livraison ci-dessus. Vérifiez-la avant de
-        valider : une étiquette émise doit être annulée pour être refaite.
+        {servicePoint
+          ? "L'étiquette est générée chez Sendcloud vers le point relais choisi par le client, avec ses coordonnées comme destinataire."
+          : "L'étiquette est générée chez Sendcloud avec l'adresse de livraison ci-dessus."}{" "}
+        Vérifiez-la avant de valider : une étiquette émise doit être annulée pour être refaite.
       </p>
 
       <div>

@@ -42,6 +42,7 @@
 @import "../components/produit/ProductDetail.css";
 @import "../components/auth/LoginForm.css";
 @import "../components/scene/LegalCard.css";
+@import "../components/checkout/DeliveryOptions.css";
 
 /* Pages */
 @import "./admin/produits/page.css";

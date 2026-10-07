@@ -75,6 +75,8 @@ export async function updateOrderStatus(id: string, status: OrderStatus): Promis
       customerEmail: true,
       stripePaymentIntentId: true,
       refundedAt: true,
+      servicePointName: true,
+      servicePointAddress: true,
       invoice: { select: { id: true } },
       extraPayments: { where: { status: "PAID" }, select: { id: true } },
       shipment: {
@@ -175,6 +177,7 @@ export async function updateOrderStatus(id: string, status: OrderStatus): Promis
         ? { number: shipment.trackingNumber, url: shipment.trackingUrl, carrier: shipment.carrier }
         : null,
       refundedCents,
+      servicePoint: order.servicePointName ? { name: order.servicePointName, address: order.servicePointAddress } : null,
     };
     await sender(order.customerEmail, order.customerName, emailData);
   }
@@ -233,7 +236,10 @@ export async function listShippingOptions(
     return { methods: [], message: "Sendcloud n'est pas configuré." };
   }
 
-  const order = await prisma.order.findUnique({ where: { id }, select: { shippingCountry: true } });
+  const order = await prisma.order.findUnique({
+    where: { id },
+    select: { shippingCountry: true, deliveryMode: true, shippingCarrier: true },
+  });
   if (!order) return { methods: [], message: "Commande introuvable." };
 
   try {
@@ -241,7 +247,18 @@ export async function listShippingOptions(
       toCountry: order.shippingCountry,
       weightGrams: weightGrams > 0 ? weightGrams : undefined,
     });
-    return { methods };
+    // Une commande en point relais ne peut partir qu'avec une méthode point
+    // relais du transporteur du point choisi ; une livraison à domicile, jamais.
+    if (order.deliveryMode === "SERVICE_POINT") {
+      return {
+        methods: methods.filter(
+          (method) =>
+            method.service_point_input === "required" &&
+            (!order.shippingCarrier || method.carrier === order.shippingCarrier)
+        ),
+      };
+    }
+    return { methods: methods.filter((method) => method.service_point_input !== "required") };
   } catch (error) {
     return { methods: [], message: sendcloudErrorMessage(error) };
   }
@@ -278,6 +295,9 @@ export async function createShippingLabel(
       shippingCity: true,
       shippingPostalCode: true,
       shippingCountry: true,
+      deliveryMode: true,
+      servicePointId: true,
+      servicePointPostNumber: true,
       shipment: { select: { cancelledAt: true } },
       items: { select: { quantity: true, priceCents: true, product: { select: { name: true } } } },
     },
@@ -285,6 +305,9 @@ export async function createShippingLabel(
 
   if (!order) return { message: "Commande introuvable." };
   if (order.status === "CANCELLED") return { message: "Cette commande est annulée : aucune étiquette ne peut être créée." };
+  if (order.deliveryMode === "SERVICE_POINT" && !order.servicePointId) {
+    return { message: "Cette commande en point relais n'a pas de point relais enregistré." };
+  }
   if (order.shipment && !order.shipment.cancelledAt) {
     return { message: "Une étiquette est déjà active pour cette commande. Annulez-la avant d'en créer une nouvelle." };
   }
@@ -302,6 +325,8 @@ export async function createShippingLabel(
       country: order.shippingCountry,
       weightGrams,
       methodId,
+      servicePointId: order.deliveryMode === "SERVICE_POINT" ? order.servicePointId : null,
+      servicePointPostNumber: order.servicePointPostNumber,
       items: order.items.map((item) => ({
         description: item.product.name,
         quantity: item.quantity,

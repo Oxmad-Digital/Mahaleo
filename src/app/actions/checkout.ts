@@ -9,7 +9,9 @@ import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { CheckoutFormSchema, type CheckoutFields, type CheckoutFormState } from "@/lib/definitions";
 import { APP_URL } from "@/lib/emails/constants";
 import { MINUTE, clientIp, rateLimit } from "@/lib/rate-limit";
-import { MAX_QTY_PER_LINE, shippingCostCents } from "@/lib/shipping";
+import { MAX_QTY_PER_LINE, SHIPPING_COUNTRY_CODES } from "@/lib/shipping";
+import { findShippingOption, quoteShipping, type ShippingOption } from "@/lib/shipping-quote";
+import { SendcloudError, getServicePoint } from "@/lib/sendcloud";
 import { deleteAbandonedOrders } from "@/lib/abandoned-orders";
 
 // Durée de validité d'une session Stripe Checkout (30 min est le minimum
@@ -35,6 +37,33 @@ const CheckoutCartSchema = z
   )
   .min(1)
   .max(30);
+
+export type CheckoutShippingQuote = {
+  options: ShippingOption[];
+  /** Clé publique d'intégration attendue par le widget point relais Sendcloud. */
+  servicePointApiKey: string | null;
+};
+
+/**
+ * Tarifs domicile et point relais affichés au checkout pour le pays et le
+ * nombre d'articles. Indicatif : `createCheckoutSession` refait le calcul.
+ */
+export async function getShippingQuote(country: string, itemCount: number): Promise<CheckoutShippingQuote> {
+  const parsed = z
+    .object({ country: z.enum(SHIPPING_COUNTRY_CODES), itemCount: z.number().int().min(1).max(30 * MAX_QTY_PER_LINE) })
+    .safeParse({ country, itemCount });
+  const options = await quoteShipping(parsed.success ? parsed.data.country : "FR", parsed.success ? parsed.data.itemCount : 1);
+  return {
+    options,
+    servicePointApiKey: options.some((option) => option.mode === "SERVICE_POINT")
+      ? (process.env.SENDCLOUD_PUBLIC_KEY ?? null)
+      : null,
+  };
+}
+
+function formatServicePointAddress(point: { street: string; house_number: string; postal_code: string; city: string }) {
+  return `${[point.house_number, point.street].filter(Boolean).join(" ")}, ${point.postal_code} ${point.city}`;
+}
 
 function cartErrorMessage(cartItems: CheckoutCartItem[]) {
   if (cartItems.length === 0) return "Votre panier est vide.";
@@ -63,6 +92,11 @@ export async function createCheckoutSession(
     country: text("country"),
     terms: formData.get("terms") === "on",
   };
+  const delivery = {
+    shippingOption: text("shippingOption"),
+    servicePointId: text("servicePointId"),
+    servicePointPostNumber: text("servicePointPostNumber"),
+  };
 
   const parsedCart = CheckoutCartSchema.safeParse(cartItems);
   if (!parsedCart.success) {
@@ -71,6 +105,7 @@ export async function createCheckoutSession(
 
   const validatedFields = CheckoutFormSchema.safeParse({
     ...fields,
+    ...delivery,
     terms: formData.get("terms") ?? undefined,
   });
 
@@ -86,7 +121,8 @@ export async function createCheckoutSession(
     return { fields, message: "Trop de tentatives de paiement. Réessayez dans quelques minutes." };
   }
 
-  const { name, email, phone, address, city, postalCode, country } = validatedFields.data;
+  const { name, email, phone, address, city, postalCode, country, shippingOption, servicePointId, servicePointPostNumber } =
+    validatedFields.data;
 
   // Une même taille ajoutée deux fois au panier ne fait qu'une ligne : le
   // contrôle de stock porte sur la quantité totale.
@@ -140,8 +176,52 @@ export async function createCheckoutSession(
   }
 
   const subtotalCents = orderLines.reduce((sum, line) => sum + line.priceCents * line.quantity, 0);
-  const shippingCents = shippingCostCents(subtotalCents);
+  // Le tarif est recalculé ici à partir de Sendcloud : seul le mode choisi
+  // vient du navigateur.
+  const itemCount = orderLines.reduce((sum, line) => sum + line.quantity, 0);
+  const rate = findShippingOption(await quoteShipping(country, itemCount), shippingOption);
+  if (!rate) {
+    return {
+      fields,
+      errors: { shippingOption: ["Ce mode de livraison n'est plus disponible pour votre commande. Choisissez-en un autre."] },
+    };
+  }
+  if (rate.mode === "SERVICE_POINT" && !servicePointId) {
+    return { fields, errors: { servicePointId: ["Choisissez un point de retrait."] } };
+  }
+
+  let servicePoint: { id: number; name: string; address: string; postNumber: string | null } | null = null;
+  if (rate.mode === "SERVICE_POINT" && servicePointId) {
+    try {
+      const point = await getServicePoint(servicePointId);
+      // Le point doit correspondre au transporteur et au type de point de la
+      // méthode facturée : l'étiquette n'accepte que les points de son réseau.
+      if (
+        !point.is_active ||
+        (point.general_shop_type === "locker") !== (rate.pointKind === "locker") ||
+        point.country !== country ||
+        point.carrier !== rate.carrier
+      ) {
+        return {
+          fields,
+          errors: { servicePointId: ["Ce point de retrait ne correspond pas au mode choisi ou n'est plus disponible. Choisissez-en un autre."] },
+        };
+      }
+      servicePoint = {
+        id: point.id,
+        name: point.name,
+        address: formatServicePointAddress(point),
+        postNumber: servicePointPostNumber ?? null,
+      };
+    } catch (error) {
+      if (!(error instanceof SendcloudError)) console.error("[checkout] Vérification du point relais:", error);
+      return { fields, message: "Le point relais n'a pas pu être vérifié. Réessayez dans quelques instants." };
+    }
+  }
+
+  const shippingCents = rate.rateCents;
   const totalCents = subtotalCents + shippingCents;
+  const shippingLabel = `Livraison · ${rate.label}`;
 
   const session = await auth();
 
@@ -162,6 +242,14 @@ export async function createCheckoutSession(
       shippingCity: city,
       shippingPostalCode: postalCode,
       shippingCountry: country,
+      deliveryMode: rate.mode,
+      shippingMethodId: rate.methodId,
+      shippingMethodName: rate.methodName,
+      shippingCarrier: rate.carrier,
+      servicePointId: servicePoint?.id,
+      servicePointName: servicePoint?.name,
+      servicePointAddress: servicePoint?.address,
+      servicePointPostNumber: servicePoint?.postNumber,
       items: {
         create: orderLines.map((line) => ({
           productId: line.productId,
@@ -198,7 +286,7 @@ export async function createCheckoutSession(
                 price_data: {
                   currency: "eur",
                   unit_amount: shippingCents,
-                  product_data: { name: "Livraison" },
+                  product_data: { name: shippingLabel },
                 },
               },
             ]

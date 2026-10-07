@@ -99,6 +99,8 @@ export async function getAccountOrderById(userId: string, id: string) {
       shippingCity: true,
       shippingPostalCode: true,
       shippingCountry: true,
+      servicePointName: true,
+      servicePointAddress: true,
       stripePaymentIntentId: true,
       items: {
         select: {

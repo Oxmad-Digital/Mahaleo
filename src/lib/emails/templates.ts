@@ -37,6 +37,8 @@ export type OrderEmailData = {
   tracking?: { number: string | null; url: string | null; carrier: string | null } | null;
   /** Montant remboursé via Stripe à l'annulation, s'il y en a eu un. */
   refundedCents?: number | null;
+  /** Point relais choisi au checkout (livraison en point relais). */
+  servicePoint?: { name: string; address: string | null } | null;
 };
 
 function itemsTable(items: OrderEmailItem[], currency: string) {
@@ -61,14 +63,21 @@ function orderSummaryBlock(order: OrderEmailData) {
     ${itemsTable(order.items, order.currency)}
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:6px; border-top:3px double ${line};">
       <tr>
-        <td style="padding-top:12px; font-family:${sans}; font-size:13px; color:${muted};">Livraison</td>
+        <td style="padding-top:12px; font-family:${sans}; font-size:13px; color:${muted};">${order.servicePoint ? "Livraison en point relais" : "Livraison"}</td>
         <td style="padding-top:12px; font-family:${sans}; font-size:13px; color:${ink}; text-align:right;">${shippingCents > 0 ? formatCents(shippingCents, order.currency) : "Offerte"}</td>
       </tr>
       <tr>
         <td style="padding-top:12px; font-family:${sans}; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:${ink};">Total</td>
         <td style="padding-top:12px; font-family:${display}; font-size:24px; font-weight:700; line-height:1; color:${ink}; text-align:right;">${formatCents(order.totalCents, order.currency)}</td>
       </tr>
-    </table>`;
+    </table>${
+      order.servicePoint
+        ? `
+    <p style="margin:16px 0 0; padding:12px 14px; border:1px solid ${line}; font-family:${sans}; font-size:14px; line-height:1.6; color:${muted};">
+      Point relais : <strong style="color:${ink};">${escapeHtml(order.servicePoint.name)}</strong>${order.servicePoint.address ? `<br />${escapeHtml(order.servicePoint.address)}` : ""}
+    </p>`
+        : ""
+    }`;
 }
 
 function trackingBlock(order: OrderEmailData) {

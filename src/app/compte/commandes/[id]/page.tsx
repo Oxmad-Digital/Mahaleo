@@ -104,6 +104,14 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                 </span>
               </div>
 
+              {order.servicePointName && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 200 }}>
+                  <span style={{ fontSize: 12, fontWeight: 500, color: MUTED }}>Point relais</span>
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>{order.servicePointName}</span>
+                  <span style={{ fontSize: 13, color: "rgba(55,53,47,0.7)", lineHeight: 1.6 }}>{order.servicePointAddress}</span>
+                </div>
+              )}
+
               <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 200 }}>
                 <span style={{ fontSize: 12, fontWeight: 500, color: MUTED }}>Suivi</span>
                 {shipment ? (

@@ -1,0 +1,24 @@
+/* Choix du mode de livraison au checkout (domicile / point relais Sendcloud) */
+
+.retro-delivery { grid-column: 1 / -1; min-width: 0; margin: 4px 0 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px; }
+.retro-delivery legend { margin-bottom: 7px; padding: 0; color: var(--retro-muted); font-size: 11px; letter-spacing: .8px; text-transform: uppercase; }
+.retro-delivery-loading { margin: 0; padding: 14px 12px; border: 1px dashed var(--retro-line); color: var(--retro-muted); font: italic 13px var(--retro-serif); }
+.retro-delivery-group { display: flex; flex-direction: column; gap: 8px; }
+.retro-delivery-group + .retro-delivery-group { margin-top: 6px; }
+.retro-delivery-group-title { font: 700 18px/1 var(--retro-display); text-transform: uppercase; }
+.retro-delivery-option { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; min-height: 58px; padding: 10px 12px; border: 1px solid var(--retro-line); background: rgb(245 238 219 / .45); cursor: pointer; }
+.retro-delivery-option:has(input:checked) { border-color: var(--retro-red); box-shadow: 0 0 0 1px var(--retro-red); }
+.retro-delivery-option:has(input:focus-visible) { box-shadow: 0 0 0 2px rgb(189 48 32 / .3); }
+.retro-delivery-option input { width: 16px; height: 16px; margin: 0; accent-color: var(--retro-red); }
+.retro-delivery-option span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.retro-delivery-option strong { font-size: 13px; }
+.retro-delivery-option small { color: var(--retro-muted); font-size: 11px; }
+.retro-delivery-option em { font-style: normal; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.retro-delivery-point { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 16px; padding: 12px; border: 1px solid var(--retro-line); }
+.retro-delivery-point p { margin: 0; display: flex; flex-direction: column; gap: 3px; min-width: 0; font-size: 13px; }
+.retro-delivery-point p span { color: var(--retro-muted); font-size: 12px; }
+.retro-delivery-point-empty { color: var(--retro-muted); font: italic 13px var(--retro-serif) !important; }
+.retro-delivery-pick { padding: 9px 14px; border: 1px solid var(--retro-ink); background: transparent; color: var(--retro-ink); font: 700 11px Arial, sans-serif; letter-spacing: .8px; text-transform: uppercase; cursor: pointer; }
+.retro-delivery-pick:hover:not(:disabled) { background: var(--retro-ink); color: var(--retro-paper); }
+.retro-delivery-pick:disabled { opacity: .6; cursor: default; }
+.retro-delivery-error { color: var(--retro-red); font-size: 10px; }

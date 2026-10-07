@@ -220,6 +220,17 @@ export const CheckoutFormSchema = z.object({
   city: z.string().min(2, { error: "Veuillez saisir une ville." }).trim(),
   postalCode: z.string().min(4, { error: "Code postal invalide." }).trim(),
   country: z.enum(SHIPPING_COUNTRY_CODES, { error: "Choisissez un pays de livraison." }),
+  shippingOption: z.string({ error: "Choisissez un mode de livraison." }).trim().min(1, { error: "Choisissez un mode de livraison." }).max(32),
+  servicePointId: z.preprocess(
+    (v) => (v ? v : undefined),
+    z.coerce.number().int().positive({ error: "Choisissez un point relais." }).optional()
+  ),
+  servicePointPostNumber: z
+    .string()
+    .trim()
+    .max(64)
+    .optional()
+    .transform((v) => (v ? v : undefined)),
   terms: z.literal("on", { error: "Vous devez accepter les conditions générales de vente." }),
 });
 
@@ -244,6 +255,8 @@ export type CheckoutFormState =
         city?: string[];
         postalCode?: string[];
         country?: string[];
+        shippingOption?: string[];
+        servicePointId?: string[];
         terms?: string[];
       };
       // Renvoyés en cas d'erreur : React réinitialise le formulaire après l'action.

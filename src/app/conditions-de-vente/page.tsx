@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { LegalCard, LegalSection } from "@/components/scene/LegalCard";
 import { SUPPORT_EMAIL } from "@/lib/emails/constants";
-import { formatCents } from "@/lib/format";
 import { SELLER } from "@/lib/seller";
-import { FREE_SHIPPING_THRESHOLD_CENTS, SHIPPING_COST_CENTS, SHIPPING_COUNTRIES } from "@/lib/shipping";
+import { SHIPPING_COUNTRIES } from "@/lib/shipping";
 
 export const metadata: Metadata = { title: "Conditions générales de vente" };
 
@@ -51,11 +50,11 @@ export default function ConditionsDeVentePage() {
 
       <LegalSection title="5. Livraison">
         <p style={{ margin: 0 }}>
-          Les commandes sont livrées à l&apos;adresse indiquée par le client lors de la commande,
-          dans les pays proposés au moment du paiement ({SHIPPING_COUNTRIES.map((country) => country.label).join(", ")}).
-          La livraison est offerte dès {formatCents(FREE_SHIPPING_THRESHOLD_CENTS, "EUR")} d&apos;achat ; en
-          dessous de ce montant, un forfait de {formatCents(SHIPPING_COST_CENTS, "EUR")} s&apos;applique, quel que
-          soit le pays de livraison. Les délais de livraison sont communiqués à titre indicatif ; un
+          Les commandes sont livrées à l&apos;adresse indiquée par le client lors de la commande ou, à
+          son choix, dans le point relais qu&apos;il sélectionne, dans les pays proposés au moment du
+          paiement ({SHIPPING_COUNTRIES.map((country) => country.label).join(", ")}). Les frais de
+          livraison dépendent du pays, du poids du colis et du mode choisi. Ils
+          sont indiqués avant la validation de la commande. Les délais de livraison sont communiqués à titre indicatif ; un
           numéro de suivi est envoyé par e-mail à l&apos;expédition.
         </p>
       </LegalSection>

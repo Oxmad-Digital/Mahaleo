@@ -6,15 +6,14 @@ import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { lineMaxQty, useCart } from "@/lib/cart";
 import { isOptimizableImage } from "@/lib/images";
-import { FREE_SHIPPING_THRESHOLD_CENTS, shippingCostCents } from "@/lib/shipping";
 import { useCartRefresh } from "@/lib/use-cart-refresh";
 
 export default function PanierPage() {
   const { items, itemCount, subtotalCents, hydrated, updateQty, removeItem } = useCart();
   const { notices } = useCartRefresh();
   const currency = items[0]?.currency ?? "EUR";
-  const shippingCents = items.length ? shippingCostCents(subtotalCents) : 0;
-  const totalCents = subtotalCents + shippingCents;
+  // Le tarif dépend du pays et du mode (domicile ou point relais) choisis au
+  // checkout : il n'est pas connu dès le panier.
 
   return (
     <StoreShell className="retro-cart-page">
@@ -30,7 +29,6 @@ export default function PanierPage() {
           <section className="retro-cart-empty">
             <span>LA COLLECTION VOUS ATTEND</span>
             <h2>VOTRE PANIER EST VIDE.</h2>
-            <p>Choisissez une pièce du vestiaire Mahaleo pour commencer.</p>
             <Link href="/" className="retro-primary"><span>VOIR LA COLLECTION</span><span>↗</span></Link>
           </section>
         ) : (
@@ -67,15 +65,11 @@ export default function PanierPage() {
               <h2>VOTRE COMMANDE</h2>
               <dl>
                 <div><dt>Sous-total ({itemCount})</dt><dd>{formatCents(subtotalCents, currency)}</dd></div>
-                <div><dt>Livraison</dt><dd>{shippingCents ? formatCents(shippingCents, currency) : "Offerte"}</dd></div>
-                <div className="retro-cart-total"><dt>TOTAL</dt><dd>{formatCents(totalCents, currency)}</dd></div>
+                <div><dt>Livraison</dt><dd>À l&apos;étape suivante</dd></div>
+                <div className="retro-cart-total"><dt>TOTAL HORS LIVRAISON</dt><dd>{formatCents(subtotalCents, currency)}</dd></div>
               </dl>
               <Link href="/checkout" className="retro-primary"><span>PASSER LA COMMANDE</span><span>↗</span></Link>
-              <p>
-                {shippingCents
-                  ? `Livraison offerte dès ${formatCents(FREE_SHIPPING_THRESHOLD_CENTS, currency)} d'achat.`
-                  : "Prix et disponibilité seront vérifiés avant le paiement."}
-              </p>
+              <p>Livraison à domicile ou en point relais, calculée à l&apos;étape suivante.</p>
             </aside>
           </div>
           </>

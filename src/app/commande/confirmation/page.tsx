@@ -98,8 +98,17 @@ export default async function CommandeConfirmationPage(props: PageProps<"/comman
         </div>
 
         <p className="retro-receipt-address">
-          Livraison à {order.customerName}, {order.shippingAddress}, {order.shippingPostalCode} {order.shippingCity},{" "}
-          {countryLabel(order.shippingCountry)}
+          {order.servicePointName ? (
+            <>
+              Livraison en point relais pour {order.customerName} : {order.servicePointName}, {order.servicePointAddress},{" "}
+              {countryLabel(order.shippingCountry)}
+            </>
+          ) : (
+            <>
+              Livraison à {order.customerName}, {order.shippingAddress}, {order.shippingPostalCode} {order.shippingCity},{" "}
+              {countryLabel(order.shippingCountry)}
+            </>
+          )}
         </p>
 
         <Link href="/" className="retro-primary"><span>CONTINUER MES ACHATS</span><span>↗</span></Link>

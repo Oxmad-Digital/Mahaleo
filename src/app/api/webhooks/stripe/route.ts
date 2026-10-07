@@ -154,5 +154,6 @@ async function handlePaidCheckoutSession(checkoutSession: Stripe.Checkout.Sessio
       quantity: item.quantity,
       priceCents: item.priceCents,
     })),
+    servicePoint: order.servicePointName ? { name: order.servicePointName, address: order.servicePointAddress } : null,
   });
 }

@@ -103,6 +103,19 @@ model Order {
   shippingPostalCode String
   shippingCountry    String @default("FR")
 
+  /// Mode et méthode Sendcloud choisis au checkout : le tarif facturé en dépend
+  /// et l'étiquette reprend la même méthode par défaut.
+  deliveryMode       DeliveryMode @default(HOME)
+  shippingMethodId   Int?
+  shippingMethodName String?
+  shippingCarrier    String?
+
+  /// Point relais Sendcloud choisi par le client (mode SERVICE_POINT).
+  servicePointId         Int?
+  servicePointName       String?
+  servicePointAddress    String?
+  servicePointPostNumber String?
+
   stripeSessionId       String? @unique
   stripePaymentIntentId String?
   /// Remboursement Stripe émis à l'annulation d'une commande payée.
@@ -121,6 +134,11 @@ model Order {
 
   @@index([userId, createdAt])
   @@index([createdAt])
+}
+
+enum DeliveryMode {
+  HOME
+  SERVICE_POINT
 }
 
 /// Expédition Sendcloud rattachée à une commande (un colis par commande).

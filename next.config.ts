@@ -7,13 +7,18 @@ const isDev = process.env.NODE_ENV === "development";
 // un nonce imposerait le rendu dynamique de toutes les pages. Les images
 // produit viennent d'URLs saisies dans l'admin (R2 ou autre), d'où `https:`.
 // Le paiement se fait par redirection vers Stripe Checkout, sans script Stripe.
+// Le choix du point relais passe par le widget Sendcloud : script servi par
+// embed.sendcloud.sc, carte affichée dans une iframe servicepoints.sendcloud.sc.
+const SENDCLOUD_PICKER = "https://embed.sendcloud.sc";
+const SENDCLOUD_SERVICE_POINTS = "https://servicepoints.sendcloud.sc";
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' ${SENDCLOUD_PICKER}${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data: https:",
   "font-src 'self'",
   "connect-src 'self'",
+  `frame-src ${SENDCLOUD_PICKER} ${SENDCLOUD_SERVICE_POINTS}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self' https://checkout.stripe.com",

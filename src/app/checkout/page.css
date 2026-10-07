@@ -9,7 +9,7 @@
 .retro-checkout-form > h2,
 .retro-checkout-form > .retro-field:nth-of-type(3),
 .retro-checkout-form > .retro-field:nth-of-type(4),
-.retro-checkout-form > .retro-field:last-child,
+.retro-checkout-form > .retro-checkout-full,
 .retro-field-row { grid-column: 1 / -1; }
 .retro-checkout-form h2 { margin: -8px 0 6px; font: 700 clamp(30px, 3.2vw, 46px)/1 var(--retro-display); }
 .retro-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -26,6 +26,24 @@
 .retro-checkout-summary .retro-primary { width: 100%; }
 .retro-checkout-error { padding: 10px; border: 1px solid var(--retro-red); color: var(--retro-red); font-size: 11px; line-height: 1.45; }
 .retro-secure-note { margin: 13px 0 0; color: var(--retro-muted); font: italic 11px/1.5 var(--retro-serif); }
+
+/* Desktop : la page tient dans l'écran, seul le formulaire défile. */
+@media (min-width: 901px) and (min-height: 501px) {
+  .retro-checkout-page { height: 100dvh; overflow: hidden; }
+  .retro-checkout-main { min-height: 0; display: flex; flex-direction: column; padding: 16px 0 18px; }
+  .retro-checkout-main .retro-cart-title { flex: none; padding-bottom: 12px; }
+  .retro-checkout-main .retro-cart-title h1 { font-size: clamp(36px, 4.6vw, 60px); }
+  .retro-checkout-layout { flex: 1; min-height: 0; padding-top: 16px; }
+  .retro-checkout-form { min-height: 0; align-content: start; overflow-y: auto; overscroll-behavior: contain; padding: 4px 14px 16px 4px; scrollbar-width: thin; scrollbar-color: var(--retro-line) transparent; }
+  .retro-checkout-summary { max-height: 100%; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; padding: 20px 22px; }
+  .retro-checkout-summary h2 { margin-bottom: 12px; font-size: 32px; }
+  .retro-checkout-items { flex: 0 1 auto; min-height: 44px; max-height: none; }
+  .retro-checkout-summary dl { margin: 8px 0 12px; }
+  .retro-checkout-summary dl > div { padding: 6px 0; }
+  .retro-checkout-summary .retro-cart-total { padding-top: 10px; }
+  .retro-checkout-summary > :not(.retro-checkout-items) { flex: none; }
+  .retro-secure-note { margin-top: 10px; }
+}
 
 @media (max-width: 900px) {
   .retro-checkout-layout { grid-template-columns: 1fr; gap: 26px; }
@@ -44,3 +62,9 @@
 .retro-checkout-terms input { width: 16px; height: 16px; margin: 1px 0 0; accent-color: var(--retro-red); }
 .retro-checkout-terms a { text-decoration: underline; }
 .retro-checkout-terms-error { grid-column: 2; color: var(--retro-red); font-size: 10px; }
+
+/* Récapitulatif : défilement conservé, barre masquée */
+.retro-checkout-summary,
+.retro-checkout-items { scrollbar-width: none; -ms-overflow-style: none; }
+.retro-checkout-summary::-webkit-scrollbar,
+.retro-checkout-items::-webkit-scrollbar { display: none; }
