@@ -9,7 +9,7 @@ export function isDashboardRange(value: number): value is DashboardRange {
   return (DASHBOARD_RANGES as readonly number[]).includes(value);
 }
 
-const REVENUE_STATUSES: OrderStatus[] = ["PAID", "SHIPPED", "DELIVERED"];
+const REVENUE_STATUSES: OrderStatus[] = ["PAID", "PREPARING", "SHIPPED", "DELIVERED"];
 const LOW_STOCK_THRESHOLD = 5;
 
 function startOfDay(date: Date) {

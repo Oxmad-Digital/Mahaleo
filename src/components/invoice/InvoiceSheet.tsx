@@ -6,6 +6,7 @@ import { countryLabel } from "@/lib/country-label";
 import { orderReference } from "@/lib/order-status";
 import { itemsSubtotalCents } from "@/lib/admin/orders";
 import { SITE_NAME, SUPPORT_EMAIL, APP_URL } from "@/lib/emails/constants";
+import { SELLER } from "@/lib/seller";
 import logo from "../../assets/mahaleo/logo-mahaleo.png";
 import styles from "./InvoiceSheet.module.css";
 
@@ -21,27 +22,35 @@ export type InvoiceSheetOrder = {
   shippingPostalCode: string;
   shippingCity: string;
   shippingCountry: string;
-  items: { id: string; quantity: number; priceCents: number; product: { name: string } }[];
+  items: { id: string; size?: string | null; quantity: number; priceCents: number; product: { name: string } }[];
   extraPayments: { id: string; label: string; amountCents: number; currency: string; status: string; paidAt: Date | null }[];
   invoice: { number: string; issuedAt: Date };
+  creditNote?: { number: string; issuedAt: Date; amountCents: number } | null;
 };
 
 /**
  * Facture imprimable, partagée par l'espace admin et l'espace client : c'est le
- * même document, seul le lien de retour change.
+ * même document, seul le lien de retour change. En variante « avoir », il
+ * reprend les lignes de la facture qu'il annule.
  */
 export function InvoiceSheet({
   order,
   backHref,
   backLabel,
+  variant = "invoice",
 }: {
   order: InvoiceSheetOrder;
   backHref: string;
   backLabel: string;
+  variant?: "invoice" | "credit-note";
 }) {
   const subtotalCents = itemsSubtotalCents(order.items);
   const shippingCents = order.totalCents - subtotalCents;
   const paidExtras = order.extraPayments.filter((payment) => payment.status === "PAID");
+  const creditNote = variant === "credit-note" ? order.creditNote : null;
+  const documentLabel = creditNote ? "Avoir" : "Facture";
+  const documentNumber = creditNote ? creditNote.number : order.invoice.number;
+  const stamp = creditNote ? "Remboursée" : order.creditNote ? "Annulée" : "Payée";
 
   return (
     <div className={styles.page}>
@@ -58,7 +67,7 @@ export function InvoiceSheet({
           </svg>
           {backLabel}
         </Link>
-        <span className={styles.toolbarTitle}>Facture {order.invoice.number}</span>
+        <span className={styles.toolbarTitle}>{documentLabel} {documentNumber}</span>
         <PrintButton className={styles.printButton} />
       </div>
 
@@ -71,9 +80,11 @@ export function InvoiceSheet({
             </div>
 
             <div className={styles.invoiceIdentity}>
-              <span>Facture</span>
-              <h1>{order.invoice.number}</h1>
-              <p>Émise le {formatDate(order.invoice.issuedAt)}</p>
+              <span>{documentLabel}</span>
+              <h1>{documentNumber}</h1>
+              <p>Émis{creditNote ? "" : "e"} le {formatDate(creditNote ? creditNote.issuedAt : order.invoice.issuedAt)}</p>
+              {creditNote && <p>Annule la facture {order.invoice.number}</p>}
+              {!creditNote && order.creditNote && <p>Annulée par l&apos;avoir {order.creditNote.number}</p>}
             </div>
           </header>
 
@@ -98,7 +109,7 @@ export function InvoiceSheet({
               <span className={styles.eyebrow}>Référence commande</span>
               <strong>{orderReference(order.id)}</strong>
               <p>Passée le {formatDate(order.createdAt)}</p>
-              <span className={styles.paidStamp}>Payée</span>
+              <span className={styles.paidStamp}>{stamp}</span>
             </section>
           </div>
 
@@ -118,6 +129,7 @@ export function InvoiceSheet({
                     <td>
                       <span className={styles.itemIndex}>{String(index + 1).padStart(2, "0")}</span>
                       <strong>{item.product.name}</strong>
+                      {item.size ? <small className={styles.itemSize}>Taille {item.size}</small> : null}
                     </td>
                     <td>{formatCents(item.priceCents, order.currency)}</td>
                     <td>× {item.quantity}</td>
@@ -142,6 +154,12 @@ export function InvoiceSheet({
                 <span>Total TTC</span>
                 <strong>{formatCents(order.totalCents, order.currency)}</strong>
               </div>
+              {creditNote && (
+                <div className={styles.grandTotal}>
+                  <span>Montant remboursé</span>
+                  <strong>− {formatCents(creditNote.amountCents, order.currency)}</strong>
+                </div>
+              )}
             </div>
           </div>
 
@@ -161,7 +179,21 @@ export function InvoiceSheet({
           )}
 
           <footer className={styles.documentFooter}>
-            <p>Montants exprimés en euros, toutes taxes comprises. Facture payée par carte bancaire via Stripe.</p>
+            <div className={styles.seller}>
+              <span className={styles.eyebrow}>Vendeur</span>
+              <p>
+                <strong>{SELLER.name}</strong>
+                {SELLER.addressLines.map((line) => <span key={line}><br />{line}</span>)}
+                <br />
+                {SELLER.email}
+                {SELLER.legalIds.map((id) => <span key={id}><br />{id}</span>)}
+              </p>
+              <p>
+                {creditNote
+                  ? "Montants exprimés en euros, toutes taxes comprises. Remboursement effectué sur le moyen de paiement utilisé via Stripe."
+                  : "Montants exprimés en euros, toutes taxes comprises. Facture payée par carte bancaire via Stripe."}
+              </p>
+            </div>
             <div>
               <span>{APP_URL.replace(/^https?:\/\//, "")}</span>
               <span>{SUPPORT_EMAIL}</span>

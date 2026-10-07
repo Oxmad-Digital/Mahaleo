@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { LegalCard, LegalSection } from "@/components/scene/LegalCard";
+
+export const metadata: Metadata = { title: "Mentions légales" };
 
 export default function MentionsLegalesPage() {
   return (

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { CATALOG_TAG } from "@/lib/shop";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { Prisma } from "@/generated/prisma/client";
-import { ProductFormSchema, type ProductFormState } from "@/lib/definitions";
+import { ProductFormSchema, type ProductFormState, type ProductSizeEntry } from "@/lib/definitions";
 
 function parseImages(raw: string | undefined) {
   if (!raw) return [];
@@ -18,6 +18,38 @@ function parseImages(raw: string | undefined) {
 
 function parsePriceCents(price: string) {
   return Math.round(parseFloat(price.replace(",", ".")) * 100);
+}
+
+/**
+ * Enregistre les tailles d'un produit existant. Pour une taille déjà en base,
+ * c'est l'écart saisi par rapport au stock affiché à l'ouverture du formulaire
+ * qui est appliqué : une vente payée pendant l'édition n'est pas effacée.
+ */
+async function saveSizes(productId: string, sizes: ProductSizeEntry[]) {
+  const existing = await prisma.productSize.findMany({ where: { productId }, select: { size: true } });
+  const existingSizes = new Set(existing.map((row) => row.size));
+  const keptSizes = sizes.map((entry) => entry.size);
+
+  await prisma.$transaction([
+    prisma.productSize.deleteMany({ where: { productId, size: { notIn: keptSizes } } }),
+    ...sizes.map((entry) => {
+      const stock = parseInt(entry.stock, 10);
+      if (!existingSizes.has(entry.size)) {
+        return prisma.productSize.create({ data: { productId, size: entry.size, stock } });
+      }
+      if (entry.initialStock == null) {
+        return prisma.productSize.update({
+          where: { productId_size: { productId, size: entry.size } },
+          data: { stock },
+        });
+      }
+      const delta = stock - parseInt(entry.initialStock, 10);
+      return prisma.$executeRaw`
+        UPDATE "ProductSize" SET "stock" = GREATEST("stock" + ${delta}, 0)
+        WHERE "productId" = ${productId} AND "size" = ${entry.size}
+      `;
+    }),
+  ]);
 }
 
 export async function createProduct(
@@ -134,12 +166,9 @@ export async function updateProduct(
         onSale,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
         images: parseImages(images),
-        sizes: {
-          deleteMany: {},
-          create: sizes.map((entry) => ({ size: entry.size, stock: parseInt(entry.stock, 10) })),
-        },
       },
     });
+    await saveSizes(id, sizes);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       return { errors: { slug: ["Ce slug est déjà utilisé par un autre produit."] } };

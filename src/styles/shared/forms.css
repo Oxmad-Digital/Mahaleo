@@ -2,9 +2,9 @@
 
 .retro-field { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
 .retro-field label { color: var(--retro-muted); font-size: 10px; letter-spacing: .8px; text-transform: uppercase; }
-.retro-field :is(input, textarea) { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid var(--retro-line); border-radius: 0; outline: 0; background: rgb(245 238 219 / .45); color: var(--retro-ink); font: 14px Arial, sans-serif; }
-.retro-field :is(input, textarea):focus { border-color: var(--retro-red); box-shadow: 0 0 0 2px rgb(189 48 32 / .16); }
-.retro-field :is(input, textarea)[aria-invalid="true"] { border-color: var(--retro-red); }
+.retro-field :is(input, textarea, select) { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid var(--retro-line); border-radius: 0; outline: 0; background: rgb(245 238 219 / .45); color: var(--retro-ink); font: 14px Arial, sans-serif; }
+.retro-field :is(input, textarea, select):focus { border-color: var(--retro-red); box-shadow: 0 0 0 2px rgb(189 48 32 / .16); }
+.retro-field :is(input, textarea, select)[aria-invalid="true"] { border-color: var(--retro-red); }
 .retro-field textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
 .retro-field > span { color: var(--retro-red); font-size: 10px; }
 .retro-auth-card { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 20px; }

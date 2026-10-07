@@ -38,3 +38,9 @@
   .retro-field-row { grid-template-columns: 1fr; gap: 16px; }
   .retro-checkout-summary { padding: 20px 17px; }
 }
+
+/* Acceptation des CGV */
+.retro-checkout-terms { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: start; margin: 0 0 14px; font-size: 11px; line-height: 1.5; }
+.retro-checkout-terms input { width: 16px; height: 16px; margin: 1px 0 0; accent-color: var(--retro-red); }
+.retro-checkout-terms a { text-decoration: underline; }
+.retro-checkout-terms-error { grid-column: 2; color: var(--retro-red); font-size: 10px; }

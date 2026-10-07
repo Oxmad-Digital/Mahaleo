@@ -3,6 +3,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { findUserByEmail } from "@/lib/users";
 import { LoginFormSchema } from "@/lib/definitions";
 import { MINUTE, clientIpFrom, rateLimit } from "@/lib/rate-limit";
 
@@ -41,7 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ]);
         if (!ipAllowed || !emailAllowed) throw new RateLimitedSignin();
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await findUserByEmail(email);
         const isValid = await bcrypt.compare(password, user?.passwordHash ?? DUMMY_PASSWORD_HASH);
         if (!user || !isValid) return null;
 

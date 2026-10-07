@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { sortBySize } from "@/lib/sizes";
 
 /**
  * Tag du catalogue en cache : invalidé à chaque modification de produit
@@ -15,7 +16,7 @@ const CATALOG_REVALIDATE_SECONDS = 300;
 // le type reste le même que la valeur vienne du cache ou de la base.
 export const getShopProducts = unstable_cache(
   async () => {
-    return prisma.product.findMany({
+    const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
       select: {
         id: true,
@@ -30,12 +31,10 @@ export const getShopProducts = unstable_cache(
         onSale: true,
         salePriceCents: true,
         images: true,
-        sizes: {
-          orderBy: { size: "asc" },
-          select: { size: true, stock: true },
-        },
+        sizes: { select: { size: true, stock: true } },
       },
     });
+    return products.map((product) => ({ ...product, sizes: sortBySize(product.sizes) }));
   },
   ["shop-products"],
   { tags: [CATALOG_TAG], revalidate: CATALOG_REVALIDATE_SECONDS },
@@ -64,13 +63,12 @@ export const getProductBySlug = unstable_cache(
         salePriceCents: true,
         images: true,
         createdAt: true,
-        sizes: {
-          orderBy: { size: "asc" },
-          select: { id: true, size: true, stock: true },
-        },
+        sizes: { select: { id: true, size: true, stock: true } },
       },
     });
-    return product && { ...product, createdAt: product.createdAt.toISOString() };
+    return (
+      product && { ...product, sizes: sortBySize(product.sizes), createdAt: product.createdAt.toISOString() }
+    );
   },
   ["shop-product-by-slug"],
   { tags: [CATALOG_TAG], revalidate: CATALOG_REVALIDATE_SECONDS },

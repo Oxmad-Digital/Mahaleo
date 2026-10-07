@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { requireUser } from "@/lib/account/require-user";
 import { getAccountOverview } from "@/lib/account/orders";
@@ -7,6 +8,8 @@ import { StatCard } from "@/components/admin/StatCard";
 import { formatCents, formatNumber } from "@/lib/format";
 import { countryLabel } from "@/lib/country-label";
 import { SUPPORT_EMAIL } from "@/lib/emails/constants";
+
+export const metadata: Metadata = { title: "Mon compte" };
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
 const MUTED = "rgba(55,53,47,0.45)";

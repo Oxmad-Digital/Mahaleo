@@ -14,7 +14,6 @@
 @import "../styles/tokens/retro.css";
 
 /* Coquilles (boutique, console, pied de page) */
-@import "../components/scene/Footer.css";
 @import "../components/console/ConsoleShell.css";
 @import "../components/store/StoreChrome.css";
 

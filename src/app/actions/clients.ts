@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { isEmailTaken } from "@/lib/users";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { Prisma } from "@/generated/prisma/client";
 import type { UserStatus } from "@/generated/prisma/client";
@@ -21,6 +22,10 @@ export async function updateClient(id: string, _state: ClientFormState, formData
   }
 
   const { name, email } = validatedFields.data;
+
+  if (await isEmailTaken(email, id)) {
+    return { errors: { email: ["Cette adresse e-mail est déjà utilisée par un autre compte."] } };
+  }
 
   try {
     await prisma.user.update({

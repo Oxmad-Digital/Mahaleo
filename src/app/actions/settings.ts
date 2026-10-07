@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { findUserByEmail } from "@/lib/users";
 import { Prisma } from "@/generated/prisma/client";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { setMaintenanceMode as persistMaintenanceMode } from "@/lib/admin/settings";
@@ -37,7 +38,7 @@ export async function inviteAdmin(_state: InviteAdminState, formData: FormData):
 
   const { name, email } = validatedFields.data;
 
-  const existing = await prisma.user.findUnique({ where: { email } });
+  const existing = await findUserByEmail(email);
   if (existing) {
     return { message: "Un compte existe déjà avec cette adresse e-mail." };
   }

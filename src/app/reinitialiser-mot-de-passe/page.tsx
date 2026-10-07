@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ResetPasswordForm } from "@/components/auth/ResetPasswordForm";
 import { AuthPanel, StorePage } from "@/components/store/StorePage";
+
+export const metadata: Metadata = { title: "Nouveau mot de passe" };
 
 export default async function ReinitialiserMotDePassePage(props: PageProps<"/reinitialiser-mot-de-passe">) {
   const searchParams = await props.searchParams;

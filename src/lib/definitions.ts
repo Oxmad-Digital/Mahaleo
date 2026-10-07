@@ -1,11 +1,18 @@
 import * as z from "zod";
+import { SHIPPING_COUNTRY_CODES } from "@/lib/shipping";
+
+const INVALID_EMAIL = "Veuillez saisir une adresse e-mail valide.";
+
+// Les e-mails sont comparés et enregistrés en minuscules : la base compare les
+// chaînes à la casse près, « Jean@x.fr » et « jean@x.fr » feraient deux comptes.
+const emailField = z.string({ error: INVALID_EMAIL }).trim().toLowerCase().pipe(z.email({ error: INVALID_EMAIL }));
 
 export const SignupFormSchema = z.object({
   name: z
     .string()
     .min(2, { error: "Le nom doit contenir au moins 2 caractères." })
     .trim(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
   password: z
     .string()
     .min(8, { error: "8 caractères minimum." })
@@ -26,7 +33,7 @@ export type SignupFormState =
   | undefined;
 
 export const LoginFormSchema = z.object({
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
   password: z.string().min(1, { error: "Le mot de passe est requis." }),
 });
 
@@ -42,7 +49,7 @@ export type LoginFormState =
   | undefined;
 
 export const RequestPasswordResetSchema = z.object({
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
 });
 
 export type RequestPasswordResetState =
@@ -77,6 +84,9 @@ export type ResetPasswordState =
 const ProductSizeEntrySchema = z.object({
   size: z.string().trim().min(1),
   stock: z.string().trim().regex(/^\d+$/),
+  // Stock affiché à l'ouverture du formulaire : l'enregistrement applique
+  // l'écart saisi, sans écraser les ventes intervenues entre-temps.
+  initialStock: z.string().trim().regex(/^\d+$/).optional(),
 });
 
 export type ProductSizeEntry = z.infer<typeof ProductSizeEntrySchema>;
@@ -166,7 +176,7 @@ export type ProductFormState =
 
 export const ClientFormSchema = z.object({
   name: z.string().trim().optional(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
 });
 
 export type ClientFormState =
@@ -184,7 +194,7 @@ export const InviteAdminSchema = z.object({
     .string()
     .min(2, { error: "Le nom doit contenir au moins 2 caractères." })
     .trim(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
 });
 
 export type InviteAdminState =
@@ -200,7 +210,7 @@ export type InviteAdminState =
 
 export const CheckoutFormSchema = z.object({
   name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
   phone: z
     .string()
     .trim()
@@ -209,8 +219,20 @@ export const CheckoutFormSchema = z.object({
   address: z.string().min(5, { error: "Veuillez saisir une adresse complète." }).trim(),
   city: z.string().min(2, { error: "Veuillez saisir une ville." }).trim(),
   postalCode: z.string().min(4, { error: "Code postal invalide." }).trim(),
-  country: z.string().min(2, { error: "Veuillez saisir un pays." }).trim(),
+  country: z.enum(SHIPPING_COUNTRY_CODES, { error: "Choisissez un pays de livraison." }),
+  terms: z.literal("on", { error: "Vous devez accepter les conditions générales de vente." }),
 });
+
+export type CheckoutFields = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  terms: boolean;
+};
 
 export type CheckoutFormState =
   | {
@@ -222,14 +244,17 @@ export type CheckoutFormState =
         city?: string[];
         postalCode?: string[];
         country?: string[];
+        terms?: string[];
       };
+      // Renvoyés en cas d'erreur : React réinitialise le formulaire après l'action.
+      fields?: CheckoutFields;
       message?: string;
     }
   | undefined;
 
 export const ContactFormSchema = z.object({
   name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
   message: z.string().min(10, { error: "Votre message doit contenir au moins 10 caractères." }).trim(),
 });
 
@@ -253,7 +278,7 @@ export type ContactFormState =
 
 export const OrderCustomerSchema = z.object({
   customerName: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
-  customerEmail: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  customerEmail: emailField,
   phone: z
     .string()
     .trim()
@@ -326,7 +351,7 @@ export type ExtraPaymentState =
 
 export const ProfileFormSchema = z.object({
   name: z.string().min(2, { error: "Le nom doit contenir au moins 2 caractères." }).trim(),
-  email: z.email({ error: "Veuillez saisir une adresse e-mail valide." }).trim(),
+  email: emailField,
 });
 
 export type ProfileFormState =

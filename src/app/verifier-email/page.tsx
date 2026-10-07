@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { hashToken } from "@/lib/tokens";
 import { VerifyEmailForm } from "@/components/auth/VerifyEmailForm";
 import { AuthPanel, StorePage } from "@/components/store/StorePage";
+
+export const metadata: Metadata = { title: "Activation du compte" };
 
 export default async function VerifierEmailPage(props: PageProps<"/verifier-email">) {
   const searchParams = await props.searchParams;

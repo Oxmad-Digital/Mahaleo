@@ -33,7 +33,7 @@ export async function getClientsData({ query, page }: { query?: string; page: nu
 
   const spendByUser = await prisma.order.groupBy({
     by: ["userId"],
-    where: { userId: { in: users.map((user) => user.id) }, status: { not: "CANCELLED" } },
+    where: { userId: { in: users.map((user) => user.id) }, status: { in: ["PAID", "PREPARING", "SHIPPED", "DELIVERED"] } },
     _sum: { totalCents: true },
   });
   const totalSpentByUserId = new Map(spendByUser.map((row) => [row.userId, row._sum.totalCents ?? 0]));
@@ -70,7 +70,7 @@ export async function getClientById(id: string) {
   if (!client) return null;
 
   const spend = await prisma.order.aggregate({
-    where: { userId: id, status: { not: "CANCELLED" } },
+    where: { userId: id, status: { in: ["PAID", "PREPARING", "SHIPPED", "DELIVERED"] } },
     _sum: { totalCents: true },
   });
 

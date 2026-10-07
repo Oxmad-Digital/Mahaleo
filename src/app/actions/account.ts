@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { isEmailTaken } from "@/lib/users";
 import { requireUser } from "@/lib/account/require-user";
 import { signIn } from "@/auth";
 import { Prisma } from "@/generated/prisma/client";
@@ -42,6 +43,10 @@ export async function updateProfile(_state: ProfileFormState, formData: FormData
     if (!currentPassword || !(await bcrypt.compare(currentPassword, user.passwordHash))) {
       return { errors: { currentPassword: ["Mot de passe actuel requis pour changer d'adresse e-mail."] } };
     }
+  }
+
+  if (await isEmailTaken(email, session.user.id)) {
+    return { errors: { email: ["Cette adresse e-mail est déjà utilisée par un autre compte."] } };
   }
 
   try {

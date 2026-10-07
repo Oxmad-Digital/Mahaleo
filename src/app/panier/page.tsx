@@ -4,16 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
-import { useCart } from "@/lib/cart";
+import { lineMaxQty, useCart } from "@/lib/cart";
 import { isOptimizableImage } from "@/lib/images";
-
-const FREE_SHIPPING_THRESHOLD_CENTS = 15000;
-const SHIPPING_COST_CENTS = 800;
+import { FREE_SHIPPING_THRESHOLD_CENTS, shippingCostCents } from "@/lib/shipping";
+import { useCartRefresh } from "@/lib/use-cart-refresh";
 
 export default function PanierPage() {
   const { items, itemCount, subtotalCents, hydrated, updateQty, removeItem } = useCart();
+  const { notices } = useCartRefresh();
   const currency = items[0]?.currency ?? "EUR";
-  const shippingCents = items.length && subtotalCents < FREE_SHIPPING_THRESHOLD_CENTS ? SHIPPING_COST_CENTS : 0;
+  const shippingCents = items.length ? shippingCostCents(subtotalCents) : 0;
   const totalCents = subtotalCents + shippingCents;
 
   return (
@@ -34,6 +34,12 @@ export default function PanierPage() {
             <Link href="/" className="retro-primary"><span>VOIR LA COLLECTION</span><span>↗</span></Link>
           </section>
         ) : (
+          <>
+          {notices.length > 0 && (
+            <ul className="retro-cart-notices" role="status">
+              {notices.map((notice) => <li key={notice}>{notice}</li>)}
+            </ul>
+          )}
           <div className="retro-cart-layout">
             <section className="retro-cart-list" aria-label="Articles du panier">
               <div className="retro-cart-columns"><span>PRODUIT</span><span>QUANTITÉ</span><span>PRIX</span><span /></div>
@@ -48,7 +54,7 @@ export default function PanierPage() {
                   <div className="retro-quantity">
                     <button type="button" onClick={() => updateQty(item.productId, item.size, -1)} aria-label={`Diminuer la quantité de ${item.name}`}>−</button>
                     <span>{String(item.qty).padStart(2, "0")}</span>
-                    <button type="button" onClick={() => updateQty(item.productId, item.size, 1)} aria-label={`Augmenter la quantité de ${item.name}`}>+</button>
+                    <button type="button" onClick={() => updateQty(item.productId, item.size, 1)} disabled={item.qty >= lineMaxQty(item)} aria-label={`Augmenter la quantité de ${item.name}`}>+</button>
                   </div>
                   <strong className="retro-cart-price">{formatCents(item.priceCents * item.qty, item.currency)}</strong>
                   <button type="button" className="retro-remove" onClick={() => removeItem(item.productId, item.size)} aria-label={`Retirer ${item.name} du panier`}>RETIRER</button>
@@ -65,9 +71,14 @@ export default function PanierPage() {
                 <div className="retro-cart-total"><dt>TOTAL</dt><dd>{formatCents(totalCents, currency)}</dd></div>
               </dl>
               <Link href="/checkout" className="retro-primary"><span>PASSER LA COMMANDE</span><span>↗</span></Link>
-              <p>Prix et disponibilité seront vérifiés avant le paiement.</p>
+              <p>
+                {shippingCents
+                  ? `Livraison offerte dès ${formatCents(FREE_SHIPPING_THRESHOLD_CENTS, currency)} d'achat.`
+                  : "Prix et disponibilité seront vérifiés avant le paiement."}
+              </p>
             </aside>
           </div>
+          </>
         )}
       </main>
     </StoreShell>

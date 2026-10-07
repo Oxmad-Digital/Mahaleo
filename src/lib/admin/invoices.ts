@@ -92,3 +92,42 @@ export async function ensureInvoiceForOrder(orderId: string) {
 
   throw new Error("Le numéro de facture n'a pas pu être attribué. Réessayez.");
 }
+
+function creditNoteNumber(year: number, sequence: number) {
+  return `AVOIR-${year}-${String(sequence).padStart(4, "0")}`;
+}
+
+/**
+ * Renvoie l'avoir de la commande, en le créant si besoin : une facture émise ne
+ * se supprime pas, son annulation passe par un avoir à numérotation propre.
+ */
+export async function ensureCreditNoteForOrder(orderId: string, amountCents: number) {
+  const existing = await prisma.creditNote.findUnique({ where: { orderId } });
+  if (existing) return existing;
+
+  const year = new Date().getFullYear();
+
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const last = await prisma.creditNote.findFirst({
+      where: { year },
+      orderBy: { sequence: "desc" },
+      select: { sequence: true },
+    });
+    const sequence = (last?.sequence ?? 0) + 1;
+
+    try {
+      return await prisma.creditNote.create({
+        data: { orderId, year, sequence, amountCents, number: creditNoteNumber(year, sequence) },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+        const raced = await prisma.creditNote.findUnique({ where: { orderId } });
+        if (raced) return raced;
+        continue;
+      }
+      throw error;
+    }
+  }
+
+  throw new Error("Le numéro d'avoir n'a pas pu être attribué. Réessayez.");
+}

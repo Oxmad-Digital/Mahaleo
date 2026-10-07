@@ -6,12 +6,16 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { effectivePriceCents } from "@/lib/pricing";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
-import { CheckoutFormSchema, type CheckoutFormState } from "@/lib/definitions";
+import { CheckoutFormSchema, type CheckoutFields, type CheckoutFormState } from "@/lib/definitions";
 import { APP_URL } from "@/lib/emails/constants";
 import { MINUTE, clientIp, rateLimit } from "@/lib/rate-limit";
+import { MAX_QTY_PER_LINE, shippingCostCents } from "@/lib/shipping";
+import { deleteAbandonedOrders } from "@/lib/abandoned-orders";
 
-const FREE_SHIPPING_THRESHOLD_CENTS = 15000;
-const SHIPPING_COST_CENTS = 800;
+// Durée de validité d'une session Stripe Checkout (30 min est le minimum
+// accepté). Courte, elle limite la fenêtre pendant laquelle un panier peut être
+// payé alors que le stock a été vendu entre-temps.
+const CHECKOUT_SESSION_TTL_SECONDS = 30 * 60;
 
 export type CheckoutCartItem = {
   productId: string;
@@ -26,47 +30,60 @@ const CheckoutCartSchema = z
     z.object({
       productId: z.string().min(1).max(64),
       size: z.string().min(1).max(32),
-      qty: z.number().int().min(1).max(20),
+      qty: z.number().int().min(1).max(MAX_QTY_PER_LINE),
     })
   )
   .min(1)
   .max(30);
+
+function cartErrorMessage(cartItems: CheckoutCartItem[]) {
+  if (cartItems.length === 0) return "Votre panier est vide.";
+  if (cartItems.some((item) => item.qty > MAX_QTY_PER_LINE)) {
+    return `Vous pouvez commander au maximum ${MAX_QTY_PER_LINE} exemplaires d'une même taille. Ajustez la quantité dans votre panier.`;
+  }
+  if (cartItems.some((item) => !item.size)) {
+    return "Un article de votre panier n'a pas de taille. Retirez-le puis ajoutez-le à nouveau depuis sa fiche.";
+  }
+  return "Votre panier contient un article invalide. Retirez-le puis réessayez.";
+}
 
 export async function createCheckoutSession(
   cartItems: CheckoutCartItem[],
   _state: CheckoutFormState,
   formData: FormData
 ): Promise<CheckoutFormState> {
+  const text = (key: string) => String(formData.get(key) ?? "");
+  const fields: CheckoutFields = {
+    name: text("name"),
+    email: text("email"),
+    phone: text("phone"),
+    address: text("address"),
+    city: text("city"),
+    postalCode: text("postalCode"),
+    country: text("country"),
+    terms: formData.get("terms") === "on",
+  };
+
   const parsedCart = CheckoutCartSchema.safeParse(cartItems);
   if (!parsedCart.success) {
-    return {
-      message:
-        cartItems.length === 0
-          ? "Votre panier est vide."
-          : "Votre panier contient un article invalide. Retirez-le puis réessayez.",
-    };
+    return { fields, message: cartErrorMessage(cartItems) };
   }
 
   const validatedFields = CheckoutFormSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    address: formData.get("address"),
-    city: formData.get("city"),
-    postalCode: formData.get("postalCode"),
-    country: formData.get("country"),
+    ...fields,
+    terms: formData.get("terms") ?? undefined,
   });
 
   if (!validatedFields.success) {
-    return { errors: validatedFields.error.flatten().fieldErrors };
+    return { fields, errors: validatedFields.error.flatten().fieldErrors };
   }
 
   if (!isStripeConfigured()) {
-    return { message: "Le paiement en ligne n'est pas encore disponible. Merci de revenir un peu plus tard." };
+    return { fields, message: "Le paiement en ligne n'est pas encore disponible. Merci de revenir un peu plus tard." };
   }
 
   if (!(await rateLimit(`checkout:ip:${await clientIp()}`, 10, 10 * MINUTE))) {
-    return { message: "Trop de tentatives de paiement. Réessayez dans quelques minutes." };
+    return { fields, message: "Trop de tentatives de paiement. Réessayez dans quelques minutes." };
   }
 
   const { name, email, phone, address, city, postalCode, country } = validatedFields.data;
@@ -99,11 +116,17 @@ export async function createCheckoutSession(
   for (const item of lines.values()) {
     const product = productById.get(item.productId);
     if (!product) {
-      return { message: "Un article de votre panier n'est plus disponible." };
+      return { fields, message: "Un article de votre panier n'est plus disponible. Retournez au panier pour le mettre à jour." };
     }
     const sizeRow = product.sizes.find((s) => s.size === item.size);
-    if (!sizeRow || sizeRow.stock < item.qty) {
-      return { message: `Stock insuffisant pour "${product.name}" (taille ${item.size}).` };
+    if (!sizeRow || sizeRow.stock <= 0) {
+      return { fields, message: `« ${product.name} » en taille ${item.size} est épuisé. Retirez-le de votre panier.` };
+    }
+    if (sizeRow.stock < item.qty) {
+      return {
+        fields,
+        message: `Il ne reste que ${sizeRow.stock} exemplaire(s) de « ${product.name} » en taille ${item.size}. Ajustez la quantité dans votre panier.`,
+      };
     }
     const unitPriceCents = effectivePriceCents(product);
     orderLines.push({
@@ -117,10 +140,14 @@ export async function createCheckoutSession(
   }
 
   const subtotalCents = orderLines.reduce((sum, line) => sum + line.priceCents * line.quantity, 0);
-  const shippingCents = subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS ? 0 : SHIPPING_COST_CENTS;
+  const shippingCents = shippingCostCents(subtotalCents);
   const totalCents = subtotalCents + shippingCents;
 
   const session = await auth();
+
+  // Ménage des paiements abandonnés dont la session Stripe a expiré, au cas où
+  // l'événement `checkout.session.expired` ne serait pas parvenu au webhook.
+  await deleteAbandonedOrders().catch((error) => console.error("[checkout] Nettoyage des commandes abandonnées:", error));
 
   const order = await prisma.order.create({
     data: {
@@ -178,22 +205,24 @@ export async function createCheckoutSession(
           : []),
       ],
       metadata: { orderId: order.id },
+      expires_at: Math.floor(Date.now() / 1000) + CHECKOUT_SESSION_TTL_SECONDS,
+      locale: "fr",
       // Stripe substitue {CHECKOUT_SESSION_ID} : la page de confirmation s'en sert
       // pour vérifier que le visiteur est bien celui qui a payé.
       success_url: `${APP_URL}/commande/confirmation?order=${order.id}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${APP_URL}/checkout?order=${order.id}`,
+      cancel_url: `${APP_URL}/checkout`,
     });
     await prisma.order.update({ where: { id: order.id }, data: { stripeSessionId: checkoutSession.id } });
     checkoutSessionUrl = checkoutSession.url;
   } catch (error) {
     await prisma.order.delete({ where: { id: order.id } });
     console.error("[checkout] Échec de la création de la session Stripe:", error);
-    return { message: "Le paiement n'a pas pu être initié. Réessayez dans quelques instants." };
+    return { fields, message: "Le paiement n'a pas pu être initié. Réessayez dans quelques instants." };
   }
 
   if (!checkoutSessionUrl) {
     await prisma.order.delete({ where: { id: order.id } });
-    return { message: "Le paiement n'a pas pu être initié. Réessayez dans quelques instants." };
+    return { fields, message: "Le paiement n'a pas pu être initié. Réessayez dans quelques instants." };
   }
 
   redirect(checkoutSessionUrl);

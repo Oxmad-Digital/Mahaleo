@@ -6,6 +6,7 @@ import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { formatCentsExact, formatDate } from "@/lib/format";
 import type { ExtraPaymentState } from "@/lib/definitions";
 import type { ExtraPayment } from "@/generated/prisma/client";
+import { extraPaymentUrl } from "@/lib/extra-payments";
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
 const MUTED = "rgba(55,53,47,0.45)";
@@ -96,9 +97,9 @@ export function ExtraPaymentPanel({ orderId, payments }: { orderId: string; paym
                           ? `le ${formatDate(payment.paidAt)}`
                           : `créé le ${formatDate(payment.createdAt)}`}
                       </span>
-                      {payment.status === "PENDING" && payment.checkoutUrl && (
+                      {payment.status === "PENDING" && (
                         <a
-                          href={payment.checkoutUrl}
+                          href={extraPaymentUrl(payment.id)}
                           target="_blank"
                           rel="noreferrer"
                           style={{ fontSize: 12, fontWeight: 600, color: "var(--brand-green, #1c6b3a)" }}
@@ -151,7 +152,7 @@ export function ExtraPaymentPanel({ orderId, payments }: { orderId: string; paym
             </div>
 
             {state?.message && <FieldError message={state.message} />}
-            {state?.success && (
+            {state?.success && !state.message && (
               <p style={{ fontSize: 12, color: "var(--brand-green, #1c6b3a)", margin: 0, fontWeight: 500 }}>
                 Lien créé et envoyé au client par e-mail.
               </p>

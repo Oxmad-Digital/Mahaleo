@@ -11,10 +11,24 @@ const LINE = "rgba(55,53,47,0.12)";
 
 const CIRCLE = 30;
 
-export function OrderStatusStepper({ id, status }: { id: string; status: OrderStatus }) {
+export function OrderStatusStepper({
+  id,
+  status,
+  refundOnCancel,
+  refunded,
+  totalLabel,
+}: {
+  id: string;
+  status: OrderStatus;
+  /** Annuler déclenche un remboursement Stripe (commande payée par carte). */
+  refundOnCancel: boolean;
+  refunded: boolean;
+  totalLabel: string;
+}) {
   const [confirm, setConfirm] = useState<null | { next: OrderStatus; title: string; message: string; danger?: boolean }>(
     null
   );
+  const [feedback, setFeedback] = useState<null | { tone: "error" | "warning"; text: string }>(null);
   const [pending, startTransition] = useTransition();
 
   const cancelled = status === "CANCELLED";
@@ -22,7 +36,14 @@ export function OrderStatusStepper({ id, status }: { id: string; status: OrderSt
 
   const run = (next: OrderStatus) => {
     startTransition(async () => {
-      await updateOrderStatus(id, next);
+      const result = await updateOrderStatus(id, next);
+      setFeedback(
+        result.message
+          ? { tone: "error", text: result.message }
+          : result.warning
+            ? { tone: "warning", text: result.warning }
+            : null
+      );
       setConfirm(null);
     });
   };
@@ -64,8 +85,11 @@ export function OrderStatusStepper({ id, status }: { id: string; status: OrderSt
           }}
         >
           <span style={{ fontSize: 14, fontWeight: 600, color: "#a82c2c" }}>
-            Cette commande a été annulée. Le client en a été informé par e-mail.
+            {refunded
+              ? "Cette commande a été annulée et remboursée. Le client en a été informé par e-mail."
+              : "Cette commande a été annulée. Le client en a été informé par e-mail."}
           </span>
+          {!refunded && (
           <button
             type="button"
             disabled={pending}
@@ -90,6 +114,7 @@ export function OrderStatusStepper({ id, status }: { id: string; status: OrderSt
           >
             Rétablir la commande
           </button>
+          )}
         </div>
       ) : (
         <div className="admin-order-stepper" style={{ position: "relative", padding: "4px 0 2px" }}>
@@ -218,7 +243,9 @@ export function OrderStatusStepper({ id, status }: { id: string; status: OrderSt
               setConfirm({
                 next: "CANCELLED",
                 title: "Annuler la commande",
-                message: "Annuler cette commande ? Le client sera prévenu par e-mail.",
+                message: refundOnCancel
+                  ? `Annuler cette commande ? Le client sera remboursé intégralement (${totalLabel}) via Stripe et prévenu par e-mail. Une étiquette d'expédition non utilisée sera annulée. Le remboursement est définitif.`
+                  : "Annuler cette commande ? Le client sera prévenu par e-mail.",
                 danger: true,
               })
             }
@@ -237,6 +264,23 @@ export function OrderStatusStepper({ id, status }: { id: string; status: OrderSt
           </button>
         )}
       </div>
+
+      {feedback && (
+        <p
+          role="alert"
+          style={{
+            margin: 0,
+            padding: "10px 14px",
+            borderRadius: 6,
+            fontSize: 13,
+            lineHeight: 1.5,
+            background: feedback.tone === "error" ? "#fbe4e4" : "#fbf3db",
+            color: feedback.tone === "error" ? "#a82c2c" : "#7a5a00",
+          }}
+        >
+          {feedback.text}
+        </p>
+      )}
 
       <ConfirmDialog
         open={confirm !== null}

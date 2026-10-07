@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/stripe";
 import { ensureInvoiceForOrder } from "@/lib/admin/invoices";
 import { sendOrderConfirmationEmail } from "@/lib/emails/send";
 import { applyStockForTransition } from "@/lib/stock";
+import { deleteAbandonedOrder } from "@/lib/abandoned-orders";
 import type Stripe from "stripe";
 
 export async function POST(request: Request) {
@@ -33,9 +34,72 @@ export async function POST(request: Request) {
     event.type === "checkout.session.async_payment_succeeded"
   ) {
     await handlePaidCheckoutSession(event.data.object);
+  } else if (event.type === "checkout.session.completed") {
+    await handleDeferredCheckoutSession(event.data.object);
+  } else if (
+    event.type === "checkout.session.expired" ||
+    event.type === "checkout.session.async_payment_failed"
+  ) {
+    await handleUnpaidCheckoutSession(event.data.object);
   }
 
   return NextResponse.json({ received: true });
+}
+
+function paymentIntentIdOf(checkoutSession: Stripe.Checkout.Session) {
+  return typeof checkoutSession.payment_intent === "string"
+    ? checkoutSession.payment_intent
+    : (checkoutSession.payment_intent?.id ?? null);
+}
+
+/**
+ * Paiement différé (SEPA…) initié mais pas encore encaissé : l'intention de
+ * paiement est rattachée à la commande, qui reste en attente sans être prise
+ * pour un panier abandonné.
+ */
+async function handleDeferredCheckoutSession(checkoutSession: Stripe.Checkout.Session) {
+  const orderId = checkoutSession.metadata?.orderId;
+  const paymentIntentId = paymentIntentIdOf(checkoutSession);
+  if (!orderId || checkoutSession.metadata?.extraPaymentId || !paymentIntentId) return;
+
+  await prisma.order.updateMany({
+    where: { id: orderId, status: "PENDING" },
+    data: { stripePaymentIntentId: paymentIntentId },
+  });
+}
+
+/**
+ * Session expirée sans paiement, ou paiement différé refusé : la commande
+ * créée au clic sur « Payer » est supprimée, un complément est annulé.
+ */
+async function handleUnpaidCheckoutSession(checkoutSession: Stripe.Checkout.Session) {
+  const extraPaymentId = checkoutSession.metadata?.extraPaymentId;
+  if (extraPaymentId) {
+    // Seule la session courante du complément compte : le lien envoyé au
+    // client en recrée une à chaque ouverture.
+    await prisma.extraPayment.updateMany({
+      where: { id: extraPaymentId, status: "PENDING", stripeSessionId: checkoutSession.id },
+      data: { checkoutUrl: null },
+    });
+    return;
+  }
+
+  const orderId = checkoutSession.metadata?.orderId;
+  if (!orderId) return;
+
+  if (isAsyncPaymentFailure(checkoutSession)) {
+    // L'intention de paiement a été rattachée à la commande : on la détache
+    // pour que la commande puisse être supprimée comme un panier abandonné.
+    await prisma.order.updateMany({
+      where: { id: orderId, status: "PENDING", stripePaymentIntentId: paymentIntentIdOf(checkoutSession) },
+      data: { stripePaymentIntentId: null },
+    });
+  }
+  await deleteAbandonedOrder(orderId);
+}
+
+function isAsyncPaymentFailure(checkoutSession: Stripe.Checkout.Session) {
+  return checkoutSession.status === "complete" && checkoutSession.payment_status === "unpaid";
 }
 
 async function handlePaidCheckoutSession(checkoutSession: Stripe.Checkout.Session) {
@@ -45,18 +109,15 @@ async function handlePaidCheckoutSession(checkoutSession: Stripe.Checkout.Sessio
   // Complément à montant libre créé depuis la fiche commande : il ne touche ni
   // au statut de la commande ni à la facture, seulement à sa propre ligne.
   if (extraPaymentId) {
-    await prisma.extraPayment.update({
-      where: { id: extraPaymentId },
-      data: { status: "PAID", paidAt: new Date() },
+    await prisma.extraPayment.updateMany({
+      where: { id: extraPaymentId, status: { not: "PAID" } },
+      data: { status: "PAID", paidAt: new Date(), checkoutUrl: null },
     });
     return;
   }
   if (!orderId) return;
 
-  const paymentIntentId =
-    typeof checkoutSession.payment_intent === "string"
-      ? checkoutSession.payment_intent
-      : (checkoutSession.payment_intent?.id ?? null);
+  const paymentIntentId = paymentIntentIdOf(checkoutSession);
 
   // Stripe peut livrer le même événement plusieurs fois : seul le
   // passage à PAID d'une commande pas encore payée déclenche la facture,
@@ -89,6 +150,7 @@ async function handlePaidCheckoutSession(checkoutSession: Stripe.Checkout.Sessio
     createdAt: order.createdAt,
     items: order.items.map((item) => ({
       productName: item.product.name,
+      size: item.size,
       quantity: item.quantity,
       priceCents: item.priceCents,
     })),

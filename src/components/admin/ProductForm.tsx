@@ -119,7 +119,15 @@ export function ProductForm({
   const [onSale, setOnSale] = useState(initial?.onSale ?? false);
 
   function updateSize(index: number, patch: Partial<ProductSizeEntry>) {
-    setSizes((prev) => prev.map((entry, i) => (i === index ? { ...entry, ...patch } : entry)));
+    setSizes((prev) =>
+      prev.map((entry, i) => {
+        if (i !== index) return entry;
+        const next = { ...entry, ...patch };
+        // Une taille renommée n'est plus celle dont le stock initial a été lu.
+        if (patch.size !== undefined && patch.size !== entry.size) delete next.initialStock;
+        return next;
+      })
+    );
   }
 
   function addSize() {

@@ -4,11 +4,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin/require-admin";
-import { ensureInvoiceForOrder } from "@/lib/admin/invoices";
-import { applyStockForTransition } from "@/lib/stock";
+import { ensureCreditNoteForOrder, ensureInvoiceForOrder } from "@/lib/admin/invoices";
+import { applyStockForTransition, holdsStock } from "@/lib/stock";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { APP_URL } from "@/lib/emails/constants";
 import { orderReference } from "@/lib/order-status";
+import { extraPaymentUrl } from "@/lib/extra-payments";
 import {
   ExtraPaymentSchema,
   OrderCustomerSchema,
@@ -59,7 +60,7 @@ function sendcloudErrorMessage(error: unknown) {
   return "Sendcloud est injoignable pour le moment. Réessayez dans quelques instants.";
 }
 
-export async function updateOrderStatus(id: string, status: OrderStatus) {
+export async function updateOrderStatus(id: string, status: OrderStatus): Promise<{ message?: string; warning?: string }> {
   await requireAdmin();
 
   const order = await prisma.order.findUnique({
@@ -72,15 +73,76 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
       createdAt: true,
       customerName: true,
       customerEmail: true,
-      shipment: { select: { trackingNumber: true, trackingUrl: true, carrier: true, cancelledAt: true } },
+      stripePaymentIntentId: true,
+      refundedAt: true,
+      invoice: { select: { id: true } },
+      extraPayments: { where: { status: "PAID" }, select: { id: true } },
+      shipment: {
+        select: { parcelId: true, trackingNumber: true, trackingUrl: true, carrier: true, cancelledAt: true },
+      },
       items: {
-        select: { quantity: true, priceCents: true, product: { select: { name: true } } },
+        select: { size: true, quantity: true, priceCents: true, product: { select: { name: true } } },
       },
     },
   });
 
   if (!order) redirect("/admin/commandes");
-  if (order.status === status) return;
+  if (order.status === status) return {};
+
+  // Un remboursement est définitif : la commande ne peut plus repartir dans le
+  // circuit, il faudrait encaisser à nouveau le client.
+  if (order.refundedAt && status !== "CANCELLED") {
+    return { message: "Cette commande a été remboursée : elle ne peut plus changer de statut." };
+  }
+
+  const warnings: string[] = [];
+  let refundedCents: number | null = null;
+
+  // Annuler une commande payée rembourse le client : le remboursement est fait
+  // avant tout changement, pour ne rien modifier s'il échoue.
+  if (status === "CANCELLED" && holdsStock(order.status)) {
+    if (order.refundedAt) {
+      // Remboursement déjà fait lors d'une tentative précédente interrompue.
+    } else if (order.stripePaymentIntentId && isStripeConfigured()) {
+      try {
+        const refund = await getStripe().refunds.create(
+          { payment_intent: order.stripePaymentIntentId, metadata: { orderId: order.id } },
+          { idempotencyKey: `order-refund-${order.id}` }
+        );
+        refundedCents = refund.amount;
+        await prisma.order.update({
+          where: { id },
+          data: { stripeRefundId: refund.id, refundedAt: new Date() },
+        });
+      } catch (error) {
+        console.error("[orders] Remboursement Stripe impossible:", error);
+        return {
+          message:
+            "Le remboursement Stripe a échoué : la commande n'a pas été annulée. Vérifiez le paiement dans le tableau de bord Stripe puis réessayez.",
+        };
+      }
+    } else {
+      warnings.push("Aucun paiement Stripe n'est rattaché à cette commande : remboursez le client manuellement.");
+    }
+    if (order.extraPayments.length > 0) {
+      warnings.push("Les compléments déjà réglés ne sont pas remboursés automatiquement : faites-le depuis Stripe si besoin.");
+    }
+
+    // Un colis pas encore parti est retiré de Sendcloud ; un colis expédié
+    // doit être récupéré par le transporteur.
+    const shipment = order.shipment;
+    if (shipment?.parcelId && !shipment.cancelledAt && order.status !== "SHIPPED" && order.status !== "DELIVERED") {
+      try {
+        await cancelParcel(Number(shipment.parcelId));
+        await prisma.shipment.update({
+          where: { orderId: id },
+          data: { cancelledAt: new Date(), statusMessage: "Annulée" },
+        });
+      } catch (error) {
+        warnings.push(`L'étiquette Sendcloud n'a pas pu être annulée : ${sendcloudErrorMessage(error)}`);
+      }
+    }
+  }
 
   await prisma.order.update({ where: { id }, data: { status } });
   await applyStockForTransition(id, order.status, status);
@@ -88,6 +150,11 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
   // Une commande payée doit toujours porter une facture numérotée.
   if (status === "PAID" || status === "PREPARING" || status === "SHIPPED" || status === "DELIVERED") {
     await ensureInvoiceForOrder(id);
+  }
+
+  // Une facture émise ne disparaît pas : l'annulation produit un avoir.
+  if (status === "CANCELLED" && order.invoice) {
+    await ensureCreditNoteForOrder(id, refundedCents ?? order.totalCents);
   }
 
   const sender = EMAIL_SENDER_BY_STATUS[status];
@@ -100,17 +167,20 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
       createdAt: order.createdAt,
       items: order.items.map((item) => ({
         productName: item.product.name,
+        size: item.size,
         quantity: item.quantity,
         priceCents: item.priceCents,
       })),
       tracking: shipment
         ? { number: shipment.trackingNumber, url: shipment.trackingUrl, carrier: shipment.carrier }
         : null,
+      refundedCents,
     };
     await sender(order.customerEmail, order.customerName, emailData);
   }
 
   revalidateOrder(id);
+  return warnings.length > 0 ? { warning: warnings.join(" ") } : {};
 }
 
 /* ------------------------------------------------------------------ */
@@ -369,47 +439,23 @@ export async function createExtraPayment(
     data: { orderId: id, label, amountCents, currency: order.currency },
   });
 
-  try {
-    const stripe = getStripe();
-    const checkoutSession = await stripe.checkout.sessions.create({
-      mode: "payment",
-      customer_email: order.customerEmail,
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: order.currency.toLowerCase(),
-            unit_amount: amountCents,
-            product_data: { name: `${label} — commande ${orderReference(order.id)}` },
-          },
-        },
-      ],
-      metadata: { extraPaymentId: payment.id, orderId: order.id },
-      success_url: `${APP_URL}/commande/confirmation?order=${order.id}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: APP_URL,
-    });
-
-    if (!checkoutSession.url) throw new Error("Session Stripe sans URL de paiement.");
-
-    await prisma.extraPayment.update({
-      where: { id: payment.id },
-      data: { stripeSessionId: checkoutSession.id, checkoutUrl: checkoutSession.url },
-    });
-
-    await sendExtraPaymentEmail(order.customerEmail, order.customerName, {
-      orderId: order.id,
-      label,
-      amountCents,
-      currency: order.currency,
-      checkoutUrl: checkoutSession.url,
-    });
-  } catch (error) {
-    await prisma.extraPayment.delete({ where: { id: payment.id } });
-    console.error("[extra-payment] Échec de la création du lien Stripe:", error);
-    return { message: "Le lien de paiement n'a pas pu être créé. Réessayez dans quelques instants." };
-  }
+  // Le lien envoyé est permanent : la session Stripe est ouverte au clic, une
+  // session Checkout expirant au bout de 24 h.
+  const sent = await sendExtraPaymentEmail(order.customerEmail, order.customerName, {
+    orderId: order.id,
+    label,
+    amountCents,
+    currency: order.currency,
+    checkoutUrl: `${APP_URL}${extraPaymentUrl(payment.id)}`,
+  });
 
   revalidateOrder(id);
+  if (!sent) {
+    return {
+      success: true,
+      message: "Le complément est créé mais l'e-mail n'a pas pu partir : transmettez le lien au client vous-même.",
+    };
+  }
   return { success: true };
 }
 

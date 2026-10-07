@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { AuthError, CredentialsSignin } from "next-auth";
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { findUserByEmail } from "@/lib/users";
 import { HOUR, clientIp, rateLimit } from "@/lib/rate-limit";
 import { Prisma } from "@/generated/prisma/client";
 import { APP_URL } from "@/lib/emails/constants";
@@ -52,7 +53,7 @@ export async function signup(
   // Au-delà de la limite par adresse, plus aucun e-mail ne part vers elle, sans
   // que la réponse change : le formulaire ne sert pas à bombarder une boîte.
   if (await rateLimit(`signup:email:${email.toLowerCase()}`, 3, HOUR)) {
-    const existing = await prisma.user.findUnique({ where: { email } });
+    const existing = await findUserByEmail(email);
     if (existing) {
       await sendExistingAccountSignupEmail(
         existing.email,
@@ -142,10 +143,7 @@ export async function login(
     throw error;
   }
 
-  const user = await prisma.user.findUnique({
-    where: { email: validatedFields.data.email },
-    select: { role: true },
-  });
+  const user = await findUserByEmail(validatedFields.data.email);
 
   // Chacun arrive dans sa console : l'admin sur /admin, le client sur /compte.
   // La navigation est faite côté client, après rafraîchissement de la session.

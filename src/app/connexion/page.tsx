@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSession } from "@/auth";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { AuthPanel, StorePage } from "@/components/store/StorePage";
+
+export const metadata: Metadata = { title: "Connexion" };
 
 export default async function ConnexionPage(props: PageProps<"/connexion">) {
   // Déjà connecté : on renvoie directement vers sa console au lieu de réafficher le formulaire.

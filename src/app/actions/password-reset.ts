@@ -4,6 +4,7 @@ import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { findUserByEmail } from "@/lib/users";
 import { sendPasswordResetEmail } from "@/lib/emails/send";
 import { APP_URL } from "@/lib/emails/constants";
 import { hashToken } from "@/lib/tokens";
@@ -38,7 +39,7 @@ export async function requestPasswordReset(
   // un refus explicite révélerait que le compte existe.
   const emailAllowed = await rateLimit(`reset:email:${email.toLowerCase()}`, 3, HOUR);
 
-  const user = emailAllowed ? await prisma.user.findUnique({ where: { email } }) : null;
+  const user = emailAllowed ? await findUserByEmail(email) : null;
   if (user) {
     await prisma.passwordResetToken.deleteMany({ where: { userId: user.id, usedAt: null } });
 

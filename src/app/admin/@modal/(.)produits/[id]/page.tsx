@@ -31,7 +31,7 @@ export default async function EditProductModal(props: PageProps<"/admin/produits
           care: product.care ?? "",
           price: (product.priceCents / 100).toFixed(2),
           images: product.images.join("\n"),
-          sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock) })),
+          sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock), initialStock: String(s.stock) })),
           onSale: product.onSale,
           salePrice: product.salePriceCents !== null ? (product.salePriceCents / 100).toFixed(2) : "",
         }}

@@ -23,6 +23,7 @@ function orderReference(orderId: string) {
 
 type OrderEmailItem = {
   productName: string;
+  size?: string | null;
   quantity: number;
   priceCents: number;
 };
@@ -34,6 +35,8 @@ export type OrderEmailData = {
   createdAt: Date;
   items: OrderEmailItem[];
   tracking?: { number: string | null; url: string | null; carrier: string | null } | null;
+  /** Montant remboursé via Stripe à l'annulation, s'il y en a eu un. */
+  refundedCents?: number | null;
 };
 
 function itemsTable(items: OrderEmailItem[], currency: string) {
@@ -41,7 +44,7 @@ function itemsTable(items: OrderEmailItem[], currency: string) {
     .map(
       (item) => `
         <tr>
-          <td style="padding:12px 0; border-bottom:1px solid ${line}; font-family:${display}; font-size:20px; font-weight:700; line-height:1.1; text-transform:uppercase; color:${ink};">${escapeHtml(item.productName)} <span style="font-family:${serif}; font-size:13px; font-weight:400; font-style:italic; text-transform:none; color:${muted};">× ${item.quantity}</span></td>
+          <td style="padding:12px 0; border-bottom:1px solid ${line}; font-family:${display}; font-size:20px; font-weight:700; line-height:1.1; text-transform:uppercase; color:${ink};">${escapeHtml(item.productName)} <span style="font-family:${serif}; font-size:13px; font-weight:400; font-style:italic; text-transform:none; color:${muted};">${item.size ? `taille ${escapeHtml(item.size)} · ` : ""}× ${item.quantity}</span></td>
           <td style="padding:12px 0; border-bottom:1px solid ${line}; font-family:${sans}; font-size:14px; color:${ink}; text-align:right; white-space:nowrap;">${formatCents(item.priceCents * item.quantity, currency)}</td>
         </tr>`
     )
@@ -51,10 +54,16 @@ function itemsTable(items: OrderEmailItem[], currency: string) {
 }
 
 function orderSummaryBlock(order: OrderEmailData) {
+  // Le total payé inclut la livraison, absente des lignes d'articles.
+  const shippingCents = order.totalCents - order.items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0);
   return `
     <p style="margin:28px 0 10px; font-family:${sans}; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:${muted};">Commande ${orderReference(order.id)} · ${formatDate(order.createdAt)}</p>
     ${itemsTable(order.items, order.currency)}
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:6px; border-top:3px double ${line};">
+      <tr>
+        <td style="padding-top:12px; font-family:${sans}; font-size:13px; color:${muted};">Livraison</td>
+        <td style="padding-top:12px; font-family:${sans}; font-size:13px; color:${ink}; text-align:right;">${shippingCents > 0 ? formatCents(shippingCents, order.currency) : "Offerte"}</td>
+      </tr>
       <tr>
         <td style="padding-top:12px; font-family:${sans}; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:${ink};">Total</td>
         <td style="padding-top:12px; font-family:${display}; font-size:24px; font-weight:700; line-height:1; color:${ink}; text-align:right;">${formatCents(order.totalCents, order.currency)}</td>
@@ -191,7 +200,9 @@ export function orderCancelledEmailTemplate(name: string | null, order: OrderEma
       ${heading(`Commande ${orderReference(order.id)}`, "Commande annulée")}
       ${greeting(name)}
       ${paragraph(
-        `Votre commande ${orderReference(order.id)} a été annulée. Si un paiement avait été effectué, il vous sera remboursé.`,
+        order.refundedCents
+          ? `Votre commande ${orderReference(order.id)} a été annulée. Le montant de <strong>${formatCents(order.refundedCents, order.currency)}</strong> vous a été remboursé sur votre moyen de paiement ; il apparaît sous 5 à 10 jours ouvrés selon votre banque.`
+          : `Votre commande ${orderReference(order.id)} a été annulée. Si un paiement avait été effectué, il vous sera remboursé.`,
         { last: true }
       )}
       ${orderSummaryBlock(order)}
@@ -281,6 +292,32 @@ export function existingAccountSignupEmailTemplate(name: string | null, loginUrl
       )}
       ${button(loginUrl, "Me connecter")}
       ${note(`Mot de passe oublié ? <a href="${resetUrl}" style="color:${ink};">Choisissez-en un nouveau</a>. Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : votre compte n'a pas été modifié.`)}
+    `,
+  });
+  return { subject, html };
+}
+
+export function oversoldAlertEmailTemplate(
+  orderId: string,
+  lines: { productName: string; size: string; ordered: number; available: number }[]
+) {
+  const subject = `Survente sur la commande ${orderReference(orderId)}`;
+  const rows = lines
+    .map(
+      (line) =>
+        `<li>${escapeHtml(line.productName)} · taille ${escapeHtml(line.size)} : ${line.ordered} commandé(s), ${line.available} en stock au moment du paiement</li>`
+    )
+    .join("");
+  const html = emailLayout({
+    previewText: `Le stock était insuffisant pour la commande ${orderReference(orderId)}.`,
+    bodyHtml: `
+      ${heading(`Commande ${orderReference(orderId)}`, "Stock insuffisant")}
+      ${paragraph(
+        `La commande ${orderReference(orderId)} vient d'être payée alors que le stock ne couvrait plus tous les articles (deux paiements se sont croisés sur les dernières pièces). Le stock a été ramené à 0.`
+      )}
+      <ul style="margin:0 0 16px; padding-left:18px; font-family:${sans}; font-size:14px; line-height:1.6; color:${ink};">${rows}</ul>
+      ${paragraph("Contactez le client pour proposer un délai ou annuler la commande (le remboursement Stripe est automatique à l'annulation).", { last: true })}
+      ${button(`${APP_URL}/admin/commandes/${orderId}`, "Ouvrir la commande")}
     `,
   });
   return { subject, html };

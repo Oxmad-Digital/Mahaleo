@@ -4,7 +4,7 @@ import guitar from "../../assets/mahaleo/guitar-retro.webp";
 import logo from "../../assets/mahaleo/logo-mahaleo.png";
 
 export const metadata = {
-  title: "Site en maintenance — Mahaleo",
+  title: { absolute: "Site en maintenance — Mahaleo" },
   description: "La boutique officielle Mahaleo fait une courte pause technique.",
 };
 

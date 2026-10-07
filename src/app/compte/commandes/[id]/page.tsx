@@ -10,6 +10,7 @@ import { formatCents, formatCentsExact, formatDate, formatDateTime, formatNumber
 import { countryLabel } from "@/lib/country-label";
 import { orderReference } from "@/lib/order-status";
 import { SUPPORT_EMAIL } from "@/lib/emails/constants";
+import { extraPaymentUrl } from "@/lib/extra-payments";
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
 const MUTED = "rgba(55,53,47,0.45)";
@@ -299,6 +300,19 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                 >
                   Voir la facture
                 </Link>
+                {order.creditNote && (
+                  <>
+                    <SidebarRow label="Avoir">
+                      <span style={{ fontSize: 13, fontWeight: 600 }}>{order.creditNote.number}</span>
+                    </SidebarRow>
+                    <Link
+                      href={`/compte/commandes/${order.id}/avoir`}
+                      style={{ padding: "9px 16px", borderRadius: 6, border: BORDER, color: "#37352f", fontSize: 14, fontWeight: 600, textAlign: "center" }}
+                    >
+                      Voir l&apos;avoir
+                    </Link>
+                  </>
+                )}
               </>
             ) : (
               <p style={{ fontSize: 13, color: "rgba(55,53,47,0.55)", margin: 0, lineHeight: 1.6 }}>
@@ -317,10 +331,9 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                       {formatCentsExact(payment.amountCents, payment.currency)}
                     </span>
                   </SidebarRow>
-                  {payment.checkoutUrl && (
-                    <a
+                  <a
                       className="retro-account-primary-link"
-                      href={payment.checkoutUrl}
+                      href={extraPaymentUrl(payment.id)}
                       style={{
                         padding: "9px 16px",
                         borderRadius: 6,
@@ -333,7 +346,6 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
                     >
                       Payer maintenant
                     </a>
-                  )}
                 </div>
               ))}
             </div>

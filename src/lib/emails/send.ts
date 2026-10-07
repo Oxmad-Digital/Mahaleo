@@ -11,6 +11,7 @@ import {
   adminInviteEmailTemplate,
   contactMessageEmailTemplate,
   extraPaymentEmailTemplate,
+  oversoldAlertEmailTemplate,
   signupVerificationEmailTemplate,
   existingAccountSignupEmailTemplate,
   type OrderEmailData,
@@ -91,4 +92,11 @@ export function sendExtraPaymentEmail(
 
 export function sendContactMessageEmail(name: string, fromEmail: string, message: string) {
   return safeSend(SUPPORT_EMAIL, contactMessageEmailTemplate(name, fromEmail, message), fromEmail);
+}
+
+export function sendOversoldAlertEmail(
+  orderId: string,
+  lines: { productName: string; size: string; ordered: number; available: number }[]
+) {
+  return safeSend(SUPPORT_EMAIL, oversoldAlertEmailTemplate(orderId, lines));
 }

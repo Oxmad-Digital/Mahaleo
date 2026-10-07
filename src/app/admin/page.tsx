@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/admin/require-admin";
 import { getDashboardData, isDashboardRange, type DashboardRange } from "@/lib/admin/dashboard";
 import { formatCents, formatNumber, formatPercent } from "@/lib/format";
@@ -8,6 +9,8 @@ import { SalesChart } from "@/components/admin/SalesChart";
 import { TopProductsCard } from "@/components/admin/TopProductsCard";
 import { LatestOrdersCard } from "@/components/admin/LatestOrdersCard";
 import { StockAlertsCard } from "@/components/admin/StockAlertsCard";
+
+export const metadata: Metadata = { title: "Administration" };
 
 export default async function AdminDashboardPage(props: PageProps<"/admin">) {
   const session = await requireAdmin();

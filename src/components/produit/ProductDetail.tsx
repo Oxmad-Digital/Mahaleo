@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
-import { useCart } from "@/lib/cart";
+import { lineMaxQty, useCart } from "@/lib/cart";
 import { isOptimizableImage } from "@/lib/images";
 import { effectivePriceCents } from "@/lib/pricing";
+import { FREE_SHIPPING_THRESHOLD_CENTS, SHIPPING_COST_CENTS } from "@/lib/shipping";
 import type { ShopProductDetail } from "@/lib/shop";
 
 const PLACEHOLDER_IMAGE = "/images/product-photo-sample.webp";
@@ -25,7 +26,7 @@ export function ProductDetail({
   const requiresSize = product.sizes.length > 0;
   const [size, setSize] = useState<string>();
   const [message, setMessage] = useState("");
-  const { addItem } = useCart();
+  const { items, addItem } = useCart();
   const soldOut = requiresSize && availableSizes.length === 0;
   const priceCents = effectivePriceCents(product);
   const discounted = priceCents !== product.priceCents;
@@ -44,6 +45,12 @@ export function ProductDetail({
       return;
     }
     if (soldOut) return;
+    const maxQty = product.sizes.find((entry) => entry.size === size)?.stock;
+    const inCart = items.find((item) => item.productId === product.id && item.size === size)?.qty ?? 0;
+    if (inCart >= lineMaxQty({ maxQty })) {
+      setMessage(`Vous avez déjà le maximum disponible de cette taille dans votre panier (${inCart}).`);
+      return;
+    }
     addItem({
       productId: product.id,
       slug: product.slug,
@@ -52,6 +59,7 @@ export function ProductDetail({
       priceCents,
       currency: product.currency,
       size,
+      maxQty,
     });
     setMessage(`${product.name}${size ? ` · ${size}` : ""} ajouté au panier.`);
   }
@@ -138,8 +146,8 @@ export function ProductDetail({
             </div>
             <div className="retro-product-notes">
               {product.care && <p><strong>ENTRETIEN</strong><span>{product.care}</span></p>}
-              <p><strong>LIVRAISON</strong><span>Calculée selon votre destination lors de la commande.</span></p>
-              <p><strong>RETOURS</strong><span>Consultez les conditions de vente avant votre achat.</span></p>
+              <p><strong>LIVRAISON</strong><span>Offerte dès {formatCents(FREE_SHIPPING_THRESHOLD_CENTS, product.currency)} d&apos;achat, {formatCents(SHIPPING_COST_CENTS, product.currency)} en dessous. France et Europe.</span></p>
+              <p><strong>RETOURS</strong><span>30 jours pour changer d&apos;avis. <Link href="/conditions-de-vente">Voir les conditions de vente</Link>.</span></p>
             </div>
           </section>
         </div>

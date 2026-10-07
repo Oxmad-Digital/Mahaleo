@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { sortBySize } from "@/lib/sizes";
 import type { Prisma } from "@/generated/prisma/client";
 
 const PRODUCTS_PAGE_SIZE = 20;
@@ -33,6 +34,7 @@ export async function getProductsData({ query, page }: { query?: string; page: n
 
   const products = rawProducts.map((product) => ({
     ...product,
+    sizes: sortBySize(product.sizes),
     stock: product.sizes.reduce((sum, s) => sum + s.stock, 0),
   }));
 
@@ -48,8 +50,6 @@ export async function getProductsData({ query, page }: { query?: string; page: n
 export type ProductsData = Awaited<ReturnType<typeof getProductsData>>;
 
 export async function getProductById(id: string) {
-  return prisma.product.findUnique({
-    where: { id },
-    include: { sizes: { orderBy: { size: "asc" } } },
-  });
+  const product = await prisma.product.findUnique({ where: { id }, include: { sizes: true } });
+  return product && { ...product, sizes: sortBySize(product.sizes) };
 }

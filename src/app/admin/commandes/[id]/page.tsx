@@ -13,6 +13,7 @@ import { updateOrderCustomer } from "@/app/actions/orders";
 import { isSendcloudConfigured } from "@/lib/sendcloud";
 import { formatCents, formatDate, formatDateTime, formatNumber } from "@/lib/format";
 import { orderReference } from "@/lib/order-status";
+import { holdsStock } from "@/lib/stock";
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
 const MUTED = "rgba(55,53,47,0.45)";
@@ -31,7 +32,11 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
 
   // Tous les paiements passent par Stripe : le moyen n'est confirmé qu'une fois
   // l'intention de paiement rattachée à la commande.
-  const paymentLabel = order.stripePaymentIntentId ? "Carte bancaire" : "En attente de paiement";
+  const paymentLabel = order.refundedAt
+    ? "Remboursé"
+    : order.stripePaymentIntentId
+      ? "Carte bancaire"
+      : "En attente de paiement";
 
   return (
     <AdminShell
@@ -88,7 +93,13 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
         style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 300px", alignItems: "start", gap: 24 }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 24, minWidth: 0 }}>
-          <OrderStatusStepper id={order.id} status={order.status} />
+          <OrderStatusStepper
+            id={order.id}
+            status={order.status}
+            refundOnCancel={Boolean(order.stripePaymentIntentId) && holdsStock(order.status)}
+            refunded={Boolean(order.refundedAt)}
+            totalLabel={formatCents(order.totalCents, order.currency)}
+          />
 
           <OrderCustomerCard
             action={updateOrderCustomer.bind(null, order.id)}
@@ -264,6 +275,27 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
                 >
                   Voir la facture
                 </Link>
+                {order.creditNote && (
+                  <>
+                    <SidebarRow label="Avoir">
+                      <span style={{ fontSize: 13, fontWeight: 600 }}>{order.creditNote.number}</span>
+                    </SidebarRow>
+                    <Link
+                      href={`/admin/commandes/${order.id}/avoir`}
+                      style={{
+                        padding: "9px 16px",
+                        borderRadius: 6,
+                        border: BORDER,
+                        color: "#37352f",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        textAlign: "center",
+                      }}
+                    >
+                      Voir l&apos;avoir
+                    </Link>
+                  </>
+                )}
               </>
             ) : (
               <>

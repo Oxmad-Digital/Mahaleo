@@ -32,3 +32,21 @@
 @media (max-width: 1200px) {
   .retro-auth-notes { display: none; }
 }
+
+/* Corrections apportées au panier après vérification du catalogue (panier, checkout) */
+.retro-cart-notices { margin: 18px 0 0; padding: 12px 16px; list-style: none; border: 1px solid var(--retro-red); color: var(--retro-red); font: italic 13px/1.5 var(--retro-serif); }
+.retro-cart-notices li + li { margin-top: 4px; }
+
+/* Reçu : confirmation de commande, paiement d'un complément */
+.retro-receipt-page { height: auto; min-height: 100dvh; overflow: visible; }
+.retro-receipt { align-self: start; width: min(100%, 620px); margin: clamp(28px, 7vh, 80px) auto; padding: clamp(22px, 4vw, 36px); border: 1px solid var(--retro-line); background: rgb(245 238 219 / .42); }
+.retro-receipt h1 { margin: 6px 0 14px; font: 700 clamp(38px, 5vw, 58px)/.95 var(--retro-display); }
+.retro-receipt > p { margin: 0 0 22px; color: var(--retro-muted); font: italic 14px/1.6 var(--retro-serif); }
+.retro-receipt .retro-primary { width: 100%; }
+.retro-receipt-lines { margin: 0 0 18px; border-top: 1px solid var(--retro-line); }
+.retro-receipt-lines > div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--retro-line); font-size: 12px; }
+.retro-receipt-lines span { color: var(--retro-muted); }
+.retro-receipt-lines strong { flex: none; font-weight: 400; }
+.retro-receipt-lines .retro-cart-total { padding-top: 14px; border-top: 3px double var(--retro-line); border-bottom: 0; font-weight: 700; }
+.retro-receipt-lines .retro-cart-total span { color: inherit; }
+.retro-receipt-address { margin: 0 0 22px; color: var(--retro-muted); font-size: 12px; line-height: 1.6; }

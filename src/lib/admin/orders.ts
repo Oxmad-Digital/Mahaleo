@@ -93,6 +93,7 @@ export async function getOrderById(id: string) {
       shippingCountry: true,
       phone: true,
       stripePaymentIntentId: true,
+      refundedAt: true,
       user: { select: { id: true, name: true, email: true } },
       items: {
         select: {
@@ -105,6 +106,7 @@ export async function getOrderById(id: string) {
       },
       shipment: true,
       invoice: true,
+      creditNote: true,
       extraPayments: { orderBy: { createdAt: "desc" } },
     },
   });

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { VISIBLE_TO_CUSTOMER } from "@/lib/abandoned-orders";
 import type { OrderStatus, Prisma } from "@/generated/prisma/client";
 
 const ACCOUNT_ORDERS_PAGE_SIZE = 10;
@@ -6,8 +7,8 @@ const ACCOUNT_INVOICES_PAGE_SIZE = 10;
 
 /**
  * Statuts proposés au client. `PENDING` est volontairement absent des onglets :
- * une commande non payée n'a pas d'intérêt pour lui, mais elle reste visible
- * dans « Toutes ».
+ * seul un paiement différé en cours (SEPA) reste visible dans « Toutes », un
+ * paiement abandonné n'est jamais montré.
  */
 export const ACCOUNT_STATUS_FILTERS = ["PAID", "PREPARING", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
@@ -31,7 +32,7 @@ export async function getAccountOrdersData({
 }) {
   const pageSize = ACCOUNT_ORDERS_PAGE_SIZE;
 
-  const where: Prisma.OrderWhereInput = { userId, ...(status ? { status } : {}) };
+  const where: Prisma.OrderWhereInput = { userId, ...VISIBLE_TO_CUSTOMER, ...(status ? { status } : {}) };
 
   const [orders, total, statusCounts, totalCount] = await Promise.all([
     prisma.order.findMany({
@@ -50,8 +51,8 @@ export async function getAccountOrdersData({
       },
     }),
     prisma.order.count({ where }),
-    prisma.order.groupBy({ by: ["status"], where: { userId }, _count: { _all: true } }),
-    prisma.order.count({ where: { userId } }),
+    prisma.order.groupBy({ by: ["status"], where: { userId, ...VISIBLE_TO_CUSTOMER }, _count: { _all: true } }),
+    prisma.order.count({ where: { userId, ...VISIBLE_TO_CUSTOMER } }),
   ]);
 
   const countsByStatus = Object.fromEntries(ACCOUNT_STATUS_FILTERS.map((s) => [s, 0])) as Record<
@@ -83,7 +84,7 @@ export type AccountOrdersData = Awaited<ReturnType<typeof getAccountOrdersData>>
  */
 export async function getAccountOrderById(userId: string, id: string) {
   return prisma.order.findFirst({
-    where: { id, userId },
+    where: { id, userId, ...VISIBLE_TO_CUSTOMER },
     select: {
       id: true,
       status: true,
@@ -119,6 +120,8 @@ export async function getAccountOrderById(userId: string, id: string) {
         },
       },
       invoice: { select: { number: true, issuedAt: true } },
+      creditNote: { select: { number: true, issuedAt: true, amountCents: true } },
+      refundedAt: true,
       extraPayments: { orderBy: { createdAt: "desc" } },
     },
   });
@@ -159,15 +162,15 @@ export type AccountInvoicesData = Awaited<ReturnType<typeof getAccountInvoicesDa
 /** Chiffres et derniers éléments affichés sur le tableau de bord du client. */
 export async function getAccountOverview(userId: string) {
   const [orderCount, activeCount, spend, invoiceCount, latestOrders, lastOrder] = await Promise.all([
-    prisma.order.count({ where: { userId } }),
-    prisma.order.count({ where: { userId, status: { in: ACCOUNT_ACTIVE_STATUSES } } }),
+    prisma.order.count({ where: { userId, ...VISIBLE_TO_CUSTOMER } }),
+    prisma.order.count({ where: { userId, ...VISIBLE_TO_CUSTOMER, status: { in: ACCOUNT_ACTIVE_STATUSES } } }),
     prisma.order.aggregate({
-      where: { userId, status: { not: "CANCELLED" } },
+      where: { userId, status: { in: ["PAID", "PREPARING", "SHIPPED", "DELIVERED"] } },
       _sum: { totalCents: true },
     }),
     prisma.invoice.count({ where: { order: { userId } } }),
     prisma.order.findMany({
-      where: { userId },
+      where: { userId, ...VISIBLE_TO_CUSTOMER },
       orderBy: { createdAt: "desc" },
       take: 5,
       select: {
