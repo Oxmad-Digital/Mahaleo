@@ -22,7 +22,7 @@ const barlowCondensed = localFont({
 
 export const metadata: Metadata = {
   title: { default: "Mahaleo — Boutique officielle", template: "%s — Mahaleo" },
-  description: "La boutique officielle Mahaleo : vêtements et souvenirs musicaux depuis 1972.",
+  description: "La boutique officielle Mahaleo : les vêtements officiels du groupe.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

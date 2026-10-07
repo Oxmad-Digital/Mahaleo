@@ -20,7 +20,7 @@ export default function MaintenancePage() {
       <header className="retro-maintenance-header">
         <div className="retro-maintenance-context">
           <strong>BOUTIQUE OFFICIELLE</strong>
-          <span>Vêtements &amp; souvenirs musicaux</span>
+          <span>Vêtements officiels du groupe</span>
         </div>
         <Image
           className="retro-maintenance-logo"

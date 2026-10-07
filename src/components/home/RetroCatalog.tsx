@@ -56,7 +56,7 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
           <div><span>UNE HISTOIRE</span><strong>QUI SE TRANSMET.</strong></div>
         </div>
         <div className="retro-archive-note">
-          <span>Des cordes.<br />Des voix. Des générations.</span>
+          <span>Liberté &amp; indépendance</span>
           <a href="https://www.mahaleo.com/groupe.htm" target="_blank" rel="noreferrer">LES ORIGINES ↗</a>
         </div>
       </aside>
@@ -103,7 +103,6 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
         </div>
 
         <div className="retro-collection-bottom">
-          <p>Des pièces pensées comme des souvenirs de concert.</p>
           <div className="retro-pager">
             <button type="button" onClick={() => setPage((value) => Math.max(0, value - 1))} disabled={safePage === 0} aria-label="Produits précédents">←</button>
             <span>{String(safePage + 1).padStart(2, "0")} / {String(pageCount).padStart(2, "0")}</span>

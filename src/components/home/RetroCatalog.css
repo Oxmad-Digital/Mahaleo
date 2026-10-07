@@ -31,8 +31,7 @@
 .retro-product-meta i { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 3px var(--retro-paper), 0 0 0 4px var(--retro-line); }
 .retro-product-meta span { color: var(--retro-muted); font: 11px var(--retro-serif); letter-spacing: .4px; }
 .retro-empty { grid-column: 1 / -1; display: grid; place-items: center; color: var(--retro-muted); font: italic 16px var(--retro-serif); }
-.retro-collection-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 17px; padding-top: 11px; border-top: 1px solid var(--retro-line); }
-.retro-collection-bottom p { margin: 0; color: var(--retro-muted); font: italic 13px var(--retro-serif); }
+.retro-collection-bottom { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 17px; padding-top: 11px; border-top: 1px solid var(--retro-line); }
 .retro-pager { display: flex; align-items: center; gap: 11px; font-size: 11px; }
 .retro-pager button { width: 28px; height: 27px; border: 1px solid var(--retro-line); background: transparent; }
 .retro-pager button:hover:not(:disabled) { border-color: var(--retro-red); color: var(--retro-red); }
@@ -74,7 +73,6 @@
   .retro-product-info a { font-size: 25px; }
   .retro-product-info p { margin: 4px 0 8px; }
   .retro-collection-bottom { margin-top: 8px; padding-top: 7px; }
-  .retro-collection-bottom p { display: none; }
   .retro-pager { margin-left: auto; }
 }
 
