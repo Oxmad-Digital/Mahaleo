@@ -12,7 +12,7 @@ import { GenerateInvoiceButton } from "@/components/admin/GenerateInvoiceButton"
 import { updateOrderCustomer } from "@/app/actions/orders";
 import { isSendcloudConfigured } from "@/lib/sendcloud";
 import { formatCents, formatDate, formatDateTime, formatNumber } from "@/lib/format";
-import { orderReference } from "@/lib/order-status";
+import { orderReference, paymentLabel as paymentLabelOf } from "@/lib/order-status";
 import { holdsStock } from "@/lib/stock";
 
 const BORDER = "1px solid rgba(55,53,47,0.09)";
@@ -30,13 +30,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
   const subtotalCents = itemsSubtotalCents(order.items);
   const shippingCents = order.totalCents - subtotalCents;
 
-  // Tous les paiements passent par Stripe : le moyen n'est confirmé qu'une fois
-  // l'intention de paiement rattachée à la commande.
-  const paymentLabel = order.refundedAt
-    ? "Remboursé"
-    : order.stripePaymentIntentId
-      ? "Carte bancaire"
-      : "En attente de paiement";
+  const paymentLabel = paymentLabelOf(order, "admin");
 
   return (
     <AdminShell

@@ -8,7 +8,7 @@ import { AccountOrderTimeline } from "@/components/compte/AccountOrderTimeline";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { formatCents, formatCentsExact, formatDate, formatDateTime, formatNumber } from "@/lib/format";
 import { countryLabel } from "@/lib/country-label";
-import { orderReference } from "@/lib/order-status";
+import { orderReference, paymentLabel as paymentLabelOf } from "@/lib/order-status";
 import { SUPPORT_EMAIL } from "@/lib/emails/constants";
 import { extraPaymentUrl } from "@/lib/extra-payments";
 
@@ -26,7 +26,7 @@ export default async function AccountOrderDetailPage(props: PageProps<"/compte/c
   const itemCount = order.items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotalCents = itemsSubtotalCents(order.items);
   const shippingCents = order.totalCents - subtotalCents;
-  const paymentLabel = order.stripePaymentIntentId ? "Carte bancaire" : "En attente de paiement";
+  const paymentLabel = paymentLabelOf(order, "client");
   const shipment = order.shipment && !order.shipment.cancelledAt ? order.shipment : null;
   const pendingPayments = order.extraPayments.filter((payment) => payment.status === "PENDING");
 
