@@ -354,11 +354,22 @@
   }
 }
 
-@media (max-width: 800px) {
+/* Tablette (y compris en paysage) : le document défile. */
+@media (max-width: 1024px), (hover: none) {
   .retro-maintenance {
     height: auto;
     min-height: 100dvh;
-    overflow-y: auto;
+    overflow: visible;
+    overflow-x: clip;
+  }
+
+  .retro-maintenance-photo {
+    min-height: 275px;
+  }
+}
+
+@media (max-width: 800px) {
+  .retro-maintenance {
     grid-template-rows: 25px 83px auto 42px;
     padding: 15px 24px 0;
   }

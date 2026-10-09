@@ -5,12 +5,13 @@
     Arial, sans-serif;
 }
 
+/* Le document reste défilable : sur ordinateur, les pages qui tiennent dans
+   l'écran (100dvh) n'ont simplement rien à faire défiler ; sur tablette et
+   mobile, elles reprennent leur hauteur naturelle (voir StoreChrome.css). */
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
   background: var(--bg-letterbox);
 }
 

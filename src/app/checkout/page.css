@@ -27,8 +27,9 @@
 .retro-checkout-error { padding: 10px; border: 1px solid var(--retro-red); color: var(--retro-red); font-size: 11px; line-height: 1.45; }
 .retro-secure-note { margin: 13px 0 0; color: var(--retro-muted); font: italic 11px/1.5 var(--retro-serif); }
 
-/* Desktop : la page tient dans l'écran, seul le formulaire défile. */
-@media (min-width: 901px) and (min-height: 501px) {
+/* Ordinateur : la page tient dans l'écran, seul le formulaire défile. Sur
+   tablette et mobile, la page entière défile. */
+@media (min-width: 1025px) and (min-height: 501px) and (hover: hover) {
   .retro-checkout-page { height: 100dvh; overflow: hidden; }
   .retro-checkout-main { min-height: 0; display: flex; flex-direction: column; padding: 16px 0 18px; }
   .retro-checkout-main .retro-cart-title { flex: none; padding-bottom: 12px; }

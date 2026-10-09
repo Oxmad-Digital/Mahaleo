@@ -10,10 +10,6 @@
 .retro-shop-heading { min-height: 33px; margin-bottom: 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .retro-shop-heading h2 { margin: 0; font: 700 25px/1 var(--retro-display); letter-spacing: .2px; }
 .retro-shop-heading h2 span { display: inline-block; margin-left: 5px; padding: 3px 4px; vertical-align: middle; border: 1px solid var(--retro-line); font: 11px Arial, sans-serif; }
-.retro-filters { display: flex; gap: 14px; }
-.retro-filters button { padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--retro-muted); font-size: 11px; }
-.retro-filters button:hover,
-.retro-filters .active { color: var(--retro-red); border-bottom-color: var(--retro-red); }
 .retro-products { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .retro-product { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 .retro-product-index { padding-top: 8px; margin-bottom: 9px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font-size: 11px; line-height: 1; letter-spacing: 1px; }
@@ -50,6 +46,12 @@
   .retro-archive-note a { width: 100%; }
 }
 
+/* Tablette et mobile : la page défile, les visuels ne remplissent plus la
+   hauteur de l'écran mais gardent un format carré. */
+@media (max-width: 1024px), (hover: none) {
+  .retro-product-image { flex: none; aspect-ratio: 1; }
+}
+
 @media (max-width: 900px) {
   .retro-home-main { display: block; padding: 17px 0 14px; }
   .retro-guitar { display: none; }
@@ -66,14 +68,36 @@
   .retro-home-main { padding: 11px 0 9px; }
   .retro-shop-heading { display: block; min-height: 0; margin-bottom: 9px; }
   .retro-shop-heading h2 { font-size: 22px; }
-  .retro-filters { gap: 17px; padding-top: 8px; }
-  .retro-products { grid-template-columns: minmax(0, 1fr); }
-  .retro-products > .retro-product:nth-child(n + 2) { display: none; }
+  /* Carrousel au doigt : la carte suivante dépasse à droite pour montrer qu'on
+     peut faire défiler. */
+  .retro-products { display: flex; gap: 12px; contain: inline-size; margin-right: -18px; padding-right: 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .retro-products::-webkit-scrollbar { display: none; }
+  .retro-products > .retro-product { flex: 0 0 84%; scroll-snap-align: start; }
+  .retro-products > .retro-product:nth-child(n + 3) { display: flex; }
+  .retro-products > .retro-empty { flex: 1; }
+  .retro-product-meta { padding-left: 4px; }
   .retro-product-index { display: none; }
   .retro-product-info a { font-size: 25px; }
   .retro-product-info p { margin: 4px 0 8px; }
   .retro-collection-bottom { margin-top: 8px; padding-top: 7px; }
-  .retro-pager { margin-left: auto; }
+  .retro-pager { display: none; }
+  .retro-swipe { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 27px; }
+  .retro-swipe-hint { color: var(--retro-muted); font: italic 12px var(--retro-serif); transition: opacity .3s ease; }
+  .retro-swipe-hint b { display: inline-block; font-style: normal; animation: retro-swipe-nudge 1.4s ease-in-out infinite; }
+  .retro-swipe-hint.is-hidden { opacity: 0; }
+  .retro-swipe-dots { display: flex; gap: 2px; margin-left: auto; }
+  .retro-swipe-dots button { width: 18px; height: 22px; padding: 0; border: 0; background: none; }
+  .retro-swipe-dots button::after { content: ""; display: block; width: 6px; height: 6px; margin: auto; border: 1px solid var(--retro-ink); border-radius: 50%; transition: background .2s ease, width .2s ease; }
+  .retro-swipe-dots button.active::after { width: 14px; border-radius: 3px; border-color: var(--retro-red); background: var(--retro-red); }
+}
+
+@keyframes retro-swipe-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .retro-swipe-hint b { animation: none; }
 }
 
 @media (max-height: 700px) and (min-width: 901px) {

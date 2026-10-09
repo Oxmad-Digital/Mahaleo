@@ -2,16 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatCents } from "@/lib/format";
 import { effectivePriceCents } from "@/lib/pricing";
 import { isOptimizableImage } from "@/lib/images";
 import type { ShopProduct } from "@/lib/shop";
 import guitar from "../../assets/mahaleo/guitar-retro.webp";
 
-type Filter = "all" | "tee" | "sweat";
-
-function getShopCategory(product: Pick<ShopProduct, "productType" | "name" | "description">): Exclude<Filter, "all"> | "other" {
+function getShopCategory(product: Pick<ShopProduct, "productType" | "name" | "description">): "tee" | "sweat" | "other" {
   const text = [product.productType, product.name, product.description].filter(Boolean).join(" ");
   const normalized = text.toLocaleLowerCase("fr");
   if (normalized.includes("sweat") || normalized.includes("hoodie") || normalized.includes("pull")) return "sweat";
@@ -31,20 +29,30 @@ function usePageSize() {
 }
 
 export function RetroCatalog({ products }: { products: ShopProduct[] }) {
-  const [filter, setFilter] = useState<Filter>("all");
   const [page, setPage] = useState(0);
   const pageSize = usePageSize();
-  const filtered = useMemo(
-    () => products.filter((product) => filter === "all" || getShopCategory(product) === filter),
-    [filter, products],
-  );
-  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * pageSize, (safePage + 1) * pageSize);
+  // Sur téléphone, plus de pagination : tous les produits dans un carrousel
+  // qu'on fait défiler au doigt.
+  const swipe = pageSize === 1;
+  const pageCount = Math.max(1, Math.ceil(products.length / pageSize));
+  const safePage = swipe ? 0 : Math.min(page, pageCount - 1);
+  const visible = swipe ? products : products.slice(safePage * pageSize, (safePage + 1) * pageSize);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [swiped, setSwiped] = useState(false);
 
-  function changeFilter(next: Filter) {
-    setFilter(next);
-    setPage(0);
+  function onTrackScroll() {
+    const track = trackRef.current;
+    const first = track?.firstElementChild as HTMLElement | null;
+    if (!track || !first) return;
+    const step = first.offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0");
+    setActiveSlide(Math.min(products.length - 1, Math.round(track.scrollLeft / step)));
+    if (track.scrollLeft > 4) setSwiped(true);
+  }
+
+  function goToSlide(index: number) {
+    const slide = trackRef.current?.children[index] as HTMLElement | undefined;
+    trackRef.current?.scrollTo({ left: slide?.offsetLeft ?? 0, behavior: "smooth" });
   }
 
   return (
@@ -63,15 +71,10 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
 
       <section className="retro-shop" aria-labelledby="collection-title">
         <div className="retro-shop-heading">
-          <h2 id="collection-title">LA COLLECTION <span>{String(filtered.length).padStart(2, "0")}</span></h2>
-          <div className="retro-filters" aria-label="Filtrer les vêtements">
-            {([["all", "Tout"], ["tee", "T-shirts"], ["sweat", "Sweats"]] as [Filter, string][]).map(([value, label]) => (
-              <button key={value} type="button" className={filter === value ? "active" : ""} aria-pressed={filter === value} onClick={() => changeFilter(value)}>{label}</button>
-            ))}
-          </div>
+          <h2 id="collection-title">LA COLLECTION <span>{String(products.length).padStart(2, "0")}</span></h2>
         </div>
 
-        <div className="retro-products" aria-live="polite">
+        <div ref={trackRef} className="retro-products" aria-live={swipe ? undefined : "polite"} onScroll={swipe ? onTrackScroll : undefined}>
           {visible.length ? visible.map((product, index) => {
             const image = product.images[0] ?? "/images/product-photo-sample.webp";
             const availableSizes = product.sizes.filter((size) => size.stock > 0).map((size) => size.size);
@@ -99,10 +102,20 @@ export function RetroCatalog({ products }: { products: ShopProduct[] }) {
                 </div>
               </article>
             );
-          }) : <p className="retro-empty">Aucun produit dans cette catégorie pour le moment.</p>}
+          }) : <p className="retro-empty">Aucun produit pour le moment.</p>}
         </div>
 
         <div className="retro-collection-bottom">
+          {swipe && products.length > 1 && (
+            <div className="retro-swipe">
+              <span className={`retro-swipe-hint${swiped ? " is-hidden" : ""}`} aria-hidden="true">Glissez pour voir la suite <b>→</b></span>
+              <div className="retro-swipe-dots">
+                {products.map((product, index) => (
+                  <button key={product.id} type="button" className={index === activeSlide ? "active" : ""} aria-label={`Voir le produit ${index + 1} sur ${products.length}`} aria-current={index === activeSlide} onClick={() => goToSlide(index)} />
+                ))}
+              </div>
+            </div>
+          )}
           <div className="retro-pager">
             <button type="button" onClick={() => setPage((value) => Math.max(0, value - 1))} disabled={safePage === 0} aria-label="Produits précédents">←</button>
             <span>{String(safePage + 1).padStart(2, "0")} / {String(pageCount).padStart(2, "0")}</span>

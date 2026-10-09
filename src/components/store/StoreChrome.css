@@ -53,7 +53,7 @@
 .retro-action svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
 .retro-footer { min-width: 0; border-top: 3px double var(--retro-line); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 20px; color: var(--retro-muted); font-size: 10px; letter-spacing: .5px; }
-.retro-footer-credit { margin: 0; font: italic 12px var(--retro-serif); letter-spacing: 0; }
+.retro-footer-credit { margin: 0; font: 12px var(--retro-serif); letter-spacing: 0; }
 .retro-footer nav { display: flex; justify-content: flex-end; gap: 18px; }
 .retro-footer a:hover { color: var(--retro-red); }
 
@@ -93,6 +93,14 @@
 
 @media (max-height: 500px) {
   .retro-page { height: auto; min-height: 650px; overflow: auto; }
+}
+
+/* Tablette et mobile (y compris tablette en paysage, sans survol) : jamais de
+   page figée à la hauteur de l'écran, le document défile. Les blocs qui
+   remplissaient la hauteur disponible prennent leur hauteur naturelle (voir
+   chaque composant). Même requête partout : (max-width: 1024px), (hover: none). */
+@media (max-width: 1024px), (hover: none) {
+  .retro-page { height: auto; min-height: 100dvh; overflow: visible; overflow-x: clip; }
 }
 
 @media (prefers-reduced-motion: reduce) {

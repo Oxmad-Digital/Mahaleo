@@ -69,6 +69,16 @@
   .retro-product-panel { scrollbar-width: thin; scrollbar-color: var(--retro-muted) transparent; }
 }
 
+/* Tablette (y compris en paysage) : la page défile au lieu du seul panneau ;
+   la photo se dimensionne sur la largeur, bornée par la hauteur d'écran. */
+@media (max-width: 1024px), (hover: none) {
+  .retro-detail-page { height: auto; min-height: 100dvh; overflow: visible; overflow-x: clip; }
+  .retro-detail-main { min-height: auto; }
+  .retro-gallery { height: auto; container-type: inline-size; --photo-size: min(100cqw, 75dvh); }
+  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 108px, 75dvh); }
+  .retro-product-panel { overflow: visible; }
+}
+
 @media (max-width: 900px) {
   .retro-detail-page { height: auto; min-height: 100dvh; overflow: visible; }
   .retro-detail-main { min-height: auto; }

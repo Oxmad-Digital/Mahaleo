@@ -49,6 +49,19 @@
 .retro-auth-wrap .retro-submit { min-height: clamp(40px, 6dvh, 51px); }
 .retro-auth-wrap .retro-auth-switch { padding-top: clamp(6px, 1.4dvh, 14px); }
 
+/* Tablette et mobile : la page défile normalement (clavier ouvert, écran en
+   paysage…) ; champs et zone de message retrouvent une taille confortable. */
+@media (max-width: 1024px), (hover: none) {
+  .retro-content-page:has(.retro-auth-wrap) { height: auto; min-height: 100dvh; overflow: visible; overflow-x: clip; }
+  .retro-auth-form { overflow: visible; }
+  .retro-auth-wrap .retro-auth-head p { display: block; }
+  .retro-auth-wrap .retro-field input { min-height: 44px; }
+  .retro-auth-wrap .retro-submit { min-height: 48px; }
+  .retro-auth-wrap .retro-auth-card:has(textarea) { height: auto; }
+  .retro-auth-wrap .retro-field:has(textarea) { flex: none; }
+  .retro-auth-wrap .retro-field textarea { flex: none; min-height: 160px; }
+}
+
 @media (max-width: 1200px) {
   .retro-auth-wrap { grid-template-columns: minmax(200px, .8fr) minmax(0, 1.6fr); }
 }

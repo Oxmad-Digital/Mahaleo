@@ -1,10 +1,7 @@
 /* LegalCard.tsx */
 
-/* Pages légales : texte long, on rend le défilement au document (bloqué
-   globalement sur html/body). `.retro-content-page` est déjà en hauteur de
-   contenu : le pied de page suit le texte. */
-html:has(.retro-legal-page),
-html:has(.retro-legal-page) body { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+/* Pages légales : `.retro-content-page` est en hauteur de contenu, le
+   document défile et le pied de page suit le texte. */
 .retro-legal-sheet { display: grid; grid-template-columns: minmax(180px, .6fr) minmax(0, 2fr); gap: 26px; padding-top: 22px; }
 .retro-legal-date { position: sticky; top: 20px; align-self: start; margin: 0; padding-top: 10px; border-top: 1px solid var(--retro-line); color: var(--retro-muted); font: italic 13px/1.5 var(--retro-serif); }
 .retro-legal-body { max-width: 780px; padding-left: 26px; border-left: 1px solid var(--retro-line); }

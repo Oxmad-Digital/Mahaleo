@@ -45,13 +45,13 @@ function StoreHeader() {
 function StoreFooter() {
   return (
     <footer className="retro-footer">
-      <span>MAHALEO · DEPUIS 1972</span>
       <p className="retro-footer-credit">
         Réalisé par{" "}
         <a href="https://oxmad-digital.mg" target="_blank" rel="noopener noreferrer">
           Oxmad Digital
         </a>
       </p>
+      <span>MAHALEO · DEPUIS 1972</span>
       <nav aria-label="Liens légaux">
         <Link href="/contact">Contact</Link>
         <Link href="/mentions-legales">Mentions légales</Link>
