@@ -40,6 +40,16 @@ const SERVICE_POINT_CARRIERS = ["mondial_relay", "colissimo", "chronopost"];
 // doublons « QR » (même service, dépôt sans étiquette imprimée).
 const EXCLUDED = /unstamped|saturday|samedi|DAP|\bQR\b/i;
 
+/** Options masquées au checkout par choix de la boutique (libellé affiché). */
+const HIDDEN_OPTIONS = new Set([
+  "Colissimo · Domicile contre signature",
+  "Chronopost · Chrono 18",
+  "Chronopost · Chrono 13",
+  "Chronopost · Chrono 10",
+  "Chronopost · Chrono Relais",
+  "Mondial Relay · Consigne automatique",
+]);
+
 /**
  * Libellé et délai affichés au client, par famille de méthode Sendcloud. Les
  * noms Sendcloud (« Mondial Relay Home Domestic 0.5-1kg ») ne sont pas faits
@@ -140,7 +150,7 @@ export async function quoteShipping(country: string, itemCount: number): Promise
     if (!price || price <= 0) continue;
 
     const option = toOption(method, toRateCents(price));
-    if (!option) continue;
+    if (!option || HIDDEN_OPTIONS.has(option.label)) continue;
     const key = `${method.carrier}|${method.service_point_input}|${familyName(method.name)}`;
     const existing = byFamily.get(key);
     if (!existing || option.rateCents < existing.rateCents) byFamily.set(key, option);
