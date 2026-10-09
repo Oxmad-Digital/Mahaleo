@@ -112,6 +112,13 @@
     padding-inline: 24px;
   }
 
+  /* Les cartes rétro n'ont pas de padding horizontal : pas de débord, sinon
+     le tableau dépasse de l'écran et toute la page défile latéralement. */
+  .retro-admin-card .admin-table-scroll {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
   .admin-table-scroll-inner {
     min-width: 620px;
   }
@@ -232,7 +239,7 @@
   .retro-admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 359px) {
   .retro-admin-stats { grid-template-columns: minmax(0, 1fr); }
 }
 

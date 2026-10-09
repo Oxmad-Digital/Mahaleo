@@ -199,7 +199,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/comm
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <div style={{ width: 260, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ width: "100%", maxWidth: 260, display: "flex", flexDirection: "column", gap: 8 }}>
                 <SummaryRow label="Sous-total" value={formatCents(subtotalCents, order.currency)} />
                 {shippingCents !== 0 && (
                   <SummaryRow

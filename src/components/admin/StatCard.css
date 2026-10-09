@@ -58,9 +58,13 @@
   .retro-admin-stat:nth-child(even) { border-right: 0 !important; }
   .retro-admin-stat:nth-child(n + 3) { border-top: 1px solid var(--retro-line) !important; }
   .retro-admin-stat:last-child { border-right: 1px solid var(--retro-line) !important; }
+  .retro-admin-stat { padding: 14px 14px 15px !important; }
+  /* Nombre impair de chiffres : le dernier occupe toute la ligne. */
+  .retro-admin-stats:not(.retro-account-stats) .retro-admin-stat:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0 !important; }
 }
 
-@media (max-width: 430px) {
+/* Deux colonnes sur téléphone : une seule en dessous de 360px. */
+@media (max-width: 359px) {
   .retro-admin-stat,
   .retro-admin-stat:nth-child(3),
   .retro-admin-stat:last-child {

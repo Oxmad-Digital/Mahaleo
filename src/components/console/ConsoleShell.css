@@ -290,12 +290,32 @@
   gap: 34px !important;
 }
 
+/* Tablette : la colonne de navigation se réduit à un rail d'icônes pour
+   laisser la largeur aux tableaux et aux fiches. */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .retro-admin-shell { --admin-sidebar-width: 76px; }
+  .retro-admin-shell .admin-sidebar { padding: 22px 12px !important; }
+  .retro-admin-shell .admin-logo-retro,
+  .retro-admin-shell .admin-nav-label,
+  .retro-admin-shell .admin-sidebar-edition { display: none !important; }
+  .retro-admin-shell .admin-nav-item {
+    padding: 0;
+    justify-content: center !important;
+  }
+  .retro-admin-shell .admin-nav-item::before { inset: 7px auto 7px -12px; }
+}
+
 @media (max-width: 768px) {
+  /* Ces règles l'emportent sur celles du rail (plus spécifiques que le bloc
+     mobile générique en tête de fichier) : barre pleine largeur, sans logo. */
   .retro-admin-shell .admin-sidebar {
+    width: 100% !important;
     padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
     border-top: 1px solid var(--retro-line) !important;
     background: var(--retro-paper-light) !important;
   }
+
+  .retro-admin-shell .admin-logo-retro { display: none !important; }
 
   .retro-admin-shell .admin-sidebar-inner {
     height: auto;
@@ -303,9 +323,18 @@
     gap: 0 !important;
   }
 
+  /* Les entrées se partagent la largeur : les 7 de l'admin tiennent même sur
+     un écran de 320px. */
   .retro-admin-shell .admin-nav-list { gap: 2px !important; }
+  .retro-admin-shell .admin-nav-list > a {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+  }
   .retro-admin-shell .admin-nav-item {
-    width: 44px !important;
+    width: 100% !important;
+    max-width: 52px;
     height: 44px !important;
     padding: 0;
     justify-content: center !important;
