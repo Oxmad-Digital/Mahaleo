@@ -4,10 +4,15 @@ import { getProductById } from "@/lib/admin/products";
 import { Modal } from "@/components/admin/Modal";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { updateProduct } from "@/app/actions/products";
+import NewProductModal from "../nouveau/page";
 
 export default async function EditProductModal(props: PageProps<"/admin/produits/[id]">) {
   await requireAdmin();
   const { id } = await props.params;
+
+  // Next place la réécriture d'interception `[id]` avant celle de `nouveau` :
+  // un clic sur « Ajouter un produit » arrive donc ici avec id = "nouveau".
+  if (id === "nouveau") return <NewProductModal />;
 
   const product = await getProductById(id);
   if (!product) notFound();
