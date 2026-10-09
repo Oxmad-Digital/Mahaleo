@@ -39,15 +39,24 @@ export async function inviteAdmin(_state: InviteAdminState, formData: FormData):
   const { name, email } = validatedFields.data;
 
   const existing = await findUserByEmail(email);
-  if (existing) {
-    return { message: "Un compte existe déjà avec cette adresse e-mail." };
+  if (existing?.role === "ADMIN") {
+    return { message: "Cette adresse e-mail est déjà celle d'un administrateur." };
   }
 
-  const randomPasswordHash = await bcrypt.hash(crypto.randomBytes(32).toString("hex"), 10);
+  // Un compte existant (client, ou admin dont les droits ont été retirés) est
+  // promu : son mot de passe actuel reste valable, le lien permet d'en choisir un.
+  const user = existing
+    ? await prisma.user.update({ where: { id: existing.id }, data: { role: "ADMIN" } })
+    : await prisma.user.create({
+        data: {
+          name,
+          email,
+          passwordHash: await bcrypt.hash(crypto.randomBytes(32).toString("hex"), 10),
+          role: "ADMIN",
+        },
+      });
 
-  const user = await prisma.user.create({
-    data: { name, email, passwordHash: randomPasswordHash, role: "ADMIN" },
-  });
+  await prisma.passwordResetToken.deleteMany({ where: { userId: user.id, usedAt: null } });
 
   const token = crypto.randomBytes(32).toString("hex");
   await prisma.passwordResetToken.create({
