@@ -7,6 +7,7 @@ import { StoreShell } from "@/components/store/StoreChrome";
 import { formatCents } from "@/lib/format";
 import { lineMaxQty, useCart } from "@/lib/cart";
 import { isOptimizableImage } from "@/lib/images";
+import { ORDERS_OPEN } from "@/lib/orders-open";
 import { effectivePriceCents } from "@/lib/pricing";
 import type { ShopProductDetail } from "@/lib/shop";
 
@@ -52,7 +53,7 @@ export function ProductDetail({
       sizeFieldsetRef.current?.querySelector<HTMLButtonElement>("button:not(:disabled)")?.focus({ preventScroll: true });
       return;
     }
-    if (soldOut) return;
+    if (soldOut || !ORDERS_OPEN) return;
     const maxQty = product.sizes.find((entry) => entry.size === size)?.stock;
     const inCart = items.find((item) => item.productId === product.id && item.size === size)?.qty ?? 0;
     if (inCart >= lineMaxQty({ maxQty })) {
@@ -152,8 +153,8 @@ export function ProductDetail({
 
             <p className="retro-product-status" aria-live="polite">{message}</p>
             <div className="retro-detail-actions">
-              <button type="button" className={`retro-primary${added ? " is-added" : ""}`} disabled={soldOut} onClick={addToCart} aria-live="polite">
-                <span>{soldOut ? "RUPTURE DE STOCK" : added ? "AJOUTÉ AU PANIER" : "AJOUTER AU PANIER"}</span><span aria-hidden="true">{added ? "✓" : "↗"}</span>
+              <button type="button" className={`retro-primary${added ? " is-added" : ""}`} disabled={soldOut || !ORDERS_OPEN} onClick={addToCart} aria-live="polite">
+                <span>{!ORDERS_OPEN ? "BIENTÔT DISPONIBLE" : soldOut ? "RUPTURE DE STOCK" : added ? "AJOUTÉ AU PANIER" : "AJOUTER AU PANIER"}</span><span aria-hidden="true">{added ? "✓" : "↗"}</span>
               </button>
             </div>
             <div className="retro-product-notes">

@@ -13,6 +13,7 @@ import { MAX_QTY_PER_LINE, SHIPPING_COUNTRY_CODES } from "@/lib/shipping";
 import { findShippingOption, quoteShipping, type ShippingOption } from "@/lib/shipping-quote";
 import { SendcloudError, getServicePoint } from "@/lib/sendcloud";
 import { deleteAbandonedOrders } from "@/lib/abandoned-orders";
+import { ORDERS_CLOSED_MESSAGE, ORDERS_OPEN } from "@/lib/orders-open";
 
 // Durée de validité d'une session Stripe Checkout (30 min est le minimum
 // accepté). Courte, elle limite la fenêtre pendant laquelle un panier peut être
@@ -97,6 +98,10 @@ export async function createCheckoutSession(
     servicePointId: text("servicePointId"),
     servicePointPostNumber: text("servicePointPostNumber"),
   };
+
+  if (!ORDERS_OPEN) {
+    return { fields, message: ORDERS_CLOSED_MESSAGE };
+  }
 
   const parsedCart = CheckoutCartSchema.safeParse(cartItems);
   if (!parsedCart.success) {
