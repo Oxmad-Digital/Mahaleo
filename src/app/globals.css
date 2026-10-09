@@ -41,6 +41,7 @@
 @import "../components/admin/ConfirmDialog.css";
 @import "../components/produit/ProductDetail.css";
 @import "../components/auth/LoginForm.css";
+@import "../components/auth/PasswordInput.css";
 @import "../components/scene/LegalCard.css";
 @import "../components/checkout/DeliveryOptions.css";
 
