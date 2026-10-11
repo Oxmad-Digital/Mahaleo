@@ -17,10 +17,24 @@ function getShopCategory(product: Pick<ShopProduct, "productType" | "name" | "de
   return "other";
 }
 
+// Tablette (mêmes critères que la page qui défile dans RetroCatalog.css) : les
+// cartes sont carrées, une seule rangée laisserait un grand vide sous le
+// catalogue. On empile autant de rangées que la hauteur de l'écran en accueille.
+function tabletRows(width: number, height: number) {
+  if (width <= 600 || !window.matchMedia("(max-width: 1024px), (hover: none)").matches) return 1;
+  const card = width <= 900 ? (width - 66) / 2 : ((width - 98) * 2.2 / 3 - 36) / 3;
+  // En-tête, pied de page, titre de la collection et pagination : ~310px.
+  return Math.min(3, Math.max(1, Math.round((height - 310) / (card + 95))));
+}
+
 function usePageSize() {
   const [size, setSize] = useState(3);
   useEffect(() => {
-    const update = () => setSize(window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2 : 3);
+    const update = () => {
+      const { innerWidth: width, innerHeight: height } = window;
+      const columns = width <= 600 ? 1 : width <= 900 ? 2 : 3;
+      setSize(columns * tabletRows(width, height));
+    };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);

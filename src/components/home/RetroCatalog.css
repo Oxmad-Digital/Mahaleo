@@ -41,6 +41,9 @@
 
 @media (max-width: 1200px) {
   .retro-product-info > div:first-child { display: block; }
+  /* Hors flex, le lien redevient inline : sans display block, pas d'ellipse et
+     les noms longs débordent sur la carte voisine. */
+  .retro-product-info a { display: block; }
   .retro-product-info strong { display: block; margin-top: 5px; }
   .retro-archive-note > span { display: none; }
   .retro-archive-note a { width: 100%; }
@@ -50,6 +53,8 @@
    hauteur de l'écran mais gardent un format carré. */
 @media (max-width: 1024px), (hover: none) {
   .retro-product-image { flex: none; aspect-ratio: 1; }
+  .retro-home-main { align-items: start; }
+  .retro-guitar .retro-guitar-image { flex: none; aspect-ratio: 3 / 5; }
 }
 
 @media (max-width: 900px) {
@@ -60,6 +65,11 @@
   /* Le rendu serveur pagine par 3 : on masque le surplus avant que le catalogue
      ne recalcule sa pagination, pour éviter un saut de mise en page. */
   .retro-products > .retro-product:nth-child(n + 3) { display: none; }
+  /* Tablette en portrait : plusieurs rangées (voir tabletRows), le 3e produit
+     rendu côté serveur reste visible. */
+  @media (min-width: 601px) and (orientation: portrait) {
+    .retro-products > .retro-product:nth-child(n + 3) { display: flex; }
+  }
   .retro-product-info > div:first-child { display: flex; }
   .retro-product-info strong { display: inline; margin-top: 0; }
 }
@@ -75,6 +85,10 @@
   .retro-products > .retro-product { flex: 0 0 84%; scroll-snap-align: start; }
   .retro-products > .retro-product:nth-child(n + 3) { display: flex; }
   .retro-products > .retro-empty { flex: 1; }
+  /* Une seule carte à l'écran : le visuel occupe toute la hauteur disponible
+     au lieu de rester carré (plancher pour les petits écrans, qui défilent). */
+  .retro-product-image { flex: 1; aspect-ratio: auto; min-height: 300px; }
+  .retro-product-image img { object-fit: cover; }
   .retro-product-meta { padding-left: 4px; }
   .retro-product-index { display: none; }
   .retro-product-info a { font-size: 25px; }
