@@ -54,6 +54,10 @@
 @media (max-width: 1024px), (hover: none) {
   .retro-content-page:has(.retro-auth-wrap) { height: auto; min-height: 100dvh; overflow: visible; overflow-x: clip; }
   .retro-auth-form { overflow: visible; }
+  /* La page n'a plus de hauteur fixe : la photo garde son format au lieu de
+     s'étirer sur toute la hauteur de l'écran (iPad en portrait). */
+  .retro-auth-wrap { align-items: start; }
+  .retro-auth-visual .retro-guitar-image { flex: none; aspect-ratio: 4 / 5; }
   .retro-auth-wrap .retro-auth-head p { display: block; }
   .retro-auth-wrap .retro-field input { min-height: 44px; }
   .retro-auth-wrap .retro-submit { min-height: 48px; }
@@ -66,9 +70,17 @@
   .retro-auth-wrap { grid-template-columns: minmax(200px, .8fr) minmax(0, 1.6fr); }
 }
 
-@media (max-width: 900px) {
+/* Mobile et tablette en portrait : une seule colonne, la photo passe en
+   bandeau au-dessus du formulaire (côte à côte, le formulaire est trop court
+   pour la hauteur d'un iPad en portrait et laisse un grand vide). */
+@media (max-width: 900px), (max-width: 1199px) and (orientation: portrait) {
   .retro-auth-wrap { grid-template-columns: 1fr; }
-  .retro-auth-visual { display: none; }
+  .retro-auth-visual { padding: 0 0 20px; border-right: 0; border-bottom: 1px solid var(--retro-line); }
+  .retro-auth-visual .retro-guitar-image { aspect-ratio: 3 / 2; }
+}
+
+@media (min-width: 601px) and (max-width: 1199px) and (orientation: portrait) {
+  .retro-auth-visual .retro-guitar-image { aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 600px) {

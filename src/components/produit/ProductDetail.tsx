@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { StoreShell } from "@/components/store/StoreChrome";
@@ -30,6 +30,7 @@ export function ProductDetail({
   const sizeFieldsetRef = useRef<HTMLFieldSetElement>(null);
   const [added, setAdded] = useState(false);
   const addedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const lightboxRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => () => clearTimeout(addedTimer.current), []);
   const { items, addItem } = useCart();
@@ -43,6 +44,20 @@ export function ProductDetail({
 
   function showNextImage() {
     setActiveImage((current) => (current + 1) % images.length);
+  }
+
+  function openLightbox() {
+    lightboxRef.current?.showModal();
+  }
+
+  function closeLightbox() {
+    lightboxRef.current?.close();
+  }
+
+  function onLightboxKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
+    if (images.length < 2) return;
+    if (event.key === "ArrowLeft") showPreviousImage();
+    if (event.key === "ArrowRight") showNextImage();
   }
 
   function addToCart() {
@@ -90,7 +105,7 @@ export function ProductDetail({
               <div className="retro-thumbs" aria-label="Choisir une photo" style={{ "--thumb-count": images.length } as CSSProperties}>
                 {images.map((image, index) => (
                   <button key={`${image}-${index}`} type="button" className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Afficher la vue ${index + 1}`} aria-pressed={activeImage === index}>
-                    <Image src={image} alt="" width={96} height={96} sizes="96px" unoptimized={!isOptimizableImage(image)} />
+                    <Image src={image} alt="" width={84} height={84} sizes="84px" unoptimized={!isOptimizableImage(image)} />
                   </button>
                 ))}
               </div>
@@ -101,10 +116,10 @@ export function ProductDetail({
                 alt={`${product.name} — vue ${activeImage + 1}`}
                 fill
                 preload
-                sizes="(max-width: 900px) 100vw, 700px"
+                sizes="(max-width: 900px) 100vw, 900px"
                 unoptimized={!isOptimizableImage(images[activeImage])}
               />
-              {isNewArrival && <span>NOUVELLE ARRIVÉE</span>}
+              <button type="button" className="retro-zoom-trigger" onClick={openLightbox} aria-label="Agrandir la photo" aria-haspopup="dialog" />
               {images.length > 1 && (
                 <>
                   <button type="button" className="retro-gallery-arrow is-previous" onClick={showPreviousImage} aria-label="Afficher la photo précédente">←</button>
@@ -113,9 +128,36 @@ export function ProductDetail({
                 </>
               )}
             </div>
+            <dialog
+              ref={lightboxRef}
+              className="retro-lightbox"
+              aria-label={`Photo agrandie de ${product.name}`}
+              onKeyDown={onLightboxKeyDown}
+              onClick={(event) => { if (event.target === event.currentTarget) closeLightbox(); }}
+            >
+              <div className="retro-lightbox-photo" onClick={closeLightbox}>
+                <Image
+                  src={images[activeImage]}
+                  alt={`${product.name} — vue ${activeImage + 1}`}
+                  fill
+                  sizes="100vw"
+                  quality={90}
+                  unoptimized={!isOptimizableImage(images[activeImage])}
+                />
+              </div>
+              <button type="button" className="retro-lightbox-close" onClick={closeLightbox} aria-label="Fermer" autoFocus>✕</button>
+              {images.length > 1 && (
+                <>
+                  <button type="button" className="retro-lightbox-arrow is-previous" onClick={showPreviousImage} aria-label="Afficher la photo précédente">←</button>
+                  <button type="button" className="retro-lightbox-arrow is-next" onClick={showNextImage} aria-label="Afficher la photo suivante">→</button>
+                  <span className="retro-lightbox-count">{activeImage + 1} / {images.length}</span>
+                </>
+              )}
+            </dialog>
           </section>
 
           <section className="retro-product-panel">
+            {isNewArrival && <span className="retro-detail-new">NOUVELLE ARRIVÉE</span>}
             <span className="retro-eyebrow">MAHALEO · {product.productType?.toUpperCase() ?? "COLLECTION OFFICIELLE"}</span>
             <h1>{product.name}</h1>
             <p className="retro-detail-price">

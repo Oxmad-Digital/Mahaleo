@@ -7,25 +7,51 @@
 .retro-detail-topline a { color: var(--retro-ink); }
 .retro-detail-topline a:hover { color: var(--retro-red); }
 .retro-detail-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr); grid-template-rows: minmax(0, 1fr); gap: 35px; padding-top: 18px; }
-.retro-gallery { --photo-size: min(100cqw, 100cqh); --thumb-max: 96px; min-width: 0; min-height: 0; height: 100%; container-type: size; display: flex; align-items: flex-start; justify-content: flex-end; gap: 12px; }
+.retro-gallery { --photo-size: min(100cqw, 100cqh); --thumb-max: 84px; min-width: 0; min-height: 0; height: 100%; container-type: size; display: flex; align-items: flex-start; justify-content: flex-end; gap: 12px; }
 /* Les vignettes rétrécissent pour tenir toutes dans la hauteur de la photo, sans défilement */
-.retro-thumbs { width: 96px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.retro-thumbs button { width: min(var(--thumb-max), (var(--photo-size) - (var(--thumb-count) - 1) * 10px) / var(--thumb-count)); aspect-ratio: 1; flex: none; padding: 5px; border: 1px solid var(--retro-line); background: var(--retro-paper); overflow: hidden; }
+.retro-thumbs { width: var(--thumb-max); flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.retro-thumbs button { width: min(var(--thumb-max), (var(--photo-size) - (var(--thumb-count) - 1) * 10px) / var(--thumb-count)); aspect-ratio: 1; flex: none; padding: 0; border: 1px solid var(--retro-line); background: var(--retro-photo); overflow: hidden; }
 .retro-thumbs button.active { border: 2px solid var(--retro-red); }
-.retro-thumbs img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.retro-thumbs img { width: 100%; height: 100%; object-fit: contain; }
 .retro-detail-photo { position: relative; width: var(--photo-size); aspect-ratio: 1; flex: none; min-width: 0; overflow: hidden; border: 1px solid rgb(194 179 147 / .55); background: var(--retro-photo); }
-.retro-detail-photo > img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.retro-detail-photo > img { width: 100%; height: 100%; object-fit: contain; }
 
 @media (min-width: 901px) {
-  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 108px, 100cqh); }
+  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 96px, 100cqh); }
 }
 
-.retro-detail-photo > span:not(.retro-gallery-count) { position: absolute; top: 15px; left: 15px; padding: 7px 9px; background: var(--retro-paper); font-size: 10px; letter-spacing: 1px; }
-.retro-gallery-arrow { position: absolute; top: 50%; z-index: 2; width: 42px; height: 42px; padding: 0; border: 1px solid var(--retro-line); background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 17px; transform: translateY(-50%); }
+.retro-detail-new { align-self: flex-start; margin-bottom: 10px; padding: 7px 9px; border: 1px solid var(--retro-line); font-size: 10px; letter-spacing: 1px; }
+.retro-gallery-arrow { position: absolute; bottom: 12px; z-index: 2; width: 42px; height: 42px; padding: 0; border: 1px solid var(--retro-line); background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 17px; }
 .retro-gallery-arrow:hover { border-color: var(--retro-red); color: var(--retro-red); }
 .retro-gallery-arrow.is-previous { left: 12px; }
-.retro-gallery-arrow.is-next { right: 12px; }
+.retro-gallery-arrow.is-next { left: 62px; }
 .retro-gallery-count { position: absolute; right: 12px; bottom: 12px; padding: 5px 8px; background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 10px; letter-spacing: 1px; }
+.retro-zoom-trigger { position: absolute; inset: 0; z-index: 1; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.retro-zoom-trigger:focus-visible { outline: 2px solid var(--retro-red); outline-offset: -4px; }
+
+/* Lightbox : photo plein écran, clic hors image ou Échap pour fermer */
+.retro-lightbox { width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; background: var(--retro-photo); color: var(--retro-ink); overflow: hidden; }
+html:has(.retro-lightbox[open]) { overflow: hidden; }
+.retro-lightbox::backdrop { background: rgb(26 23 18 / .7); }
+.retro-lightbox[open] { animation: retro-lightbox-in .2s ease-out; }
+.retro-lightbox-photo { position: absolute; inset: 64px 72px; cursor: zoom-out; }
+.retro-lightbox-photo > img { object-fit: contain; }
+.retro-lightbox-close,
+.retro-lightbox-arrow { position: absolute; z-index: 1; width: 46px; height: 46px; padding: 0; border: 1px solid var(--retro-line); background: rgb(247 240 222 / .9); color: var(--retro-ink); font-size: 18px; }
+.retro-lightbox-close:hover,
+.retro-lightbox-arrow:hover { border-color: var(--retro-red); color: var(--retro-red); }
+.retro-lightbox-close { top: 12px; right: 12px; }
+.retro-lightbox-arrow { top: 50%; translate: 0 -50%; }
+.retro-lightbox-arrow.is-previous { left: 12px; }
+.retro-lightbox-arrow.is-next { right: 12px; }
+.retro-lightbox-count { position: absolute; bottom: 16px; left: 50%; translate: -50% 0; padding: 5px 8px; background: rgb(247 240 222 / .9); font-size: 11px; letter-spacing: 1px; }
+@keyframes retro-lightbox-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .retro-lightbox[open] { animation: none; } }
+@media (max-width: 600px) {
+  .retro-lightbox-photo { inset: 64px 0; }
+  .retro-lightbox-arrow { top: auto; bottom: 10px; translate: none; width: 40px; height: 40px; }
+}
+
 .retro-product-panel { min-height: 0; padding: 24px 12px 0 30px; border-left: 1px solid var(--retro-line); display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; }
 .retro-product-panel h1 { margin: 8px 0 0; text-transform: uppercase; font: 700 clamp(43px, 5vw, 76px)/.92 var(--retro-display); }
 .retro-detail-price { margin: 12px 0 20px; font: 17px var(--retro-serif); }
@@ -75,16 +101,19 @@
   .retro-detail-page { height: auto; min-height: 100dvh; overflow: visible; overflow-x: clip; }
   .retro-detail-main { min-height: auto; }
   .retro-gallery { height: auto; container-type: inline-size; --photo-size: min(100cqw, 75dvh); }
-  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 108px, 75dvh); }
+  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 96px, 75dvh); }
   .retro-product-panel { overflow: visible; }
 }
 
-@media (max-width: 900px) {
+/* Mobile et tablette en portrait (ex. iPad Pro 13" : 1032px de large) : en
+   deux colonnes la photo resterait minuscule au-dessus d'un grand vide, on
+   empile galerie puis fiche. */
+@media (max-width: 900px), (max-width: 1199px) and (orientation: portrait) {
   .retro-detail-page { height: auto; min-height: 100dvh; overflow: visible; }
   .retro-detail-main { min-height: auto; }
   .retro-detail-layout { display: block; }
-  .retro-gallery, .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 108px, 700px); height: auto; container-type: inline-size; }
-  .retro-detail-photo { width: 100%; max-width: min(100%, 700px); flex: 0 1 auto; }
+  .retro-gallery { --photo-size: min(100cqw, 525px); height: auto; container-type: inline-size; justify-content: center; }
+  .retro-gallery.has-thumbnails { --photo-size: min(100cqw - 96px, 525px); }
   .retro-product-panel { overflow: visible; padding: 28px 0 0; margin-top: 20px; border: 0; border-top: 3px double var(--retro-line); }
   .retro-product-notes { margin-top: 24px; }
 }
@@ -95,8 +124,9 @@
   .retro-detail-layout { padding-top: 12px; }
   .retro-gallery { height: auto; flex-direction: column-reverse; align-items: stretch; justify-content: flex-start; }
   .retro-gallery, .retro-gallery.has-thumbnails { --photo-size: 100cqw; --thumb-max: 64px; }
-  .retro-thumbs { width: 100%; flex-direction: row; }
-  .retro-detail-photo { width: 100%; max-width: none; flex: none; aspect-ratio: 1; }
+  .retro-thumbs { width: 100%; flex-direction: row; flex-wrap: wrap; }
+  .retro-thumbs button { width: var(--thumb-max); }
+  .retro-detail-photo { width: 100%; max-width: none; flex: none; }
   .retro-gallery-arrow { width: 38px; height: 38px; }
   .retro-product-panel h1 { font-size: 48px; }
   .retro-detail-description { font-size: 13px; }
