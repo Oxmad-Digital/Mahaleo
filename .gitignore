@@ -44,3 +44,12 @@ next-env.d.ts
 
 # claude code local settings
 .claude/settings.local.json
+
+# Photos produit stockées sur R2 ; copies de travail conservées localement.
+/public/images/products/
+/public/images/pull-creme-dos.png
+/public/images/pull-creme-trois-quarts.png
+/public/images/pull-creme-detail-broderie.png
+/output/catalogue-mahaleo/originaux/
+/output/catalogue-mahaleo/galeries-originaux/
+/output/catalogue-mahaleo/compressed-images/*.webp

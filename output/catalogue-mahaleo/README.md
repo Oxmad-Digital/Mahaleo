@@ -20,8 +20,12 @@ Prix provisoires choisis avec l’autorisation du client. Répartition confirmé
 
 ## Images et import
 
-- Images WebP finales : `public/images/products/*-studio-v1.webp` (faces) et `*-v2.webp` (mannequin, dos, détail).
-- Originaux PNG : `originaux/` et `galeries-originaux/`.
+- Compression du 11 octobre 2026 : les 46 références d’images des 13 fiches (10 publiées et 3 brouillons) utilisent désormais les WebP du préfixe R2 `products/compressed/`. Les 3 PNG encore locaux ont été convertis ; les WebP existants ont été recompressés à qualité 78 sans redimensionnement, ou conservés s’ils étaient déjà plus petits. Poids cumulé : 23 879 675 → 10 985 534 octets (−54 %).
+- État avant compression : `compressed-images/before.json`. Correspondance des anciennes/nouvelles URLs, tailles et empreintes : `compressed-images/manifest.json`. Contrôle de mise en ligne et de mise à jour des fiches : `compressed-images/verification.json`. Les anciennes sources sont conservées pour permettre un retour arrière.
+- Script de compression : `node --dns-result-order=ipv4first scripts/compress-product-images.mjs` prépare les fichiers et le manifeste ; `--apply` les envoie sur R2 et remplace les références en base après vérification HTTP du type WebP et de l’empreinte de chaque image. Une galerie modifiée entre-temps annule la transaction ; l’ordre des vues reste identique. Le cache du catalogue se renouvelle sous 5 minutes.
+- Les photos produit sont exclues de Git : seuls le code, les manifestes JSON et les rapports sont versionnés. Le site charge les URLs R2 enregistrées en base. Les copies de travail locales restent disponibles, sans être incluses dans les nouveaux commits.
+- Copies de travail WebP, ignorées par Git : `public/images/products/*-studio-v1.webp` (faces) et `*-v2.webp` (mannequin, dos, détail).
+- Originaux PNG locaux, ignorés par Git : `originaux/` et `galeries-originaux/`. Les scripts d’import historiques nécessitent ces copies de travail ; ils ne sont pas utilisés par le site en production.
 - Images mises en ligne sur le bucket R2 du projet : URLs dans `import-result.json` (faces), `gallery-import-result.json` (galeries) et dans chaque fiche en base.
 - Sauvegarde des fiches et tailles avant import : `before-import.json`.
 - Sauvegarde avant ajout des galeries : `before-gallery-update.json`.

@@ -1,0 +1,123 @@
+{
+  "products": [
+    {
+      "slug": "bonnet-a-revers-bleu-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/2b149f31f6673436f41371f6ed2251e4e8e1d3348e4e99fbf784f8a8ba38f7b9.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d0eb2ae31a516b661adbe79fa00a35466ac0b65d2d4ef659ce4e355f2b6e60f7.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/50136cee2b611f1f2ad86c0758275e6c50d7ab337dd5831d4202c7defbf188e1.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/b4068348b23f0bbf23ea1e1d5013d885bd75dbd09996f3d8391f35ff6ea14ac7.webp"
+      ]
+    },
+    {
+      "slug": "bonnet-a-revers-gris-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/ea2ebacd26e0a0b4479a935b7fe1f972173db957c1d980678cc5335e4520b9a6.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/88ecac919865075305fca958e271bea73097a7e16a207a16a9380e57ab37e59b.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/135471914926a18d226302cd36e2b1060616f821e315fd421a45626c05c0d23e.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3d2f069db1764206d64b166b610de4993345eb6c9cee4e86c823a97b13b0743b.webp"
+      ]
+    },
+    {
+      "slug": "echarpe-a-franges-bleu-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/2406cbc634015783e333d2de0a9436dfc68e4837164428a605577663a8e654c0.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/e120ceccf9b03be794caa1dd3c85cff26b4da38925b8140e0ebafe9c0b5ab20b.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/13b5c0f41126304cc6c94eb65117efa5e6e1b102fbf83d4fd952e6db09052cda.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/4528304f24b59d6a33419bf264b984a31a0742808a223324c7e42e1a4d781814.webp"
+      ]
+    },
+    {
+      "slug": "echarpe-a-franges-gris-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/064491efeadbbccdc4af8b94396b80adcec4408c38a9bfb7a6da3e86c5264a34.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/0339395b2bec604f128a5bd9fee29a650057006800b2c05284e3a9e72af14c48.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6139da668ca2f11a43b822587e74a4c535aff0bf171b6a0f9eaea400e3428437.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/fa7ff8af650ee75fe60ea86be6350b92419b9d203d498f35f8ec70ae2105633f.webp"
+      ]
+    },
+    {
+      "slug": "gilet-zippe-bleu-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/5ad79fda18bbce0c62c04f371801ec8e8d755573607be4f586695a27609a5ba0.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1df259d675da95d7a5ee1b78bf8b487f9c86276322d35d67ba5da0a37defaa68.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1108325990bb350ccd3fac38aabe2287acbf5b326bdfa8bb394a9f7267ff8d1d.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/56d8c07f3f9ea548dfef27917d5459ad9e66b6093c7246bb08a9eb6a477a850b.webp"
+      ]
+    },
+    {
+      "slug": "gilet-zippe-gris-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/f20b54036bf17e7d4051aa2bf44a1a24f9311c15489fee5d0c94335b848439ff.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/0d793c2ae12ddd5ce9d2db3672e62a4db24c96a27123c0032932a209dd967266.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1e1fd4d950543e8cc81987355e464e919ba3be7deeaa5a5d7891410e483524ba.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d4d63a24fb742b9d13aba88fe937374539d2fd9ada84a33e0d5be81eab2f9157.webp"
+      ]
+    },
+    {
+      "slug": "manteau-long-bleu-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3d7262fafb3d35ec033cb9d602daa87488cb320873aacc2d231c6a077904aad3.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/99238ef7cdc414b476b4548e037f5caecca2f1ba51011ced2b81a6fd357bfde4.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/a5a9a0e500d0908e563fe2de89844b37178b3cfcbbe4f07bb40169513214b1cf.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/87d7e7ef518376f166fb97d79e00696296274acfeef8327b1cb7cfda3cb0f518.webp"
+      ]
+    },
+    {
+      "slug": "manteau-long-gris-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6c1711ac4e2ddbff41afdd7bd517ec5ce4b805986a777e8adcffd417eb75669e.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6d0e99b2603840b20b6bc077790d8b0c8265b2b2aa3434ba2dd26cd77e8c6f9d.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/c6b0f652e57b1da7276ccb66eeeec93544926f3ca29c8e0915f42d95d207b28c.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/c0db5263bfe1d9fe162445c144bb93f0f9fcf15903bd7bd940bc6afcafbd4210.webp"
+      ]
+    },
+    {
+      "slug": "pull-creme-en-maille",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/b329a3bc63f06098511da387730d3328eb32688d99f03ba2d358999c77052f34.webp"
+      ]
+    },
+    {
+      "slug": "pull-creme-en-maille-2",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/b329a3bc63f06098511da387730d3328eb32688d99f03ba2d358999c77052f34.webp"
+      ]
+    },
+    {
+      "slug": "pull-creme-en-maille-3",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/b329a3bc63f06098511da387730d3328eb32688d99f03ba2d358999c77052f34.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/df3149e9b4c689836163b79966a422f9219325f400eb6fa908c75298181de86c.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/fb8ca0c38bd2e0f16b52d8256005c2278ed0965799fc47b314061eeccf744742.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/66a41aecc33835462707c6759ccc1ae17252bbbaf277da18e31ba01865f0be31.webp"
+      ]
+    },
+    {
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/5088bf675413c0f23c5206fe66812ea759e84a25e6372ab38751c64604948022.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d2f00135983aa10f459b2e314a46254528d6ec1d591d9202028eaece61b32618.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/df7ba1eacfecfef5bfbb177341333b19701c13b2c4d6ae994e5f58c78bf293b0.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6e60b3baa804af213f3ff1a604898a4f3839e6d69d519460c51b1fe7d0fd7a0a.webp"
+      ]
+    },
+    {
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/fa5f7f50eeda9995c8eae804ef8bd2385c858ab2a06cb4d3def5942f8138bb7c.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3661fccac9cdedbd61c57b1f934f303e95c5b49c093a5d28c9be78af124ff0a0.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/42634719e8f182bc1376a3af265671a78fe32337c5cf908a4a52252c0c22d290.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/7139ced2af6550da7ca53c41d0f87d62bf3af9b739fc8d31ce2817eb8331aa75.webp"
+      ]
+    }
+  ],
+  "images": 46,
+  "beforeBytes": 23879675,
+  "afterBytes": 10985534,
+  "reductionPercent": 54,
+  "updatedProducts": 13,
+  "publicWebpVerified": 46,
+  "productFieldsPreserved": true,
+  "stocksPreserved": true
+}
