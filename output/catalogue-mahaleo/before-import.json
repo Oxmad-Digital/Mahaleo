@@ -1,0 +1,147 @@
+{
+  "products": [
+    {
+      "id": "cmts9zx9k0003d7apzalt8ovg",
+      "slug": "pull-creme-en-maille",
+      "name": "Pull crème en maille",
+      "description": "Une maille épaisse et douce, pensée pour les soirées fraîches des Hautes Terres. Le nom Mahaleo est brodé en rouge sur la poitrine, comme sur les pochettes des années 70.",
+      "priceCents": 8000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/5eddd625-a289-4a55-9cf9-4fe0456423ef.webp"
+      ],
+      "createdAt": "2026-09-08T03:15:43.400Z",
+      "updatedAt": "2026-09-29T14:58:31.352Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#E9DFC9",
+      "productType": "Pull",
+      "colorName": "Crème",
+      "material": "70 % coton, 30 % laine · maille 5 gauges",
+      "fit": "Coupe droite et ample. Le mannequin mesure 1,80 m et porte un M.",
+      "care": "Lavage à la main ou 30 °C programme laine, séchage à plat, pas de sèche-linge.",
+      "isPublished": true
+    },
+    {
+      "id": "cmtsa10az0008d7aptjvp8tit",
+      "slug": "pull-creme-en-maille-2",
+      "name": "Pull crème en maille 2",
+      "description": "Le pull de scène du groupe revisité : col rond côtelé, épaules tombantes et broderie ton sur ton au dos. Une pièce qui traverse les saisons.",
+      "priceCents": 8000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/bd69d041-30be-48b5-a80e-ee63f5cde2d9.webp"
+      ],
+      "createdAt": "2026-09-08T03:16:33.995Z",
+      "updatedAt": "2026-09-29T14:58:31.730Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#D9CDB4",
+      "productType": "Pull",
+      "colorName": "Écru chiné",
+      "material": "100 % coton peigné · 380 g/m²",
+      "fit": "Coupe oversize. Prenez votre taille habituelle, ou une en dessous pour un tombé ajusté.",
+      "care": "Lavage à 30 °C sur l'envers, repassage doux, pas de sèche-linge.",
+      "isPublished": true
+    },
+    {
+      "id": "cmtsa1x94000dd7aprlxrthxe",
+      "slug": "pull-creme-en-maille-3",
+      "name": "Pull crème en maille 3",
+      "description": "Maille gaufrée, poignets et bas côtelés, logo Mahaleo rouge brodé au cœur. Édition limitée pour les 50 ans du groupe.",
+      "priceCents": 8000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/528f8646-ab5c-40d8-88f5-9f4a95eb55aa.webp",
+        "/images/pull-creme-dos.png",
+        "/images/pull-creme-trois-quarts.png",
+        "/images/pull-creme-detail-broderie.png"
+      ],
+      "createdAt": "2026-09-08T03:17:16.696Z",
+      "updatedAt": "2026-10-07T12:02:28.562Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#cbb892",
+      "productType": "Pull",
+      "colorName": "Sable",
+      "material": "80 % coton biologique, 20 % polyester recyclé",
+      "fit": "Coupe régulière, taille normalement.",
+      "care": "Lavage à 30 °C, séchage à plat, ne pas javelliser.",
+      "isPublished": true
+    }
+  ],
+  "sizes": [
+    {
+      "id": "cmts9zxid0006d7ap70f4bqv2",
+      "productId": "cmts9zx9k0003d7apzalt8ovg",
+      "size": "L",
+      "stock": 10
+    },
+    {
+      "id": "cmts9zxic0005d7apvorwuzxc",
+      "productId": "cmts9zx9k0003d7apzalt8ovg",
+      "size": "M",
+      "stock": 10
+    },
+    {
+      "id": "cmts9zxic0004d7apfb8g1qfm",
+      "productId": "cmts9zx9k0003d7apzalt8ovg",
+      "size": "S",
+      "stock": 8
+    },
+    {
+      "id": "cmts9zxid0007d7apdpa1q7c8",
+      "productId": "cmts9zx9k0003d7apzalt8ovg",
+      "size": "XL",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa10hj000bd7apmn1coqqx",
+      "productId": "cmtsa10az0008d7aptjvp8tit",
+      "size": "L",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa10hi000ad7ap5upp189c",
+      "productId": "cmtsa10az0008d7aptjvp8tit",
+      "size": "M",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa10hi0009d7apovihud9n",
+      "productId": "cmtsa10az0008d7aptjvp8tit",
+      "size": "S",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa10hj000cd7ap90vxdnh6",
+      "productId": "cmtsa10az0008d7aptjvp8tit",
+      "size": "XL",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa1xhn000gd7ap1zny2vif",
+      "productId": "cmtsa1x94000dd7aprlxrthxe",
+      "size": "L",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa1xhn000fd7apg42sb4w7",
+      "productId": "cmtsa1x94000dd7aprlxrthxe",
+      "size": "M",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa1xhn000ed7ap7al74fll",
+      "productId": "cmtsa1x94000dd7aprlxrthxe",
+      "size": "S",
+      "stock": 10
+    },
+    {
+      "id": "cmtsa1xhn000hd7apswqx9m8d",
+      "productId": "cmtsa1x94000dd7aprlxrthxe",
+      "size": "XL",
+      "stock": 10
+    }
+  ]
+}

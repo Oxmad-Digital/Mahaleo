@@ -1,0 +1,75 @@
+{
+  "tool": "image_gen",
+  "images": [
+    {
+      "model": "bonnet",
+      "color": "blue",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-1630436e-5a28-48b3-b908-5706f546868b.png",
+      "assetPath": "public/images/products/bonnet-bleu-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product photograph for Mahaleo. Input image is the edit target and authoritative reference for the REAL beanie. Replace the wooden table and surrounding clutter with a seamless matte warm ivory studio background (#f4f1eb). Retain precisely this navy blue heathered rib-knit beanie, pale blue flecks, original tall tapered crown with diagonal crown shaping and its folded ribbed cuff, yarn texture and exact shape. No pompom, no logo, no embroidery added. Present the complete beanie centered in a square catalog photo, neat flat-lay front view, occupying 75% of the canvas with balanced margins. Improve exposure, straighten camera perspective slightly, soft broad studio light with a subtle realistic contact shadow. Photorealistic textile detail, true navy color, no plastic smoothing, no props, no text or watermark. Change only photographic presentation and background, never redesign the product."
+    },
+    {
+      "model": "manteau",
+      "color": "blue",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-4955d999-16e3-4f52-8acb-98559496db13.png",
+      "assetPath": "public/images/products/manteau-bleu-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product photograph for Mahaleo. Input image is the edit target and authoritative reference for the REAL long open knit coat. Replace table/chairs and clutter with seamless matte warm ivory studio background (#f4f1eb). Precisely preserve this dark navy / pale grey-blue heathered knit long open cardigan coat: long straight body, broad ribbed shawl collar continuing down both open front edges, two rectangular patch pockets with ribbed top edges, ribbed bottom and cuffs, small red cursive 'mahaleo' embroidery on wearer's left chest (image right). Keep same stitch structure, proportions, fabric colors and embroidery, no buttons or zipper, no belt. Show the COMPLETE garment centered and neatly arranged in professional flat-lay FRONT view, straighten camera perspective, sleeves laid naturally away from body so both pockets are visible. Portrait catalog frame with generous balanced margins, entire hem and cuffs in frame. Soft broad studio light, subtle contact shadow, photorealistic yarn texture, neutral accurate color, no props, no human or mannequin, no text or watermark. Improve presentation only, never invent product features."
+    },
+    {
+      "model": "gilet",
+      "color": "blue",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-66ae74f6-9965-4369-a6e7-203831ae21ae.png",
+      "assetPath": "public/images/products/gilet-bleu-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product photograph for Mahaleo. Input image is the edit target and authoritative reference for the REAL short full-zip knit jacket. Replace wooden table/chairs and clutter with seamless matte warm ivory studio background (#f4f1eb). Precisely preserve this dark navy / pale grey-blue heathered knit zipped cardigan: short straight body, upright ribbed high collar with pale vertical ribs, central FULL LENGTH dark zipper and tan leather-like pull tab at neck, two slanted welt pockets near waist, ribbed cuffs and hem, red cursive 'mahaleo' embroidery on wearer's left chest (image right), small red guitar on that same side lower near ribs. Preserve actual stitch structure, proportions, flecks and embroidery. No cables (this version has plain textured knit), no buttons, no hood. Show COMPLETE garment centered in professional flat-lay FRONT view, straighten perspective, sleeves arranged naturally at slight downward outward angles without covering pockets or guitar. Portrait catalog frame, balanced margins, entire hem and cuffs visible. Soft broad studio light, subtle contact shadow, photorealistic yarn texture, accurate navy color, no props, no human or mannequin, no added text or watermark. Improve presentation only, never invent product features."
+    },
+    {
+      "model": "echarpe",
+      "color": "blue",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-9fb39a41-9996-4d01-bf7c-81ad2e5b72ea.png",
+      "assetPath": "public/images/products/echarpe-bleu-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product photograph for Mahaleo. Input image is edit target and authoritative reference for the REAL scarf and its embroidery. Replace wooden table/chair and clutter with seamless matte warm ivory studio background (#f4f1eb). Keep precisely this navy blue / pale grey-blue heathered knitted scarf, its regular fine knit columns, long loose thin navy and light-grey fringe at end, red cursive 'mahaleo' embroidery near end, same yarn texture, same width and visible proportions. Preserve neat lengthwise presentation folded back once as in reference with fringe and logo visible at bottom. Center entire folded scarf and all fringes in professional top-down flat-lay portrait catalog photograph, balanced margins and small natural folds. Neutral accurate navy exposure, soft studio light, subtle contact shadow, extremely realistic yarn and individual fringe strands, no props, no added logo or lettering, no watermark. Improve only background, exposure and perspective. Never redesign scarf or replace fringe by chunky tassels."
+    },
+    {
+      "model": "pull",
+      "color": "blue",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-3a9c0f7d-96af-4f49-aa5f-c551b85d33a9.png",
+      "assetPath": "public/images/products/pull-bleu-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product photograph for Mahaleo. Input image is authoritative edit target for the REAL cable-knit half-zip sweater. Replace wooden table/chairs and clutter with seamless matte warm ivory studio background (#f4f1eb). Preserve exactly the dark navy blue heathered yarn with pale grey-blue flecks, vertical raised braided cable columns separated by plain knit columns, upright ribbed neck, short central HALF zipper ending above chest with tan pull tab, red cursive 'mahaleo' on wearer's left chest (image right), long sleeves, ribbed hem and cuffs. This is a pullover with short zip, NOT a full-zip jacket: body below zipper must be continuous, no pockets. Straighten perspective and arrange sleeves at slight downward outward angles to expose cables and logo, complete garment centered in flat-lay FRONT view, portrait catalog frame with balanced margins. Soft studio lighting, subtle contact shadow, realistic yarn detail and true navy color. No human, mannequin, props, other logos or watermark. Improve only photographic presentation, preserve all actual design details."
+    },
+    {
+      "model": "bonnet",
+      "color": "grey",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-d474e7d7-25fb-4590-b82e-1d5556258645.png",
+      "assetPath": "public/images/products/bonnet-gris-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product color-variant photograph. Image 1 is authoritative studio edit target, REAL rib-knit Mahaleo beanie. Change ONLY navy yarn color to medium cool GREY heathered with light silver-grey flecks. This must be grey, never cream or beige. Preserve EXACT silhouette, diagonal crown shaping, all stitch columns, folded cuff, dimensions, yarn texture and position. Same seamless warm ivory background, same soft light and contact shadow and centered square composition. No pompom, no logo or embroidery added, no props, no text or watermark. Photorealistic same product in GREY."
+    },
+    {
+      "model": "manteau",
+      "color": "grey",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-64e9d7ec-cf88-49c0-973c-0a8f407a6379.png",
+      "assetPath": "public/images/products/manteau-gris-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product color-variant photograph. Input is authoritative studio edit target of REAL long open knit Mahaleo coat. Change ONLY navy yarn color to cool medium GREY heathered with light silver-grey yarn flecks, pale silver ribs in collar/cuffs/hem. Grey must be neutral cool grey, never beige or cream. Preserve EXACT long silhouette, open front (no closure), shawl collar and rib structure, two rectangular patch pockets, long sleeves and cuffs, all stitches and garment proportions. Preserve the red cursive 'mahaleo' chest embroidery unchanged. Same ivory studio background, same contact shadow, exact flat-lay front pose and portrait composition. Extremely realistic yarn and fabric, no human/mannequin/props, no added text or watermark. Same REAL product in GREY, only recolor yarn."
+    },
+    {
+      "model": "gilet",
+      "color": "grey",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-36ec7b3c-dfcb-4557-a693-57d71276fa47.png",
+      "assetPath": "public/images/products/gilet-gris-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product color-variant photograph. Input is authoritative studio edit target of REAL short full-zip knit Mahaleo cardigan jacket. Change ONLY dark navy yarn color to cool medium GREY heathered with light silver-grey flecks and pale silver ribs. It must be GREY, never beige or cream. Preserve exact plain textured knit (no cables), full-length dark central zipper and tan pull tab, upright high ribbed neck, two slanted welt pockets, ribbed cuffs and hem, sleeve pose and complete garment proportions. Keep red cursive 'mahaleo' chest embroidery and small red guitar below it EXACTLY unchanged. Same seamless ivory studio background, light, contact shadow, camera and flat-lay portrait frame. Photorealistic yarn detail. No human/mannequin/props/text/watermark. Same product in GREY, only recolor yarn."
+    },
+    {
+      "model": "echarpe",
+      "color": "grey",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-9f2779d7-243d-4615-bf9c-b8cb33018135.png",
+      "assetPath": "public/images/products/echarpe-gris-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product color-variant photograph. Input is authoritative studio edit target of REAL knitted Mahaleo scarf. Change ONLY navy yarn color to cool medium GREY heathered with light silver-grey flecks, and fringe strands to charcoal and silver-grey. GREY not beige or cream. Preserve exact scarf width, length, fold position, all knit stitches, long fine loose fringes, red cursive 'mahaleo' embroidery above fringe unchanged, dimensions and position. Same seamless ivory studio background, soft studio light, contact shadow, front flat-lay portrait composition. Photorealistic visible yarn and individual fringes. No props, no added text or watermark, do not add chunky tassels. SAME real product in GREY."
+    },
+    {
+      "model": "pull",
+      "color": "grey",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a12afb-f905-7570-953d-5a5e58c514d3/exec-19bdf057-3de7-428d-a7d3-ade826711e84.png",
+      "assetPath": "public/images/products/pull-gris-chine-studio-v1.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: professional ecommerce product color-variant photograph. Input is authoritative studio edit target of REAL Mahaleo cable-knit HALF-ZIP pullover. Change ONLY dark navy yarn color to cool medium GREY heathered with light silver-grey flecks, neutral grey never beige or cream. Preserve EXACT cable placement and raised braided columns separated by plain knit, short half zipper at neck ending above chest, dark zipper and tan pull tab, upright ribbed neck, red cursive 'mahaleo' chest embroidery, all ribbed hem/cuffs and stitches and full proportions. This remains pullover with continuous body below short zip, no pockets/full zipper. Same ivory studio backdrop, exact sleeve pose, front flat-lay portrait composition, same lighting/contact shadow. Photorealistic yarn detail, no human/mannequin/props/text/watermark. Same product in GREY."
+    }
+  ]
+}

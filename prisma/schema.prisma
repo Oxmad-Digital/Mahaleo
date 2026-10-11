@@ -55,6 +55,8 @@ model Product {
   onSale         Boolean  @default(false)
   salePriceCents Int?
   images         String[]
+  /// Un brouillon reste accessible dans l'administration uniquement.
+  isPublished    Boolean  @default(true)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 

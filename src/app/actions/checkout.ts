@@ -141,7 +141,7 @@ export async function createCheckoutSession(
 
   const productIds = [...new Set([...lines.values()].map((item) => item.productId))];
   const products = await prisma.product.findMany({
-    where: { id: { in: productIds } },
+    where: { id: { in: productIds }, isPublished: true },
     include: { sizes: true },
   });
   const productById = new Map(products.map((product) => [product.id, product]));

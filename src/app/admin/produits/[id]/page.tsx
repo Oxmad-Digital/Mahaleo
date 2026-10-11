@@ -36,10 +36,11 @@ export default async function EditProductPage(props: PageProps<"/admin/produits/
           material: product.material ?? "",
           fit: product.fit ?? "",
           care: product.care ?? "",
-          price: (product.priceCents / 100).toFixed(2),
+          price: !product.isPublished && product.priceCents === 0 ? "" : (product.priceCents / 100).toFixed(2),
           images: product.images.join("\n"),
           sizes: product.sizes.map((s) => ({ size: s.size, stock: String(s.stock), initialStock: String(s.stock) })),
           onSale: product.onSale,
+          isPublished: product.isPublished,
           salePrice: product.salePriceCents !== null ? (product.salePriceCents / 100).toFixed(2) : "",
         }}
       />

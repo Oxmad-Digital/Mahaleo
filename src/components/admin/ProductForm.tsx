@@ -77,6 +77,7 @@ export function ProductForm({
     images: string;
     sizes: ProductSizeEntry[];
     onSale: boolean;
+    isPublished: boolean;
     salePrice: string;
   };
   submitLabel: string;
@@ -107,6 +108,7 @@ export function ProductForm({
   const [fit, setFit] = useState(initial?.fit ?? "");
   const [care, setCare] = useState(initial?.care ?? "");
   const [price, setPrice] = useState(initial?.price ?? "");
+  const [isPublished, setIsPublished] = useState(initial?.isPublished ?? false);
   const [salePrice, setSalePrice] = useState(initial?.salePrice ?? "");
   const [images, setImages] = useState<string[]>(() => parseImagesList(initial?.images));
   const [dragIndex, setDragIndex] = useState<number | null>(null);
@@ -114,7 +116,7 @@ export function ProductForm({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [sizes, setSizes] = useState<ProductSizeEntry[]>(
-    () => initial?.sizes ?? [{ size: "", stock: "0" }]
+    () => initial?.sizes ?? []
   );
   const [onSale, setOnSale] = useState(initial?.onSale ?? false);
 
@@ -135,7 +137,7 @@ export function ProductForm({
   }
 
   function removeSize(index: number) {
-    setSizes((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== index) : prev));
+    setSizes((prev) => prev.filter((_, i) => i !== index));
   }
 
   /** Déplace une image dans la liste ; l'ordre du tableau est l'ordre d'affichage. */
@@ -192,6 +194,17 @@ export function ProductForm({
       }
     >
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+          <input type="checkbox" name="isPublished" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)} />
+          <span style={labelStyle}>Publié dans la boutique</span>
+        </label>
+        <p style={{ margin: 0, fontSize: 13, color: "rgba(55,53,47,0.65)" }}>
+          {isPublished ? "Ce produit est visible dans la boutique." : "Brouillon : visible uniquement dans l’administration."}
+        </p>
+        {state?.errors?.isPublished && <FieldError messages={state.errors.isPublished} />}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <label htmlFor="name" style={labelStyle}>
           Nom du produit
         </label>
@@ -247,6 +260,10 @@ export function ProductForm({
           <option value="T-shirt" />
           <option value="Sweat" />
           <option value="Pull" />
+          <option value="Bonnet" />
+          <option value="Écharpe" />
+          <option value="Gilet" />
+          <option value="Manteau" />
           <option value="Casquette" />
           <option value="Tote bag" />
         </datalist>
@@ -447,7 +464,6 @@ export function ProductForm({
               <button
                 type="button"
                 onClick={() => removeSize(index)}
-                disabled={sizes.length <= 1}
                 aria-label="Supprimer cette taille"
                 style={{
                   width: 32,
@@ -458,8 +474,7 @@ export function ProductForm({
                   color: "#a82c2c",
                   fontSize: 16,
                   lineHeight: 1,
-                  cursor: sizes.length <= 1 ? "default" : "pointer",
-                  opacity: sizes.length <= 1 ? 0.4 : 1,
+                  cursor: "pointer",
                 }}
               >
                 ×
@@ -649,6 +664,7 @@ export function ProductForm({
         <span style={{ fontSize: 12, color: "rgba(55,53,47,0.45)" }}>
           Sélection multiple acceptée · JPEG, PNG, WEBP ou GIF · 5 Mo maximum par image.<br />
           Glissez-déposez les vignettes (ou utilisez les flèches ‹ ›) pour changer l’ordre. La première image est le visuel principal.
+          <br />Ordre conseillé : mannequin, face, dos, détail de la broderie (ou de la maille).
         </span>
       </div>
 

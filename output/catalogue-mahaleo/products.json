@@ -1,0 +1,337 @@
+{
+  "notes": "Import ponctuel en base, jamais lu par les pages de la boutique. Prix provisoires autorisés par le client. Stock : 10 par modèle/coloris. Répartition vêtements S2/M3/L3/XL2 confirmée, accessoires Unique10. Composition et entretien non confirmés : aucune fibre ni consigne inventée.",
+  "products": [
+    {
+      "slug": "bonnet-a-revers-bleu-chine",
+      "name": "Bonnet à revers Mahaleo — bleu chiné",
+      "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+      "productType": "Bonnet",
+      "color": "#263D59",
+      "colorName": "Bleu chiné",
+      "material": "Maille côtelée chinée",
+      "fit": "Bonnet à revers.",
+      "care": null,
+      "priceCents": 2500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/bonnet-bleu-chine-mannequin-v2.webp",
+        "public/images/products/bonnet-bleu-chine-studio-v1.webp",
+        "public/images/products/bonnet-bleu-chine-dos-v2.webp",
+        "public/images/products/bonnet-bleu-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "Unique",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "slug": "bonnet-a-revers-gris-chine",
+      "name": "Bonnet à revers Mahaleo — gris chiné",
+      "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+      "productType": "Bonnet",
+      "color": "#80838A",
+      "colorName": "Gris chiné",
+      "material": "Maille côtelée chinée",
+      "fit": "Bonnet à revers.",
+      "care": null,
+      "priceCents": 2500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/bonnet-gris-chine-mannequin-v2.webp",
+        "public/images/products/bonnet-gris-chine-studio-v1.webp",
+        "public/images/products/bonnet-gris-chine-dos-v2.webp",
+        "public/images/products/bonnet-gris-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "Unique",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "slug": "echarpe-a-franges-bleu-chine",
+      "name": "Écharpe à franges Mahaleo — bleu chiné",
+      "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+      "productType": "Écharpe",
+      "color": "#263D59",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée",
+      "fit": "Format rectangulaire à franges.",
+      "care": null,
+      "priceCents": 3500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/echarpe-bleu-chine-mannequin-v2.webp",
+        "public/images/products/echarpe-bleu-chine-studio-v1.webp",
+        "public/images/products/echarpe-bleu-chine-dos-v2.webp",
+        "public/images/products/echarpe-bleu-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "Unique",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "slug": "echarpe-a-franges-gris-chine",
+      "name": "Écharpe à franges Mahaleo — gris chiné",
+      "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+      "productType": "Écharpe",
+      "color": "#80838A",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée",
+      "fit": "Format rectangulaire à franges.",
+      "care": null,
+      "priceCents": 3500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/echarpe-gris-chine-mannequin-v2.webp",
+        "public/images/products/echarpe-gris-chine-studio-v1.webp",
+        "public/images/products/echarpe-gris-chine-dos-v2.webp",
+        "public/images/products/echarpe-gris-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "Unique",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "slug": "gilet-zippe-bleu-chine",
+      "name": "Gilet zippé Mahaleo — bleu chiné",
+      "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+      "productType": "Gilet",
+      "color": "#263D59",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe droite, manches longues et col montant.",
+      "care": null,
+      "priceCents": 7500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/gilet-bleu-chine-mannequin-v2.webp",
+        "public/images/products/gilet-bleu-chine-studio-v1.webp",
+        "public/images/products/gilet-bleu-chine-dos-v2.webp",
+        "public/images/products/gilet-bleu-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "slug": "gilet-zippe-gris-chine",
+      "name": "Gilet zippé Mahaleo — gris chiné",
+      "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+      "productType": "Gilet",
+      "color": "#80838A",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe droite, manches longues et col montant.",
+      "care": null,
+      "priceCents": 7500,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/gilet-gris-chine-mannequin-v2.webp",
+        "public/images/products/gilet-gris-chine-studio-v1.webp",
+        "public/images/products/gilet-gris-chine-dos-v2.webp",
+        "public/images/products/gilet-gris-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — bleu chiné",
+      "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+      "productType": "Pull",
+      "color": "#263D59",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée à torsades",
+      "fit": "Manches longues, col montant et fermeture demi-zip.",
+      "care": null,
+      "priceCents": 8000,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/pull-bleu-chine-mannequin-v2.webp",
+        "public/images/products/pull-bleu-chine-studio-v1.webp",
+        "public/images/products/pull-bleu-chine-dos-v2.webp",
+        "public/images/products/pull-bleu-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — gris chiné",
+      "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+      "productType": "Pull",
+      "color": "#80838A",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée à torsades",
+      "fit": "Manches longues, col montant et fermeture demi-zip.",
+      "care": null,
+      "priceCents": 8000,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/pull-gris-chine-mannequin-v2.webp",
+        "public/images/products/pull-gris-chine-studio-v1.webp",
+        "public/images/products/pull-gris-chine-dos-v2.webp",
+        "public/images/products/pull-gris-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "slug": "manteau-long-bleu-chine",
+      "name": "Manteau long Mahaleo — bleu chiné",
+      "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+      "productType": "Manteau",
+      "color": "#263D59",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+      "care": null,
+      "priceCents": 11000,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/manteau-bleu-chine-mannequin-v2.webp",
+        "public/images/products/manteau-bleu-chine-studio-v1.webp",
+        "public/images/products/manteau-bleu-chine-dos-v2.webp",
+        "public/images/products/manteau-bleu-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "slug": "manteau-long-gris-chine",
+      "name": "Manteau long Mahaleo — gris chiné",
+      "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+      "productType": "Manteau",
+      "color": "#80838A",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+      "care": null,
+      "priceCents": 11000,
+      "currency": "EUR",
+      "isPublished": true,
+      "localImages": [
+        "public/images/products/manteau-gris-chine-mannequin-v2.webp",
+        "public/images/products/manteau-gris-chine-studio-v1.webp",
+        "public/images/products/manteau-gris-chine-dos-v2.webp",
+        "public/images/products/manteau-gris-chine-detail-v2.webp"
+      ],
+      "sizes": [
+        {
+          "size": "S",
+          "stock": 2
+        },
+        {
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "size": "L",
+          "stock": 3
+        },
+        {
+          "size": "XL",
+          "stock": 2
+        }
+      ]
+    }
+  ]
+}

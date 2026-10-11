@@ -17,6 +17,7 @@ const CATALOG_REVALIDATE_SECONDS = 300;
 export const getShopProducts = unstable_cache(
   async () => {
     const products = await prisma.product.findMany({
+      where: { isPublished: true },
       orderBy: { createdAt: "desc" },
       select: {
         id: true,
@@ -36,7 +37,7 @@ export const getShopProducts = unstable_cache(
     });
     return products.map((product) => ({ ...product, sizes: sortBySize(product.sizes) }));
   },
-  ["shop-products"],
+  ["shop-products-published"],
   { tags: [CATALOG_TAG], revalidate: CATALOG_REVALIDATE_SECONDS },
 );
 
@@ -45,7 +46,7 @@ export type ShopProduct = Awaited<ReturnType<typeof getShopProducts>>[number];
 export const getProductBySlug = unstable_cache(
   async (slug: string) => {
     const product = await prisma.product.findUnique({
-      where: { slug },
+      where: { slug, isPublished: true },
       select: {
         id: true,
         slug: true,
@@ -70,7 +71,7 @@ export const getProductBySlug = unstable_cache(
       product && { ...product, sizes: sortBySize(product.sizes), createdAt: product.createdAt.toISOString() }
     );
   },
-  ["shop-product-by-slug"],
+  ["shop-product-by-slug-published"],
   { tags: [CATALOG_TAG], revalidate: CATALOG_REVALIDATE_SECONDS },
 );
 

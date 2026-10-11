@@ -17,7 +17,7 @@ function parseImages(raw: string | undefined) {
 }
 
 function parsePriceCents(price: string) {
-  return Math.round(parseFloat(price.replace(",", ".")) * 100);
+  return Math.round(parseFloat((price || "0").replace(",", ".")) * 100);
 }
 
 /**
@@ -73,6 +73,7 @@ export async function createProduct(
     images: formData.get("images"),
     sizes: formData.get("sizes"),
     onSale: formData.get("onSale") ?? undefined,
+    isPublished: formData.get("isPublished") ?? undefined,
     salePrice: formData.get("salePrice") ?? undefined,
   });
 
@@ -80,7 +81,7 @@ export async function createProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, color, price, images, sizes, onSale, salePrice, productType, colorName, material, fit, care } =
+  const { name, slug, description, color, price, images, sizes, onSale, isPublished, salePrice, productType, colorName, material, fit, care } =
     validatedFields.data;
 
   try {
@@ -97,6 +98,7 @@ export async function createProduct(
         care: care || null,
         priceCents: parsePriceCents(price),
         onSale,
+        isPublished,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
         images: parseImages(images),
         sizes: {
@@ -139,6 +141,7 @@ export async function updateProduct(
     images: formData.get("images"),
     sizes: formData.get("sizes"),
     onSale: formData.get("onSale") ?? undefined,
+    isPublished: formData.get("isPublished") ?? undefined,
     salePrice: formData.get("salePrice") ?? undefined,
   });
 
@@ -146,7 +149,7 @@ export async function updateProduct(
     return { errors: validatedFields.error.flatten().fieldErrors };
   }
 
-  const { name, slug, description, color, price, images, sizes, onSale, salePrice, productType, colorName, material, fit, care } =
+  const { name, slug, description, color, price, images, sizes, onSale, isPublished, salePrice, productType, colorName, material, fit, care } =
     validatedFields.data;
 
   try {
@@ -164,6 +167,7 @@ export async function updateProduct(
         care: care || null,
         priceCents: parsePriceCents(price),
         onSale,
+        isPublished,
         salePriceCents: onSale && salePrice ? parsePriceCents(salePrice) : null,
         images: parseImages(images),
       },

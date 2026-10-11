@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "bonnet-a-revers-bleu-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "bonnet-a-revers-gris-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "echarpe-a-franges-bleu-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "echarpe-a-franges-gris-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "gilet-zippe-bleu-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "gilet-zippe-gris-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "pull-torsade-demi-zip-bleu-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "pull-torsade-demi-zip-gris-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "manteau-long-bleu-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "slug": "manteau-long-gris-chine",
+    "images": 4,
+    "navigation": "ok",
+    "format": "3:4"
+  },
+  {
+    "format": "mobile",
+    "gallery": {
+      "x": 18,
+      "y": 155.5,
+      "width": 354,
+      "height": 472
+    },
+    "thumbs": {
+      "x": 18,
+      "y": 639.5,
+      "width": 354,
+      "height": 85.328125
+    },
+    "viewport": 390,
+    "scrollWidth": 390
+  },
+  {
+    "format": "tablette",
+    "gallery": {
+      "x": 228,
+      "y": 188.5,
+      "width": 525,
+      "height": 700
+    },
+    "thumbs": {
+      "x": 132,
+      "y": 188.5,
+      "width": 84,
+      "height": 478
+    },
+    "viewport": 900,
+    "scrollWidth": 885
+  }
+]

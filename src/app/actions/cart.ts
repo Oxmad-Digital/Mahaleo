@@ -30,7 +30,7 @@ export async function refreshCart(input: { productId: string; size?: string; qty
   if (!parsed.success) return { items: [] as CartItem[], notices: ["Votre panier a été vidé car il était illisible."] };
 
   const products = await prisma.product.findMany({
-    where: { id: { in: [...new Set(parsed.data.map((item) => item.productId))] } },
+    where: { id: { in: [...new Set(parsed.data.map((item) => item.productId))] }, isPublished: true },
     select: {
       id: true,
       slug: true,

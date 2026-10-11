@@ -26,6 +26,7 @@ export async function getProductsData({ query, page }: { query?: string; page: n
         priceCents: true,
         currency: true,
         images: true,
+        isPublished: true,
         sizes: { select: { size: true, stock: true }, orderBy: { size: "asc" } },
       },
     }),

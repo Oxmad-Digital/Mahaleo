@@ -36,6 +36,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // ws utilise des modules natifs optionnels ; le bundler ne doit pas les
+  // remplacer par des stubs pendant le rendu serveur du catalogue Neon.
+  serverExternalPackages: ["ws"],
   images: {
     remotePatterns: [{ protocol: "https", hostname: PRODUCT_IMAGE_HOST, pathname: "/**" }],
     // Les images produit ont une clé UUID qui ne change jamais de contenu : leur

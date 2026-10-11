@@ -1,0 +1,394 @@
+{
+  "products": [
+    {
+      "id": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+      "slug": "bonnet-a-revers-bleu-chine",
+      "name": "Bonnet à revers Mahaleo — bleu chiné",
+      "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+      "priceCents": 2500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/bonnet-a-revers-bleu-chine-b72e45ce306ce129.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#263D59",
+      "productType": "Bonnet",
+      "colorName": "Bleu chiné",
+      "material": "Maille côtelée chinée",
+      "fit": "Bonnet à revers.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "fb294bc9-59fa-4e78-b497-2b4d147efb14",
+      "slug": "bonnet-a-revers-gris-chine",
+      "name": "Bonnet à revers Mahaleo — gris chiné",
+      "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+      "priceCents": 2500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/bonnet-a-revers-gris-chine-0b7d93368f5dd777.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#80838A",
+      "productType": "Bonnet",
+      "colorName": "Gris chiné",
+      "material": "Maille côtelée chinée",
+      "fit": "Bonnet à revers.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "3a17b2ba-685a-4ad2-b3b8-82245ba33ac2",
+      "slug": "echarpe-a-franges-bleu-chine",
+      "name": "Écharpe à franges Mahaleo — bleu chiné",
+      "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+      "priceCents": 3500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/echarpe-a-franges-bleu-chine-c19bcf8b99a1658a.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#263D59",
+      "productType": "Écharpe",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée",
+      "fit": "Format rectangulaire à franges.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "5c91892a-2a51-43fe-84ba-fa45e098b67d",
+      "slug": "echarpe-a-franges-gris-chine",
+      "name": "Écharpe à franges Mahaleo — gris chiné",
+      "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+      "priceCents": 3500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/echarpe-a-franges-gris-chine-ebdd0a7af359d3c2.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#80838A",
+      "productType": "Écharpe",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée",
+      "fit": "Format rectangulaire à franges.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "slug": "gilet-zippe-bleu-chine",
+      "name": "Gilet zippé Mahaleo — bleu chiné",
+      "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+      "priceCents": 7500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/gilet-zippe-bleu-chine-4c4bedb32ccc83d0.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#263D59",
+      "productType": "Gilet",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe droite, manches longues et col montant.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "slug": "gilet-zippe-gris-chine",
+      "name": "Gilet zippé Mahaleo — gris chiné",
+      "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+      "priceCents": 7500,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/gilet-zippe-gris-chine-90ce6e28c805c78d.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#80838A",
+      "productType": "Gilet",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe droite, manches longues et col montant.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "slug": "manteau-long-bleu-chine",
+      "name": "Manteau long Mahaleo — bleu chiné",
+      "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+      "priceCents": 11000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/manteau-long-bleu-chine-1d54acfebd58cd04.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#263D59",
+      "productType": "Manteau",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "slug": "manteau-long-gris-chine",
+      "name": "Manteau long Mahaleo — gris chiné",
+      "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+      "priceCents": 11000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/manteau-long-gris-chine-4268ce4ab9fd97a1.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#80838A",
+      "productType": "Manteau",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée avec finitions côtelées",
+      "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — bleu chiné",
+      "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+      "priceCents": 8000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/pull-torsade-demi-zip-bleu-chine-c398203084a8b83f.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#263D59",
+      "productType": "Pull",
+      "colorName": "Bleu chiné",
+      "material": "Maille chinée à torsades",
+      "fit": "Manches longues, col montant et fermeture demi-zip.",
+      "care": null,
+      "isPublished": true
+    },
+    {
+      "id": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — gris chiné",
+      "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+      "priceCents": 8000,
+      "currency": "EUR",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261011/pull-torsade-demi-zip-gris-chine-bb8f8c5e02532fb4.webp"
+      ],
+      "createdAt": "2026-10-11T10:04:53.586Z",
+      "updatedAt": "2026-10-11T10:04:53.586Z",
+      "onSale": false,
+      "salePriceCents": null,
+      "color": "#80838A",
+      "productType": "Pull",
+      "colorName": "Gris chiné",
+      "material": "Maille chinée à torsades",
+      "fit": "Manches longues, col montant et fermeture demi-zip.",
+      "care": null,
+      "isPublished": true
+    }
+  ],
+  "sizes": [
+    {
+      "id": "ac6cd90d-48c2-4578-a17a-f0612fb49646",
+      "productId": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+      "size": "Unique",
+      "stock": 10
+    },
+    {
+      "id": "74d2d697-e03d-414a-b3e2-7d92802bc604",
+      "productId": "fb294bc9-59fa-4e78-b497-2b4d147efb14",
+      "size": "Unique",
+      "stock": 10
+    },
+    {
+      "id": "7842d16b-cc96-405f-a453-4d4ccc85a725",
+      "productId": "3a17b2ba-685a-4ad2-b3b8-82245ba33ac2",
+      "size": "Unique",
+      "stock": 10
+    },
+    {
+      "id": "5ae55654-aaac-4f0f-8f1a-7da843611711",
+      "productId": "5c91892a-2a51-43fe-84ba-fa45e098b67d",
+      "size": "Unique",
+      "stock": 10
+    },
+    {
+      "id": "1d6dc909-90d9-4cdf-af03-52cbfa90d6a3",
+      "productId": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "ab344177-b2a8-49a0-800a-cfc85f881b05",
+      "productId": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "f8590f0a-6e4f-4098-bbe1-b2c70c691140",
+      "productId": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "d0a6c3fc-5426-4cf9-912f-0106b439eea7",
+      "productId": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "size": "XL",
+      "stock": 2
+    },
+    {
+      "id": "9e495a37-29b7-4904-883b-de14f4b51ede",
+      "productId": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "a5c33701-4788-4a14-9d5e-7d9b4a592874",
+      "productId": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "e1e01175-b0c4-49c9-87f7-bc9a476d959d",
+      "productId": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "c251f91f-821a-4ad7-b7c4-12d85b4fe38d",
+      "productId": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "size": "XL",
+      "stock": 2
+    },
+    {
+      "id": "d158afa1-782a-40e1-ad10-06e882f46530",
+      "productId": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "7ea8c8ff-1d80-40db-98fc-003a209cd8c5",
+      "productId": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "16176075-abc8-489f-9e1d-2c5c557fcee1",
+      "productId": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "86f16e28-29da-4590-b779-b73a7452d5de",
+      "productId": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "size": "XL",
+      "stock": 2
+    },
+    {
+      "id": "b6ca3a48-39bc-47a3-a493-b00b63d501bf",
+      "productId": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "be0b5e15-74d1-4f46-9140-dec74cf77a91",
+      "productId": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "e8bf97fa-e567-4dbc-87ae-e67625d4c027",
+      "productId": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "9fbda034-2408-4183-b202-d54e896fe9dd",
+      "productId": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "size": "XL",
+      "stock": 2
+    },
+    {
+      "id": "1c55a6ba-f010-458d-a94d-05fb941f9be0",
+      "productId": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "c2c6534b-c719-4acc-ad41-665b04150aaf",
+      "productId": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "1b0cf561-93b0-4d6b-bb92-894f5c470f7b",
+      "productId": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "f2ccb957-8263-4e87-80b5-d7d8f1d63d34",
+      "productId": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "size": "XL",
+      "stock": 2
+    },
+    {
+      "id": "f552cfb7-2e0f-4af3-9f05-d0bd8768ff2e",
+      "productId": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "size": "L",
+      "stock": 3
+    },
+    {
+      "id": "c374e25b-cb09-416f-8e19-1ea066287635",
+      "productId": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "size": "M",
+      "stock": 3
+    },
+    {
+      "id": "c4b25975-e3da-4ab3-a62a-8b79669c83f1",
+      "productId": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "size": "S",
+      "stock": 2
+    },
+    {
+      "id": "19c400b0-ea96-48dd-a4a2-38b52b0a977b",
+      "productId": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "size": "XL",
+      "stock": 2
+    }
+  ]
+}

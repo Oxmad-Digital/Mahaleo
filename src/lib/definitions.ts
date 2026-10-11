@@ -110,7 +110,8 @@ export const ProductFormSchema = z.object({
   price: z
     .string()
     .trim()
-    .regex(/^\d+([.,]\d{1,2})?$/, { error: "Veuillez saisir un prix valide, ex. 49.90." }),
+    .regex(/^(?:\d+([.,]\d{1,2})?)?$/, { error: "Veuillez saisir un prix valide, ex. 49.90." }),
+  isPublished: z.union([z.literal("on"), z.undefined()]).optional().transform((v) => v === "on"),
   images: z.string().trim().optional(),
   sizes: z
     .string()
@@ -123,7 +124,7 @@ export const ProductFormSchema = z.object({
         parsed = null;
       }
       const result = z.array(ProductSizeEntrySchema).safeParse(parsed);
-      if (!result.success || result.data.length === 0) {
+      if (!result.success) {
         ctx.addIssue({ code: "custom", message: "Ajoutez au moins une taille avec un stock valide." });
         return z.NEVER;
       }
@@ -150,6 +151,12 @@ export const ProductFormSchema = z.object({
 }).refine((data) => !data.onSale || Boolean(data.salePrice), {
   error: "Indiquez un prix promotionnel.",
   path: ["salePrice"],
+}).refine((data) => !data.isPublished || Number(data.price.replace(",", ".")) > 0, {
+  error: "Indiquez un prix supérieur à zéro avant de publier le produit.",
+  path: ["price"],
+}).refine((data) => !data.isPublished || data.sizes.length > 0, {
+  error: "Ajoutez au moins une taille avant de publier le produit.",
+  path: ["sizes"],
 });
 
 export type ProductFormState =
@@ -165,6 +172,7 @@ export type ProductFormState =
         fit?: string[];
         care?: string[];
         price?: string[];
+        isPublished?: string[];
         images?: string[];
         sizes?: string[];
         salePrice?: string[];

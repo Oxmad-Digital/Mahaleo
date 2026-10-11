@@ -96,8 +96,9 @@ export function ProductsTable({ data, query }: { data: ProductsData; query?: str
                         {product.name}
                       </span>
                       <span style={{ fontSize: 12, fontWeight: 400, color: "rgba(55,53,47,0.45)" }}>{product.slug}</span>
+                      <Badge tone={product.isPublished ? "neutral" : "yellow"}>{product.isPublished ? "Publié" : "Brouillon"}</Badge>
                     </div>
-                    <span style={{ fontSize: 14, fontWeight: 600 }}>{formatCents(product.priceCents, product.currency)}</span>
+                    <span style={{ fontSize: 14, fontWeight: 600 }}>{!product.isPublished && product.priceCents === 0 ? "À renseigner" : formatCents(product.priceCents, product.currency)}</span>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                       {product.sizes.length === 0 ? (
                         <Badge tone="neutral">Aucune taille</Badge>
