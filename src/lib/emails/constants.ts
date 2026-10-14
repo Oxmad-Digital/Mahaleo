@@ -7,6 +7,9 @@ export const APP_URL = process.env.APP_URL ?? "http://localhost:3000";
 // localhost : hors production, elles pointent vers le site public.
 export const EMAIL_ASSET_URL = APP_URL.startsWith("https://") ? APP_URL : "https://www.mahaleo.shop";
 
+// URL canonique du site public (sitemap, robots.txt).
+export const SITE_URL = "https://www.mahaleo.shop";
+
 export const EMAIL_FROM = {
   email: process.env.PLUNK_FROM_EMAIL ?? "no-reply@mahaleo.shop",
   name: SITE_NAME,
