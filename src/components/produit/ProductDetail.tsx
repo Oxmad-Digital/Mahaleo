@@ -24,7 +24,9 @@ export function ProductDetail({
   const [activeImage, setActiveImage] = useState(0);
   const availableSizes = product.sizes.filter((entry) => entry.stock > 0);
   const requiresSize = product.sizes.length > 0;
-  const [size, setSize] = useState<string>();
+  // Une référence déclinée en une seule taille n'a rien à choisir : on la présélectionne et on masque le sélecteur.
+  const singleSize = product.sizes.length === 1;
+  const [size, setSize] = useState<string | undefined>(singleSize ? product.sizes[0].size : undefined);
   const [message, setMessage] = useState("");
   const [sizeMissing, setSizeMissing] = useState(false);
   const sizeFieldsetRef = useRef<HTMLFieldSetElement>(null);
@@ -179,7 +181,7 @@ export function ProductDetail({
               </dl>
             )}
 
-            {requiresSize && (
+            {requiresSize && !singleSize && (
               <fieldset ref={sizeFieldsetRef} className={`retro-size-fieldset${sizeMissing ? " has-error" : ""}`} aria-describedby={sizeMissing ? "size-error" : undefined}>
                 <legend>CHOISISSEZ VOTRE TAILLE</legend>
                 <div>
