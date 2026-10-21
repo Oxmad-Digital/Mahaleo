@@ -53,3 +53,5 @@ next-env.d.ts
 /output/catalogue-mahaleo/originaux/
 /output/catalogue-mahaleo/galeries-originaux/
 /output/catalogue-mahaleo/compressed-images/*.webp
+/output/catalogue-mahaleo-20261021/originals/
+/output/catalogue-mahaleo-20261021/webp/

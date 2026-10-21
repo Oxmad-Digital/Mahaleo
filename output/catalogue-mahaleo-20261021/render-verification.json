@@ -1,0 +1,79 @@
+{
+  "products": [
+    {
+      "slug": "gilet-zippe-bleu-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "gilet-zippe-gris-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "manteau-long-bleu-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "manteau-long-gris-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "echarpe-a-franges-bleu-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "echarpe-a-franges-gris-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "bonnet-a-revers-bleu-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "bonnet-a-revers-gris-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    },
+    {
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "status": 200,
+      "name": true,
+      "description": true,
+      "allFourImages": true
+    }
+  ],
+  "collection": {
+    "status": 200,
+    "products": true,
+    "newImageSet": true
+  }
+}

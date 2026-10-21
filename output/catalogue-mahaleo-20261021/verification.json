@@ -1,0 +1,135 @@
+{
+  "products": [
+    {
+      "id": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — taupe chiné",
+      "colorName": "Taupe chiné",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-mannequin-da7c61a70874e4b6.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-face-a44b1831323179f4.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-dos-02173d437607d2e9.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-detail-50c166aedc9cfe03.webp"
+      ]
+    },
+    {
+      "id": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "slug": "gilet-zippe-gris-chine",
+      "name": "Gilet zippé Mahaleo — taupe chiné",
+      "colorName": "Taupe chiné",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-mannequin-a8a9950a896cdbf8.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-face-6d85963567ca0223.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-dos-d553f8d70bed8301.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-detail-bcf11813cbc83d2d.webp"
+      ]
+    },
+    {
+      "id": "3a17b2ba-685a-4ad2-b3b8-82245ba33ac2",
+      "slug": "echarpe-a-franges-bleu-chine",
+      "name": "Écharpe à franges Mahaleo — vert olive",
+      "colorName": "Vert olive",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-mannequin-cfba89cdfd4d46dd.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-face-0ec36ad21be80f2a.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-dos-6ee82b229a397182.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-detail-88effe7fc95eceb8.webp"
+      ]
+    },
+    {
+      "id": "5c91892a-2a51-43fe-84ba-fa45e098b67d",
+      "slug": "echarpe-a-franges-gris-chine",
+      "name": "Écharpe à franges Mahaleo — taupe chiné",
+      "colorName": "Taupe chiné",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-mannequin-121a5015a4080845.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-face-3e225b2215360aeb.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-dos-2d29389b3fb22633.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-detail-ce4c70f56d959c80.webp"
+      ]
+    },
+    {
+      "id": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "slug": "gilet-zippe-bleu-chine",
+      "name": "Gilet zippé Mahaleo — vert olive",
+      "colorName": "Vert olive",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-mannequin-f46164e504eb79b4.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-face-938eb8b869b14c8d.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-dos-903953cf2ea2c380.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-detail-fc5e063463ec83d2.webp"
+      ]
+    },
+    {
+      "id": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "slug": "manteau-long-bleu-chine",
+      "name": "Manteau long Mahaleo — vert olive",
+      "colorName": "Vert olive",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-mannequin-638db1a1911e83e0.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-face-c681249aef861017.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-dos-d6b8aba0ba591a39.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-detail-05a2f1404e0f1f4b.webp"
+      ]
+    },
+    {
+      "id": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "name": "Pull torsadé demi-zip Mahaleo — vert olive",
+      "colorName": "Vert olive",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-mannequin-5a6ef62f692d94ec.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-face-2ad38a53d96811d5.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-dos-c5588b912c0c3a8c.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-detail-b281cb4bdeea7c15.webp"
+      ]
+    },
+    {
+      "id": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+      "slug": "bonnet-a-revers-bleu-chine",
+      "name": "Bonnet à revers Mahaleo — vert olive",
+      "colorName": "Vert olive",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp"
+      ]
+    },
+    {
+      "id": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "slug": "manteau-long-gris-chine",
+      "name": "Manteau long Mahaleo — taupe chiné",
+      "colorName": "Taupe chiné",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-mannequin-9356a3673a0c053d.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-face-1a9b11887b3f2176.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-dos-82948455125d2eb3.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-detail-123219922ee69825.webp"
+      ]
+    },
+    {
+      "id": "fb294bc9-59fa-4e78-b497-2b4d147efb14",
+      "slug": "bonnet-a-revers-gris-chine",
+      "name": "Bonnet à revers Mahaleo — gris chiné",
+      "colorName": "Gris chiné",
+      "images": [
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-mannequin-73945e2950272d78.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-face-4ee79a3864577cad.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-dos-80eeff7080c50334.webp",
+        "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-detail-7e67b231b02f83b9.webp"
+      ]
+    }
+  ],
+  "images": 40,
+  "maleModels": 5,
+  "femaleModels": 5,
+  "originalBytes": 116950154,
+  "webpBytes": 8730816,
+  "reductionPercent": 92.5,
+  "verifiedAt": "2026-10-21T09:29:53.181Z",
+  "publicWebpVerified": 40,
+  "productFieldsVerified": true,
+  "unrelatedFieldsPreserved": true,
+  "stocksPreserved": true
+}

@@ -1,0 +1,795 @@
+{
+  "summary": {
+    "products": 10,
+    "images": 40,
+    "maleModels": 5,
+    "femaleModels": 5,
+    "originalBytes": 116950154,
+    "webpBytes": 8730816,
+    "reductionPercent": 92.5
+  },
+  "assets": [
+    {
+      "id": "mahaleo-gilet-olive-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-vert-olive-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-mannequin-f46164e504eb79b4.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-mannequin-f46164e504eb79b4.webp",
+      "hash": "f46164e504eb79b4c04730d5963a85e7f4b72563248916826f58efd24a33c80b",
+      "beforeBytes": 2376336,
+      "afterBytes": 118940,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-olive-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-vert-olive-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-face-938eb8b869b14c8d.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-face-938eb8b869b14c8d.webp",
+      "hash": "938eb8b869b14c8df57f4450c8035054b2bb0b37eb38f3e20eed3d17ce5fcdf0",
+      "beforeBytes": 2885863,
+      "afterBytes": 215000,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-olive-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-vert-olive-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-dos-903953cf2ea2c380.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-dos-903953cf2ea2c380.webp",
+      "hash": "903953cf2ea2c380aca326c02c7582f49abc11e661c48e274834af20d9a8e31a",
+      "beforeBytes": 2910666,
+      "afterBytes": 216302,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-olive-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-vert-olive-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-detail-fc5e063463ec83d2.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-detail-fc5e063463ec83d2.webp",
+      "hash": "fc5e063463ec83d2d28df374d6d5e07ba68103849d21f2bb43edf5d89d706737",
+      "beforeBytes": 3395029,
+      "afterBytes": 292350,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-taupe-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-taupe-chine-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-mannequin-a8a9950a896cdbf8.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-mannequin-a8a9950a896cdbf8.webp",
+      "hash": "a8a9950a896cdbf8b49c1fe98207195faf6ca2834813cac1b1a21e7cefc7b419",
+      "beforeBytes": 2387995,
+      "afterBytes": 131424,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-taupe-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-taupe-chine-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-face-6d85963567ca0223.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-face-6d85963567ca0223.webp",
+      "hash": "6d85963567ca02230dc25e89b78d8ee052f6e692ec6c7991c32fbdfc47178ecd",
+      "beforeBytes": 3278406,
+      "afterBytes": 284868,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-taupe-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-taupe-chine-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-dos-d553f8d70bed8301.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-dos-d553f8d70bed8301.webp",
+      "hash": "d553f8d70bed8301c817575ca38d08917376b73f9f7a2b562c12349839e24d08",
+      "beforeBytes": 3211346,
+      "afterBytes": 267898,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-gilet-taupe-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-zippe-taupe-chine-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-detail-bcf11813cbc83d2d.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-detail-bcf11813cbc83d2d.webp",
+      "hash": "bcf11813cbc83d2d401f2502e3a60efb0db685c0b56b12df5ccf7e40cc0da002",
+      "beforeBytes": 3859439,
+      "afterBytes": 368162,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-olive-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-vert-olive-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-mannequin-5a6ef62f692d94ec.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-mannequin-5a6ef62f692d94ec.webp",
+      "hash": "5a6ef62f692d94ec512689009034b63cdeb81fb7dd0e5625560a766e37e3d825",
+      "beforeBytes": 2173704,
+      "afterBytes": 88570,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-olive-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-vert-olive-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-face-2ad38a53d96811d5.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-face-2ad38a53d96811d5.webp",
+      "hash": "2ad38a53d96811d501b5fc0590fd588aa36698371e29c4519c5b4f87a22553d2",
+      "beforeBytes": 2704414,
+      "afterBytes": 187344,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-olive-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-vert-olive-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-dos-c5588b912c0c3a8c.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-dos-c5588b912c0c3a8c.webp",
+      "hash": "c5588b912c0c3a8c54f1d07fa7eaf469463b762e8dc4ebaca304e87efb2c3a04",
+      "beforeBytes": 2688107,
+      "afterBytes": 175188,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-olive-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-vert-olive-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-detail-b281cb4bdeea7c15.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-detail-b281cb4bdeea7c15.webp",
+      "hash": "b281cb4bdeea7c15ac2eaaac621dc0ed9a3e99260713209e5e255511331c2ee2",
+      "beforeBytes": 3081714,
+      "afterBytes": 237258,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-olive-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-vert-olive-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-mannequin-638db1a1911e83e0.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-mannequin-638db1a1911e83e0.webp",
+      "hash": "638db1a1911e83e0b864e7b3777bc9219adf1f1c38a5fd7a532a6d347da179eb",
+      "beforeBytes": 2155295,
+      "afterBytes": 92284,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-olive-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-vert-olive-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-face-c681249aef861017.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-face-c681249aef861017.webp",
+      "hash": "c681249aef8610178dfc90f1727c2b186d8154dc8a2dcf7c5fc743e6d65cf813",
+      "beforeBytes": 3004723,
+      "afterBytes": 236434,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-olive-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-vert-olive-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-dos-d6b8aba0ba591a39.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-dos-d6b8aba0ba591a39.webp",
+      "hash": "d6b8aba0ba591a39d558adeca19dc25c67736cf4e541df8b1ca5177ee043f52d",
+      "beforeBytes": 3257204,
+      "afterBytes": 273342,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-olive-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-vert-olive-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-detail-05a2f1404e0f1f4b.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-detail-05a2f1404e0f1f4b.webp",
+      "hash": "05a2f1404e0f1f4bc87940a8642a9949cf372e09999467318df8fa3319f1ba0f",
+      "beforeBytes": 3027057,
+      "afterBytes": 237920,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-taupe-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-taupe-chine-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-mannequin-9356a3673a0c053d.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-mannequin-9356a3673a0c053d.webp",
+      "hash": "9356a3673a0c053d044e6ebd38dc30f708ea570ecd6bcea650cae4d7f3b7c64a",
+      "beforeBytes": 2304428,
+      "afterBytes": 123740,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-taupe-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-taupe-chine-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-face-1a9b11887b3f2176.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-face-1a9b11887b3f2176.webp",
+      "hash": "1a9b11887b3f217696cd3f10fe9d7bbea084539a151c45256403f07e9e39c748",
+      "beforeBytes": 3276602,
+      "afterBytes": 278004,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-taupe-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-taupe-chine-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-dos-82948455125d2eb3.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-dos-82948455125d2eb3.webp",
+      "hash": "82948455125d2eb34b291ae3e3a6263d7e2edf676cc1cec462c2828b862ae2ac",
+      "beforeBytes": 3281674,
+      "afterBytes": 284466,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-manteau-taupe-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-long-taupe-chine-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-detail-123219922ee69825.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-detail-123219922ee69825.webp",
+      "hash": "123219922ee698259d3e3cc25e924a7dc7207dec7855513618581622fa0abeae",
+      "beforeBytes": 3329814,
+      "afterBytes": 272258,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-olive-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-vert-olive-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-mannequin-cfba89cdfd4d46dd.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-mannequin-cfba89cdfd4d46dd.webp",
+      "hash": "cfba89cdfd4d46dd5fd2eed5b4e54a18230a288d7c6d5ae7a7bd72c132a68fe3",
+      "beforeBytes": 2254143,
+      "afterBytes": 103242,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-olive-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-vert-olive-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-face-0ec36ad21be80f2a.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-face-0ec36ad21be80f2a.webp",
+      "hash": "0ec36ad21be80f2a1aba12614f91e5c859cb87007a4911f3e866b36736b476ca",
+      "beforeBytes": 2646741,
+      "afterBytes": 195974,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-olive-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-vert-olive-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-dos-6ee82b229a397182.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-dos-6ee82b229a397182.webp",
+      "hash": "6ee82b229a3971823e7eb38701d2708a16f4747b942a22fb916dad9b2268bf7b",
+      "beforeBytes": 2446271,
+      "afterBytes": 152536,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-olive-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-vert-olive-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-detail-88effe7fc95eceb8.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-detail-88effe7fc95eceb8.webp",
+      "hash": "88effe7fc95eceb868769527945e593d4d1cbc9608dcdb2b5bc7da13153acfaa",
+      "beforeBytes": 3209621,
+      "afterBytes": 265120,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-taupe-chine-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-mannequin-121a5015a4080845.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-mannequin-121a5015a4080845.webp",
+      "hash": "121a5015a40808450c815ce1b81a20316ae73aa694585ba1ae696b76ed0b87ae",
+      "beforeBytes": 2380808,
+      "afterBytes": 129350,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-taupe-chine-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-face-3e225b2215360aeb.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-face-3e225b2215360aeb.webp",
+      "hash": "3e225b2215360aebc55de4aa702de91689b4755ccaee352a76a3f90eca524cd8",
+      "beforeBytes": 2902386,
+      "afterBytes": 223978,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-taupe-chine-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-dos-2d29389b3fb22633.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-dos-2d29389b3fb22633.webp",
+      "hash": "2d29389b3fb2263370ccd39bcfc15b936f65dcd9ea5734bba6b030c7a939a671",
+      "beforeBytes": 2816924,
+      "afterBytes": 208786,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-a-franges-taupe-chine-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-detail-ce4c70f56d959c80.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-detail-ce4c70f56d959c80.webp",
+      "hash": "ce4c70f56d959c8062e3d5c81509357865cdcc045fe9366fec4c7009c50089e5",
+      "beforeBytes": 3662031,
+      "afterBytes": 317580,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-olive-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-vert-olive-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+      "hash": "dc2b1ba88338a6d20e432a8795f035f0da765c6c6377a97cece3ec6f3b920c7f",
+      "beforeBytes": 2191551,
+      "afterBytes": 101986,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-olive-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-vert-olive-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+      "hash": "321829e29de3006fc16b55719609aed954613cf1275f841e60dff3757f17c48f",
+      "beforeBytes": 2851517,
+      "afterBytes": 206486,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "mahaleo-bonnet-olive-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-vert-olive-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+      "hash": "0e052134b9d0bc3483b6c27151ec8a924b2c8b5571e9f68c11627bcd6907e01f",
+      "beforeBytes": 2996847,
+      "afterBytes": 253728,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-olive-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-vert-olive-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp",
+      "hash": "13d4ce7beb4db9bf208bec41d3dfe4b6823cc8f74e3e9ae2911cab29bf217ea1",
+      "beforeBytes": 3505592,
+      "afterBytes": 315374,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-gris-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-gris-chine-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-mannequin-73945e2950272d78.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-mannequin-73945e2950272d78.webp",
+      "hash": "73945e2950272d7849ce2bdfd7839d01c2f204ba53a7ae3c46999af6f72dcfd2",
+      "beforeBytes": 2337749,
+      "afterBytes": 122004,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-gris-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-gris-chine-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-face-4ee79a3864577cad.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-face-4ee79a3864577cad.webp",
+      "hash": "4ee79a3864577cad19b77eb78d73482aea7211146ec260655195c31ce43622d9",
+      "beforeBytes": 3171084,
+      "afterBytes": 241974,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "mahaleo-bonnet-gris-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-gris-chine-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-dos-80eeff7080c50334.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-dos-80eeff7080c50334.webp",
+      "hash": "80eeff7080c50334c63e17df596b517b88a05b33a9b873cfb6d1576b2ac79693",
+      "beforeBytes": 3263492,
+      "afterBytes": 280964,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-bonnet-gris-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-a-revers-gris-chine-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-detail-7e67b231b02f83b9.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-detail-7e67b231b02f83b9.webp",
+      "hash": "7e67b231b02f83b9b8844660251dba74fa72b144ce354ffced5ee84c57cd1e63",
+      "beforeBytes": 3617412,
+      "afterBytes": 310508,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-taupe-mannequin",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-taupe-chine-mannequin.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-mannequin-da7c61a70874e4b6.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-mannequin-da7c61a70874e4b6.webp",
+      "hash": "da7c61a70874e4b6e79b68a207f9e2ab0fc8eb4bd9cfd9db295b385e9ad1e06a",
+      "beforeBytes": 2272163,
+      "afterBytes": 108224,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-taupe-face",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-taupe-chine-face.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-face-a44b1831323179f4.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-face-a44b1831323179f4.webp",
+      "hash": "a44b1831323179f47b3a639bd5102fa78dd466c21596c75b9fde8a25d1138932",
+      "beforeBytes": 3126225,
+      "afterBytes": 254858,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-taupe-dos",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-taupe-chine-dos.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-dos-02173d437607d2e9.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-dos-02173d437607d2e9.webp",
+      "hash": "02173d437607d2e9356925c7a3c6ba71a0f0898a162a9f09e5f41b1b82979f79",
+      "beforeBytes": 3152042,
+      "afterBytes": 257420,
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "id": "mahaleo-pull-taupe-detail",
+      "file": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-torsade-demi-zip-taupe-chine-detail.webp",
+      "key": "products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-detail-50c166aedc9cfe03.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-detail-50c166aedc9cfe03.webp",
+      "hash": "50c166aedc9cfe03512a25535f1a9d49ba424d562dd65d2b0546b3780d0ef438",
+      "beforeBytes": 3555739,
+      "afterBytes": 298972,
+      "width": 1086,
+      "height": 1448
+    }
+  ],
+  "updates": [
+    {
+      "id": "65bd8017-06af-4d41-a7e3-c02755e22bfb",
+      "slug": "gilet-zippe-bleu-chine",
+      "previous": {
+        "name": "Gilet zippé Mahaleo — bleu chiné",
+        "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+        "color": "#263D59",
+        "colorName": "Bleu chiné",
+        "material": "Maille chinée avec finitions côtelées",
+        "fit": "Coupe droite, manches longues et col montant.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/5ad79fda18bbce0c62c04f371801ec8e8d755573607be4f586695a27609a5ba0.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1df259d675da95d7a5ee1b78bf8b487f9c86276322d35d67ba5da0a37defaa68.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1108325990bb350ccd3fac38aabe2287acbf5b326bdfa8bb394a9f7267ff8d1d.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/56d8c07f3f9ea548dfef27917d5459ad9e66b6093c7246bb08a9eb6a477a850b.webp"
+        ]
+      },
+      "data": {
+        "name": "Gilet zippé Mahaleo — vert olive",
+        "description": "Un gilet en maille à fermeture zippée intégrale et col montant, avec deux poches obliques et des finitions côtelées. Le nom Mahaleo est brodé en écru sur la poitrine gauche, et une guitare souligne le bas de la manche droite.",
+        "color": "#464D29",
+        "colorName": "Vert olive",
+        "material": "Maille avec finitions côtelées",
+        "fit": "Coupe droite, manches longues et col montant zippé.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-mannequin-f46164e504eb79b4.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-face-938eb8b869b14c8d.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-dos-903953cf2ea2c380.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-vert-olive-detail-fc5e063463ec83d2.webp"
+        ]
+      },
+      "modelGender": "homme",
+      "modelDescription": "40-year-old Malagasy man, medium brown skin, square face, short salt-and-pepper cropped hair, neatly trimmed short beard"
+    },
+    {
+      "id": "1763c1bd-6c78-496c-a58c-e3d6ef173696",
+      "slug": "gilet-zippe-gris-chine",
+      "previous": {
+        "name": "Gilet zippé Mahaleo — gris chiné",
+        "description": "Un gilet en maille chinée à fermeture zippée intégrale et col montant. Deux poches obliques, des finitions côtelées et les broderies rouges Mahaleo et guitare complètent la pièce.",
+        "color": "#80838A",
+        "colorName": "Gris chiné",
+        "material": "Maille chinée avec finitions côtelées",
+        "fit": "Coupe droite, manches longues et col montant.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/f20b54036bf17e7d4051aa2bf44a1a24f9311c15489fee5d0c94335b848439ff.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/0d793c2ae12ddd5ce9d2db3672e62a4db24c96a27123c0032932a209dd967266.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/1e1fd4d950543e8cc81987355e464e919ba3be7deeaa5a5d7891410e483524ba.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d4d63a24fb742b9d13aba88fe937374539d2fd9ada84a33e0d5be81eab2f9157.webp"
+        ]
+      },
+      "data": {
+        "name": "Gilet zippé Mahaleo — taupe chiné",
+        "description": "Un gilet en maille à fermeture zippée intégrale et col montant, avec deux poches obliques et des finitions côtelées. Le nom Mahaleo est brodé en rouge sur la poitrine gauche, et une guitare souligne le bas de la manche droite.",
+        "color": "#938674",
+        "colorName": "Taupe chiné",
+        "material": "Maille avec finitions côtelées",
+        "fit": "Coupe droite, manches longues et col montant zippé.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-mannequin-a8a9950a896cdbf8.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-face-6d85963567ca0223.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-dos-d553f8d70bed8301.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-gilet-zippe-taupe-chine-detail-bcf11813cbc83d2d.webp"
+        ]
+      },
+      "modelGender": "femme",
+      "modelDescription": "26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair"
+    },
+    {
+      "id": "b4c1bca1-21ee-401f-a4cb-be455370c57a",
+      "slug": "pull-torsade-demi-zip-bleu-chine",
+      "previous": {
+        "name": "Pull torsadé demi-zip Mahaleo — bleu chiné",
+        "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+        "color": "#263D59",
+        "colorName": "Bleu chiné",
+        "material": "Maille chinée à torsades",
+        "fit": "Manches longues, col montant et fermeture demi-zip.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/5088bf675413c0f23c5206fe66812ea759e84a25e6372ab38751c64604948022.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d2f00135983aa10f459b2e314a46254528d6ec1d591d9202028eaece61b32618.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/df7ba1eacfecfef5bfbb177341333b19701c13b2c4d6ae994e5f58c78bf293b0.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6e60b3baa804af213f3ff1a604898a4f3839e6d69d519460c51b1fe7d0fd7a0a.webp"
+        ]
+      },
+      "data": {
+        "name": "Pull torsadé demi-zip Mahaleo — vert olive",
+        "description": "Un pull à torsades sur le devant, le dos et les manches. Son col montant s’ouvre par un demi-zip à tirette contrastée. Les broderies écrues placent le nom Mahaleo sur la poitrine gauche et la guitare au bas de la manche droite.",
+        "color": "#464D29",
+        "colorName": "Vert olive",
+        "material": "Maille à torsades sur le devant, le dos et les manches",
+        "fit": "Coupe droite, manches longues, col montant et fermeture demi-zip.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-mannequin-5a6ef62f692d94ec.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-face-2ad38a53d96811d5.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-dos-c5588b912c0c3a8c.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-vert-olive-detail-b281cb4bdeea7c15.webp"
+        ]
+      },
+      "modelGender": "femme",
+      "modelDescription": "40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear"
+    },
+    {
+      "id": "7d116786-09d6-44c7-ac8d-5b416ae0a2a9",
+      "slug": "manteau-long-bleu-chine",
+      "previous": {
+        "name": "Manteau long Mahaleo — bleu chiné",
+        "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+        "color": "#263D59",
+        "colorName": "Bleu chiné",
+        "material": "Maille chinée avec finitions côtelées",
+        "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3d7262fafb3d35ec033cb9d602daa87488cb320873aacc2d231c6a077904aad3.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/99238ef7cdc414b476b4548e037f5caecca2f1ba51011ced2b81a6fd357bfde4.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/a5a9a0e500d0908e563fe2de89844b37178b3cfcbbe4f07bb40169513214b1cf.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/87d7e7ef518376f166fb97d79e00696296274acfeef8327b1cb7cfda3cb0f518.webp"
+        ]
+      },
+      "data": {
+        "name": "Manteau long Mahaleo — vert olive",
+        "description": "Un manteau long en maille, ouvert sur le devant, avec un col châle côtelé et deux poches plaquées. Le nom Mahaleo est brodé en écru sur la poitrine gauche, avec une guitare au bas de la manche droite.",
+        "color": "#464D29",
+        "colorName": "Vert olive",
+        "material": "Maille avec col et finitions côtelés",
+        "fit": "Coupe longue ouverte, col châle, manches longues et deux poches plaquées.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-mannequin-638db1a1911e83e0.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-face-c681249aef861017.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-dos-d6b8aba0ba591a39.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-vert-olive-detail-05a2f1404e0f1f4b.webp"
+        ]
+      },
+      "modelGender": "homme",
+      "modelDescription": "52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build"
+    },
+    {
+      "id": "facd6737-d050-454e-a169-a7cd54e4dc4a",
+      "slug": "manteau-long-gris-chine",
+      "previous": {
+        "name": "Manteau long Mahaleo — gris chiné",
+        "description": "Un manteau long en maille chinée, ouvert sur le devant, avec un col châle côtelé. Ses deux poches plaquées et la broderie rouge Mahaleo sur la poitrine accompagnent une silhouette épurée.",
+        "color": "#80838A",
+        "colorName": "Gris chiné",
+        "material": "Maille chinée avec finitions côtelées",
+        "fit": "Coupe longue ouverte, manches longues et deux poches plaquées.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6c1711ac4e2ddbff41afdd7bd517ec5ce4b805986a777e8adcffd417eb75669e.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6d0e99b2603840b20b6bc077790d8b0c8265b2b2aa3434ba2dd26cd77e8c6f9d.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/c6b0f652e57b1da7276ccb66eeeec93544926f3ca29c8e0915f42d95d207b28c.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/c0db5263bfe1d9fe162445c144bb93f0f9fcf15903bd7bd940bc6afcafbd4210.webp"
+        ]
+      },
+      "data": {
+        "name": "Manteau long Mahaleo — taupe chiné",
+        "description": "Un manteau long en maille, ouvert sur le devant, avec un col châle côtelé et deux poches plaquées. Le nom Mahaleo est brodé en rouge sur la poitrine gauche, avec une guitare au bas de la manche droite.",
+        "color": "#938674",
+        "colorName": "Taupe chiné",
+        "material": "Maille avec col et finitions côtelés",
+        "fit": "Coupe longue ouverte, col châle, manches longues et deux poches plaquées.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-mannequin-9356a3673a0c053d.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-face-1a9b11887b3f2176.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-dos-82948455125d2eb3.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-manteau-long-taupe-chine-detail-123219922ee69825.webp"
+        ]
+      },
+      "modelGender": "femme",
+      "modelDescription": "55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair"
+    },
+    {
+      "id": "3a17b2ba-685a-4ad2-b3b8-82245ba33ac2",
+      "slug": "echarpe-a-franges-bleu-chine",
+      "previous": {
+        "name": "Écharpe à franges Mahaleo — bleu chiné",
+        "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+        "color": "#263D59",
+        "colorName": "Bleu chiné",
+        "material": "Maille chinée",
+        "fit": "Format rectangulaire à franges.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/2406cbc634015783e333d2de0a9436dfc68e4837164428a605577663a8e654c0.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/e120ceccf9b03be794caa1dd3c85cff26b4da38925b8140e0ebafe9c0b5ab20b.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/13b5c0f41126304cc6c94eb65117efa5e6e1b102fbf83d4fd952e6db09052cda.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/4528304f24b59d6a33419bf264b984a31a0742808a223324c7e42e1a4d781814.webp"
+        ]
+      },
+      "data": {
+        "name": "Écharpe à franges Mahaleo — vert olive",
+        "description": "Une écharpe rectangulaire en maille côtelée, terminée par de longues franges. Le nom Mahaleo et la guitare, brodés en écru, signent les deux extrémités.",
+        "color": "#464D29",
+        "colorName": "Vert olive",
+        "material": "Maille côtelée",
+        "fit": "Format rectangulaire à longues franges.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-mannequin-cfba89cdfd4d46dd.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-face-0ec36ad21be80f2a.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-dos-6ee82b229a397182.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-vert-olive-detail-88effe7fc95eceb8.webp"
+        ]
+      },
+      "modelGender": "femme",
+      "modelDescription": "30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder"
+    },
+    {
+      "id": "5c91892a-2a51-43fe-84ba-fa45e098b67d",
+      "slug": "echarpe-a-franges-gris-chine",
+      "previous": {
+        "name": "Écharpe à franges Mahaleo — gris chiné",
+        "description": "Une écharpe en maille chinée, terminée par de longues franges bicolores. Les broderies rouges du nom Mahaleo et de la guitare signent les extrémités.",
+        "color": "#80838A",
+        "colorName": "Gris chiné",
+        "material": "Maille chinée",
+        "fit": "Format rectangulaire à franges.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/064491efeadbbccdc4af8b94396b80adcec4408c38a9bfb7a6da3e86c5264a34.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/0339395b2bec604f128a5bd9fee29a650057006800b2c05284e3a9e72af14c48.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/6139da668ca2f11a43b822587e74a4c535aff0bf171b6a0f9eaea400e3428437.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/fa7ff8af650ee75fe60ea86be6350b92419b9d203d498f35f8ec70ae2105633f.webp"
+        ]
+      },
+      "data": {
+        "name": "Écharpe à franges Mahaleo — taupe chiné",
+        "description": "Une écharpe rectangulaire en maille côtelée, terminée par de longues franges. Le nom Mahaleo et la guitare, brodés en rouge, signent les deux extrémités.",
+        "color": "#938674",
+        "colorName": "Taupe chiné",
+        "material": "Maille côtelée",
+        "fit": "Format rectangulaire à longues franges.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-mannequin-121a5015a4080845.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-face-3e225b2215360aeb.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-dos-2d29389b3fb22633.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-echarpe-a-franges-taupe-chine-detail-ce4c70f56d959c80.webp"
+        ]
+      },
+      "modelGender": "homme",
+      "modelDescription": "32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard"
+    },
+    {
+      "id": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+      "slug": "bonnet-a-revers-bleu-chine",
+      "previous": {
+        "name": "Bonnet à revers Mahaleo — bleu chiné",
+        "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+        "color": "#263D59",
+        "colorName": "Bleu chiné",
+        "material": "Maille côtelée chinée",
+        "fit": "Bonnet à revers.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/2b149f31f6673436f41371f6ed2251e4e8e1d3348e4e99fbf784f8a8ba38f7b9.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/d0eb2ae31a516b661adbe79fa00a35466ac0b65d2d4ef659ce4e355f2b6e60f7.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/50136cee2b611f1f2ad86c0758275e6c50d7ab337dd5831d4202c7defbf188e1.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/b4068348b23f0bbf23ea1e1d5013d885bd75dbd09996f3d8391f35ff6ea14ac7.webp"
+        ]
+      },
+      "data": {
+        "name": "Bonnet à revers Mahaleo — vert olive",
+        "description": "Un bonnet en maille côtelée avec un large revers et une calotte façonnée. Le nom Mahaleo et une guitare sont brodés en écru sur le revers.",
+        "color": "#464D29",
+        "colorName": "Vert olive",
+        "material": "Maille côtelée",
+        "fit": "Bonnet à large revers et calotte façonnée.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp"
+        ]
+      },
+      "modelGender": "homme",
+      "modelDescription": "28-year-old Malagasy man, medium brown skin, short wavy black hair visible beneath hat, strong eyebrows, clean-shaven angular face"
+    },
+    {
+      "id": "fb294bc9-59fa-4e78-b497-2b4d147efb14",
+      "slug": "bonnet-a-revers-gris-chine",
+      "previous": {
+        "name": "Bonnet à revers Mahaleo — gris chiné",
+        "description": "Un bonnet en maille côtelée chinée, avec un large revers et une calotte façonnée. Une pièce sobre pour accompagner les journées fraîches.",
+        "color": "#80838A",
+        "colorName": "Gris chiné",
+        "material": "Maille côtelée chinée",
+        "fit": "Bonnet à revers.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/ea2ebacd26e0a0b4479a935b7fe1f972173db957c1d980678cc5335e4520b9a6.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/88ecac919865075305fca958e271bea73097a7e16a207a16a9380e57ab37e59b.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/135471914926a18d226302cd36e2b1060616f821e315fd421a45626c05c0d23e.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3d2f069db1764206d64b166b610de4993345eb6c9cee4e86c823a97b13b0743b.webp"
+        ]
+      },
+      "data": {
+        "name": "Bonnet à revers Mahaleo — gris chiné",
+        "description": "Un bonnet en maille côtelée avec un large revers et une calotte façonnée. Le nom Mahaleo et une guitare sont brodés en rouge sur le revers.",
+        "color": "#A4A5A1",
+        "colorName": "Gris chiné",
+        "material": "Maille côtelée",
+        "fit": "Bonnet à large revers et calotte façonnée.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-mannequin-73945e2950272d78.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-face-4ee79a3864577cad.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-dos-80eeff7080c50334.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-gris-chine-detail-7e67b231b02f83b9.webp"
+        ]
+      },
+      "modelGender": "femme",
+      "modelDescription": "22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks"
+    },
+    {
+      "id": "0d819f83-92f4-47e1-88bd-7c51deeda54d",
+      "slug": "pull-torsade-demi-zip-gris-chine",
+      "previous": {
+        "name": "Pull torsadé demi-zip Mahaleo — gris chiné",
+        "description": "Un pull en maille chinée rythmé par des torsades verticales. Son col montant s’ouvre par un demi-zip à tirette contrastée, avec le nom Mahaleo brodé en rouge sur la poitrine.",
+        "color": "#80838A",
+        "colorName": "Gris chiné",
+        "material": "Maille chinée à torsades",
+        "fit": "Manches longues, col montant et fermeture demi-zip.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/fa5f7f50eeda9995c8eae804ef8bd2385c858ab2a06cb4d3def5942f8138bb7c.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/3661fccac9cdedbd61c57b1f934f303e95c5b49c093a5d28c9be78af124ff0a0.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/42634719e8f182bc1376a3af265671a78fe32337c5cf908a4a52252c0c22d290.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/compressed/7139ced2af6550da7ca53c41d0f87d62bf3af9b739fc8d31ce2817eb8331aa75.webp"
+        ]
+      },
+      "data": {
+        "name": "Pull torsadé demi-zip Mahaleo — taupe chiné",
+        "description": "Un pull à torsades sur le devant, le dos et les manches. Son col montant s’ouvre par un demi-zip à tirette contrastée. Les broderies rouges placent le nom Mahaleo sur la poitrine gauche et la guitare au bas de la manche droite.",
+        "color": "#938674",
+        "colorName": "Taupe chiné",
+        "material": "Maille à torsades sur le devant, le dos et les manches",
+        "fit": "Coupe droite, manches longues, col montant et fermeture demi-zip.",
+        "images": [
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-mannequin-da7c61a70874e4b6.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-face-a44b1831323179f4.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-dos-02173d437607d2e9.webp",
+          "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-pull-torsade-demi-zip-taupe-chine-detail-50c166aedc9cfe03.webp"
+        ]
+      },
+      "modelGender": "homme",
+      "modelDescription": "24-year-old Malagasy man, warm brown skin, youthful elongated face, short black curls, clean-shaven"
+    }
+  ]
+}

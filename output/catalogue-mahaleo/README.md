@@ -1,5 +1,7 @@
 # Catalogue Mahaleo — 11 octobre 2026
 
+> Mise à jour du 21 octobre : les nouvelles photos, couleurs et broderies remplacent désormais ces visuels dans les dix fiches. Voir le [catalogue actuel](../catalogue-mahaleo-20261021/README.md). Ce dossier conserve l’historique de la première génération.
+
 40 photos générées avec l’outil intégré `image_gen`, à partir des vraies photos du dossier `/home/antoine-ponthieu/Images/Mahaleo/Produits` : les 10 faces studio initiales et 30 vues complémentaires. Les versions grises sont des recolorations des vues bleues. Fond ivoire et lumière diffuse cohérents ; une même mannequin générée porte les cinq modèles. Les prompts complets et leurs références se trouvent dans `generation.json` (faces) et `gallery-generation.json` (autres vues).
 
 Chaque galerie suit l’ordre demandé : **mannequin, face, dos, détail**. Les broderies documentées sont reprises sur le gilet, le demi-zip, le manteau et l’écharpe. Le bonnet n’ayant pas de broderie visible, son détail montre la maille et le revers. Faute de photos arrière, les dos sont des reconstitutions à partir des faces avant, avec une maille cohérente et sans motif supplémentaire ; ils ne constituent pas une documentation photographique de l’arrière réel.

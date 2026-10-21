@@ -1,0 +1,762 @@
+{
+  "tool": "built-in image_gen",
+  "modelPolicy": "10 different adult Malagasy models: 5 men and 5 women, one per product/color reference.",
+  "images": [
+    {
+      "id": "mahaleo-gilet-olive-face",
+      "model": "gilet",
+      "color": "olive",
+      "view": "face",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-bleu-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-olive-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-olive-face.webp",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-91dda197-54f7-4f9d-a04f-1a2a8767035a.png"
+    },
+    {
+      "id": "mahaleo-gilet-olive-dos",
+      "model": "gilet",
+      "color": "olive",
+      "view": "dos",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-bleu-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-olive-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-olive-dos.webp",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-8e3ab232-2a32-4909-9d0f-936b306225aa.png"
+    },
+    {
+      "id": "mahaleo-gilet-olive-mannequin",
+      "model": "gilet",
+      "color": "olive",
+      "view": "mannequin",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-bleu-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 40-year-old Malagasy man, medium brown skin, square face, short salt-and-pepper cropped hair, neatly trimmed short beard. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this homme without changing garment construction, branding or details.  Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-olive-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-olive-mannequin.webp",
+      "modelGender": "homme",
+      "modelDescription": "40-year-old Malagasy man, medium brown skin, square face, short salt-and-pepper cropped hair, neatly trimmed short beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-446edacb-3a67-40d8-8313-0ef760058001.png"
+    },
+    {
+      "id": "mahaleo-gilet-olive-detail",
+      "model": "gilet",
+      "color": "olive",
+      "view": "detail",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-bleu-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-olive-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-olive-detail.webp",
+      "modelGender": "homme",
+      "modelDescription": "40-year-old Malagasy man, medium brown skin, square face, short salt-and-pepper cropped hair, neatly trimmed short beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-3cc95018-fb85-4395-aef1-c71e52928d03.png"
+    },
+    {
+      "id": "mahaleo-gilet-taupe-mannequin",
+      "model": "gilet",
+      "color": "taupe",
+      "view": "mannequin",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-gris-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this femme without changing garment construction, branding or details.  Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-taupe-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-taupe-mannequin.webp",
+      "modelGender": "femme",
+      "modelDescription": "26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-3c5cedb8-ffc1-4a8d-ae35-d23068e70002.png"
+    },
+    {
+      "id": "mahaleo-gilet-taupe-face",
+      "model": "gilet",
+      "color": "taupe",
+      "view": "face",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-gris-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-taupe-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-taupe-face.webp",
+      "modelGender": "femme",
+      "modelDescription": "26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-24e5aba2-c3c5-4534-bcff-82b46a19ac3a.png"
+    },
+    {
+      "id": "mahaleo-gilet-taupe-dos",
+      "model": "gilet",
+      "color": "taupe",
+      "view": "dos",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-gris-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-taupe-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-taupe-dos.webp",
+      "modelGender": "femme",
+      "modelDescription": "26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-cf58f24e-c91d-468a-9ab5-187741dee528.png"
+    },
+    {
+      "id": "mahaleo-gilet-taupe-detail",
+      "model": "gilet",
+      "color": "taupe",
+      "view": "detail",
+      "oldSlugPrefix": "gilet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/gilet-gris-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.09 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Straight long-sleeved zip cardigan in fine vertical knit, high ribbed stand collar, full black front zipper with small tan pull, two slanted inset pockets, ribbed cuffs and hem. Small cursive mahaleo on wearer LEFT chest. A small outline acoustic guitar is ONLY on outside of wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear view). REMOVE old guitar on chest. Plain knitted back, no back wordmark. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-gilet-taupe-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-gilet-taupe-detail.webp",
+      "modelGender": "femme",
+      "modelDescription": "26-year-old Malagasy woman, medium brown skin, round face, short tightly curled black natural hair, no long wavy hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-4aa2cd95-12e2-444d-9df4-f3b897b0170e.png"
+    },
+    {
+      "id": "mahaleo-pull-olive-mannequin",
+      "model": "pull",
+      "color": "olive",
+      "view": "mannequin",
+      "oldSlugPrefix": "pull",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-bleu-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.12.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this femme without changing garment construction, branding or details.  Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-olive-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-olive-mannequin.webp",
+      "modelGender": "femme",
+      "modelDescription": "40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-dff9915b-db6c-4dd1-aa22-791789d64510.png"
+    },
+    {
+      "id": "mahaleo-pull-olive-dos",
+      "model": "pull",
+      "color": "olive",
+      "view": "dos",
+      "oldSlugPrefix": "pull",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-bleu-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.12.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-olive-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-olive-dos.webp",
+      "modelGender": "femme",
+      "modelDescription": "40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-c671eb37-7be4-4e32-983e-5c2766e7df44.png"
+    },
+    {
+      "id": "mahaleo-pull-olive-face",
+      "model": "pull",
+      "color": "olive",
+      "view": "face",
+      "oldSlugPrefix": "pull",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-bleu-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.12.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-olive-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-olive-face.webp",
+      "modelGender": "femme",
+      "modelDescription": "40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-f047af0a-9499-430a-9a27-bb993d236b47.png"
+    },
+    {
+      "id": "mahaleo-pull-taupe-detail",
+      "model": "pull",
+      "color": "taupe",
+      "view": "detail",
+      "oldSlugPrefix": "pull",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-gris-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-taupe-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-taupe-detail.webp",
+      "modelGender": "homme",
+      "modelDescription": "24-year-old Malagasy man, warm brown skin, youthful elongated face, short black curls, clean-shaven",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-9572d662-6aaf-4b54-b3d1-d1b2e6b0f21e.png"
+    },
+    {
+      "id": "mahaleo-pull-taupe-face",
+      "model": "pull",
+      "color": "taupe",
+      "view": "face",
+      "oldSlugPrefix": "pull",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-gris-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-taupe-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-taupe-face.webp",
+      "modelGender": "homme",
+      "modelDescription": "24-year-old Malagasy man, warm brown skin, youthful elongated face, short black curls, clean-shaven",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-6a020b20-9c68-48cd-975b-f53a01156905.png"
+    },
+    {
+      "id": "mahaleo-manteau-olive-mannequin",
+      "model": "manteau",
+      "color": "olive",
+      "view": "mannequin",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-bleu-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (3).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this homme without changing garment construction, branding or details.  Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-olive-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-olive-mannequin.webp",
+      "modelGender": "homme",
+      "modelDescription": "52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-ba7ca789-8996-4703-84a9-4fd8c490a435.png"
+    },
+    {
+      "id": "mahaleo-pull-taupe-dos",
+      "model": "pull",
+      "color": "taupe",
+      "view": "dos",
+      "oldSlugPrefix": "pull",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-gris-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long-sleeved cable knit half-zip sweater, ribbed stand collar, short black zip with tan pull, rib cuffs and hem. Match exact cable pattern of real product. Cables run on BOTH front AND BACK (old back image is inaccurate smooth, replace it with reference cable back). Small cursive mahaleo on wearer LEFT chest; small outline guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front, viewer right in rear). No pockets, no full zip. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-taupe-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-taupe-dos.webp",
+      "modelGender": "homme",
+      "modelDescription": "24-year-old Malagasy man, warm brown skin, youthful elongated face, short black curls, clean-shaven",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-64cfc00b-c23e-4745-87b1-d69bb8741a84.png"
+    },
+    {
+      "id": "mahaleo-manteau-olive-detail",
+      "model": "manteau",
+      "color": "olive",
+      "view": "detail",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-bleu-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (3).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-olive-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-olive-detail.webp",
+      "modelGender": "homme",
+      "modelDescription": "52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-936f2e6c-4d62-4524-933e-f1eb8544030f.png"
+    },
+    {
+      "id": "mahaleo-manteau-olive-face",
+      "model": "manteau",
+      "color": "olive",
+      "view": "face",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-bleu-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (3).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-olive-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-olive-face.webp",
+      "modelGender": "homme",
+      "modelDescription": "52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-aee72397-1b6a-449b-ad70-66f95e1f6a14.png"
+    },
+    {
+      "id": "mahaleo-manteau-olive-dos",
+      "model": "manteau",
+      "color": "olive",
+      "view": "dos",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-bleu-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (3).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-olive-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-olive-dos.webp",
+      "modelGender": "homme",
+      "modelDescription": "52-year-old Malagasy man, dark brown skin, shaved head, close-cropped grey beard, tall broad build",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-7a8a7664-c412-4a38-af65-4ce2d1e428c0.png"
+    },
+    {
+      "id": "mahaleo-manteau-taupe-mannequin",
+      "model": "manteau",
+      "color": "taupe",
+      "view": "mannequin",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-gris-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this femme without changing garment construction, branding or details.  Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-taupe-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-taupe-mannequin.webp",
+      "modelGender": "femme",
+      "modelDescription": "55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-3c188f74-f611-46ba-8a52-e26157a267b4.png"
+    },
+    {
+      "id": "mahaleo-echarpe-olive-mannequin",
+      "model": "echarpe",
+      "color": "olive",
+      "view": "mannequin",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-bleu-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this femme without changing garment construction, branding or details.  Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-olive-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-olive-mannequin.webp",
+      "modelGender": "femme",
+      "modelDescription": "30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-d2baae51-5f5d-4b5d-a844-732f57099794.png"
+    },
+    {
+      "id": "mahaleo-manteau-taupe-detail",
+      "model": "manteau",
+      "color": "taupe",
+      "view": "detail",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-gris-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-taupe-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-taupe-detail.webp",
+      "modelGender": "femme",
+      "modelDescription": "55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-a7e4e3ce-226f-433f-8200-b9bd72c261c7.png"
+    },
+    {
+      "id": "mahaleo-manteau-taupe-face",
+      "model": "manteau",
+      "color": "taupe",
+      "view": "face",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-gris-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-taupe-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-taupe-face.webp",
+      "modelGender": "femme",
+      "modelDescription": "55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-cd225a79-2e7c-4772-8fb7-2392f5672fb0.png"
+    },
+    {
+      "id": "mahaleo-manteau-taupe-dos",
+      "model": "manteau",
+      "color": "taupe",
+      "view": "dos",
+      "oldSlugPrefix": "manteau",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/manteau-gris-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.10.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long open-front knitted coat, below-knee length, ribbed shawl collar and front bands, two low patch pockets, long sleeves and rib cuffs/hem. Small cursive mahaleo on wearer LEFT chest. Small outline acoustic guitar ONLY on wearer RIGHT sleeve near cuff (viewer left in front view, viewer right in rear). Match new smooth fine vertical knit, not old coarse navy heather. Plain back, raglan shaping as actual back reference. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-manteau-taupe-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-manteau-taupe-dos.webp",
+      "modelGender": "femme",
+      "modelDescription": "55-year-old Malagasy woman, warm medium brown skin, broad cheekbones, short salt-and-pepper natural hair",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-cddcd249-8e98-448f-80d6-b2d4b0849df9.png"
+    },
+    {
+      "id": "mahaleo-echarpe-olive-face",
+      "model": "echarpe",
+      "color": "olive",
+      "view": "face",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-bleu-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-olive-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-olive-face.webp",
+      "modelGender": "femme",
+      "modelDescription": "30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-f49e2ea1-7629-4b84-8ad7-1383504d2a36.png"
+    },
+    {
+      "id": "mahaleo-echarpe-olive-detail",
+      "model": "echarpe",
+      "color": "olive",
+      "view": "detail",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-bleu-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-olive-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-olive-detail.webp",
+      "modelGender": "femme",
+      "modelDescription": "30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-3da48ff8-1a61-489b-a21a-b979674bc742.png"
+    },
+    {
+      "id": "mahaleo-echarpe-olive-dos",
+      "model": "echarpe",
+      "color": "olive",
+      "view": "dos",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-bleu-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (2).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: dark olive green solid yarn, warm cream/ivory embroidered thread, NO red embroidery or blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-olive-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-olive-dos.webp",
+      "modelGender": "femme",
+      "modelDescription": "30-year-old Malagasy woman, golden brown skin, heart-shaped face, long single black braid over one shoulder",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-73ad5766-3c48-484c-baf4-89c8adef85bb.png"
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-mannequin",
+      "model": "echarpe",
+      "color": "taupe",
+      "view": "mannequin",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-gris-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this homme without changing garment construction, branding or details.  Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-taupe-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-taupe-mannequin.webp",
+      "modelGender": "homme",
+      "modelDescription": "32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-2b10ba41-c3ea-4885-b075-17aa5992d40b.png"
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-face",
+      "model": "echarpe",
+      "color": "taupe",
+      "view": "face",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-gris-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-taupe-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-taupe-face.webp",
+      "modelGender": "homme",
+      "modelDescription": "32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-91c3219a-98bf-4713-9aa6-b7867b398754.png"
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-dos",
+      "model": "echarpe",
+      "color": "taupe",
+      "view": "dos",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-gris-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For scarf show other folded end with guitar; for beanie opposing cuff side with wordmark. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-taupe-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-taupe-dos.webp",
+      "modelGender": "homme",
+      "modelDescription": "32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-36ab0605-dd02-40a8-ae5c-0e6d7623674e.png"
+    },
+    {
+      "id": "mahaleo-echarpe-taupe-detail",
+      "model": "echarpe",
+      "color": "taupe",
+      "view": "detail",
+      "oldSlugPrefix": "echarpe",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/echarpe-gris-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08 (1).jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.08.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Long rectangular fine rib knitted scarf, long twisted fringes in same yarn palette. Small lowercase cursive mahaleo near one end and outline acoustic guitar near other end, exactly as real references. On mannequin both ends hang visibly one with wordmark and other guitar. Product face shows folded scarf with wordmark end; product reverse shows folded scarf with guitar end. Macro view focuses on wordmark above fringes. Color: warm taupe/greige gently mottled yarn from real photo, RED embroidered thread, not cool silver grey and not navy. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-echarpe-taupe-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-echarpe-taupe-detail.webp",
+      "modelGender": "homme",
+      "modelDescription": "32-year-old Malagasy man, deep brown skin, shoulder-length black locs tucked behind shoulders, narrow face, short black beard",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-c8af3eba-6c2c-4549-91ea-4ccbfa2fcfbd.png"
+    },
+    {
+      "id": "mahaleo-bonnet-olive-mannequin",
+      "model": "bonnet",
+      "color": "olive",
+      "view": "mannequin",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-04ab69c7-417a-4c84-9687-0eb3f6eef2e1.png",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Image 1 is exact EDIT TARGET. Keep the identical adult Malagasy man's face, hair, skin, pose, ivory sweater, portrait crop, studio lighting and background unchanged. Change ONLY hat to match actual beanie in images 2/3: muted olive green FINE NARROW RIB KNIT with no gold/white/silver speckles and no blue flecks. Exact tight rib yarn, folded cuff and shaped crown from real photos. Preserve small ivory composite guitar outline + cursive \"mahaleo\" below, on side of cuff, but reproduce exact real emblem proportions. Photorealistic premium product photo, portrait 3:4, no added elements.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-olive-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-olive-mannequin.webp",
+      "modelGender": "homme",
+      "modelDescription": "28-year-old Malagasy man, medium brown skin, short wavy black hair visible beneath hat, strong eyebrows, clean-shaven angular face",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-61712af6-178a-4f7d-8472-fa2ddab23b68.png"
+    },
+    {
+      "id": "mahaleo-bonnet-olive-face",
+      "model": "bonnet",
+      "color": "olive",
+      "view": "face",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-bleu-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: muted olive green fine yarn from actual beanie reference, warm cream/ivory embroidered thread, NO red embroidery, no gold flecks, no blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1. Show small composite guitar+mahaleo embroidery on viewer left side of cuff, no other embroidery.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-olive-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-olive-face.webp",
+      "modelGender": "homme",
+      "modelDescription": "28-year-old Malagasy man, medium brown skin, short wavy black hair visible beneath hat, strong eyebrows, clean-shaven angular face",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-8c97f911-f19d-4f03-b07d-84e39222ecab.png"
+    },
+    {
+      "id": "mahaleo-bonnet-olive-dos",
+      "model": "bonnet",
+      "color": "olive",
+      "view": "dos",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-bleu-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For beanie, show plain rear side with no logo. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: muted olive green fine yarn from actual beanie reference, warm cream/ivory embroidered thread, NO red embroidery, no gold flecks, no blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-olive-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-olive-dos.webp",
+      "modelGender": "homme",
+      "modelDescription": "28-year-old Malagasy man, medium brown skin, short wavy black hair visible beneath hat, strong eyebrows, clean-shaven angular face",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-0d1e6e22-5224-473f-8e8f-8252ce31fbb3.png"
+    },
+    {
+      "id": "mahaleo-bonnet-gris-mannequin",
+      "model": "bonnet",
+      "color": "gris",
+      "view": "mannequin",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-gris-chine-mannequin-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.05.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and pose reference; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment and model faithfully with NEW real garment. Replace the old model with a DIFFERENT adult model: 22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks. Use this new person only for this product reference. Match existing seated/standing position, camera angle, relaxed hands, crop and visual balance; ivory trousers/top where applicable. Do NOT copy old female model identity. Fit the new garment naturally on this femme without changing garment construction, branding or details.  Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: light-medium neutral grey subtly mottled yarn from real photo, RED embroidered thread. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-gris-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-gris-mannequin.webp",
+      "modelGender": "femme",
+      "modelDescription": "22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-fcc11db9-d694-4638-84d8-692e9157b4a4.png"
+    },
+    {
+      "id": "mahaleo-bonnet-gris-dos",
+      "model": "bonnet",
+      "color": "gris",
+      "view": "dos",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-gris-chine-dos-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.05.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay REAR, preserve existing position, scale and framing, no person or hanger. Reproduce real back reference accurately. For beanie, show plain rear side with no logo. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: light-medium neutral grey subtly mottled yarn from real photo, RED embroidered thread. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-gris-dos.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-gris-dos.webp",
+      "modelGender": "femme",
+      "modelDescription": "22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-90bc0442-43aa-4e8b-a06a-df10eb80fcb2.png"
+    },
+    {
+      "id": "mahaleo-bonnet-olive-detail",
+      "model": "bonnet",
+      "color": "olive",
+      "view": "detail",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-bleu-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.07.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: muted olive green fine yarn from actual beanie reference, warm cream/ivory embroidered thread, NO red embroidery, no gold flecks, no blue/silver heather flecks. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition. Frame the SINGLE composite guitar plus mahaleo logo on cuff. No separate second logo.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-olive-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-olive-detail.webp",
+      "modelGender": "homme",
+      "modelDescription": "28-year-old Malagasy man, medium brown skin, short wavy black hair visible beneath hat, strong eyebrows, clean-shaven angular face",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-20638f0a-a64a-4d7d-9070-43016a14e9c3.png"
+    },
+    {
+      "id": "mahaleo-bonnet-gris-face",
+      "model": "bonnet",
+      "color": "gris",
+      "view": "face",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-gris-chine-studio-v1.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.05.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Product only, overhead flat lay FRONT, preserve existing product position, scale in frame, full silhouette and slightly bent sleeves, no person or hanger. Update garment precisely to new real reference. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: light-medium neutral grey subtly mottled yarn from real photo, RED embroidered thread. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: exact overhead studio flat lay like image 1, no hanger or rail or wall. Preserve the crop and viewpoint of image 1. Show small composite guitar+mahaleo embroidery on viewer left side of cuff, no other embroidery.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-gris-face.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-gris-face.webp",
+      "modelGender": "femme",
+      "modelDescription": "22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-1f999bca-0637-4e61-b161-6e7b10996c31.png"
+    },
+    {
+      "id": "mahaleo-bonnet-gris-detail",
+      "model": "bonnet",
+      "color": "gris",
+      "view": "detail",
+      "oldSlugPrefix": "bonnet",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/bonnet-gris-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.05.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.06.jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: one final premium Mahaleo ecommerce studio photograph, portrait 3:4. Image 1 is ONLY the exact composition/pose/lighting reference and edit target; images 2 and 3 are the NEW authoritative real garment front/back or both embroidery-side references. Replace old garment faithfully with NEW real garment. Macro product photograph, preserve existing close-up camera angle, crop and tactile textile emphasis; update exact new knit and chest wordmark embroidery (or bonnet cuff guitar, scarf wordmark/fringe). Do not retain old chest guitar on gilet. Product specification: Fine narrow rib knitted beanie, broad turned-up cuff and shaped rounded crown, matching actual references. ONE small composite embroidery on side of folded cuff: outline acoustic guitar with lowercase cursive mahaleo directly below it. Opposite cuff side and rear are PLAIN. Fine-gauge tight ribs; no coarse cables, no gold/silver/white speckles.  Color: light-medium neutral grey subtly mottled yarn from real photo, RED embroidered thread. Preserve fine true-to-life knit loops, realistic textile weight and accurate proportions, premium diffuse neutral studio lighting, seamless warm ivory background #f4f1eb, soft contact shadows. Real product references override all obsolete garment details in image 1. Embroidered text verbatim lowercase cursive \"mahaleo\". No extra motifs, no invented pocket/buttons/labels, no added graphic overlays, no watermark, no collage. One photograph only. FINAL REQUIRED COMPOSITION: EXTREME MACRO CLOSE-UP matching image 1. Textile and embroidery fill entire frame. No full garment, no hanger, no rail, no mannequin face or full body, no white margins. Images 2/3 specify only the product details and color, NEVER their wide composition. Frame the SINGLE composite guitar plus mahaleo logo on cuff. No separate second logo.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-bonnet-gris-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-bonnet-gris-detail.webp",
+      "modelGender": "femme",
+      "modelDescription": "22-year-old Malagasy woman, dark warm brown skin, short curly black bob beneath hat, soft round cheeks",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-a4751fb6-db01-4c3b-b72f-42dd43b4b913.png"
+    },
+    {
+      "id": "mahaleo-pull-olive-detail",
+      "model": "pull",
+      "color": "olive",
+      "view": "detail",
+      "oldSlugPrefix": "pull",
+      "oldColor": "bleu-chine",
+      "refs": [
+        "/home/antoine-ponthieu/Documents/oxmad-digital/clients/Mahaleo/public/images/products/pull-bleu-chine-detail-v2.webp",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.12.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (1).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Image 1 is EXACT edit target and composition. Create an EXTREME MACRO textile close-up in portrait 3:4, the fabric fills ALL of frame like image 1, showing only a few cable columns and the small embroidered lowercase cursive word \"mahaleo\". Change navy heather yarn to dark olive green solid fine yarn from image 2. Change red embroidery to warm ivory thread matching image 2. Preserve camera crop and cable spacing of image 1, but match texture and brand script in actual new product reference. No whole sweater, no sleeves, no hanger, no wall, no collar, no mannequin, no guitar in this chest crop, no background margins, no collage. One premium photorealistic ecommerce macro photograph.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-olive-detail.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-olive-detail.webp",
+      "modelGender": "femme",
+      "modelDescription": "40-year-old Malagasy woman, deep warm brown skin, oval face, shoulder-length straight black hair tucked behind one ear",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-87abe5bf-dbdd-46b3-9b51-421b38c020f9.png"
+    },
+    {
+      "id": "mahaleo-pull-taupe-mannequin",
+      "model": "pull",
+      "color": "taupe",
+      "view": "mannequin",
+      "oldSlugPrefix": "pull",
+      "oldColor": "gris-chine",
+      "refs": [
+        "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-1dc42b5c-11bb-435a-876e-dfa35cb0919d.png",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11.jpeg",
+        "/home/antoine-ponthieu/Images/Mahaleo/Produits-2/WhatsApp Image 2026-10-21 at 11.17.11 (2).jpeg"
+      ],
+      "prompt": "Use case: precise-object-edit. Image 1 is exact EDIT TARGET. Change ONLY placement of little red outline guitar embroidery: REMOVE it completely from sleeve on VIEWER RIGHT, restoring same continuous taupe cable knit in that spot. Add the identical SMALL red outline guitar on the forearm on VIEWER LEFT, just above rib cuff. This is the man\\u0027s anatomical RIGHT arm (viewer LEFT). Actual garment reference images 2/3 confirm placement. Preserve everything else pixel-faithfully: identical adult Malagasy man, face, short curls, hands, pose, ivory trousers, cable pattern, taupe yarn color, chest mahaleo embroidery, zip, lighting, background and 3:4 framing. There must be exactly one guitar, only viewer LEFT forearm, none viewer RIGHT. No new elements.",
+      "originalPath": "output/catalogue-mahaleo-20261021/originals/mahaleo-pull-taupe-mannequin.png",
+      "assetPath": "output/catalogue-mahaleo-20261021/webp/mahaleo-pull-taupe-mannequin.webp",
+      "modelGender": "homme",
+      "modelDescription": "24-year-old Malagasy man, warm brown skin, youthful elongated face, short black curls, clean-shaven",
+      "generatedPath": "/home/antoine-ponthieu/.codex/generated_images/01a15d93-464b-7f82-99c4-e52a4d81c4a1/exec-3d799e74-872b-4296-a70f-02b155f28f0e.png"
+    }
+  ]
+}
