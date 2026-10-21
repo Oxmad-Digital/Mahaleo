@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { LegalCard, LegalSection } from "@/components/scene/LegalCard";
-import { SUPPORT_EMAIL } from "@/lib/emails/constants";
 import { SELLER } from "@/lib/seller";
 import { SHIPPING_COUNTRIES } from "@/lib/shipping";
 
@@ -11,12 +10,14 @@ export default function ConditionsDeVentePage() {
     <LegalCard
       crumb="Conditions de vente"
       title="Conditions générales de vente"
-      updatedAt="7 octobre 2026"
+      updatedAt="21 octobre 2026"
     >
       <LegalSection title="1. Champ d'application">
         <p style={{ margin: 0 }}>
           Les présentes conditions générales de vente régissent les relations contractuelles entre{" "}
-          {SELLER.name}, qui édite et exploite la boutique Mahaleo (voir les mentions légales), et
+          {SELLER.name}, {SELLER.legalForm}, SIRET {SELLER.siret}, dont le siège social est situé{" "}
+          {SELLER.addressLines.join(", ")}, joignable à {SELLER.email}, qui édite et exploite la
+          boutique Mahaleo (voir les mentions légales), et
           tout client effectuant un achat sur le site mahaleo.shop. Le client les accepte
           expressément en cochant la case prévue à cet effet avant le paiement.
         </p>
@@ -63,7 +64,7 @@ export default function ConditionsDeVentePage() {
         <p style={{ margin: 0 }}>
           Le client dispose d&apos;un délai de 30 jours à compter de la réception de sa commande
           pour exercer son droit de rétractation, sans avoir à justifier de motif, en écrivant à{" "}
-          {SUPPORT_EMAIL} avec la référence de sa commande. Les produits doivent être retournés
+          {SELLER.email} avec la référence de sa commande. Les produits doivent être retournés
           neufs, non portés et dans leur emballage d&apos;origine. Le remboursement est effectué sur
           le moyen de paiement utilisé, dans un délai de 14 jours suivant la réception du retour.
         </p>
@@ -97,7 +98,7 @@ export default function ConditionsDeVentePage() {
         <p style={{ margin: 0 }}>
           Les présentes conditions sont soumises au droit français, sans préjudice des dispositions
           impératives plus protectrices du pays de résidence du client consommateur. En cas de
-          litige, le client est invité à contacter d&apos;abord le service client à {SUPPORT_EMAIL} ; il
+          litige, le client est invité à contacter d&apos;abord le service client à {SELLER.email} ; il
           peut également recourir gratuitement à une médiation de la consommation avant toute
           action judiciaire.
         </p>

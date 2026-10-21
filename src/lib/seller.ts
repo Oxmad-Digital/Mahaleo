@@ -1,15 +1,20 @@
 /**
- * Identité du vendeur, reprise des mentions légales : elle figure sur les
- * factures, les avoirs et les CGV. À tenir à jour avec les mentions légales.
+ * Identité du vendeur, reprise des mentions légales (extrait INPI du
+ * 4 octobre 2024) : elle figure sur les factures, les avoirs et les CGV.
+ * À tenir à jour avec les mentions légales.
  */
 export const SELLER = {
-  name: "ULTRAMAILLE S.A",
-  addressLines: ["Lot II G 55 ter NBA Ambatomaro", "BP 3298, Antananarivo (101)", "Madagascar"],
-  email: "contact@ultramaille.com",
-  phone: "+261 34 11 855 10",
+  name: "RED ISLAND",
+  legalForm: "SAS au capital de 5 000 €",
+  siren: "530 363 621",
+  siret: "530 363 621 00026",
+  ape: "4616Z",
+  president: "Frédéric Wybo",
+  addressLines: ["Apt 25, Résidence La Citronnelle", "1 rue de la République", "97420 Le Port, La Réunion, France"],
+  email: "tom.wybo@yahoo.fr",
   /**
-   * Identifiants fiscaux (NIF, STAT…) et éventuel n° de TVA, affichés sur les
-   * factures dès qu'ils sont renseignés. À compléter avec la comptabilité.
+   * Identifiants légaux affichés sur les factures. Le n° de TVA
+   * intracommunautaire est à ajouter dès qu'il est communiqué.
    */
-  legalIds: [] as string[],
+  legalIds: ["SAS au capital de 5 000 €", "SIRET 530 363 621 00026", "APE 4616Z"] as string[],
 } as const;
