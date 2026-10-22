@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { RetroCatalog } from "@/components/home/RetroCatalog";
 import { StoreShell } from "@/components/store/StoreChrome";
 import { getShopProducts } from "@/lib/shop";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function Home() {
   const products = await getShopProducts();

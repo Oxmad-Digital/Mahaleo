@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { LegalCard, LegalSection } from "@/components/scene/LegalCard";
 import { SELLER } from "@/lib/seller";
 
-export const metadata: Metadata = { title: "Mentions légales" };
+export const metadata: Metadata = {
+  title: "Mentions légales",
+  alternates: { canonical: "/mentions-legales" },
+};
 
 export default function MentionsLegalesPage() {
   return (

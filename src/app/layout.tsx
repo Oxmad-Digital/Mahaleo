@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { AuthProvider } from "@/components/AuthProvider";
 import { CartProvider } from "@/lib/cart";
 import { Tracker } from "@/components/Tracker";
+import { SITE_URL } from "@/lib/emails/constants";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -20,7 +21,10 @@ const barlowCondensed = localFont({
   display: "swap",
 });
 
+// Pas de canonical ici : il serait hérité par toutes les pages. Chaque page
+// publique déclare le sien, résolu à partir de metadataBase.
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: { default: "Mahaleo — Boutique officielle", template: "%s — Mahaleo" },
   description: "La boutique officielle Mahaleo : les vêtements officiels du groupe.",
 };

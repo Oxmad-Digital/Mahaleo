@@ -3,7 +3,10 @@ import { LegalCard, LegalSection } from "@/components/scene/LegalCard";
 import { SELLER } from "@/lib/seller";
 import { SHIPPING_COUNTRIES } from "@/lib/shipping";
 
-export const metadata: Metadata = { title: "Conditions générales de vente" };
+export const metadata: Metadata = {
+  title: "Conditions générales de vente",
+  alternates: { canonical: "/conditions-de-vente" },
+};
 
 export default function ConditionsDeVentePage() {
   return (
