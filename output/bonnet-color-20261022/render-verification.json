@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-22T16:41:39.945Z",
+  "url": "https://mahaleo.vercel.app/produit/bonnet-a-revers-bleu-chine",
+  "status": 200,
+  "cache": "MISS",
+  "images": [
+    {
+      "view": "mannequin",
+      "present": true
+    },
+    {
+      "view": "face",
+      "present": true
+    },
+    {
+      "view": "dos",
+      "present": true
+    },
+    {
+      "view": "detail",
+      "present": true
+    }
+  ]
+}

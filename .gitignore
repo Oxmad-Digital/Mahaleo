@@ -55,3 +55,5 @@ next-env.d.ts
 /output/catalogue-mahaleo/compressed-images/*.webp
 /output/catalogue-mahaleo-20261021/originals/
 /output/catalogue-mahaleo-20261021/webp/
+/output/bonnet-color-20261022/originals/
+/output/bonnet-color-20261022/webp/

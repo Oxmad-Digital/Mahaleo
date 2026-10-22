@@ -1,0 +1,27 @@
+{
+  "product": {
+    "id": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+    "slug": "bonnet-a-revers-bleu-chine",
+    "name": "Bonnet à revers Mahaleo — vert olive",
+    "description": "Un bonnet en maille côtelée avec un large revers et une calotte façonnée. Le nom Mahaleo et une guitare sont brodés en écru sur le revers.",
+    "priceCents": 4000,
+    "currency": "EUR",
+    "images": [
+      "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+      "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+      "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+      "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp"
+    ],
+    "createdAt": "2026-10-11T10:04:53.586Z",
+    "updatedAt": "2026-10-21T09:38:14.185Z",
+    "onSale": false,
+    "salePriceCents": null,
+    "color": "#464d29",
+    "productType": "Bonnet",
+    "colorName": "Vert olive",
+    "material": "Maille côtelée",
+    "fit": "Bonnet à large revers et calotte façonnée.",
+    "care": null,
+    "isPublished": true
+  }
+}

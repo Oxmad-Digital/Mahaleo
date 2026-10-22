@@ -1,0 +1,58 @@
+{
+  "id": "d20afe37-b537-4d95-9440-8f553d02e6b4",
+  "slug": "bonnet-a-revers-bleu-chine",
+  "previousImages": [
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-mannequin-dc2b1ba88338a6d2.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-face-321829e29de3006f.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-dos-0e052134b9d0bc34.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261021/mahaleo-bonnet-a-revers-vert-olive-detail-13d4ce7beb4db9bf.webp"
+  ],
+  "images": [
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-mannequin-couleur-v2-14622fbdc267e12e.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-face-couleur-v2-60ce49d3133eed24.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-dos-couleur-v2-497b85a3767f205a.webp",
+    "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-detail-couleur-v2-5a7e116e185c108c.webp"
+  ],
+  "assets": [
+    {
+      "view": "mannequin",
+      "file": "output/bonnet-color-20261022/webp/mahaleo-bonnet-vert-olive-mannequin-couleur-v2.webp",
+      "key": "products/mahaleo-20261022/mahaleo-bonnet-vert-olive-mannequin-couleur-v2-14622fbdc267e12e.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-mannequin-couleur-v2-14622fbdc267e12e.webp",
+      "hash": "14622fbdc267e12e5a82ae13fa220657b4a9b890efe89dfb7568190e3a6a0bec",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 101648
+    },
+    {
+      "view": "face",
+      "file": "output/bonnet-color-20261022/webp/mahaleo-bonnet-vert-olive-face-couleur-v2.webp",
+      "key": "products/mahaleo-20261022/mahaleo-bonnet-vert-olive-face-couleur-v2-60ce49d3133eed24.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-face-couleur-v2-60ce49d3133eed24.webp",
+      "hash": "60ce49d3133eed24a1a1bd377d456e656dbab1ff4132b5506f903f48b9188d52",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 199958
+    },
+    {
+      "view": "dos",
+      "file": "output/bonnet-color-20261022/webp/mahaleo-bonnet-vert-olive-dos-couleur-v2.webp",
+      "key": "products/mahaleo-20261022/mahaleo-bonnet-vert-olive-dos-couleur-v2-497b85a3767f205a.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-dos-couleur-v2-497b85a3767f205a.webp",
+      "hash": "497b85a3767f205abe8aed740638534d0819d599f33978301f75572ca5ce86e7",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 217992
+    },
+    {
+      "view": "detail",
+      "file": "output/bonnet-color-20261022/webp/mahaleo-bonnet-vert-olive-detail-couleur-v2.webp",
+      "key": "products/mahaleo-20261022/mahaleo-bonnet-vert-olive-detail-couleur-v2-5a7e116e185c108c.webp",
+      "url": "https://pub-a76a4f2627064f018ee45b30ccc516e6.r2.dev/products/mahaleo-20261022/mahaleo-bonnet-vert-olive-detail-couleur-v2-5a7e116e185c108c.webp",
+      "hash": "5a7e116e185c108cbf357946530519d90639bc626a72b574f07f0628cef31980",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 302544
+    }
+  ]
+}
